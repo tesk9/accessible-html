@@ -2,12 +2,13 @@ module Html.A11y
     exposing
         ( Input
         , textInput
+        , radioInput
         , leftLabeledInput
         , rightLabeledInput
         )
 
 {-|
-@docs Input, textInput, InputTypeAndValue, leftLabeledInput, rightLabeledInput
+@docs Input, textInput, radioInput, InputTypeAndValue, leftLabeledInput, rightLabeledInput
 -}
 
 import Html exposing (..)
@@ -28,10 +29,11 @@ type alias Input msg =
 
 
 {-| InputTypeAndValue
-Use helpers like `textInput` to create InputTypeAndValue items.
+Use helpers like `textInput` and `radioInput` to create InputTypeAndValue items.
 -}
 type InputTypeAndValue
     = Text String
+    | Radio String String
 
 
 {-| textInput
@@ -43,11 +45,24 @@ textInput =
     Text
 
 
+{-| radioInput
+This will construct a radio input. The first argument is the radio group name
+in common across radio items.
+    radioInput "radio_name" "This is the actual value of the radio."
+-}
+radioInput : String -> String -> InputTypeAndValue
+radioInput =
+    Radio
+
+
 typeAndValueAttibutes : InputTypeAndValue -> List (Html.Attribute msg)
 typeAndValueAttibutes typeAndValue =
     case typeAndValue of
         Text value_ ->
             [ type_ "text", value value_ ]
+
+        Radio name_ value_ ->
+            [ type_ "radio", name name_, value value_ ]
 
 
 baseInput : Input msg -> Html msg

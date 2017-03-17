@@ -1,6 +1,5 @@
 module Html.A11ySpec exposing (spec)
 
-import Expect
 import Html exposing (..)
 import Html.A11y exposing (..)
 import Test.Html.Query as Query
@@ -31,21 +30,46 @@ inputTests toView =
             div [] [ toView (mockInputModel inputTypeAndValue) ]
                 |> Query.fromHtml
     in
-        [ describe "textInput"
-            [ test "has label with the given label text" <|
-                \() ->
+        [ describe "textInput" <|
+            let
+                view =
                     queryView (textInput "Tessa")
-                        |> Query.find [ Selector.tag "label" ]
-                        |> Query.has [ Selector.text "Name" ]
-            , test "has input with the appropriate value" <|
-                \() ->
-                    queryView (textInput "Tessa")
-                        |> Query.find [ Selector.tag "input" ]
-                        |> Query.has [ Selector.attribute "value" "Tessa" ]
-            , test "is an input of the appropriate type" <|
-                \() ->
-                    queryView (textInput "")
-                        |> Query.find [ Selector.tag "input" ]
-                        |> Query.has [ Selector.attribute "type" "text" ]
-            ]
+            in
+                [ test "has label with the given label text" <|
+                    \() ->
+                        view
+                            |> Query.find [ Selector.tag "label" ]
+                            |> Query.has [ Selector.text "Name" ]
+                , test "has input with the appropriate value" <|
+                    \() ->
+                        view
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.attribute "value" "Tessa" ]
+                , test "is an input of the appropriate type" <|
+                    \() ->
+                        view
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.attribute "type" "text" ]
+                ]
+        , describe "radioInput" <|
+            let
+                view =
+                    queryView (radioInput "radio-group-name" "8")
+            in
+                [ test "has label with the given label text" <|
+                    \() ->
+                        view
+                            |> Query.find [ Selector.tag "label" ]
+                            |> Query.has [ Selector.text "Name" ]
+                , test "has input with the appropriate value" <|
+                    \() ->
+                        view
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.attribute "value" "8" ]
+                , test "is an input of the appropriate type" <|
+                    \() ->
+                        view
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.attribute "type" "radio" ]
+                ]
         ]
