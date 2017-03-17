@@ -77,4 +77,43 @@ inputTests toView =
                             |> Query.find [ Selector.tag "input" ]
                             |> Query.has [ Selector.boolAttribute "checked" True ]
                 ]
+        , describe "checkboxInput" <|
+            let
+                mockInputModel maybeSelected =
+                    { label = text "Name"
+                    , typeAndValue = checkboxInput "some sick value" maybeSelected
+                    , attributes = []
+                    }
+            in
+                [ test "has label with the given label text" <|
+                    \() ->
+                        queryView (mockInputModel (Just True))
+                            |> Query.find [ Selector.tag "label" ]
+                            |> Query.has [ Selector.text "Name" ]
+                , test "has input with the appropriate value" <|
+                    \() ->
+                        queryView (mockInputModel (Just True))
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.attribute "value" "some sick value" ]
+                , test "is an input of the appropriate type" <|
+                    \() ->
+                        queryView (mockInputModel (Just True))
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.attribute "type" "checkbox" ]
+                , test "is checked" <|
+                    \() ->
+                        queryView (mockInputModel (Just True))
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.boolAttribute "checked" True ]
+                , test "is not checked" <|
+                    \() ->
+                        queryView (mockInputModel (Just False))
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.boolAttribute "checked" False ]
+                , test "is indeterminate" <|
+                    \() ->
+                        queryView (mockInputModel Nothing)
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.boolAttribute "indeterminate" True ]
+                ]
         ]

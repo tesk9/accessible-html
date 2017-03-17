@@ -3,16 +3,19 @@ module Html.A11y
         ( Input
         , textInput
         , radioInput
+        , checkboxInput
         , leftLabeledInput
         , rightLabeledInput
         )
 
 {-|
-@docs Input, textInput, radioInput, leftLabeledInput, rightLabeledInput
+@docs Input, textInput, radioInput, checkboxInput, leftLabeledInput, rightLabeledInput
 -}
 
+import Json.Encode
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Maybe.Extra
 
 
 {-| Input msg
@@ -34,6 +37,7 @@ Use helpers like `textInput` and `radioInput` to create InputTypeAndValue items.
 type InputTypeAndValue
     = Text String
     | Radio String String Bool
+    | Checkbox String (Maybe Bool)
 
 
 {-| textInput
@@ -56,6 +60,21 @@ radioInput =
     Radio
 
 
+{-| checkboxInput
+This will construct a checkbox input. THe first argument is the value of the checkbox.
+The second is whether the radio is checked, unchecked, or indeterminate.
+    checkboxInput "radio_name" "This is the actual value of the radio." True
+-}
+checkboxInput : String -> Maybe Bool -> InputTypeAndValue
+checkboxInput =
+    Checkbox
+
+
+indeterminate : Html.Attribute msg
+indeterminate =
+    property "indeterminate" (Json.Encode.bool True)
+
+
 typeAndValueAttibutes : InputTypeAndValue -> List (Html.Attribute msg)
 typeAndValueAttibutes typeAndValue =
     case typeAndValue of
@@ -64,6 +83,9 @@ typeAndValueAttibutes typeAndValue =
 
         Radio name_ value_ checked_ ->
             [ type_ "radio", name name_, value value_, checked checked_ ]
+
+        Checkbox value_ maybe_checked ->
+            [ type_ "checkbox", value value_, Maybe.Extra.unwrap indeterminate checked maybe_checked ]
 
 
 baseInput : Input msg -> Html msg
