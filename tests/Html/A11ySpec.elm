@@ -13,6 +13,7 @@ spec =
         [ describe "inputs" <|
             [ describe "leftLabeledInput" (inputTests leftLabeledInput)
             , describe "rightLabeledInput" (inputTests rightLabeledInput)
+            , describe "invisibleLabeledInput" (inputTests invisibleLabeledInput)
             ]
         ]
 

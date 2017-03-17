@@ -6,12 +6,15 @@ module Html.A11y
         , checkboxInput
         , leftLabeledInput
         , rightLabeledInput
+        , invisibleLabeledInput
+        , invisible
         )
 
 {-|
-@docs Input, textInput, radioInput, checkboxInput, leftLabeledInput, rightLabeledInput
+@docs Input, textInput, radioInput, checkboxInput, leftLabeledInput, rightLabeledInput, invisibleLabeledInput, invisible
 -}
 
+import Css
 import Json.Encode
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -114,4 +117,41 @@ rightLabeledInput inputModel =
         []
         [ baseInput inputModel
         , inputModel.label
+        ]
+
+
+{-| invisibleLabeledInput
+Produces a labeled input of a given label type.
+This label is visibly hidden, but is still available for screen readers.
+E.g., use this input if your design asks that you convey information via placeholders
+rather than visible labels.
+-}
+invisibleLabeledInput : Input msg -> Html msg
+invisibleLabeledInput inputModel =
+    span
+        []
+        [ label [ style invisible ] [ inputModel.label ]
+        , baseInput inputModel
+        ]
+
+
+
+{- STYLES -}
+
+
+{-| invisible
+Makes content invisible without making it inaccessible.
+    label [ style invisible ] [ text "Screen readers can still read me!" ]
+-}
+invisible : List ( String, String )
+invisible =
+    Css.asPairs
+        [ Css.property "clip" "rect(1px, 1px, 1px, 1px)"
+        , Css.position Css.absolute
+        , Css.height (Css.px 1)
+        , Css.width (Css.px 1)
+        , Css.overflow Css.hidden
+        , Css.margin (Css.px -1)
+        , Css.padding Css.zero
+        , Css.border Css.zero
         ]
