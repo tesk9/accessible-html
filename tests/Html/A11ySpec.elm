@@ -21,24 +21,31 @@ spec =
 inputTests : (Input msg -> Html msg) -> List Test
 inputTests toView =
     let
-        mockInputModel =
+        mockInputModel inputTypeAndValue =
             { label = text "Name"
-            , typeAndValue = textInput "Tessa"
+            , typeAndValue = inputTypeAndValue
             , attributes = []
             }
 
-        queryView =
-            div [] [ toView mockInputModel ]
+        queryView inputTypeAndValue =
+            div [] [ toView (mockInputModel inputTypeAndValue) ]
                 |> Query.fromHtml
     in
-        [ test "has label with the given label text" <|
-            \() ->
-                queryView
-                    |> Query.find [ Selector.tag "label" ]
-                    |> Query.has [ Selector.text "Name" ]
-        , test "has input with the appropriate value" <|
-            \() ->
-                queryView
-                    |> Query.find [ Selector.tag "input" ]
-                    |> Query.has [ Selector.attribute "value" "Tessa" ]
+        [ describe "textInput"
+            [ test "has label with the given label text" <|
+                \() ->
+                    queryView (textInput "Tessa")
+                        |> Query.find [ Selector.tag "label" ]
+                        |> Query.has [ Selector.text "Name" ]
+            , test "has input with the appropriate value" <|
+                \() ->
+                    queryView (textInput "Tessa")
+                        |> Query.find [ Selector.tag "input" ]
+                        |> Query.has [ Selector.attribute "value" "Tessa" ]
+            , test "is an input of the appropriate type" <|
+                \() ->
+                    queryView (textInput "")
+                        |> Query.find [ Selector.tag "input" ]
+                        |> Query.has [ Selector.attribute "type" "text" ]
+            ]
         ]
