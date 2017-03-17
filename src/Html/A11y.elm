@@ -1,18 +1,32 @@
-module Html.A11y exposing (view)
+module Html.A11y exposing (leftLabeledInput, rightLabeledInput)
 
 {-|
-@docs view
+@docs leftLabeledInput, rightLabeledInput
 -}
 
 import Html exposing (..)
-import Html.Attributes
+import Html.Attributes exposing (..)
 
 
-{-| view
+{-| leftLabeledInput
+Produces a labeled input of a given label type. The label appears on the left side on the input.
 -}
-view : Html msg
-view =
-    div
+leftLabeledInput : Html msg -> String -> String -> List (Html.Attribute msg) -> Html msg
+leftLabeledInput labelContent inputType inputValue inputAttributes =
+    label
         []
-        [ text "Hello, world!"
+        [ labelContent
+        , input (type_ inputType :: inputAttributes) [ text inputValue ]
+        ]
+
+
+{-| rightLabeledInput
+Produces a labeled input of a given label type. The label appears on the right side on the input.
+-}
+rightLabeledInput : Html msg -> String -> String -> List (Html.Attribute msg) -> Html msg
+rightLabeledInput labelContent inputType inputValue inputAttributes =
+    label
+        []
+        [ input (type_ inputType :: inputAttributes) [ text inputValue ]
+        , labelContent
         ]
