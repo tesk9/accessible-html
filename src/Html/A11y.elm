@@ -124,11 +124,17 @@ Produces a labeled input of a given label type.
 This label is visibly hidden, but is still available for screen readers.
 E.g., use this input if your design asks that you convey information via placeholders
 rather than visible labels.
+Requires that you pass an id.
 -}
-invisibleLabeledInput : Input msg -> Html msg
-invisibleLabeledInput inputModel =
+invisibleLabeledInput : Input msg -> String -> Html msg
+invisibleLabeledInput inputModel id_ =
     span
         []
-        [ label [ invisible ] [ inputModel.label ]
-        , baseInput inputModel
+        [ label [ invisible, for id_ ] [ inputModel.label ]
+        , input
+            (typeAndValueAttibutes inputModel.typeAndValue
+                ++ id id_
+                :: inputModel.attributes
+            )
+            []
         ]
