@@ -23,8 +23,7 @@ inputTests toView =
     let
         mockInputModel =
             { label = text "Name"
-            , type_ = "text"
-            , value = "Tessa"
+            , typeAndValue = textInput "Tessa"
             , attributes = []
             }
 

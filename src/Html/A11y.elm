@@ -1,7 +1,13 @@
-module Html.A11y exposing (Input, leftLabeledInput, rightLabeledInput)
+module Html.A11y
+    exposing
+        ( Input
+        , textInput
+        , leftLabeledInput
+        , rightLabeledInput
+        )
 
 {-|
-@docs Input, leftLabeledInput, rightLabeledInput
+@docs Input, textInput, InputTypeAndValue, leftLabeledInput, rightLabeledInput
 -}
 
 import Html exposing (..)
@@ -10,22 +16,43 @@ import Html.Attributes exposing (..)
 
 {-| Input msg
     { label : Html msg
-    , type_ : String
-    , value : String
+    , typeAndValue : InputTypeAndValue
     , attributes : List (Html.Attribute msg)
     }
 -}
 type alias Input msg =
     { label : Html msg
-    , type_ : String
-    , value : String
+    , typeAndValue : InputTypeAndValue
     , attributes : List (Html.Attribute msg)
     }
 
 
+{-| InputTypeAndValue
+Use helpers like `textInput` to create InputTypeAndValue items.
+-}
+type InputTypeAndValue
+    = Text String
+
+
+{-| textInput
+This will construct a text input with the value passed in.
+    textInput "This appears in the text input."
+-}
+textInput : String -> InputTypeAndValue
+textInput =
+    Text
+
+
+typeAndValueAttibutes : InputTypeAndValue -> List (Html.Attribute msg)
+typeAndValueAttibutes typeAndValue =
+    case typeAndValue of
+        Text value_ ->
+            [ type_ "text", value value_ ]
+
+
 baseInput : Input msg -> Html msg
 baseInput inputModel =
-    input (type_ inputModel.type_ :: value inputModel.value :: inputModel.attributes) []
+    input (typeAndValueAttibutes inputModel.typeAndValue ++ inputModel.attributes) []
 
 
 {-| leftLabeledInput
