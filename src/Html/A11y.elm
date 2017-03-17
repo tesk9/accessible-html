@@ -8,7 +8,7 @@ module Html.A11y
         )
 
 {-|
-@docs Input, textInput, radioInput, InputTypeAndValue, leftLabeledInput, rightLabeledInput
+@docs Input, textInput, radioInput, leftLabeledInput, rightLabeledInput
 -}
 
 import Html exposing (..)
@@ -33,7 +33,7 @@ Use helpers like `textInput` and `radioInput` to create InputTypeAndValue items.
 -}
 type InputTypeAndValue
     = Text String
-    | Radio String String
+    | Radio String String Bool
 
 
 {-| textInput
@@ -47,10 +47,11 @@ textInput =
 
 {-| radioInput
 This will construct a radio input. The first argument is the radio group name
-in common across radio items.
-    radioInput "radio_name" "This is the actual value of the radio."
+in common across radio items. THe second argument is the value of the radio.
+The third is whether the radio is checked or not.
+    radioInput "radio_name" "This is the actual value of the radio." True
 -}
-radioInput : String -> String -> InputTypeAndValue
+radioInput : String -> String -> Bool -> InputTypeAndValue
 radioInput =
     Radio
 
@@ -61,8 +62,8 @@ typeAndValueAttibutes typeAndValue =
         Text value_ ->
             [ type_ "text", value value_ ]
 
-        Radio name_ value_ ->
-            [ type_ "radio", name name_, value value_ ]
+        Radio name_ value_ checked_ ->
+            [ type_ "radio", name name_, value value_, checked checked_ ]
 
 
 baseInput : Input msg -> Html msg

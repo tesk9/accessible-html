@@ -20,56 +20,61 @@ spec =
 inputTests : (Input msg -> Html msg) -> List Test
 inputTests toView =
     let
-        mockInputModel inputTypeAndValue =
-            { label = text "Name"
-            , typeAndValue = inputTypeAndValue
-            , attributes = []
-            }
-
-        queryView inputTypeAndValue =
-            div [] [ toView (mockInputModel inputTypeAndValue) ]
+        queryView model =
+            div [] [ toView model ]
                 |> Query.fromHtml
     in
         [ describe "textInput" <|
             let
-                view =
-                    queryView (textInput "Tessa")
+                mockInputModel =
+                    { label = text "Name"
+                    , typeAndValue = textInput "Tessa"
+                    , attributes = []
+                    }
             in
                 [ test "has label with the given label text" <|
                     \() ->
-                        view
+                        queryView mockInputModel
                             |> Query.find [ Selector.tag "label" ]
                             |> Query.has [ Selector.text "Name" ]
                 , test "has input with the appropriate value" <|
                     \() ->
-                        view
+                        queryView mockInputModel
                             |> Query.find [ Selector.tag "input" ]
                             |> Query.has [ Selector.attribute "value" "Tessa" ]
                 , test "is an input of the appropriate type" <|
                     \() ->
-                        view
+                        queryView mockInputModel
                             |> Query.find [ Selector.tag "input" ]
                             |> Query.has [ Selector.attribute "type" "text" ]
                 ]
         , describe "radioInput" <|
             let
-                view =
-                    queryView (radioInput "radio-group-name" "8")
+                mockInputModel =
+                    { label = text "Name"
+                    , typeAndValue = radioInput "radio-group-name" "8" True
+                    , attributes = []
+                    }
             in
                 [ test "has label with the given label text" <|
                     \() ->
-                        view
+                        queryView mockInputModel
                             |> Query.find [ Selector.tag "label" ]
                             |> Query.has [ Selector.text "Name" ]
                 , test "has input with the appropriate value" <|
                     \() ->
-                        view
+                        queryView mockInputModel
                             |> Query.find [ Selector.tag "input" ]
                             |> Query.has [ Selector.attribute "value" "8" ]
                 , test "is an input of the appropriate type" <|
                     \() ->
-                        view
+                        queryView mockInputModel
                             |> Query.find [ Selector.tag "input" ]
                             |> Query.has [ Selector.attribute "type" "radio" ]
+                , test "is checked" <|
+                    \() ->
+                        queryView mockInputModel
+                            |> Query.find [ Selector.tag "input" ]
+                            |> Query.has [ Selector.boolAttribute "checked" True ]
                 ]
         ]
