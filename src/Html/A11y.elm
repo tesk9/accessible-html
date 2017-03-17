@@ -1,32 +1,52 @@
-module Html.A11y exposing (leftLabeledInput, rightLabeledInput)
+module Html.A11y exposing (Input, leftLabeledInput, rightLabeledInput)
 
 {-|
-@docs leftLabeledInput, rightLabeledInput
+@docs Input, leftLabeledInput, rightLabeledInput
 -}
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 
 
+{-| Input msg
+    { label : Html msg
+    , type_ : String
+    , value : String
+    , attributes : List (Html.Attribute msg)
+    }
+-}
+type alias Input msg =
+    { label : Html msg
+    , type_ : String
+    , value : String
+    , attributes : List (Html.Attribute msg)
+    }
+
+
+baseInput : Input msg -> Html msg
+baseInput inputModel =
+    input (type_ inputModel.type_ :: value inputModel.value :: inputModel.attributes) []
+
+
 {-| leftLabeledInput
 Produces a labeled input of a given label type. The label appears on the left side on the input.
 -}
-leftLabeledInput : Html msg -> String -> String -> List (Html.Attribute msg) -> Html msg
-leftLabeledInput labelContent inputType inputValue inputAttributes =
+leftLabeledInput : Input msg -> Html msg
+leftLabeledInput inputModel =
     label
         []
-        [ labelContent
-        , input (type_ inputType :: inputAttributes) [ text inputValue ]
+        [ inputModel.label
+        , baseInput inputModel
         ]
 
 
 {-| rightLabeledInput
 Produces a labeled input of a given label type. The label appears on the right side on the input.
 -}
-rightLabeledInput : Html msg -> String -> String -> List (Html.Attribute msg) -> Html msg
-rightLabeledInput labelContent inputType inputValue inputAttributes =
+rightLabeledInput : Input msg -> Html msg
+rightLabeledInput inputModel =
     label
         []
-        [ input (type_ inputType :: inputAttributes) [ text inputValue ]
-        , labelContent
+        [ baseInput inputModel
+        , inputModel.label
         ]
