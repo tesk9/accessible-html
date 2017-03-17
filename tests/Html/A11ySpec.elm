@@ -37,4 +37,9 @@ inputTests toView =
                 queryView
                     |> Query.find [ Selector.tag "label" ]
                     |> Query.has [ Selector.text "Name" ]
+        , test "has input with the appropriate value" <|
+            \() ->
+                queryView
+                    |> Query.find [ Selector.tag "input" ]
+                    |> Query.has [ Selector.attribute "value" "Tessa" ]
         ]
