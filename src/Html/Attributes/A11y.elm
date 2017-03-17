@@ -2,6 +2,8 @@ module Html.Attributes.A11y exposing (invisible)
 
 {-|
 @docs invisible
+
+For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
 -}
 
 import Css
