@@ -1,0 +1,26 @@
+{
+  "name": "elm-html-a11y",
+  "version": "1.0.0",
+  "description": "view helpers enforcing accessible practices",
+  "main": "elm.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "elm-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tesk9/elm-html-a11y.git"
+  },
+  "keywords": [
+    "elm",
+    "a11y"
+  ],
+  "author": "Tessa Kelly",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/tesk9/elm-html-a11y/issues"
+  },
+  "homepage": "https://github.com/tesk9/elm-html-a11y#readme"
+}
