@@ -11,8 +11,7 @@ import Html
 import Html.Attributes exposing (..)
 
 
-{-| invisible
-Makes content invisible without making it inaccessible.
+{-| Makes content invisible without making it inaccessible.
     label [ invisible ] [ text "Screen readers can still read me!" ]
 -}
 invisible : Html.Attribute msg

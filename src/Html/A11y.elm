@@ -20,7 +20,7 @@ import Html.Attributes.A11y exposing (..)
 import Maybe.Extra
 
 
-{-| Input msg
+{-|
     { label : Html msg
     , typeAndValue : InputTypeAndValue
     , attributes : List (Html.Attribute msg)
@@ -33,8 +33,7 @@ type alias Input msg =
     }
 
 
-{-| InputTypeAndValue
-Use helpers like `textInput` and `radioInput` to create InputTypeAndValue items.
+{-| Use helpers like `textInput` and `radioInput` to create InputTypeAndValue items.
 -}
 type InputTypeAndValue
     = Text String
@@ -42,8 +41,7 @@ type InputTypeAndValue
     | Checkbox String (Maybe Bool)
 
 
-{-| textInput
-This will construct a text input with the value passed in.
+{-| This will construct a text input with the value passed in.
     textInput "This appears in the text input."
 -}
 textInput : String -> InputTypeAndValue
@@ -51,8 +49,7 @@ textInput =
     Text
 
 
-{-| radioInput
-This will construct a radio input. The first argument is the radio group name
+{-| This will construct a radio input. The first argument is the radio group name
 in common across radio items. THe second argument is the value of the radio.
 The third is whether the radio is checked or not.
     radioInput "radio_name" "This is the actual value of the radio." True
@@ -62,8 +59,7 @@ radioInput =
     Radio
 
 
-{-| checkboxInput
-This will construct a checkbox input. THe first argument is the value of the checkbox.
+{-| This will construct a checkbox input. THe first argument is the value of the checkbox.
 The second is whether the radio is checked, unchecked, or indeterminate.
     checkboxInput "radio_name" "This is the actual value of the radio." True
 -}
@@ -95,8 +91,7 @@ baseInput inputModel =
     input (typeAndValueAttibutes inputModel.typeAndValue ++ inputModel.attributes) []
 
 
-{-| leftLabeledInput
-Produces a labeled input of a given label type. The label appears on the left side on the input.
+{-| Produces a labeled input of a given label type. The label appears on the left side on the input.
 -}
 leftLabeledInput : Input msg -> Html msg
 leftLabeledInput inputModel =
@@ -107,8 +102,7 @@ leftLabeledInput inputModel =
         ]
 
 
-{-| rightLabeledInput
-Produces a labeled input of a given label type. The label appears on the right side on the input.
+{-| Produces a labeled input of a given label type. The label appears on the right side on the input.
 -}
 rightLabeledInput : Input msg -> Html msg
 rightLabeledInput inputModel =
@@ -119,8 +113,7 @@ rightLabeledInput inputModel =
         ]
 
 
-{-| invisibleLabeledInput
-Produces a labeled input of a given label type.
+{-| Produces a labeled input of a given label type.
 This label is visibly hidden, but is still available for screen readers.
 E.g., use this input if your design asks that you convey information via placeholders
 rather than visible labels.
