@@ -1,9 +1,11 @@
-module Html.Attributes.A11y exposing (invisible)
+module Html.Attributes.A11y exposing (invisible, role)
 
 {-|
 @docs invisible
 
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
+
+@docs role
 -}
 
 import Css
@@ -27,3 +29,11 @@ invisible =
             , Css.padding Css.zero
             , Css.border Css.zero
             ]
+
+
+{-| Set the role of a given element
+    div [ role "tablist" ] [ tab1, tab2 ]
+-}
+role : String -> Html.Attribute msg
+role =
+    attribute "role"
