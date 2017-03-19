@@ -335,17 +335,29 @@ roleToString role =
 {- *** Other *** -}
 
 
-{-|
-Creates aria controls attribute.
+{-| Creates aria controls attribute.
 -}
 controls : String -> Html.Attribute msg
 controls =
     attribute "aria-controls"
 
 
-{-|
-Creates aria labelledby attribute.
+{-| Creates aria labelledby attribute.
 -}
 labelledby : String -> Html.Attribute msg
 labelledby =
     attribute "aria-labelledby"
+
+
+{-| Creates aria selected attribute.
+-}
+selected : Bool -> Html.Attribute msg
+selected =
+    attribute "aria-selected" << String.toLower << toString
+
+
+{-| Creates aria hidden attribute.
+-}
+hidden : Bool -> Html.Attribute msg
+hidden =
+    attribute "aria-hidden" << String.toLower << toString
