@@ -26,7 +26,7 @@ module Html.A11y
 import Json.Encode
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Attributes.A11y exposing (..)
+import Html.Attributes.A11y as A11y exposing (..)
 import Maybe.Extra
 import List.Zipper
 
@@ -161,16 +161,16 @@ tabs groupId tabPanelPairs =
         viewTab section isSelected tabContent =
             tab
                 [ id (tabId section)
-                , Html.Attributes.A11y.controls (panelId section)
-                , selected isSelected
+                , A11y.controls (panelId section)
+                , A11y.selected isSelected
                 ]
                 [ tabContent ]
 
         viewPanel section isSelected panelContent =
             tabPanel
                 [ id (panelId section)
-                , Html.Attributes.A11y.labelledby (tabId section)
-                , hidden (not isSelected)
+                , labelledby (tabId section)
+                , A11y.hidden (not isSelected)
                 ]
                 [ panelContent ]
 

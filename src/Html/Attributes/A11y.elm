@@ -5,6 +5,8 @@ module Html.Attributes.A11y
         , role
         , controls
         , labelledby
+        , selected
+        , hidden
         )
 
 {-|
@@ -23,7 +25,7 @@ Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles)
 
 ### Other
 
-@docs controls, labelledby
+@docs controls, labelledby, selected, hidden
 
 -}
 

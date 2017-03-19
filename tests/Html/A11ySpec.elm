@@ -2,6 +2,7 @@ module Html.A11ySpec exposing (spec)
 
 import Html exposing (..)
 import Html.A11y exposing (..)
+import List.Zipper as Zipper
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector
 import Test exposing (..)
@@ -15,6 +16,7 @@ spec =
             , describe "rightLabeledInput" (inputTests rightLabeledInput)
             , describe "invisibleLabeledInput" (inputTests ((flip invisibleLabeledInput) "input-id"))
             ]
+        , tabsTests
         ]
 
 
@@ -100,3 +102,63 @@ baseInputTests queryView { label, value, type_ } =
                     |> Query.find [ Selector.tag "input" ]
                     |> Query.has [ Selector.attribute "type" type_ ]
         ]
+
+
+tabsTests : Test
+tabsTests =
+    let
+        header content =
+            h3 [] [ text content ]
+
+        panel content =
+            div [] [ h4 [] [ text "Section header" ], div [] [ text content ] ]
+
+        tabPanelPairsZipper =
+            Zipper.withDefault ( header "Failed", panel "Failed" ) <|
+                Zipper.fromList
+                    [ ( header "Tab1", panel "Panel1" )
+                    , ( header "Tab2", panel "Panel2" )
+                    , ( header "Tab3", panel "Panel3" )
+                    , ( header "Tab4", panel "Panel4" )
+                    , ( header "Tab5", panel "Panel5" )
+                    ]
+
+        queryView =
+            tabs "group-id" tabPanelPairsZipper
+                |> Query.fromHtml
+    in
+        describe "tabs"
+            [ describe "for a single tab" <|
+                let
+                    queryView =
+                        ( header "Tab1", panel "Panel1" )
+                            |> Zipper.singleton
+                            |> tabs "group-id"
+                            |> Query.fromHtml
+
+                    tabSelector =
+                        Query.find [ Selector.attribute "role" "tab" ] queryView
+
+                    panelSelector =
+                        Query.find [ Selector.attribute "role" "tabpanel" ] queryView
+                in
+                    [ test "the only tab has the right content" <|
+                        \() ->
+                            Query.has [ Selector.text "Tab1" ] tabSelector
+                    , test "the only tab is selected" <|
+                        \() ->
+                            Query.has [ Selector.attribute "aria-selected" "true" ] tabSelector
+                    , test "the tab controls the associated panel" <|
+                        \() ->
+                            Query.has [ Selector.attribute "aria-controls" "group-id-tabPanel-current" ] tabSelector
+                    , test "the only panel has the right content" <|
+                        \() ->
+                            Query.has [ Selector.text "Panel1" ] panelSelector
+                    , test "the only panel is selected" <|
+                        \() ->
+                            Query.has [ Selector.attribute "aria-hidden" "false" ] panelSelector
+                    , test "the panel is labelled by the tab" <|
+                        \() ->
+                            Query.has [ Selector.attribute "aria-labelledby" "group-id-tab-current" ] panelSelector
+                    ]
+            ]
