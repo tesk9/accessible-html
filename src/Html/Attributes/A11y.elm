@@ -1,17 +1,29 @@
-module Html.Attributes.A11y exposing (invisible, Role(..), role)
+module Html.Attributes.A11y
+    exposing
+        ( invisible
+        , Role(..)
+        , role
+        , controls
+        , labelledby
+        )
 
 {-|
-#### Hiding content
+### Hiding content
 
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
 
 @docs invisible
 
-#### Roles
+### Roles
 
 Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles).
 
 @docs Role, role
+
+
+### Other
+
+@docs controls, labelledby
 
 -}
 
@@ -37,6 +49,10 @@ invisible =
             , Css.padding Css.zero
             , Css.border Css.zero
             ]
+
+
+
+{- *** Roles *** -}
 
 
 {-| Set the role of a given element.
@@ -313,3 +329,23 @@ roleToString role =
 
         Treeitem ->
             "treeitem"
+
+
+
+{- *** Other *** -}
+
+
+{-|
+Creates aria controls attribute.
+-}
+controls : String -> Html.Attribute msg
+controls =
+    attribute "aria-controls"
+
+
+{-|
+Creates aria labelledby attribute.
+-}
+labelledby : String -> Html.Attribute msg
+labelledby =
+    attribute "aria-labelledby"
