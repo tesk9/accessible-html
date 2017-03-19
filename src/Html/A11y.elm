@@ -29,11 +29,7 @@ import Html.Attributes.A11y exposing (..)
 import Maybe.Extra
 
 
-{-|
-    { label : Html msg
-    , typeAndValue : InputTypeAndValue
-    , attributes : List (Html.Attribute msg)
-    }
+{-| Describes the model used in input views in this library.
 -}
 type alias Input msg =
     { label : Html msg
@@ -51,6 +47,7 @@ type InputTypeAndValue
 
 
 {-| This will construct a text input with the value passed in.
+
     textInput "This appears in the text input."
 -}
 textInput : String -> InputTypeAndValue
@@ -61,6 +58,7 @@ textInput =
 {-| This will construct a radio input. The first argument is the radio group name
 in common across radio items. THe second argument is the value of the radio.
 The third is whether the radio is checked or not.
+
     radioInput "radio_name" "This is the actual value of the radio." True
 -}
 radioInput : String -> String -> Bool -> InputTypeAndValue
@@ -70,6 +68,7 @@ radioInput =
 
 {-| This will construct a checkbox input. THe first argument is the value of the checkbox.
 The second is whether the radio is checked, unchecked, or indeterminate.
+
     checkboxInput "radio_name" "This is the actual value of the radio." True
 -}
 checkboxInput : String -> Maybe Bool -> InputTypeAndValue
@@ -180,16 +179,14 @@ tabs groupId tabPanelPairs =
         div [] (tabList [ id groupId ] tabs :: panels)
 
 
-{-|
-Create a tablist. This is the outer container for a list of tabs.
+{-| Create a tablist. This is the outer container for a list of tabs.
 -}
 tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabList attributes children =
     div (role Tablist :: attributes) children
 
 
-{-|
-Create a tab. This is the part that you select in order to change panel views.
+{-| Create a tab. This is the part that you select in order to change panel views.
 -}
 tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tab attributes children =
