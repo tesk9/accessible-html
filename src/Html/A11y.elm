@@ -205,7 +205,7 @@ tabList attributes children =
 -}
 tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tab attributes children =
-    div (role Tab :: attributes) children
+    div (role Tab :: tabindex 0 :: attributes) children
 
 
 {-|
