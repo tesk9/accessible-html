@@ -7,10 +7,19 @@ module Html.A11y
         , leftLabeledInput
         , rightLabeledInput
         , invisibleLabeledInput
+        , tab
+        , tabList
+        , tabPanel
         )
 
 {-|
-@docs Input, textInput, radioInput, checkboxInput, leftLabeledInput, rightLabeledInput, invisibleLabeledInput
+### Inputs
+@docs Input
+@docs textInput, radioInput, checkboxInput
+@docs leftLabeledInput, rightLabeledInput, invisibleLabeledInput
+
+### Tabs
+@docs tab, tabList, tabPanel
 -}
 
 import Json.Encode
@@ -131,3 +140,67 @@ invisibleLabeledInput inputModel id_ =
             )
             []
         ]
+
+
+
+{- *** Tabs *** -}
+
+
+{-| Create a tab interface. Pass in a unique id and a list of (tab header content, panel content) pairs.
+-}
+tabs : String -> List ( Html msg, Html msg ) -> Html msg
+tabs groupId tabPanelPairs =
+    let
+        tabId index =
+            groupId ++ "-tab-" ++ toString index
+
+        panelId index =
+            groupId ++ "-tabPanel-" ++ toString index
+
+        tabAttributes index =
+            [ id (tabId index)
+            , Html.Attributes.A11y.controls (panelId index)
+            ]
+
+        panelAttributes index =
+            [ id (panelId index)
+            , Html.Attributes.A11y.labelledby (tabId index)
+            ]
+
+        toTabPanelWithIds index ( tabContent, panelContent ) =
+            ( tab (tabAttributes index) [ tabContent ]
+            , tabPanel (panelAttributes index) [ panelContent ]
+            )
+
+        ( tabs, panels ) =
+            tabPanelPairs
+                |> List.indexedMap toTabPanelWithIds
+                |> List.unzip
+    in
+        div [] (tabList [ id groupId ] tabs :: panels)
+
+
+{-|
+Create a tablist. This is the outer container for a list of tabs.
+-}
+tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tabList attributes children =
+    div (role Tablist :: attributes) children
+
+
+{-|
+Create a tab. This is the part that you select in order to change panel views.
+-}
+tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tab attributes children =
+    div (role Tab :: attributes) children
+
+
+{-|
+Create a tab panel.
+
+    tabPanel [] [ h3 [] [ text "Panel Header" ], text "Panel Content" ]
+-}
+tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tabPanel attributes children =
+    div (role Tabpanel :: attributes) children
