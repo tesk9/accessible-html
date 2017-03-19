@@ -118,8 +118,11 @@ tabsTests =
                 testCurrentTab (Zipper.singleton ( header "Tab1", panel "Panel1" )) ( "Tab1", "Panel1" )
             , describe "for many tabs" <|
                 let
+                    default =
+                        Zipper.withDefault ( header "Failed", panel "Failed" )
+
                     tabPanelPairsZipper =
-                        Zipper.withDefault ( header "Failed", panel "Failed" ) <|
+                        default <|
                             Zipper.fromList
                                 [ ( header "Tab1", panel "Panel1" )
                                 , ( header "Tab2", panel "Panel2" )
@@ -128,7 +131,13 @@ tabsTests =
                                 , ( header "Tab5", panel "Panel5" )
                                 ]
                 in
-                    testCurrentTab tabPanelPairsZipper ( "Tab1", "Panel1" )
+                    [ describe "first tab selected" <|
+                        testCurrentTab tabPanelPairsZipper ( "Tab1", "Panel1" )
+                    , describe "second tab selected" <|
+                        testCurrentTab (default <| Zipper.next tabPanelPairsZipper) ( "Tab2", "Panel2" )
+                    , describe "last tab selected" <|
+                        testCurrentTab (Zipper.last tabPanelPairsZipper) ( "Tab5", "Panel5" )
+                    ]
             ]
 
 
