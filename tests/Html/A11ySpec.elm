@@ -122,43 +122,42 @@ tabsTests =
                     , ( header "Tab4", panel "Panel4" )
                     , ( header "Tab5", panel "Panel5" )
                     ]
-
-        queryView =
-            tabs "group-id" tabPanelPairsZipper
-                |> Query.fromHtml
     in
         describe "tabs"
             [ describe "for a single tab" <|
-                let
-                    queryView =
-                        ( header "Tab1", panel "Panel1" )
-                            |> Zipper.singleton
-                            |> tabs "group-id"
-                            |> Query.fromHtml
-
-                    tabSelector =
-                        Query.find [ Selector.attribute "role" "tab" ] queryView
-
-                    panelSelector =
-                        Query.find [ Selector.attribute "role" "tabpanel" ] queryView
-                in
-                    [ test "the only tab has the right content" <|
-                        \() ->
-                            Query.has [ Selector.text "Tab1" ] tabSelector
-                    , test "the only tab is selected" <|
-                        \() ->
-                            Query.has [ Selector.attribute "aria-selected" "true" ] tabSelector
-                    , test "the tab controls the associated panel" <|
-                        \() ->
-                            Query.has [ Selector.attribute "aria-controls" "group-id-tabPanel-current" ] tabSelector
-                    , test "the only panel has the right content" <|
-                        \() ->
-                            Query.has [ Selector.text "Panel1" ] panelSelector
-                    , test "the only panel is selected" <|
-                        \() ->
-                            Query.has [ Selector.attribute "aria-hidden" "false" ] panelSelector
-                    , test "the panel is labelled by the tab" <|
-                        \() ->
-                            Query.has [ Selector.attribute "aria-labelledby" "group-id-tab-current" ] panelSelector
-                    ]
+                testCurrentTab (Zipper.singleton ( header "Tab1", panel "Panel1" )) ( "Tab1", "Panel1" )
             ]
+
+
+testCurrentTab : Zipper.Zipper ( Html msg, Html msg ) -> ( String, String ) -> List Test
+testCurrentTab tabPanelPairsZipper ( tabContent, panelContent ) =
+    let
+        queryView =
+            tabs "group-id" tabPanelPairsZipper
+                |> Query.fromHtml
+
+        tabSelector =
+            Query.find [ Selector.attribute "role" "tab" ] queryView
+
+        panelSelector =
+            Query.find [ Selector.attribute "role" "tabpanel" ] queryView
+    in
+        [ test "the only tab has the right content" <|
+            \() ->
+                Query.has [ Selector.text tabContent ] tabSelector
+        , test "the only tab is selected" <|
+            \() ->
+                Query.has [ Selector.attribute "aria-selected" "true" ] tabSelector
+        , test "the tab controls the associated panel" <|
+            \() ->
+                Query.has [ Selector.attribute "aria-controls" "group-id-tabPanel-current" ] tabSelector
+        , test "the only panel has the right content" <|
+            \() ->
+                Query.has [ Selector.text panelContent ] panelSelector
+        , test "the only panel is selected" <|
+            \() ->
+                Query.has [ Selector.attribute "aria-hidden" "false" ] panelSelector
+        , test "the panel is labelled by the tab" <|
+            \() ->
+                Query.has [ Selector.attribute "aria-labelledby" "group-id-tab-current" ] panelSelector
+        ]
