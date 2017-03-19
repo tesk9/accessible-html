@@ -8,9 +8,6 @@ module Html.A11y
         , rightLabeledInput
         , invisibleLabeledInput
         , tabs
-        , tab
-        , tabList
-        , tabPanel
         )
 
 {-|
@@ -20,7 +17,7 @@ module Html.A11y
 @docs leftLabeledInput, rightLabeledInput, invisibleLabeledInput
 
 ### Tabs
-@docs tabs, tab, tabList, tabPanel
+@docs tabs
 -}
 
 import Json.Encode
