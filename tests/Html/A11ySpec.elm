@@ -112,20 +112,23 @@ tabsTests =
 
         panel content =
             div [] [ h4 [] [ text "Section header" ], div [] [ text content ] ]
-
-        tabPanelPairsZipper =
-            Zipper.withDefault ( header "Failed", panel "Failed" ) <|
-                Zipper.fromList
-                    [ ( header "Tab1", panel "Panel1" )
-                    , ( header "Tab2", panel "Panel2" )
-                    , ( header "Tab3", panel "Panel3" )
-                    , ( header "Tab4", panel "Panel4" )
-                    , ( header "Tab5", panel "Panel5" )
-                    ]
     in
         describe "tabs"
             [ describe "for a single tab" <|
                 testCurrentTab (Zipper.singleton ( header "Tab1", panel "Panel1" )) ( "Tab1", "Panel1" )
+            , describe "for many tabs" <|
+                let
+                    tabPanelPairsZipper =
+                        Zipper.withDefault ( header "Failed", panel "Failed" ) <|
+                            Zipper.fromList
+                                [ ( header "Tab1", panel "Panel1" )
+                                , ( header "Tab2", panel "Panel2" )
+                                , ( header "Tab3", panel "Panel3" )
+                                , ( header "Tab4", panel "Panel4" )
+                                , ( header "Tab5", panel "Panel5" )
+                                ]
+                in
+                    testCurrentTab tabPanelPairsZipper ( "Tab1", "Panel1" )
             ]
 
 
@@ -137,26 +140,20 @@ testCurrentTab tabPanelPairsZipper ( tabContent, panelContent ) =
                 |> Query.fromHtml
 
         tabSelector =
-            Query.find [ Selector.attribute "role" "tab" ] queryView
+            Query.find [ Selector.attribute "role" "tab", Selector.attribute "aria-selected" "true" ] queryView
 
         panelSelector =
-            Query.find [ Selector.attribute "role" "tabpanel" ] queryView
+            Query.find [ Selector.attribute "role" "tabpanel", Selector.attribute "aria-hidden" "false" ] queryView
     in
-        [ test "the only tab has the right content" <|
+        [ test "the current tab has the right content" <|
             \() ->
                 Query.has [ Selector.text tabContent ] tabSelector
-        , test "the only tab is selected" <|
-            \() ->
-                Query.has [ Selector.attribute "aria-selected" "true" ] tabSelector
         , test "the tab controls the associated panel" <|
             \() ->
                 Query.has [ Selector.attribute "aria-controls" "group-id-tabPanel-current" ] tabSelector
-        , test "the only panel has the right content" <|
+        , test "the current panel has the right content" <|
             \() ->
                 Query.has [ Selector.text panelContent ] panelSelector
-        , test "the only panel is selected" <|
-            \() ->
-                Query.has [ Selector.attribute "aria-hidden" "false" ] panelSelector
         , test "the panel is labelled by the tab" <|
             \() ->
                 Query.has [ Selector.attribute "aria-labelledby" "group-id-tab-current" ] panelSelector
