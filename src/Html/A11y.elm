@@ -169,6 +169,7 @@ tabs groupId tabPanelPairs =
             tabPanel
                 [ id (panelId section)
                 , Html.Attributes.A11y.labelledby (tabId section)
+                , hidden (not isSelected)
                 ]
                 [ panelContent ]
 
