@@ -157,33 +157,34 @@ tabs groupId tabPanelPairs =
         panelId section =
             groupId ++ "-tabPanel-" ++ section
 
-        viewTab section tabContent =
+        viewTab section isSelected tabContent =
             tab
                 [ id (tabId section)
                 , Html.Attributes.A11y.controls (panelId section)
+                , selected isSelected
                 ]
                 [ tabContent ]
 
-        viewPanel section panelContent =
+        viewPanel section isSelected panelContent =
             tabPanel
                 [ id (panelId section)
                 , Html.Attributes.A11y.labelledby (tabId section)
                 ]
                 [ panelContent ]
 
-        toTabPanelWithIds section ( tabContent, panelContent ) =
-            ( viewTab section tabContent, viewPanel section panelContent )
+        toTabPanelWithIds section isSelected ( tabContent, panelContent ) =
+            ( viewTab section isSelected tabContent, viewPanel section isSelected panelContent )
 
         viewPreviousTabPanel index tabPanelPair =
-            toTabPanelWithIds ("previous-" ++ toString index) tabPanelPair
+            toTabPanelWithIds ("previous-" ++ toString index) False tabPanelPair
 
         viewUpcomingTabPanel index tabPanelPair =
-            toTabPanelWithIds ("upcoming-" ++ toString index) tabPanelPair
+            toTabPanelWithIds ("upcoming-" ++ toString index) False tabPanelPair
 
         ( tabs, panels ) =
             tabPanelPairs
                 |> List.Zipper.mapBefore (List.indexedMap viewPreviousTabPanel)
-                |> List.Zipper.mapCurrent (toTabPanelWithIds "current")
+                |> List.Zipper.mapCurrent (toTabPanelWithIds "current" True)
                 |> List.Zipper.mapAfter (List.indexedMap viewUpcomingTabPanel)
                 |> List.Zipper.toList
                 |> List.unzip
