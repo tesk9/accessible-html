@@ -61,6 +61,8 @@ customRole =
 The roles defined here match [w3 website](https://www.w3.org/TR/wai-aria/roles).
 
 To be used with `role`.
+
+    div [ customRole Button ] []
 -}
 type Role
     = Alert
