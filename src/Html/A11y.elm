@@ -27,6 +27,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Attributes.A11y exposing (..)
 import Maybe.Extra
+import List.Zipper
 
 
 {-| Describes the model used in input views in this library.
@@ -145,35 +146,38 @@ invisibleLabeledInput inputModel id_ =
 {- *** Tabs *** -}
 
 
-{-| Create a tab interface. Pass in a unique id and a list of (tab header content, panel content) pairs.
+{-| Create a tab interface. Pass in a unique id and a zipper of (tab header content, panel content) pairs.
 -}
-tabs : String -> List ( Html msg, Html msg ) -> Html msg
+tabs : String -> List.Zipper.Zipper ( Html msg, Html msg ) -> Html msg
 tabs groupId tabPanelPairs =
     let
-        tabId index =
-            groupId ++ "-tab-" ++ toString index
+        tabId section =
+            groupId ++ "-tab-" ++ section
 
-        panelId index =
-            groupId ++ "-tabPanel-" ++ toString index
+        panelId section =
+            groupId ++ "-tabPanel-" ++ section
 
-        tabAttributes index =
-            [ id (tabId index)
-            , Html.Attributes.A11y.controls (panelId index)
+        tabAttributes section =
+            [ id (tabId section)
+            , Html.Attributes.A11y.controls (panelId section)
             ]
 
-        panelAttributes index =
-            [ id (panelId index)
-            , Html.Attributes.A11y.labelledby (tabId index)
+        panelAttributes section =
+            [ id (panelId section)
+            , Html.Attributes.A11y.labelledby (tabId section)
             ]
 
-        toTabPanelWithIds index ( tabContent, panelContent ) =
-            ( tab (tabAttributes index) [ tabContent ]
-            , tabPanel (panelAttributes index) [ panelContent ]
+        toTabPanelWithIds section ( tabContent, panelContent ) =
+            ( tab (tabAttributes section) [ tabContent ]
+            , tabPanel (panelAttributes section) [ panelContent ]
             )
 
         ( tabs, panels ) =
             tabPanelPairs
-                |> List.indexedMap toTabPanelWithIds
+                |> List.Zipper.mapBefore (List.indexedMap (\index -> toTabPanelWithIds ("previous-" ++ toString index)))
+                |> List.Zipper.mapCurrent (toTabPanelWithIds "current")
+                |> List.Zipper.mapAfter (List.indexedMap (\index -> toTabPanelWithIds ("upcoming-" ++ toString index)))
+                |> List.Zipper.toList
                 |> List.unzip
     in
         div [] (tabList [ id groupId ] tabs :: panels)
