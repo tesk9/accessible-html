@@ -27,7 +27,7 @@ import Html.Attributes.A11y as A11y exposing (..)
 import Html.Events exposing (..)
 import Html.Events.Key exposing (..)
 import Maybe.Extra
-import List.Zipper
+import List.Zipper as Zipper exposing (Zipper)
 
 
 {-| Describes the model used in input views in this library.
@@ -147,12 +147,15 @@ invisibleLabeledInput inputModel id_ =
 
 
 type alias TabModel =
-    {}
+    { id : String
+    , selectTab : String -> TabMsg
+    , tabPanelPairs : Zipper ( Html TabMsg, Html TabMsg )
+    }
 
 
 type TabMsg
     = NoOp
-    | SelectTab String
+    | SelectTab (Zipper ( Html TabMsg, Html TabMsg ))
 
 
 update : TabMsg -> TabModel -> TabModel
@@ -161,14 +164,14 @@ update msg model =
         NoOp ->
             model
 
-        SelectTab tab ->
-            model
+        SelectTab newTabPanelPairs ->
+            { model | tabPanelPairs = newTabPanelPairs }
 
 
 {-| Create a tab interface. Pass in a unique id and a zipper of (tab header content, panel content) pairs.
 -}
-tabs : String -> (String -> msg) -> List.Zipper.Zipper ( Html msg, Html msg ) -> Html msg
-tabs groupId selectTab tabPanelPairs =
+tabs : String -> Zipper ( Html TabMsg, Html TabMsg ) -> Html TabMsg
+tabs groupId tabPanelPairs =
     let
         tabId section =
             groupId ++ "-tab-" ++ section
@@ -177,16 +180,32 @@ tabs groupId selectTab tabPanelPairs =
             groupId ++ "-tabPanel-" ++ section
 
         viewTab section isSelected tabContent =
-            tab
-                [ id (tabId section)
-                , onClick (selectTab section)
-                  --TODO better select behavior for keys
-                , onLeft (selectTab section)
-                , onRight (selectTab section)
-                , A11y.controls (panelId section)
-                , A11y.selected isSelected
-                ]
-                [ tabContent ]
+            let
+                previousTab =
+                    tabPanelPairs
+                        |> Zipper.previous
+                        |> Maybe.withDefault (Zipper.last tabPanelPairs)
+
+                nextTab =
+                    tabPanelPairs
+                        |> Zipper.next
+                        |> Maybe.withDefault (Zipper.first tabPanelPairs)
+
+                thisTab =
+                    tabPanelPairs
+                        |> Zipper.find (\( tab, _ ) -> tab == tabContent)
+                        |> Maybe.withDefault tabPanelPairs
+            in
+                tab
+                    [ id (tabId section)
+                    , onClick (SelectTab thisTab)
+                    , onEnter (SelectTab thisTab)
+                    , onLeft (SelectTab previousTab)
+                    , onRight (SelectTab nextTab)
+                    , A11y.controls (panelId section)
+                    , A11y.selected isSelected
+                    ]
+                    [ tabContent ]
 
         viewPanel section isSelected panelContent =
             tabPanel
@@ -207,10 +226,10 @@ tabs groupId selectTab tabPanelPairs =
 
         ( tabs, panels ) =
             tabPanelPairs
-                |> List.Zipper.mapBefore (List.indexedMap viewPreviousTabPanel)
-                |> List.Zipper.mapCurrent (toTabPanelWithIds "current" True)
-                |> List.Zipper.mapAfter (List.indexedMap viewUpcomingTabPanel)
-                |> List.Zipper.toList
+                |> Zipper.mapBefore (List.indexedMap viewPreviousTabPanel)
+                |> Zipper.mapCurrent (toTabPanelWithIds "current" True)
+                |> Zipper.mapAfter (List.indexedMap viewUpcomingTabPanel)
+                |> Zipper.toList
                 |> List.unzip
     in
         div [] (tabList [ id groupId ] tabs :: panels)
