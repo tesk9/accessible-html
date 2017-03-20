@@ -24,6 +24,8 @@ import Json.Encode
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Attributes.A11y as A11y exposing (..)
+import Html.Events exposing (..)
+import Html.Events.Key exposing (..)
 import Maybe.Extra
 import List.Zipper
 
@@ -144,10 +146,29 @@ invisibleLabeledInput inputModel id_ =
 {- *** Tabs *** -}
 
 
+type alias TabModel =
+    {}
+
+
+type TabMsg
+    = NoOp
+    | SelectTab String
+
+
+update : TabMsg -> TabModel -> TabModel
+update msg model =
+    case msg of
+        NoOp ->
+            model
+
+        SelectTab tab ->
+            model
+
+
 {-| Create a tab interface. Pass in a unique id and a zipper of (tab header content, panel content) pairs.
 -}
-tabs : String -> List.Zipper.Zipper ( Html msg, Html msg ) -> Html msg
-tabs groupId tabPanelPairs =
+tabs : String -> (String -> msg) -> List.Zipper.Zipper ( Html msg, Html msg ) -> Html msg
+tabs groupId selectTab tabPanelPairs =
     let
         tabId section =
             groupId ++ "-tab-" ++ section
@@ -158,6 +179,10 @@ tabs groupId tabPanelPairs =
         viewTab section isSelected tabContent =
             tab
                 [ id (tabId section)
+                , onClick (selectTab section)
+                  --TODO better select behavior for keys
+                , onLeft (selectTab section)
+                , onRight (selectTab section)
                 , A11y.controls (panelId section)
                 , A11y.selected isSelected
                 ]
