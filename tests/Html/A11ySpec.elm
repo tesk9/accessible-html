@@ -141,7 +141,7 @@ tabsTests =
             ]
 
 
-testCurrentTab : Zipper.Zipper ( Html msg, Html msg ) -> ( String, String ) -> List Test
+testCurrentTab : Zipper.Zipper ( Html TabMsg, Html TabMsg ) -> ( String, String ) -> List Test
 testCurrentTab tabPanelPairsZipper ( tabContent, panelContent ) =
     let
         queryView =
