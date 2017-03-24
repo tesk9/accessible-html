@@ -115,34 +115,38 @@ tabsTests =
     in
         describe "tabs"
             [ describe "for a single tab" <|
-                testCurrentTab (Zipper.singleton ( header "Tab1", panel "Panel1" )) ( "Tab1", "Panel1" )
+                testCurrentTab (Zipper.singleton ( 0, header "Tab1", panel "Panel1" )) ( 0, "Tab1", "Panel1" )
             , describe "for many tabs" <|
                 let
                     default =
-                        Zipper.withDefault ( header "Failed", panel "Failed" )
+                        Zipper.withDefault ( 0, header "Failed", panel "Failed" )
 
                     tabPanelPairsZipper =
                         default <|
-                            Zipper.fromList
-                                [ ( header "Tab1", panel "Panel1" )
-                                , ( header "Tab2", panel "Panel2" )
-                                , ( header "Tab3", panel "Panel3" )
-                                , ( header "Tab4", panel "Panel4" )
-                                , ( header "Tab5", panel "Panel5" )
-                                ]
+                            Zipper.fromList <|
+                                List.indexedMap
+                                    (\index ( tabContent, panelContent ) ->
+                                        ( index, header tabContent, panel panelContent )
+                                    )
+                                    [ ( "Tab1", "Panel1" )
+                                    , ( "Tab2", "Panel2" )
+                                    , ( "Tab3", "Panel3" )
+                                    , ( "Tab4", "Panel4" )
+                                    , ( "Tab5", "Panel5" )
+                                    ]
                 in
                     [ describe "first tab selected" <|
-                        testCurrentTab tabPanelPairsZipper ( "Tab1", "Panel1" )
+                        testCurrentTab tabPanelPairsZipper ( 0, "Tab1", "Panel1" )
                     , describe "second tab selected" <|
-                        testCurrentTab (default <| Zipper.next tabPanelPairsZipper) ( "Tab2", "Panel2" )
+                        testCurrentTab (default <| Zipper.next tabPanelPairsZipper) ( 1, "Tab2", "Panel2" )
                     , describe "last tab selected" <|
-                        testCurrentTab (Zipper.last tabPanelPairsZipper) ( "Tab5", "Panel5" )
+                        testCurrentTab (Zipper.last tabPanelPairsZipper) ( 4, "Tab5", "Panel5" )
                     ]
             ]
 
 
-testCurrentTab : Zipper.Zipper ( Html TabMsg, Html TabMsg ) -> ( String, String ) -> List Test
-testCurrentTab tabPanelPairsZipper ( tabContent, panelContent ) =
+testCurrentTab : Model Int -> ( Int, String, String ) -> List Test
+testCurrentTab tabPanelPairsZipper ( index, tabContent, panelContent ) =
     let
         queryView =
             tabs "group-id" tabPanelPairsZipper
@@ -159,11 +163,11 @@ testCurrentTab tabPanelPairsZipper ( tabContent, panelContent ) =
                 Query.has [ Selector.text tabContent ] tabSelector
         , test "the tab controls the associated panel" <|
             \() ->
-                Query.has [ Selector.attribute "aria-controls" "group-id-tabPanel-current" ] tabSelector
+                Query.has [ Selector.attribute "aria-controls" ("group-id-tabPanel-current-" ++ toString index) ] tabSelector
         , test "the current panel has the right content" <|
             \() ->
                 Query.has [ Selector.text panelContent ] panelSelector
         , test "the panel is labelled by the tab" <|
             \() ->
-                Query.has [ Selector.attribute "aria-labelledby" "group-id-tab-current" ] panelSelector
+                Query.has [ Selector.attribute "aria-labelledby" ("group-id-tab-current-" ++ toString index) ] panelSelector
         ]
