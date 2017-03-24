@@ -8,6 +8,7 @@ module Html.A11y
         , rightLabeledInput
         , invisibleLabeledInput
         , tabs
+        , update
         , TabMsg
         )
 
@@ -18,7 +19,7 @@ module Html.A11y
 @docs leftLabeledInput, rightLabeledInput, invisibleLabeledInput
 
 ### Tabs
-@docs tabs, TabMsg
+@docs tabs, update, TabMsg
 -}
 
 import Json.Encode
@@ -154,11 +155,15 @@ type alias TabModel =
     }
 
 
+{-| Msg for tabs.
+-}
 type TabMsg
     = NoOp
     | SelectTab (Zipper ( Html TabMsg, Html TabMsg ))
 
 
+{-| Map over this to select a tab.
+-}
 update : TabMsg -> TabModel -> TabModel
 update msg model =
     case msg of
