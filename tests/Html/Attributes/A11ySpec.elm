@@ -10,9 +10,42 @@ import Test.Html.Selector as Selector
 spec : Test
 spec =
     describe "Html.Attributes.A11ySpec"
-        [ describe "role" <|
+        [ describe "attribute setters"
+            [ addsControls
+            , addsLabelledBy
+            , addsSelected True
+            , addsSelected False
+            ]
+        , describe "role" <|
             List.map (uncurry addsRole) allRoles
         ]
+
+
+addsControls : Test
+addsControls =
+    test "sets the aria-controls attribute" <|
+        \() ->
+            div [] [ div [ controls "some-id" ] [] ]
+                |> Query.fromHtml
+                |> Query.has [ Selector.attribute "aria-controls" "some-id" ]
+
+
+addsLabelledBy : Test
+addsLabelledBy =
+    test "sets the aria-labelledby attribute" <|
+        \() ->
+            div [] [ div [ labelledBy "some-id" ] [] ]
+                |> Query.fromHtml
+                |> Query.has [ Selector.attribute "aria-labelledby" "some-id" ]
+
+
+addsSelected : Bool -> Test
+addsSelected selected_ =
+    test "sets the aria-selected attribute" <|
+        \() ->
+            div [] [ div [ selected selected_ ] [] ]
+                |> Query.fromHtml
+                |> Query.has [ Selector.attribute "aria-selected" (String.toLower <| toString selected_) ]
 
 
 addsRole : Role -> String -> Test
