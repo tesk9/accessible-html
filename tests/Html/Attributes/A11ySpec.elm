@@ -21,31 +21,43 @@ spec =
         ]
 
 
+addsAttribute : (String -> Html.Attribute msg) -> ( String, String ) -> Test
+addsAttribute setter ( attribute, content ) =
+    test ("sets the " ++ toString setter ++ " attribute") <|
+        \() ->
+            div [] [ div [ setter content ] [] ]
+                |> Query.fromHtml
+                |> Query.has [ Selector.attribute attribute content ]
+
+
 addsControls : Test
 addsControls =
-    test "sets the aria-controls attribute" <|
-        \() ->
-            div [] [ div [ controls "some-id" ] [] ]
-                |> Query.fromHtml
-                |> Query.has [ Selector.attribute "aria-controls" "some-id" ]
+    addsAttribute controls ( "aria-controls", "some-id" )
 
 
 addsLabelledBy : Test
 addsLabelledBy =
-    test "sets the aria-labelledby attribute" <|
-        \() ->
-            div [] [ div [ labelledBy "some-id" ] [] ]
-                |> Query.fromHtml
-                |> Query.has [ Selector.attribute "aria-labelledby" "some-id" ]
+    addsAttribute labelledBy ( "aria-labelledby", "some-id" )
+
+
+addsBoolAttribute : (Bool -> Html.Attribute msg) -> String -> Test
+addsBoolAttribute setter attribute =
+    let
+        adds bool =
+            \() ->
+                div [] [ div [ setter bool ] [] ]
+                    |> Query.fromHtml
+                    |> Query.has [ Selector.attribute attribute (String.toLower <| toString bool) ]
+    in
+        describe ("sets the " ++ toString setter ++ " attribute")
+            [ test "True" <| adds True
+            , test "False" <| adds False
+            ]
 
 
 addsSelected : Bool -> Test
 addsSelected selected_ =
-    test "sets the aria-selected attribute" <|
-        \() ->
-            div [] [ div [ selected selected_ ] [] ]
-                |> Query.fromHtml
-                |> Query.has [ Selector.attribute "aria-selected" (String.toLower <| toString selected_) ]
+    addsBoolAttribute selected "aria-selected"
 
 
 addsRole : Role -> String -> Test
