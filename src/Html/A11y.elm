@@ -179,6 +179,7 @@ update msg model =
 
         SelectCurrentTab identifier ->
             model
+                |> Zipper.first
                 |> Zipper.find (\( id, _, _ ) -> id == identifier)
                 |> Maybe.withDefault model
 
