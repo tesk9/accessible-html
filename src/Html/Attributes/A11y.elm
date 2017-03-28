@@ -4,7 +4,7 @@ module Html.Attributes.A11y
         , Role(..)
         , role
         , controls
-        , labelledby
+        , labelledBy
         , selected
         , hidden
         )
@@ -25,7 +25,7 @@ Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles)
 
 ### Other
 
-@docs controls, labelledby, selected, hidden
+@docs controls, labelledBy, selected, hidden
 
 -}
 
@@ -337,17 +337,17 @@ roleToString role =
 {- *** Other *** -}
 
 
-{-| Creates aria controls attribute.
+{-| Creates aria controls attribute. Pass the unique string id of whatever is being controlled.
 -}
 controls : String -> Html.Attribute msg
 controls =
     attribute "aria-controls"
 
 
-{-| Creates aria labelledby attribute.
+{-| Creates aria labelledby attribute. Pass the unique string id of the labelling element.
 -}
-labelledby : String -> Html.Attribute msg
-labelledby =
+labelledBy : String -> Html.Attribute msg
+labelledBy =
     attribute "aria-labelledby"
 
 
