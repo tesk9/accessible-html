@@ -7,10 +7,9 @@ module Html.A11y
         , leftLabeledInput
         , rightLabeledInput
         , invisibleLabeledInput
-        , tabs
-        , update
-        , Model
-        , Msg
+        , tabList
+        , tab
+        , tabPanel
         )
 
 {-|
@@ -20,17 +19,14 @@ module Html.A11y
 @docs leftLabeledInput, rightLabeledInput, invisibleLabeledInput
 
 ### Tabs
-@docs tabs, update, Msg, Model
+@docs tabList, tab, tabPanel
 -}
 
 import Json.Encode
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Attributes.A11y as A11y exposing (..)
-import Html.Events exposing (..)
-import Html.Events.Key exposing (..)
 import Maybe.Extra
-import List.Zipper as Zipper exposing (Zipper)
 
 
 {-| Describes the model used in input views in this library.
@@ -147,101 +143,6 @@ invisibleLabeledInput inputModel id_ =
 
 
 {- *** Tabs *** -}
-
-
-{-| Zipper tabs are represented as a Zipper with an id, tab html, and tab panel html.
--}
-type alias Model comparable =
-    Zipper ( comparable, Html (Msg comparable), Html (Msg comparable) )
-
-
-{-| Msg for tabs.
--}
-type Msg comparable
-    = NoOp
-    | SelectPreviousTab
-    | SelectCurrentTab comparable
-    | SelectNextTab
-
-
-{-| Map over this to select a tab.
--}
-update : Msg comparable -> Model comparable -> Model comparable
-update msg model =
-    case msg of
-        NoOp ->
-            model
-
-        SelectPreviousTab ->
-            model
-                |> Zipper.previous
-                |> Maybe.withDefault (Zipper.last model)
-
-        SelectCurrentTab identifier ->
-            model
-                |> Zipper.first
-                |> Zipper.find (\( id, _, _ ) -> id == identifier)
-                |> Maybe.withDefault model
-
-        SelectNextTab ->
-            model
-                |> Zipper.next
-                |> Maybe.withDefault (Zipper.first model)
-
-
-{-| Create a tab interface. Pass in a unique id and a zipper of (tab header content, panel content) pairs.
--}
-tabs : String -> Model comparable -> Html (Msg comparable)
-tabs groupId model =
-    let
-        tabId section identifier =
-            groupId ++ "-tab-" ++ section ++ toString identifier
-
-        panelId section identifier =
-            groupId ++ "-tabPanel-" ++ section ++ toString identifier
-
-        viewTab : Bool -> String -> comparable -> Html (Msg comparable) -> Html (Msg comparable)
-        viewTab isSelected section identifier tabContent =
-            tab
-                [ id (tabId section identifier)
-                , onClick (SelectCurrentTab identifier)
-                , onEnter (SelectCurrentTab identifier)
-                , onLeft SelectPreviousTab
-                , onRight SelectNextTab
-                , A11y.controls (panelId section identifier)
-                , A11y.selected isSelected
-                ]
-                [ tabContent ]
-
-        viewPanel : Bool -> String -> comparable -> Html (Msg comparable) -> Html (Msg comparable)
-        viewPanel isSelected section identifier panelContent =
-            tabPanel
-                [ id (panelId section identifier)
-                , labelledby (tabId section identifier)
-                , A11y.hidden (not isSelected)
-                , Html.Attributes.hidden (not isSelected)
-                ]
-                [ panelContent ]
-
-        toTabPanelWithIds section isSelected ( id, tabContent, panelContent ) =
-            ( id, viewTab isSelected section id tabContent, viewPanel isSelected section id panelContent )
-
-        viewPreviousTabPanel tabPanelTuple =
-            toTabPanelWithIds "previous-" False tabPanelTuple
-
-        viewUpcomingTabPanel tabPanelTuple =
-            toTabPanelWithIds "upcoming-" False tabPanelTuple
-
-        ( tabs, panels ) =
-            model
-                |> Zipper.mapBefore (List.map viewPreviousTabPanel)
-                |> Zipper.mapCurrent (toTabPanelWithIds "current-" True)
-                |> Zipper.mapAfter (List.map viewUpcomingTabPanel)
-                |> Zipper.toList
-                |> List.map (\( _, tab, panel ) -> ( tab, panel ))
-                |> List.unzip
-    in
-        div [] (tabList [ id groupId ] tabs :: panels)
 
 
 {-| Create a tablist. This is the outer container for a list of tabs.
