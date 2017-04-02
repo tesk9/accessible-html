@@ -177,7 +177,12 @@ tabPanel attributes children =
 {- *** Images *** -}
 
 
-{-| Use this tag when the image provides information not expressed in the text of the page. Read through [the w3 informative image tutorial](https://www.w3.org/WAI/tutorials/images/informative/) to learn more.
+{-| Use this tag when the image provides information not expressed in the text of the page.
+When images are used to express the purpose of a button or link, aim for alternative text that encapsulates the function of the image.
+
+Read through [the w3 informative image tutorial](https://www.w3.org/WAI/tutorials/images/informative/) and the [the w3 functional image tutorial](https://www.w3.org/WAI/tutorials/images/functional/) to learn more.
+
+
 -}
 img : String -> List (Html.Attribute msg) -> Html msg
 img alt_ attributes =

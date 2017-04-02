@@ -15,6 +15,8 @@ spec =
             , describe "rightLabeledInput" (inputTests rightLabeledInput)
             , describe "invisibleLabeledInput" (inputTests ((flip invisibleLabeledInput) "input-id"))
             ]
+        , describe "tabs" []
+        , imagesTests
         ]
 
 
@@ -100,3 +102,27 @@ baseInputTests queryView { label, value, type_ } =
                     |> Query.find [ Selector.tag "input" ]
                     |> Query.has [ Selector.attribute "type" type_ ]
         ]
+
+
+imagesTests : Test
+imagesTests =
+    let
+        queryView view =
+            div [] [ view ]
+                |> Query.fromHtml
+                |> Query.find [ Selector.tag "img" ]
+    in
+        describe "images"
+            [ describe "img"
+                [ test "has alt text" <|
+                    \() ->
+                        queryView (Html.A11y.img "Birthday cake" [])
+                            |> Query.has [ Selector.attribute "alt" "Birthday cake" ]
+                ]
+            , describe "decorativeImg"
+                [ test "has empty alt text" <|
+                    \() ->
+                        queryView (decorativeImg [])
+                            |> Query.has [ Selector.attribute "alt" "" ]
+                ]
+            ]
