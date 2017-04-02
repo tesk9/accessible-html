@@ -10,6 +10,8 @@ module Html.A11y
         , tabList
         , tab
         , tabPanel
+        , img
+        , decorativeImg
         )
 
 {-|
@@ -20,6 +22,9 @@ module Html.A11y
 
 ## Tabs
 @docs tabList, tab, tabPanel
+
+## Images
+@docs img, decorativeImg
 -}
 
 import Json.Encode
@@ -159,11 +164,28 @@ tab attributes children =
     div (role Tab :: tabindex 0 :: attributes) children
 
 
-{-|
-Create a tab panel.
+{-| Create a tab panel.
 
     tabPanel [] [ h3 [] [ text "Panel Header" ], text "Panel Content" ]
 -}
 tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabPanel attributes children =
     div (role Tabpanel :: attributes) children
+
+
+
+{- *** Images *** -}
+
+
+{-| Use this tag when the image provides information not expressed in the text of the page. Read through [the w3 informative image tutorial](https://www.w3.org/WAI/tutorials/images/informative/) to learn more.
+-}
+img : String -> List (Html.Attribute msg) -> Html msg
+img alt_ attributes =
+    Html.img (alt alt_ :: attributes) []
+
+
+{-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
+-}
+decorativeImg : List (Html.Attribute msg) -> Html msg
+decorativeImg attributes =
+    Html.img (alt "" :: role Presentation :: attributes) []
