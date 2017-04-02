@@ -13,12 +13,12 @@ module Html.A11y
         )
 
 {-|
-### Inputs
+## Inputs
 @docs Input
 @docs textInput, radioInput, checkboxInput
 @docs leftLabeledInput, rightLabeledInput, invisibleLabeledInput
 
-### Tabs
+## Tabs
 @docs tabList, tab, tabPanel
 -}
 
