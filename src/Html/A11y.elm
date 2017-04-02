@@ -183,6 +183,8 @@ When images are used to express the purpose of a button or link, aim for alterna
 Read through [the w3 informative image tutorial](https://www.w3.org/WAI/tutorials/images/informative/) and the [the w3 functional image tutorial](https://www.w3.org/WAI/tutorials/images/functional/) to learn more.
 
 For graphs and diagrams, see `figure` and `longDesc`.
+
+    img "Bear rubbing back on tree" [ src "bear.png" ]
 -}
 img : String -> List (Html.Attribute msg) -> Html msg
 img alt_ attributes =
@@ -190,6 +192,8 @@ img alt_ attributes =
 
 
 {-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
+
+    decorativeImg [ src "smiling_family.jpg" ]
 -}
 decorativeImg : List (Html.Attribute msg) -> Html msg
 decorativeImg attributes =
