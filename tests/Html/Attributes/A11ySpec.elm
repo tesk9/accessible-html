@@ -1,6 +1,7 @@
 module Html.Attributes.A11ySpec exposing (spec)
 
 import Html exposing (..)
+import Html.A11y exposing (..)
 import Html.Attributes.A11y exposing (..)
 import Test exposing (..)
 import Test.Html.Query as Query
@@ -18,6 +19,7 @@ spec =
             ]
         , describe "role" <|
             List.map (uncurry addsRole) allRoles
+        , longDescriptionTests
         ]
 
 
@@ -67,6 +69,21 @@ addsRole role_ expected =
             div [] [ div [ role role_ ] [] ]
                 |> Query.fromHtml
                 |> Query.has [ Selector.attribute "role" expected ]
+
+
+longDescriptionTests : Test
+longDescriptionTests =
+    let
+        queryView =
+            div [] [ Html.A11y.img "Growth Chart in Some Sweet Unit (Quarter 4)" [ longDescription "/quarter_4_summary#Growth" ] ]
+                |> Query.fromHtml
+                |> Query.find [ Selector.tag "img" ]
+    in
+        describe "longDescription"
+            [ test "sets the longDesc attribute" <|
+                \() ->
+                    Query.has [ Selector.attribute "longDesc" "/quarter_4_summary#Growth" ] queryView
+            ]
 
 
 allRoles : List ( Role, String )

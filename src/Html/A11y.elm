@@ -10,16 +10,22 @@ module Html.A11y
         , tabList
         , tab
         , tabPanel
+        , img
+        , decorativeImg
+        , figure
         )
 
 {-|
-### Inputs
+## Inputs
 @docs Input
 @docs textInput, radioInput, checkboxInput
 @docs leftLabeledInput, rightLabeledInput, invisibleLabeledInput
 
-### Tabs
+## Tabs
 @docs tabList, tab, tabPanel
+
+## Images
+@docs img, decorativeImg, figure
 -}
 
 import Json.Encode
@@ -159,11 +165,44 @@ tab attributes children =
     div (role Tab :: tabindex 0 :: attributes) children
 
 
-{-|
-Create a tab panel.
+{-| Create a tab panel.
 
     tabPanel [] [ h3 [] [ text "Panel Header" ], text "Panel Content" ]
 -}
 tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabPanel attributes children =
     div (role Tabpanel :: attributes) children
+
+
+
+{- *** Images *** -}
+
+
+{-| Use this tag when the image provides information not expressed in the text of the page.
+When images are used to express the purpose of a button or link, aim for alternative text that encapsulates the function of the image.
+
+Read through [the w3 informative image tutorial](https://www.w3.org/WAI/tutorials/images/informative/) and the [the w3 functional image tutorial](https://www.w3.org/WAI/tutorials/images/functional/) to learn more.
+
+For graphs and diagrams, see `figure` and `longDesc`.
+
+    img "Bear rubbing back on tree" [ src "bear.png" ]
+-}
+img : String -> List (Html.Attribute msg) -> Html msg
+img alt_ attributes =
+    Html.img (alt alt_ :: attributes) []
+
+
+{-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
+
+    decorativeImg [ src "smiling_family.jpg" ]
+-}
+decorativeImg : List (Html.Attribute msg) -> Html msg
+decorativeImg attributes =
+    Html.img (alt "" :: role Presentation :: attributes) []
+
+
+{-| Adds the group role to a figure.
+-}
+figure : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+figure attributes =
+    Html.figure (role Group :: attributes)
