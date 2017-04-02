@@ -10,20 +10,20 @@ module Html.Attributes.A11y
         )
 
 {-|
-### Hiding content
+## Hiding content
 
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
 
 @docs invisible
 
-### Roles
+## Roles
 
 Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles).
 
 @docs Role, role
 
 
-### Other
+## Other
 
 @docs controls, labelledBy, selected, hidden
 
