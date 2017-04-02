@@ -12,6 +12,7 @@ module Html.A11y
         , tabPanel
         , img
         , decorativeImg
+        , figure
         )
 
 {-|
@@ -24,7 +25,7 @@ module Html.A11y
 @docs tabList, tab, tabPanel
 
 ## Images
-@docs img, decorativeImg
+@docs img, decorativeImg, figure
 -}
 
 import Json.Encode

@@ -108,7 +108,7 @@ imagesTests : Test
 imagesTests =
     let
         queryView view =
-            div [] [ view ]
+            div [] [ Html.A11y.figure [] [ view ] ]
                 |> Query.fromHtml
                 |> Query.find [ Selector.tag "img" ]
     in
