@@ -182,7 +182,7 @@ When images are used to express the purpose of a button or link, aim for alterna
 
 Read through [the w3 informative image tutorial](https://www.w3.org/WAI/tutorials/images/informative/) and the [the w3 functional image tutorial](https://www.w3.org/WAI/tutorials/images/functional/) to learn more.
 
-
+For graphs and diagrams, see `figure` and `longDesc`.
 -}
 img : String -> List (Html.Attribute msg) -> Html msg
 img alt_ attributes =
@@ -194,3 +194,10 @@ img alt_ attributes =
 decorativeImg : List (Html.Attribute msg) -> Html msg
 decorativeImg attributes =
     Html.img (alt "" :: role Presentation :: attributes) []
+
+
+{-| Adds the group role to a figure.
+-}
+figure : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+figure attributes =
+    Html.figure (role Group :: attributes)

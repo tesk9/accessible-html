@@ -7,6 +7,7 @@ module Html.Attributes.A11y
         , labelledBy
         , selected
         , hidden
+        , longDescription
         )
 
 {-|
@@ -25,7 +26,7 @@ Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles)
 
 ## Other
 
-@docs controls, labelledBy, selected, hidden
+@docs controls, labelledBy, selected, hidden, longDescription
 
 -}
 
@@ -363,3 +364,12 @@ selected =
 hidden : Bool -> Html.Attribute msg
 hidden =
     attribute "aria-hidden" << String.toLower << toString
+
+
+{-| Creates the longDesc attribute with the given url, which should point to a text description of the content. This attribute is only supported on img tags.
+
+    Html.A11y.img "Growth Chart in Some Sweet Unit (Quarter 4)" [ longDescription "/quarter_4_summary#Growth" ]
+-}
+longDescription : String -> Html.Attribute msg
+longDescription =
+    attribute "longDesc"
