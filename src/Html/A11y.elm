@@ -29,9 +29,9 @@ module Html.A11y
 -}
 
 import Html exposing (..)
-import Images
-import Inputs
-import Tabs
+import Tags.Images as Images
+import Tags.Inputs as Inputs
+import Tags.Tabs as Tabs
 
 
 {-| Describes the model used in input views in this library.

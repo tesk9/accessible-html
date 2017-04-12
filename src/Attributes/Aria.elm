@@ -1,4 +1,4 @@
-module Aria
+module Attributes.Aria
     exposing
         ( controls
         , labelledBy

@@ -1,4 +1,4 @@
-module Role
+module Attributes.Role
     exposing
         ( role
         , Role(..)

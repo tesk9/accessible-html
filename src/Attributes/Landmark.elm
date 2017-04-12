@@ -1,4 +1,4 @@
-module Landmark
+module Attributes.Landmark
     exposing
         ( banner
         , complementary
@@ -12,7 +12,7 @@ module Landmark
         )
 
 import Html
-import Role exposing (..)
+import Attributes.Role exposing (..)
 
 
 banner : Html.Attribute msg

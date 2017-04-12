@@ -1,7 +1,7 @@
-module Grouping exposing (group, radiogroup)
+module Attributes.Grouping exposing (group, radiogroup)
 
 import Html
-import Role exposing (..)
+import Attributes.Role exposing (..)
 
 
 group : Html.Attribute msg

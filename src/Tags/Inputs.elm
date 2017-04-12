@@ -1,4 +1,4 @@
-module Inputs
+module Tags.Inputs
     exposing
         ( Input
         , InputTypeAndValue

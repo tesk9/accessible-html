@@ -1,4 +1,4 @@
-module Element
+module Attributes.Element
     exposing
         ( alert
         , alertdialog
@@ -51,7 +51,7 @@ module Element
         )
 
 import Html
-import Role exposing (..)
+import Attributes.Role exposing (..)
 
 
 alert : Html.Attribute msg

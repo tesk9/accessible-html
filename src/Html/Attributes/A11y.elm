@@ -106,15 +106,15 @@ For more information on hiding/semi-hiding elements, please see [the a11y projec
 
 -}
 
-import Aria
+import Attributes.Aria as Aria
+import Attributes.Element as Element
+import Attributes.Grouping as Grouping
+import Attributes.Heading as Heading
+import Attributes.Landmark as Landmark
+import Attributes.Role exposing (..)
 import Css
-import Element
-import Grouping
-import Heading
 import Html
 import Html.Attributes exposing (..)
-import Landmark
-import Role exposing (..)
 
 
 {-| Makes content invisible without making it inaccessible.

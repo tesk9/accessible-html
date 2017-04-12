@@ -1,4 +1,4 @@
-module Images
+module Tags.Images
     exposing
         ( img
         , decorativeImg
