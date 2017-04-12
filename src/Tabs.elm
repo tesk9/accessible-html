@@ -7,7 +7,10 @@ module Tabs
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Attributes.A11y as A11y exposing (..)
+import Role exposing (Role(..), role)
+
+
+-- TODO these belong in A11y
 
 
 tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg

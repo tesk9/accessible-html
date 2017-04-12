@@ -17,9 +17,9 @@ img alt_ attributes =
 
 decorativeImg : List (Html.Attribute msg) -> Html msg
 decorativeImg attributes =
-    Html.img (alt "" :: role Presentation :: attributes) []
+    Html.img (alt "" :: presentation :: attributes) []
 
 
 figure : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 figure attributes =
-    Html.figure (role Group :: attributes)
+    Html.figure (group :: attributes)

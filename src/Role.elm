@@ -4,6 +4,11 @@ module Role
         , Role(..)
         )
 
+{-| Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles).
+
+@docs Role, role
+-}
+
 import Html
 import Html.Attributes exposing (..)
 

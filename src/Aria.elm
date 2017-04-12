@@ -8,6 +8,10 @@ module Aria
         , indeterminate
         )
 
+{-|
+@docs controls, labelledBy, selected, hidden, longDescription, indeterminate
+-}
+
 import Html
 import Html.Attributes exposing (..)
 import Json.Encode
@@ -45,4 +49,4 @@ indeterminate =
 
 level : Int -> Html.Attribute msg
 level =
-    (attribute "aria-level" << toString)
+    attribute "aria-level" << toString
