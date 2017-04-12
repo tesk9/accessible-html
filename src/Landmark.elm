@@ -1,4 +1,4 @@
-module Navigation
+module Landmark
     exposing
         ( banner
         , complementary
