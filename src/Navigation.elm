@@ -8,10 +8,13 @@ module Navigation
         , navigation
         , search
         , application
+        , region
         )
 
 {-| See https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html for more detail on this module.
 (Descriptions are adopted from this page).
+
+@docs banner, complementary, contentinfo, form, main_, navigation, search, application, region
 -}
 
 import Html
@@ -73,3 +76,10 @@ Be careful with this one--see https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html.
 application : Html.Attribute msg
 application =
     role Application
+
+
+{-| Prefer the other Landmark options to `region`. Be sure to add a name when using this attribute!
+-}
+region : Html.Attribute msg
+region =
+    role Region
