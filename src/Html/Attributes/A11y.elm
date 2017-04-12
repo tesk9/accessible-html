@@ -8,6 +8,7 @@ module Html.Attributes.A11y
         , selected
         , hidden
         , longDescription
+        , indeterminate
         )
 
 {-|
@@ -26,13 +27,14 @@ Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles)
 
 ## Other
 
-@docs controls, labelledBy, selected, hidden, longDescription
+@docs controls, labelledBy, selected, hidden, longDescription, indeterminate
 
 -}
 
 import Css
 import Html
 import Html.Attributes exposing (..)
+import Json.Encode
 
 
 {-| Makes content invisible without making it inaccessible.
@@ -373,3 +375,10 @@ hidden =
 longDescription : String -> Html.Attribute msg
 longDescription =
     attribute "longDesc"
+
+
+{-| Sets the indeterminate value to be true.
+-}
+indeterminate : Html.Attribute msg
+indeterminate =
+    property "indeterminate" (Json.Encode.bool True)
