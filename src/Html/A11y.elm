@@ -28,28 +28,22 @@ module Html.A11y
 @docs img, decorativeImg, figure
 -}
 
-import Json.Encode
 import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Attributes.A11y as A11y exposing (..)
-import Maybe.Extra
+import Tags.Images as Images
+import Tags.Inputs as Inputs
+import Tags.Tabs as Tabs
 
 
 {-| Describes the model used in input views in this library.
 -}
 type alias Input msg =
-    { label : Html msg
-    , typeAndValue : InputTypeAndValue
-    , attributes : List (Html.Attribute msg)
-    }
+    Inputs.Input msg
 
 
 {-| Use helpers like `textInput` and `radioInput` to create InputTypeAndValue items.
 -}
-type InputTypeAndValue
-    = Text String
-    | Radio String String Bool
-    | Checkbox String (Maybe Bool)
+type alias InputTypeAndValue =
+    Inputs.InputTypeAndValue
 
 
 {-| This will construct a text input with the value passed in.
@@ -58,7 +52,7 @@ type InputTypeAndValue
 -}
 textInput : String -> InputTypeAndValue
 textInput =
-    Text
+    Inputs.textInput
 
 
 {-| This will construct a radio input. The first argument is the radio group name
@@ -69,7 +63,7 @@ The third is whether the radio is checked or not.
 -}
 radioInput : String -> String -> Bool -> InputTypeAndValue
 radioInput =
-    Radio
+    Inputs.radioInput
 
 
 {-| This will construct a checkbox input. THe first argument is the value of the checkbox.
@@ -79,52 +73,21 @@ The second is whether the radio is checked, unchecked, or indeterminate.
 -}
 checkboxInput : String -> Maybe Bool -> InputTypeAndValue
 checkboxInput =
-    Checkbox
-
-
-indeterminate : Html.Attribute msg
-indeterminate =
-    property "indeterminate" (Json.Encode.bool True)
-
-
-typeAndValueAttibutes : InputTypeAndValue -> List (Html.Attribute msg)
-typeAndValueAttibutes typeAndValue =
-    case typeAndValue of
-        Text value_ ->
-            [ type_ "text", value value_ ]
-
-        Radio name_ value_ checked_ ->
-            [ type_ "radio", name name_, value value_, checked checked_ ]
-
-        Checkbox value_ maybe_checked ->
-            [ type_ "checkbox", value value_, Maybe.Extra.unwrap indeterminate checked maybe_checked ]
-
-
-baseInput : Input msg -> Html msg
-baseInput inputModel =
-    input (typeAndValueAttibutes inputModel.typeAndValue ++ inputModel.attributes) []
+    Inputs.checkboxInput
 
 
 {-| Produces a labeled input of a given label type. The label appears on the left side on the input.
 -}
 leftLabeledInput : Input msg -> Html msg
-leftLabeledInput inputModel =
-    label
-        []
-        [ inputModel.label
-        , baseInput inputModel
-        ]
+leftLabeledInput =
+    Inputs.leftLabeledInput
 
 
 {-| Produces a labeled input of a given label type. The label appears on the right side on the input.
 -}
 rightLabeledInput : Input msg -> Html msg
-rightLabeledInput inputModel =
-    label
-        []
-        [ baseInput inputModel
-        , inputModel.label
-        ]
+rightLabeledInput =
+    Inputs.rightLabeledInput
 
 
 {-| Produces a labeled input of a given label type.
@@ -134,35 +97,22 @@ rather than visible labels.
 Requires that you pass an id.
 -}
 invisibleLabeledInput : Input msg -> String -> Html msg
-invisibleLabeledInput inputModel id_ =
-    span
-        []
-        [ label [ invisible, for id_ ] [ inputModel.label ]
-        , input
-            (typeAndValueAttibutes inputModel.typeAndValue
-                ++ id id_
-                :: inputModel.attributes
-            )
-            []
-        ]
-
-
-
-{- *** Tabs *** -}
+invisibleLabeledInput =
+    Inputs.invisibleLabeledInput
 
 
 {-| Create a tablist. This is the outer container for a list of tabs.
 -}
 tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-tabList attributes children =
-    div (role Tablist :: attributes) children
+tabList =
+    Tabs.tabList
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
 -}
 tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-tab attributes children =
-    div (role Tab :: tabindex 0 :: attributes) children
+tab =
+    Tabs.tab
 
 
 {-| Create a tab panel.
@@ -170,12 +120,8 @@ tab attributes children =
     tabPanel [] [ h3 [] [ text "Panel Header" ], text "Panel Content" ]
 -}
 tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-tabPanel attributes children =
-    div (role Tabpanel :: attributes) children
-
-
-
-{- *** Images *** -}
+tabPanel =
+    Tabs.tabPanel
 
 
 {-| Use this tag when the image provides information not expressed in the text of the page.
@@ -188,8 +134,8 @@ For graphs and diagrams, see `figure` and `longDesc`.
     img "Bear rubbing back on tree" [ src "bear.png" ]
 -}
 img : String -> List (Html.Attribute msg) -> Html msg
-img alt_ attributes =
-    Html.img (alt alt_ :: attributes) []
+img =
+    Images.img
 
 
 {-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
@@ -197,12 +143,12 @@ img alt_ attributes =
     decorativeImg [ src "smiling_family.jpg" ]
 -}
 decorativeImg : List (Html.Attribute msg) -> Html msg
-decorativeImg attributes =
-    Html.img (alt "" :: role Presentation :: attributes) []
+decorativeImg =
+    Images.decorativeImg
 
 
 {-| Adds the group role to a figure.
 -}
 figure : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-figure attributes =
-    Html.figure (role Group :: attributes)
+figure =
+    Images.figure
