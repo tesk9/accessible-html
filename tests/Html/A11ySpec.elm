@@ -10,98 +10,105 @@ import Test exposing (..)
 spec : Test
 spec =
     describe "Html.Attributes.A11ySpec"
-        [ describe "inputs" <|
-            [ describe "leftLabeledInput" (inputTests leftLabeledInput)
-            , describe "rightLabeledInput" (inputTests rightLabeledInput)
-            , describe "invisibleLabeledInput" (inputTests ((flip invisibleLabeledInput) "input-id"))
-            ]
+        [ inputsTests
         , describe "tabs" []
         , imagesTests
         ]
 
 
-inputTests : (Input msg -> Html msg) -> List Test
-inputTests toView =
+inputsTests : Test
+inputsTests =
+    describe "inputs" <|
+        [ describe "text inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "the value"
+                    , type_ = "text"
+                    }
+            in
+                [ describe "textLeftLabeled"
+                    [ baseInputTests expected <|
+                        textLeftLabeled "the value" [] (text "the label")
+                    ]
+                , describe "textRightLabeled"
+                    [ baseInputTests expected <|
+                        textRightLabeled "the value" [] (text "the label")
+                    ]
+                , describe "textInvisibleLabel"
+                    [ baseInputTests expected <|
+                        textInvisibleLabel "id" "the value" [] (text "the label")
+                    ]
+                ]
+        , describe "radio inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "the value"
+                    , type_ = "radio"
+                    }
+            in
+                [ describe "radioLeftLabeled"
+                    [ baseInputTests expected <|
+                        radioLeftLabeled "group_name" "the value" True [] (text "the label")
+                    ]
+                , describe "radioRightLabeled"
+                    [ baseInputTests expected <|
+                        radioRightLabeled "group_name" "the value" True [] (text "the label")
+                    ]
+                , describe "radioInvisibleLabel"
+                    [ baseInputTests expected <|
+                        radioInvisibleLabel "group_name" "id" "the value" True [] (text "the label")
+                    ]
+                ]
+        , describe "checkbox inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "the value"
+                    , type_ = "checkbox"
+                    }
+            in
+                [ describe "checkBoxLeftLabeled"
+                    [ baseInputTests expected <|
+                        checkBoxLeftLabeled "the value" (Just True) [] (text "the label")
+                    ]
+                , describe "checkBoxRightLabeled"
+                    [ baseInputTests expected <|
+                        checkBoxRightLabeled "the value" (Just True) [] (text "the label")
+                    ]
+                , describe "checkBoxInvisibleLabel"
+                    [ baseInputTests expected <|
+                        checkBoxInvisibleLabel "id" "the value" (Just True) [] (text "the label")
+                    ]
+                ]
+        ]
+
+
+baseInputTests : { label : String, value : String, type_ : String } -> Html msg -> Test
+baseInputTests { label, value, type_ } view =
     let
-        queryView model =
-            div [] [ toView model ]
+        queryView =
+            div [] [ Html.A11y.figure [] [ view ] ]
                 |> Query.fromHtml
     in
-        [ describe "textInput" <|
-            let
-                mockInputModel =
-                    { label = text "Name"
-                    , typeAndValue = textInput "Tessa"
-                    , attributes = []
-                    }
-            in
-                [ baseInputTests (queryView mockInputModel)
-                    { label = "Name", value = "Tessa", type_ = "text" }
-                ]
-        , describe "radioInput" <|
-            let
-                mockInputModel =
-                    { label = text "Radio input"
-                    , typeAndValue = radioInput "radio-group-name" "8" True
-                    , attributes = []
-                    }
-            in
-                [ baseInputTests (queryView mockInputModel)
-                    { label = "Radio input", value = "8", type_ = "radio" }
-                , test "is checked" <|
-                    \() ->
-                        queryView mockInputModel
-                            |> Query.find [ Selector.tag "input" ]
-                            |> Query.has [ Selector.boolAttribute "checked" True ]
-                ]
-        , describe "checkboxInput" <|
-            let
-                mockInputModel maybeSelected =
-                    { label = text "To check or not to check?"
-                    , typeAndValue = checkboxInput "some sick value" maybeSelected
-                    , attributes = []
-                    }
-            in
-                [ baseInputTests (queryView <| mockInputModel (Just True))
-                    { label = "To check or not to check?", value = "some sick value", type_ = "checkbox" }
-                , test "is checked" <|
-                    \() ->
-                        queryView (mockInputModel (Just True))
-                            |> Query.find [ Selector.tag "input" ]
-                            |> Query.has [ Selector.boolAttribute "checked" True ]
-                , test "is not checked" <|
-                    \() ->
-                        queryView (mockInputModel (Just False))
-                            |> Query.find [ Selector.tag "input" ]
-                            |> Query.has [ Selector.boolAttribute "checked" False ]
-                , test "is indeterminate" <|
-                    \() ->
-                        queryView (mockInputModel Nothing)
-                            |> Query.find [ Selector.tag "input" ]
-                            |> Query.has [ Selector.boolAttribute "indeterminate" True ]
-                ]
-        ]
-
-
-baseInputTests : Query.Single -> { label : String, value : String, type_ : String } -> Test
-baseInputTests queryView { label, value, type_ } =
-    describe "Basic input tests"
-        [ test "has label with the given label text" <|
-            \() ->
-                queryView
-                    |> Query.find [ Selector.tag "label" ]
-                    |> Query.has [ Selector.text label ]
-        , test "has input with the appropriate value" <|
-            \() ->
-                queryView
-                    |> Query.find [ Selector.tag "input" ]
-                    |> Query.has [ Selector.attribute "value" value ]
-        , test "is an input of the appropriate type" <|
-            \() ->
-                queryView
-                    |> Query.find [ Selector.tag "input" ]
-                    |> Query.has [ Selector.attribute "type" type_ ]
-        ]
+        describe "Basic input tests"
+            [ test "has label with the given label text" <|
+                \() ->
+                    queryView
+                        |> Query.find [ Selector.tag "label" ]
+                        |> Query.has [ Selector.text label ]
+            , test "has input with the appropriate value" <|
+                \() ->
+                    queryView
+                        |> Query.find [ Selector.tag "input" ]
+                        |> Query.has [ Selector.attribute "value" value ]
+            , test "is an input of the appropriate type" <|
+                \() ->
+                    queryView
+                        |> Query.find [ Selector.tag "input" ]
+                        |> Query.has [ Selector.attribute "type" type_ ]
+            ]
 
 
 imagesTests : Test
