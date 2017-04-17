@@ -9,7 +9,7 @@ module Html.Attributes.A11y
         , indeterminate
         , banner
         , complementary
-        , contentinfo
+        , contentInfo
         , form
         , main_
         , navigation
@@ -17,57 +17,57 @@ module Html.Attributes.A11y
         , application
         , region
         , group
-        , radiogroup
+        , radioGroup
         , heading
         , presentation
         , alert
-        , alertdialog
+        , alertDialog
         , article
         , button
-        , checkbox
-        , columnheader
-        , combobox
+        , checkBox
+        , columnHeader
+        , comboBox
         , definition
         , dialog
         , directory
         , document
         , grid
-        , gridcell
+        , gridCell
         , img
         , link
         , list
-        , listbox
-        , listitem
+        , listBox
+        , listItem
         , log
         , marquee
         , math
         , menu
-        , menubar
-        , menuitem
-        , menuitemcheckbox
-        , menuitemradio
+        , menuBar
+        , menuItem
+        , menuItemCheckBox
+        , menuItemRadio
         , note
         , option
-        , progressbar
+        , progressBar
         , radio
         , row
-        , rowgroup
-        , rowheader
-        , scrollbar
+        , rowGroup
+        , rowHeader
+        , scrollBar
         , separator
         , slider
-        , spinbutton
+        , spinButton
         , status
         , tab
-        , tablist
-        , tabpanel
-        , textbox
+        , tabList
+        , tabPanel
+        , textBox
         , timer
-        , toolbar
-        , tooltip
+        , toolBar
+        , toolTip
         , tree
-        , treegrid
-        , treeitem
+        , treeGrid
+        , treeItem
         )
 
 {-|
@@ -85,11 +85,11 @@ For more information on hiding/semi-hiding elements, please see [the a11y projec
 
 [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
 
-@docs banner, complementary, contentinfo, form, main_, navigation, search, application, region
+@docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
 
 ## Grouping
 
-@docs group, radiogroup
+@docs group, radioGroup
 
 ## Heading
 
@@ -99,7 +99,7 @@ For more information on hiding/semi-hiding elements, please see [the a11y projec
 
 (e.g., stuff that isn't in the HTML spec or is in the HTML spec but you want to do something tricky.)
 
-@docs alert, alertdialog, article, button, checkbox, columnheader, combobox, definition, dialog, directory, document, grid, gridcell, img, link, list, listbox, listitem, log, marquee, math, menu, menubar, menuitem, menuitemcheckbox, menuitemradio, note, option, progressbar, radio, row, rowgroup, rowheader, scrollbar, separator, slider, spinbutton, status, tab, tablist, tabpanel, textbox, timer, toolbar, tooltip, tree, treegrid, treeitem
+@docs alert, alertDialog, article, button, checkBox, columnHeader, comboBox, definition, dialog, directory, document, grid, gridCell, img, link, list, listBox, listItem, log, marquee, math, menu, menuBar, menuItem, menuItemCheckBox, menuItemRadio, note, option, progressBar, radio, row, rowGroup, rowHeader, scrollBar, separator, slider, spinButton, status, tab, tabList, tabPanel, textBox, timer, toolBar, toolTip, tree, treeGrid, treeItem
 ## Other
 
 @docs presentation
@@ -196,8 +196,8 @@ complementary =
 
 {-| Copyrights, privacy statements, etc.
 -}
-contentinfo : Html.Attribute msg
-contentinfo =
+contentInfo : Html.Attribute msg
+contentInfo =
     Landmark.contentinfo
 
 
@@ -244,7 +244,7 @@ region =
     Landmark.region
 
 
-{-| Define a set of controls. (for a group of radio inputs, see radiogroup).
+{-| Define a set of controls. (for a group of radio inputs, see radioGroup).
 -}
 group : Html.Attribute msg
 group =
@@ -253,8 +253,8 @@ group =
 
 {-| Define a set of radio-controls.
 -}
-radiogroup : Html.Attribute msg
-radiogroup =
+radioGroup : Html.Attribute msg
+radioGroup =
     Grouping.radiogroup
 
 
@@ -268,339 +268,339 @@ heading =
     Heading.heading
 
 
-{-| Add `alert` to the attributes of an element.
+{-| Add `role="alert"` to the attributes of an element.
 -}
 alert : Html.Attribute msg
 alert =
     Element.alert
 
 
-{-| Add `alertdialog` to the attributes of an element.
+{-| Add `role="alertdialog"` to the attributes of an element.
 -}
-alertdialog : Html.Attribute msg
-alertdialog =
+alertDialog : Html.Attribute msg
+alertDialog =
     Element.alertdialog
 
 
-{-| Add `article` to the attributes of an element.
+{-| Add `role="article"` to the attributes of an element.
 -}
 article : Html.Attribute msg
 article =
     Element.article
 
 
-{-| Add `button` to the attributes of an element.
+{-| Add `role="button"` to the attributes of an element.
 -}
 button : Html.Attribute msg
 button =
     Element.button
 
 
-{-| Add `checkbox` to the attributes of an element.
+{-| Add `role="checkbox"` to the attributes of an element.
 -}
-checkbox : Html.Attribute msg
-checkbox =
+checkBox : Html.Attribute msg
+checkBox =
     Element.checkbox
 
 
-{-| Add `columnheader` to the attributes of an element.
+{-| Add `role="columnheader"` to the attributes of an element.
 -}
-columnheader : Html.Attribute msg
-columnheader =
+columnHeader : Html.Attribute msg
+columnHeader =
     Element.columnheader
 
 
-{-| Add `combobox` to the attributes of an element.
+{-| Add `role="combobox"` to the attributes of an element.
 -}
-combobox : Html.Attribute msg
-combobox =
+comboBox : Html.Attribute msg
+comboBox =
     Element.combobox
 
 
-{-| Add `definition` to the attributes of an element.
+{-| Add `role="definition"` to the attributes of an element.
 -}
 definition : Html.Attribute msg
 definition =
     Element.definition
 
 
-{-| Add `dialog` to the attributes of an element.
+{-| Add `role="dialog"` to the attributes of an element.
 -}
 dialog : Html.Attribute msg
 dialog =
     Element.dialog
 
 
-{-| Add `directory` to the attributes of an element.
+{-| Add `role="directory"` to the attributes of an element.
 -}
 directory : Html.Attribute msg
 directory =
     Element.directory
 
 
-{-| Add `document` to the attributes of an element.
+{-| Add `role="document"` to the attributes of an element.
 -}
 document : Html.Attribute msg
 document =
     Element.document
 
 
-{-| Add `grid` to the attributes of an element.
+{-| Add `role="grid"` to the attributes of an element.
 -}
 grid : Html.Attribute msg
 grid =
     Element.grid
 
 
-{-| Add `gridcell` to the attributes of an element.
+{-| Add `role="gridcell"` to the attributes of an element.
 -}
-gridcell : Html.Attribute msg
-gridcell =
+gridCell : Html.Attribute msg
+gridCell =
     Element.gridcell
 
 
-{-| Add `img` to the attributes of an element.
+{-| Add `role="img"` to the attributes of an element.
 -}
 img : Html.Attribute msg
 img =
     Element.img
 
 
-{-| Add `link` to the attributes of an element.
+{-| Add `role="link"` to the attributes of an element.
 -}
 link : Html.Attribute msg
 link =
     Element.link
 
 
-{-| Add `list` to the attributes of an element.
+{-| Add `role="list"` to the attributes of an element.
 -}
 list : Html.Attribute msg
 list =
     Element.list
 
 
-{-| Add `listbox` to the attributes of an element.
+{-| Add `role="listbox"` to the attributes of an element.
 -}
-listbox : Html.Attribute msg
-listbox =
+listBox : Html.Attribute msg
+listBox =
     Element.listbox
 
 
-{-| Add `listitem` to the attributes of an element.
+{-| Add `role="listitem"` to the attributes of an element.
 -}
-listitem : Html.Attribute msg
-listitem =
+listItem : Html.Attribute msg
+listItem =
     Element.listitem
 
 
-{-| Add `log` to the attributes of an element.
+{-| Add `role="log"` to the attributes of an element.
 -}
 log : Html.Attribute msg
 log =
     Element.log
 
 
-{-| Add `marquee` to the attributes of an element.
+{-| Add `role="marquee"` to the attributes of an element.
 -}
 marquee : Html.Attribute msg
 marquee =
     Element.marquee
 
 
-{-| Add `math` to the attributes of an element.
+{-| Add `role="math"` to the attributes of an element.
 -}
 math : Html.Attribute msg
 math =
     Element.math
 
 
-{-| Add `menu` to the attributes of an element.
+{-| Add `role="menu"` to the attributes of an element.
 -}
 menu : Html.Attribute msg
 menu =
     Element.menu
 
 
-{-| Add `menubar` to the attributes of an element.
+{-| Add `role="menubar"` to the attributes of an element.
 -}
-menubar : Html.Attribute msg
-menubar =
+menuBar : Html.Attribute msg
+menuBar =
     Element.menubar
 
 
-{-| Add `menuitem` to the attributes of an element.
+{-| Add `role="menuitem"` to the attributes of an element.
 -}
-menuitem : Html.Attribute msg
-menuitem =
+menuItem : Html.Attribute msg
+menuItem =
     Element.menuitem
 
 
-{-| Add `menuitemcheckbox` to the attributes of an element.
+{-| Add `role="menuitemcheckbox"` to the attributes of an element.
 -}
-menuitemcheckbox : Html.Attribute msg
-menuitemcheckbox =
+menuItemCheckBox : Html.Attribute msg
+menuItemCheckBox =
     Element.menuitemcheckbox
 
 
-{-| Add `menuitemradio` to the attributes of an element.
+{-| Add `role="menuitemradio"` to the attributes of an element.
 -}
-menuitemradio : Html.Attribute msg
-menuitemradio =
+menuItemRadio : Html.Attribute msg
+menuItemRadio =
     Element.menuitemradio
 
 
-{-| Add `note` to the attributes of an element.
+{-| Add `role="note"` to the attributes of an element.
 -}
 note : Html.Attribute msg
 note =
     Element.note
 
 
-{-| Add `option` to the attributes of an element.
+{-| Add `role="option"` to the attributes of an element.
 -}
 option : Html.Attribute msg
 option =
     Element.option
 
 
-{-| Add `progressbar` to the attributes of an element.
+{-| Add `role="progressbar"` to the attributes of an element.
 -}
-progressbar : Html.Attribute msg
-progressbar =
+progressBar : Html.Attribute msg
+progressBar =
     Element.progressbar
 
 
-{-| Add `radio` to the attributes of an element.
+{-| Add `role="radio"` to the attributes of an element.
 -}
 radio : Html.Attribute msg
 radio =
     Element.radio
 
 
-{-| Add `row` to the attributes of an element.
+{-| Add `role="row"` to the attributes of an element.
 -}
 row : Html.Attribute msg
 row =
     Element.row
 
 
-{-| Add `rowgroup` to the attributes of an element.
+{-| Add `role="rowgroup"` to the attributes of an element.
 -}
-rowgroup : Html.Attribute msg
-rowgroup =
+rowGroup : Html.Attribute msg
+rowGroup =
     Element.rowgroup
 
 
-{-| Add `rowheader` to the attributes of an element.
+{-| Add `role="rowheader"` to the attributes of an element.
 -}
-rowheader : Html.Attribute msg
-rowheader =
+rowHeader : Html.Attribute msg
+rowHeader =
     Element.rowheader
 
 
-{-| Add `scrollbar` to the attributes of an element.
+{-| Add `role="scrollbar"` to the attributes of an element.
 -}
-scrollbar : Html.Attribute msg
-scrollbar =
+scrollBar : Html.Attribute msg
+scrollBar =
     Element.scrollbar
 
 
-{-| Add `separator` to the attributes of an element.
+{-| Add `role="separator"` to the attributes of an element.
 -}
 separator : Html.Attribute msg
 separator =
     Element.separator
 
 
-{-| Add `slider` to the attributes of an element.
+{-| Add `role="slider"` to the attributes of an element.
 -}
 slider : Html.Attribute msg
 slider =
     Element.slider
 
 
-{-| Add `spinbutton` to the attributes of an element.
+{-| Add `role="spinbutton"` to the attributes of an element.
 -}
-spinbutton : Html.Attribute msg
-spinbutton =
+spinButton : Html.Attribute msg
+spinButton =
     Element.spinbutton
 
 
-{-| Add `status` to the attributes of an element.
+{-| Add `role="status"` to the attributes of an element.
 -}
 status : Html.Attribute msg
 status =
     Element.status
 
 
-{-| Add `tab` to the attributes of an element.
+{-| Add `role="tab"` to the attributes of an element.
 -}
 tab : Html.Attribute msg
 tab =
     Element.tab
 
 
-{-| Add `tablist` to the attributes of an element.
+{-| Add `role="tablist"` to the attributes of an element.
 -}
-tablist : Html.Attribute msg
-tablist =
+tabList : Html.Attribute msg
+tabList =
     Element.tablist
 
 
-{-| Add `tabpanel` to the attributes of an element.
+{-| Add `role="tabpanel"` to the attributes of an element.
 -}
-tabpanel : Html.Attribute msg
-tabpanel =
+tabPanel : Html.Attribute msg
+tabPanel =
     Element.tabpanel
 
 
-{-| Add `textbox` to the attributes of an element.
+{-| Add `role="textbox"` to the attributes of an element.
 -}
-textbox : Html.Attribute msg
-textbox =
+textBox : Html.Attribute msg
+textBox =
     Element.textbox
 
 
-{-| Add `timer` to the attributes of an element.
+{-| Add `role="timer"` to the attributes of an element.
 -}
 timer : Html.Attribute msg
 timer =
     Element.timer
 
 
-{-| Add `toolbar` to the attributes of an element.
+{-| Add `role="toolbar"` to the attributes of an element.
 -}
-toolbar : Html.Attribute msg
-toolbar =
+toolBar : Html.Attribute msg
+toolBar =
     Element.toolbar
 
 
-{-| Add `tooltip` to the attributes of an element.
+{-| Add `role="tooltip"` to the attributes of an element.
 -}
-tooltip : Html.Attribute msg
-tooltip =
+toolTip : Html.Attribute msg
+toolTip =
     Element.tooltip
 
 
-{-| Add `tree` to the attributes of an element.
+{-| Add `role="tree"` to the attributes of an element.
 -}
 tree : Html.Attribute msg
 tree =
     Element.tree
 
 
-{-| Add `treegrid` to the attributes of an element.
+{-| Add `role="treegrid"` to the attributes of an element.
 -}
-treegrid : Html.Attribute msg
-treegrid =
+treeGrid : Html.Attribute msg
+treeGrid =
     Element.treegrid
 
 
-{-| Add `treeitem` to the attributes of an element.
+{-| Add `role="treeitem"` to the attributes of an element.
 -}
-treeitem : Html.Attribute msg
-treeitem =
+treeItem : Html.Attribute msg
+treeItem =
     Element.treeitem
 
 
