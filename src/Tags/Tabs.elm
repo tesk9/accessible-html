@@ -15,7 +15,7 @@ import Html.Attributes.A11y as A11y
 
 tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabList attributes children =
-    div (A11y.tablist :: attributes) children
+    div (A11y.tabList :: attributes) children
 
 
 tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
@@ -25,4 +25,4 @@ tab attributes children =
 
 tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabPanel attributes children =
-    div (A11y.tabpanel :: attributes) children
+    div (A11y.tabPanel :: attributes) children
