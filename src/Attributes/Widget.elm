@@ -105,9 +105,15 @@ disabled =
     aria "disabled" << toBoolString
 
 
-expanded : String -> Html.Attribute msg
+{-| Available on `button`, `comboBox`, `document`, `link`, `section`, `sectionHead`, and `window`.
+
+Trickily, this attribute can be applied to either an element that is itself
+expanded/collapsed, OR to an elment it controls that is either expanded/collapsed.
+In the latter case, throw on a `controls` attribute as well to clarify the relationship.
+-}
+expanded : Bool -> Html.Attribute msg
 expanded =
-    aria "expanded"
+    aria "expanded" << toBoolString
 
 
 hasPopUp : String -> Html.Attribute msg
