@@ -1,31 +1,35 @@
 module Attributes.Widget
     exposing
-        ( autocomplete
+        ( autoCompleteInline
+        , autoCompleteList
+        , autoCompleteBoth
         , checked
         , disabled
         , expanded
-        , haspopup
+        , hasPopUp
         , hidden
         , invalid
         , label
         , level
-        , multiline
-        , multiselectable
+        , multiLine
+        , multiSelectable
         , orientation
         , pressed
-        , readonly
+        , readOnly
         , required
         , selected
         , sort
-        , valuemax
-        , valuemin
-        , valuenow
-        , valuetext
+        , valueMax
+        , valueMin
+        , valueNow
+        , valueText
         )
 
 {-| Learn more about widget states and properties on the [w3 website](https://www.w3.org/TR/wai-aria/states_and_properties#attrs_widgets_header).
 
-@docs
+# Auto Complete
+
+@docs autoCompleteInline , autoCompleteList , autoCompleteBoth
 -}
 
 import Html
@@ -43,9 +47,40 @@ asBool =
     Json.Encode.bool
 
 
-autocomplete : String -> Html.Attribute msg
-autocomplete =
-    aria "autocomplete"
+{-| Add this attriute to any `combobox` or `textbox` when there's a suggestion
+for completing the field that shows up in the line that the user is completing.
+
+Be sure to indicate that the auto-completed text is selected.
+
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete).
+-}
+autoCompleteInline : Html.Attribute msg
+autoCompleteInline =
+    aria "autocomplete" "inline"
+
+
+{-| Add this attriute to any `combobox` or `textbox` when there's a suggestion
+for completing the field that shows up as a list of options from which the user can pick.
+
+Be sure to indicate that the auto-completed text is selected.
+
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete).
+-}
+autoCompleteList : Html.Attribute msg
+autoCompleteList =
+    aria "autocomplete" "list"
+
+
+{-| Add this attriute to any `combobox` or `textbox` when there's a suggestion
+for completing the field when there's both inline autocomplete and list autocomplete occurring at once.
+
+Be sure to indicate that the auto-completed text is selected.
+
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete).
+-}
+autoCompleteBoth : Html.Attribute msg
+autoCompleteBoth =
+    aria "autocomplete" "both"
 
 
 checked : String -> Html.Attribute msg
@@ -63,8 +98,8 @@ expanded =
     aria "expanded"
 
 
-haspopup : String -> Html.Attribute msg
-haspopup =
+hasPopUp : String -> Html.Attribute msg
+hasPopUp =
     aria "haspopup"
 
 
@@ -88,13 +123,13 @@ level =
     aria "level"
 
 
-multiline : String -> Html.Attribute msg
-multiline =
+multiLine : String -> Html.Attribute msg
+multiLine =
     aria "multiline"
 
 
-multiselectable : String -> Html.Attribute msg
-multiselectable =
+multiSelectable : String -> Html.Attribute msg
+multiSelectable =
     aria "multiselectable"
 
 
@@ -108,8 +143,8 @@ pressed =
     aria "pressed"
 
 
-readonly : String -> Html.Attribute msg
-readonly =
+readOnly : String -> Html.Attribute msg
+readOnly =
     aria "readonly"
 
 
@@ -128,21 +163,21 @@ sort =
     aria "sort"
 
 
-valuemax : String -> Html.Attribute msg
-valuemax =
+valueMax : String -> Html.Attribute msg
+valueMax =
     aria "valuemax"
 
 
-valuemin : String -> Html.Attribute msg
-valuemin =
+valueMin : String -> Html.Attribute msg
+valueMin =
     aria "valuemin"
 
 
-valuenow : String -> Html.Attribute msg
-valuenow =
+valueNow : String -> Html.Attribute msg
+valueNow =
     aria "valuenow"
 
 
-valuetext : String -> Html.Attribute msg
-valuetext =
+valueText : String -> Html.Attribute msg
+valueText =
     aria "valuetext"
