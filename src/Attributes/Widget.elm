@@ -98,9 +98,11 @@ checked =
     aria "checked" << Maybe.Extra.unwrap "mixed" toBoolString
 
 
-disabled : String -> Html.Attribute msg
+{-| Supported for all elements. Elements are not disabled (are enabled) by default.
+-}
+disabled : Bool -> Html.Attribute msg
 disabled =
-    aria "disabled"
+    aria "disabled" << toBoolString
 
 
 expanded : String -> Html.Attribute msg
