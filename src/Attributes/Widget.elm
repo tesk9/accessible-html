@@ -53,7 +53,7 @@ in the line that the user is completing.
 
 Be sure to indicate that the auto-completed text is selected.
 
-See [the autocomplete spec](https://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete).
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 -}
 autoCompleteInline : Html.Attribute msg
 autoCompleteInline =
@@ -66,7 +66,7 @@ of options from which the user can pick.
 
 Be sure to indicate that the auto-completed text is selected.
 
-See [the autocomplete spec](https://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete).
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 -}
 autoCompleteList : Html.Attribute msg
 autoCompleteList =
@@ -79,16 +79,19 @@ inline autocomplete and list autocomplete occurring at once.
 
 Be sure to indicate that the auto-completed text is selected.
 
-See [the autocomplete spec](https://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete).
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 -}
 autoCompleteBoth : Html.Attribute msg
 autoCompleteBoth =
     aria "autocomplete" "both"
 
 
-{-| Available on `option`.
+{-| Available on `checkbox`, `option`, `radio`, `switch`
 
-CheckBoxes can be checked (`Just True`), unchecked (`Just False`), or indeterminate (`Nothing`).
+Check boxes can be checked (`Just True`), unchecked (`Just False`), or indeterminate (`Nothing`).
+Other elements won't support tri-state checkedness.
+
+See [the checked spec](https://www.w3.org/TR/wai-aria-1.1/#aria-checked).
 -}
 checked : Maybe Bool -> Html.Attribute msg
 checked =
