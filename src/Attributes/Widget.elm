@@ -62,6 +62,10 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
 @docs multiline
 
+# Misc
+
+@docs multiSelectable
+
 -}
 
 import Html
@@ -246,10 +250,14 @@ multiLine =
     aria "multiline" << toBoolString
 
 
+{-| Supported on `grid`, `listBox`, `tabList`, `tree`. (However, what would it mean
+for a `tabList`, say, to have multiple selectable descendants?)
 
-multiSelectable : String -> Html.Attribute msg
+When true, users are not restricted to selecting only one selectable descendant at a time.
+-}
+multiSelectable : Bool -> Html.Attribute msg
 multiSelectable =
-    aria "multiselectable"
+    aria "multiselectable" << toBoolString
 
 
 orientation : String -> Html.Attribute msg
