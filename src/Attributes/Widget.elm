@@ -57,6 +57,11 @@ That is, use `hasMenuPopUp` if the pop-up container has a role of `menu`.
 See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
 @docs hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
+
+# Text Boxes
+
+@docs multiline
+
 -}
 
 import Html
@@ -228,11 +233,18 @@ level =
     aria "level" << toString
 
 
+{-| Supported for `textbox` only.
 
+Indicate whether the `textbox` is for multi-line inputs or single-line inputs.
 
-multiLine : String -> Html.Attribute msg
+TODO: should the role just be `textBoxSingleLine` and `textBoxMultiLine` instead?
+
+Careful of Enter behavior on this one.
+-}
+multiLine : Bool -> Html.Attribute msg
 multiLine =
-    aria "multiline"
+    aria "multiline" << toBoolString
+
 
 
 multiSelectable : String -> Html.Attribute msg
