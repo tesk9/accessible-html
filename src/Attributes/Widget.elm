@@ -13,6 +13,8 @@ module Attributes.Widget
         , hasDialogPopUp
         , hidden
         , invalid
+        , invalidGrammar
+        , invalidSpelling
         , label
         , level
         , multiLine
@@ -30,6 +32,10 @@ module Attributes.Widget
         )
 
 {-|
+# State
+
+@docs checked, disabled, expanded, hidden, invalid, invalidGrammar, invalidSpelling
+
 # Auto Complete
 
 @docs autoCompleteInline, autoCompleteList, autoCompleteBoth
@@ -52,16 +58,6 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 import Html
 import Html.Attributes exposing (..)
 import Maybe.Extra
-
-
-aria : String -> String -> Html.Attribute msg
-aria =
-    attribute << (++) "aria-"
-
-
-toBoolString : Bool -> String
-toBoolString =
-    String.toLower << toString
 
 
 {-| Available on `comboBox` or `textbox`.
@@ -181,12 +177,30 @@ hasDialogPopUp =
 -}
 hidden : Bool -> Html.Attribute msg
 hidden =
-    aria "hidden"
+    aria "hidden" << toBoolString
 
 
-invalid : String -> Html.Attribute msg
+{-| Supported for all elements.
+
+For invalid grammar or spelling, please see `invalidGrammar` and `invalidSpelling` respectively.
+-}
+invalid : Bool -> Html.Attribute msg
 invalid =
-    aria "invalid"
+    aria "invalid" << toBoolString
+
+
+{-| Supported for all elements.
+-}
+invalidGrammar : Html.Attribute msg
+invalidGrammar =
+    aria "invalid" "grammar"
+
+
+{-| Supported for all elements.
+-}
+invalidSpelling : Html.Attribute msg
+invalidSpelling =
+    aria "invalid" "spelling"
 
 
 label : String -> Html.Attribute msg
@@ -257,3 +271,13 @@ valueNow =
 valueText : String -> Html.Attribute msg
 valueText =
     aria "valuetext"
+
+
+aria : String -> String -> Html.Attribute msg
+aria =
+    attribute << (++) "aria-"
+
+
+toBoolString : Bool -> String
+toBoolString =
+    String.toLower << toString
