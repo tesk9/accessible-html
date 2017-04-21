@@ -177,7 +177,9 @@ hasDialogPopUp =
     aria "haspopup" "dialog"
 
 
-hidden : String -> Html.Attribute msg
+{-|
+-}
+hidden : Bool -> Html.Attribute msg
 hidden =
     aria "hidden"
 

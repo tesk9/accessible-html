@@ -3,13 +3,12 @@ module Attributes.Aria
         ( controls
         , labelledBy
         , selected
-        , hidden
         , longDescription
         , indeterminate
         )
 
 {-|
-@docs controls, labelledBy, selected, hidden, longDescription, indeterminate
+@docs controls, labelledBy, selected, longDescription, indeterminate
 -}
 
 import Html
@@ -30,11 +29,6 @@ labelledBy =
 selected : Bool -> Html.Attribute msg
 selected =
     attribute "aria-selected" << String.toLower << toString
-
-
-hidden : Bool -> Html.Attribute msg
-hidden =
-    attribute "aria-hidden" << String.toLower << toString
 
 
 longDescription : String -> Html.Attribute msg

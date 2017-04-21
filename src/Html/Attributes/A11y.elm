@@ -112,6 +112,7 @@ import Attributes.Grouping as Grouping
 import Attributes.Heading as Heading
 import Attributes.Landmark as Landmark
 import Attributes.Role exposing (..)
+import Attributes.Widget as Widget
 import Css
 import Html
 import Html.Attributes exposing (..)
@@ -161,7 +162,7 @@ selected =
 -}
 hidden : Bool -> Html.Attribute msg
 hidden =
-    Aria.hidden
+    Widget.hidden
 
 
 {-| Creates the longDesc attribute with the given url, which should point to a text description of the content. This attribute is only supported on img tags.
