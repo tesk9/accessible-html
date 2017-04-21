@@ -32,6 +32,10 @@ module Attributes.Widget
         )
 
 {-|
+# Page Hierarchy
+
+@docs level
+
 # State
 
 @docs checked, disabled, expanded, hidden, invalid, invalidGrammar, invalidSpelling
@@ -203,14 +207,27 @@ invalidSpelling =
     aria "invalid" "spelling"
 
 
+{-| Supported for all elements.
+-}
 label : String -> Html.Attribute msg
 label =
     aria "label"
 
 
-level : String -> Html.Attribute msg
+{-| Supported for `grid`, `heading`, `listItem`, `row`, and `tabList`.
+
+This attribute is about hierarchy--how many "levels" deep is an element?
+
+    h7 attributes =
+        div (heading :: level 7 :: attributes)
+
+Please refer to the [documentation](https://www.w3.org/TR/wai-aria-1.1/#aria-level) to get a better sense of when to use.
+-}
+level : Int -> Html.Attribute msg
 level =
-    aria "level"
+    aria "level" << toString
+
+
 
 
 multiLine : String -> Html.Attribute msg

@@ -39,8 +39,3 @@ longDescription =
 indeterminate : Html.Attribute msg
 indeterminate =
     property "indeterminate" (Json.Encode.bool True)
-
-
-level : Int -> Html.Attribute msg
-level =
-    attribute "aria-level" << toString
