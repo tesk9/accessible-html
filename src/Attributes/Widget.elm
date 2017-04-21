@@ -39,7 +39,7 @@ module Attributes.Widget
 
 # State
 
-@docs checked, disabled, expanded, hidden, invalid, invalidGrammar, invalidSpelling
+@docs checked, disabled, expanded, hidden, invalid, invalidGrammar, invalidSpelling, readOnly
 
 # Auto Complete
 
@@ -65,7 +65,11 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
 # Orientation
 
-orientationHorizontal, orientationVertical
+@docs orientationHorizontal, orientationVertical
+
+# Button
+
+@docs pressed
 
 # Misc
 
@@ -301,10 +305,16 @@ pressed =
     aria "pressed" << toTriStateString
 
 
+{-| Supported on `checkBox`, `comboBox`, `grid`, `gridCell`, `listBox`,
+`radioGroup`, `slider`, `spinButton`, and `textBox`.
 
-readOnly : String -> Html.Attribute msg
+Indicates read-only status of a widget, although normal navigation rules and
+copying behavior should apply. (Read: `readOnly` elements are navigable but
+unchangeable, and `disabled` elements are neither navigable nor unchangebale).
+-}
+readOnly : Bool -> Html.Attribute msg
 readOnly =
-    aria "readonly"
+    aria "readonly" << toBoolString
 
 
 required : String -> Html.Attribute msg
