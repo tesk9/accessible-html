@@ -34,7 +34,7 @@ module Attributes.Widget
 
 import Html
 import Html.Attributes exposing (..)
-import Json.Encode
+import Maybe.Extra
 
 
 aria : String -> String -> Html.Attribute msg
@@ -42,13 +42,14 @@ aria =
     attribute << (++) "aria-"
 
 
-asBool : Bool -> Json.Encode.Value
-asBool =
-    Json.Encode.bool
+toBoolString : Bool -> String
+toBoolString =
+    String.toLower << toString
 
 
-{-| Add this attriute to any `combobox` or `textbox` when there's a suggestion
-for completing the field that shows up in the line that the user is completing.
+{-| Available on `comboBox` or `textbox`.
+Use when there's a suggestion for completing the field that shows up
+in the line that the user is completing.
 
 Be sure to indicate that the auto-completed text is selected.
 
@@ -59,8 +60,9 @@ autoCompleteInline =
     aria "autocomplete" "inline"
 
 
-{-| Add this attriute to any `combobox` or `textbox` when there's a suggestion
-for completing the field that shows up as a list of options from which the user can pick.
+{-| Available on `comboBox` or `textbox`.
+Use when there's a suggestion for completing the field that shows up as a list
+of options from which the user can pick.
 
 Be sure to indicate that the auto-completed text is selected.
 
@@ -71,8 +73,9 @@ autoCompleteList =
     aria "autocomplete" "list"
 
 
-{-| Add this attriute to any `combobox` or `textbox` when there's a suggestion
-for completing the field when there's both inline autocomplete and list autocomplete occurring at once.
+{-| Available on `comboBox` or `textbox`.
+Use when there's a suggestion for completing the field when there's both
+inline autocomplete and list autocomplete occurring at once.
 
 Be sure to indicate that the auto-completed text is selected.
 
@@ -83,9 +86,13 @@ autoCompleteBoth =
     aria "autocomplete" "both"
 
 
-checked : String -> Html.Attribute msg
+{-| Available on `option`.
+
+CheckBoxes can be checked (`Just True`), unchecked (`Just False`), or indeterminate (`Nothing`).
+-}
+checked : Maybe Bool -> Html.Attribute msg
 checked =
-    aria "checked"
+    aria "checked" << Maybe.Extra.unwrap "mixed" toBoolString
 
 
 disabled : String -> Html.Attribute msg
