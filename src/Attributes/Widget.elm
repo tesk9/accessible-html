@@ -125,7 +125,7 @@ See [the checked spec](https://www.w3.org/TR/wai-aria-1.1/#aria-checked).
 -}
 checked : Maybe Bool -> Html.Attribute msg
 checked =
-    aria "checked" << Maybe.Extra.unwrap "mixed" toBoolString
+    aria "checked" << toTriStateString
 
 
 {-| Supported for all elements. Elements are not disabled (are enabled) by default.
@@ -289,9 +289,17 @@ orientationVertical =
     aria "orientation" "vertical"
 
 
-pressed : String -> Html.Attribute msg
+{-| Supported on `button`.
+
+If you're confused about different button options, please check out these
+[examples](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/button/button.html.
+
+TODO: Move to be a button role option?
+-}
+pressed : Maybe Bool -> Html.Attribute msg
 pressed =
-    aria "pressed"
+    aria "pressed" << toTriStateString
+
 
 
 readOnly : String -> Html.Attribute msg
@@ -342,3 +350,8 @@ aria =
 toBoolString : Bool -> String
 toBoolString =
     String.toLower << toString
+
+
+toTriStateString : Maybe Bool -> String
+toTriStateString =
+    Maybe.Extra.unwrap "mixed" toBoolString
