@@ -41,6 +41,10 @@ module Attributes.Widget
 
 @docs checked, disabled, expanded, hidden, invalid, invalidGrammar, invalidSpelling, readOnly
 
+# Form
+
+@docs required
+
 # Auto Complete
 
 @docs autoCompleteInline, autoCompleteList, autoCompleteBoth
@@ -317,9 +321,13 @@ readOnly =
     aria "readonly" << toBoolString
 
 
-required : String -> Html.Attribute msg
+{-| Supported by `comboBox`, `gridCell`, `listBox`, `radioGroup`, `spinButton`, `textBox`, `tree`
+
+Indicate whether user input is or is not required on a field for valid form submission.
+-}
+required : Bool -> Html.Attribute msg
 required =
-    aria "required"
+    aria "required" << toBoolString
 
 
 selected : String -> Html.Attribute msg
