@@ -19,7 +19,8 @@ module Attributes.Widget
         , level
         , multiLine
         , multiSelectable
-        , orientation
+        , orientationHorizontal
+        , orientationVertical
         , pressed
         , readOnly
         , required
@@ -61,6 +62,10 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 # Text Boxes
 
 @docs multiline
+
+# Orientation
+
+orientationHorizontal, orientationVertical
 
 # Misc
 
@@ -260,9 +265,28 @@ multiSelectable =
     aria "multiselectable" << toBoolString
 
 
-orientation : String -> Html.Attribute msg
-orientation =
-    aria "orientation"
+{-| Supported on roles with some sense of inherent orientation:
+`scrollbar`, `select`, `separator`, `slider`, `tabList`, `toolBar`
+
+Careful: default behavior is inconsistent across those roles.
+
+TODO: should the non-default behavior be explicit from the role perspective?
+-}
+orientationHorizontal : Html.Attribute msg
+orientationHorizontal =
+    aria "orientation" "horizontal"
+
+
+{-| Supported on roles with some sense of inherent orientation:
+`scrollbar`, `select`, `separator`, `slider`, `tabList`, `toolBar`
+
+Careful: default behavior is inconsistent across those roles.
+
+TODO: should the non-default behavior be explicit from the role perspective?
+-}
+orientationVertical : Html.Attribute msg
+orientationVertical =
+    aria "orientation" "vertical"
 
 
 pressed : String -> Html.Attribute msg
