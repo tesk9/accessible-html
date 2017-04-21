@@ -6,7 +6,11 @@ module Attributes.Widget
         , checked
         , disabled
         , expanded
-        , hasPopUp
+        , hasMenuPopUp
+        , hasListBoxPopUp
+        , hasTreePopUp
+        , hasGridPopUp
+        , hasDialogPopUp
         , hidden
         , invalid
         , label
@@ -25,11 +29,24 @@ module Attributes.Widget
         , valueText
         )
 
-{-| Learn more about widget states and properties on the [w3 website](https://www.w3.org/TR/wai-aria/states_and_properties#attrs_widgets_header).
-
+{-|
 # Auto Complete
 
-@docs autoCompleteInline , autoCompleteList , autoCompleteBoth
+@docs autoCompleteInline, autoCompleteList, autoCompleteBoth
+
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
+
+# Pop-Ups
+
+Pop-ups are supported for all elements (but not meant for use on tooltips).
+
+The pop-up itself needs to have a containing element with one of these roles:
+`menu`, `listbox`, `tree`, `grid`, or `dialog`, and the pop-up value must match.
+That is, use `hasMenuPopUp` if the pop-up container has a role of `menu`.
+
+See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
+
+@docs hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
 -}
 
 import Html
@@ -53,7 +70,6 @@ in the line that the user is completing.
 
 Be sure to indicate that the auto-completed text is selected.
 
-See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 -}
 autoCompleteInline : Html.Attribute msg
 autoCompleteInline =
@@ -116,9 +132,49 @@ expanded =
     aria "expanded" << toBoolString
 
 
-hasPopUp : String -> Html.Attribute msg
-hasPopUp =
-    aria "haspopup"
+{-| Indicate that interaction with this element can trigger a `menu` pop-up.
+
+Be careful while managing focus and triggering.
+-}
+hasMenuPopUp : Html.Attribute msg
+hasMenuPopUp =
+    aria "haspopup" "menu"
+
+
+{-| Indicate that interaction with this element can trigger a `listBox` pop-up.
+
+Be careful while managing focus and triggering.
+-}
+hasListBoxPopUp : Html.Attribute msg
+hasListBoxPopUp =
+    aria "haspopup" "listbox"
+
+
+{-| Indicate that interaction with this element can trigger a `tree` pop-up.
+
+Be careful while managing focus and triggering.
+-}
+hasTreePopUp : Html.Attribute msg
+hasTreePopUp =
+    aria "haspopup" "tree"
+
+
+{-| Indicate that interaction with this element can trigger a `grid` pop-up.
+
+Be careful while managing focus and triggering.
+-}
+hasGridPopUp : Html.Attribute msg
+hasGridPopUp =
+    aria "haspopup" "grid"
+
+
+{-| Indicate that interaction with this element can trigger a `dialog` pop-up.
+
+Be careful while managing focus and triggering.
+-}
+hasDialogPopUp : Html.Attribute msg
+hasDialogPopUp =
+    aria "haspopup" "dialog"
 
 
 hidden : String -> Html.Attribute msg
