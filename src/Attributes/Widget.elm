@@ -37,12 +37,25 @@ module Attributes.Widget
 
 {-|
 # Page Hierarchy
-
 @docs level
 
 # State
 
-## Selection
+## Inputs
+@docs required
+
+### Button
+@docs pressed
+
+### TextBox
+@docs multiline
+
+#### Auto-complete behavior
+@docs autoCompleteInline, autoCompleteList, autoCompleteBoth
+
+See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
+
+### Selection
 @docs checked, selected
 
 ## Validity
@@ -51,17 +64,8 @@ module Attributes.Widget
 ## Interactability
 @docs expanded, hidden, readOnly, disabled
 
-# Form
-
-@docs required
-
-# Auto Complete
-
-@docs autoCompleteInline, autoCompleteList, autoCompleteBoth
-
-See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
-
 # Pop-Ups
+@docs hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
 
 Pop-ups are supported for all elements (but not meant for use on tooltips).
 
@@ -71,26 +75,14 @@ That is, use `hasMenuPopUp` if the pop-up container has a role of `menu`.
 
 See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
-@docs hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
-
-# Text Boxes
-
-@docs multiline
 
 # Orientation and Range Widgets
-
 @docs orientationHorizontal, orientationVertical, valueMin, valueMax, valueNow, valueText
 
-# Button
-
-@docs pressed
-
 # Table Sort-by-column
-
 @docs sortAscending, sortDescending, sortCustom, sortNone
 
 # Misc
-
 @docs multiSelectable
 
 -}
