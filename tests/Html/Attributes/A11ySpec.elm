@@ -12,10 +12,8 @@ spec : Test
 spec =
     describe "Html.Attributes.A11ySpec"
         [ describe "attribute setters"
-            [ addsControls
-            , addsLabelledBy
-            , addsSelected True
-            , addsSelected False
+            [ addsAriaStringAttribute controls ( "controls", "some-id" )
+            , addsAriaStringAttribute labelledBy ( "labelledby", "some-id" )
             ]
         , describe "role" <|
             List.map (uncurry addsRole) allRoles
@@ -100,21 +98,6 @@ addsAriaNumAttribute setter attribute =
     in
         describe ("sets the " ++ toString setter ++ " attribute")
             [ test "True" <| adds 8 ]
-
-
-addsControls : Test
-addsControls =
-    addsStringAttribute controls ( "aria-controls", "some-id" )
-
-
-addsLabelledBy : Test
-addsLabelledBy =
-    addsStringAttribute labelledBy ( "aria-labelledby", "some-id" )
-
-
-addsSelected : Bool -> Test
-addsSelected selected_ =
-    addsBoolAttribute selected "aria-selected"
 
 
 addsRole : Html.Attribute msg -> String -> Test
