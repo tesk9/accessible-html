@@ -12,7 +12,7 @@ module Tags.Inputs
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Attributes.A11y as A11y exposing (..)
+import Html.Attributes.A11y as A11y
 import Maybe.Extra
 
 
@@ -54,7 +54,7 @@ typeAndValueAttibutes typeAndValue =
             [ type_ "radio", name name_, value value_, checked checked_ ]
 
         Checkbox value_ maybe_checked ->
-            [ type_ "checkbox", value value_, Maybe.Extra.unwrap indeterminate checked maybe_checked ]
+            [ type_ "checkbox", value value_, Maybe.Extra.unwrap A11y.indeterminate checked maybe_checked ]
 
 
 baseInput : Input msg -> Html msg
@@ -84,7 +84,7 @@ invisibleLabeledInput : Input msg -> String -> Html msg
 invisibleLabeledInput inputModel id_ =
     span
         []
-        [ label [ invisible, for id_ ] [ inputModel.label ]
+        [ label [ A11y.invisible, for id_ ] [ inputModel.label ]
         , input
             (typeAndValueAttibutes inputModel.typeAndValue
                 ++ id id_
