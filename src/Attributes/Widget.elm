@@ -35,9 +35,8 @@ module Attributes.Widget
         , valueText
         )
 
+import Attributes.Utils exposing (..)
 import Html
-import Html.Attributes exposing (..)
-import Maybe.Extra
 
 
 autoCompleteInline : Html.Attribute msg
@@ -203,18 +202,3 @@ valueNow =
 valueText : String -> Html.Attribute msg
 valueText =
     aria "valuetext"
-
-
-aria : String -> String -> Html.Attribute msg
-aria =
-    attribute << (++) "aria-"
-
-
-toBoolString : Bool -> String
-toBoolString =
-    String.toLower << toString
-
-
-toTriStateString : Maybe Bool -> String
-toTriStateString =
-    Maybe.Extra.unwrap "mixed" toBoolString

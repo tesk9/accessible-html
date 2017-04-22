@@ -1,10 +1,6 @@
 module Html.Attributes.A11y
     exposing
         ( invisible
-        , controls
-        , labelledBy
-        , longDescription
-        , indeterminate
         , banner
         , complementary
         , contentInfo
@@ -99,6 +95,42 @@ module Html.Attributes.A11y
         , valueMin
         , valueNow
         , valueText
+        , labelledBy
+        , longDescription
+        , indeterminate
+        , activeDescendant
+        , atomic
+        , busy
+        , colCount
+        , colIndex
+        , colSpan
+        , controls
+        , currentItem
+        , currentPage
+        , currentStep
+        , currentLocation
+        , currentDate
+        , currentTime
+        , describedBy
+        , details
+        , errorMessage
+        , flowTo
+        , keyShortcuts
+        , livePolite
+        , liveAssertive
+        , modal
+        , placeholder
+        , posInSet
+        , relevantAdditions
+        , relevantAdditionsText
+        , relevantAll
+        , relevantRemovals
+        , relevantText
+        , roleDescription
+        , rowCount
+        , rowIndex
+        , rowSpan
+        , setSize
         )
 
 {-|
@@ -106,9 +138,6 @@ module Html.Attributes.A11y
 @docs invisible
 
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
-
-## Aria
-@docs controls, label, labelledBy, longDescription
 
 ## Landmark
 @docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
@@ -209,6 +238,38 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 ### Misc
 @docs multiSelectable
 
+## Aria
+
+## Aria
+@docs indeterminate, activeDescendant, controls
+
+### Providing More Info
+@docs longDescription, details, describedBy, labelledBy, label
+@docs modal, keyShortcuts, roleDescription
+
+### Live Region Attributes
+Learn more about how to use live regions [here](https://www.w3.org/TR/wai-aria-practices-1.1/#liveprops).
+@docs atomic, busy, livePolite, liveAssertive
+
+#### Relevant
+@docs relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
+
+### Navigation and Flow
+@docs flowTo
+
+### Textbox Related
+@docs placeholder
+
+### Table Related
+@docs colCount, colIndex, colSpan, rowCount, rowIndex, rowSpan
+
+### Set-related
+@docs setSize, posInSet
+
+### Current
+@docs currentItem, currentPage, currentStep, currentLocation, currentDate, currentTime
+
+@docs errorMessage
 -}
 
 import Attributes.Aria as Aria
@@ -1042,3 +1103,324 @@ version of the current value. However, `valueNow` should always be used.
 valueText : String -> Html.Attribute msg
 valueText =
     Widget.valueText
+
+
+
+{- *** ARIA ATTRIBUTES *** -}
+
+
+{-| Supported for all elements.
+
+This property indicates that a region is live, and may change even when the
+region doesn't have focus. When `True`, all the contents of the element will be
+presented to the user.
+-}
+atomic : Bool -> Html.Attribute msg
+atomic =
+    Aria.atomic
+
+
+{-| Supported for all elements.
+
+When set to `True`, this is the aria equivalent of a loading spinner--indicates
+that stuff is changing/is not ready for interaction/reading-off yet.
+-}
+busy : Bool -> Html.Attribute msg
+busy =
+    Aria.busy
+
+
+{-| Supported by `table`, `grid`, `treegrid`.
+
+Declares the number of columns in a grid in which not all of the columns are
+displayed. (If all columns are present--skip using this.)
+
+`-1` indicates total column number is unknown.
+-}
+colCount : Int -> Html.Attribute msg
+colCount =
+    Aria.colCount
+
+
+{-| Supported by `cell`, `row`, `columnHeader`, `gridCell`, and `rowHeader`.
+
+Indexing begins from 1, NOT 0. Plus, the colIndex should not be greater than the `colCount`!
+If a cell stretches across multiple columns, use the starting column index and `colSpan`.
+
+The simplest rule is to put the `colIndex` on every child of a `row`.
+-}
+colIndex : Int -> Html.Attribute msg
+colIndex =
+    Aria.colIndex
+
+
+{-| Supported by `cell`, `columnHeader`, `gridCell`, and `rowHeader`.
+
+Indicate how many columns-wide a cell is.
+-}
+colSpan : Int -> Html.Attribute msg
+colSpan =
+    Aria.colSpan
+
+
+{-| Supported by `table`, `grid`, `treegrid`.
+
+Declares the number of rows in a grid in which not all of the rows are
+displayed. (If all rows are present--skip using this.)
+
+`-1` indicates total row number is unknown.
+-}
+rowCount : Int -> Html.Attribute msg
+rowCount =
+    Aria.rowCount
+
+
+{-| Supported by `cell`, `row`, `columnHeader`, `gridCell`, and `rowHeader`.
+
+Analagous to `colIndex`.
+-}
+rowIndex : Int -> Html.Attribute msg
+rowIndex =
+    Aria.rowIndex
+
+
+{-| Supported by `cell`, `columnHeader`, `gridCell`, and `rowHeader`.
+
+Indicate how many rows-wide a cell is.
+-}
+rowSpan : Int -> Html.Attribute msg
+rowSpan =
+    Aria.rowSpan
+
+
+{-| Supported by list-y elements: `article`, `listItem`, `menuItem`, `option`,
+`radio`, `tab`, `menuitemcheckbox`, `menuitemradio`, and `treeItem`.
+
+Only necessary when not all of the items in the set are in the DOM. Use with `setSize`.
+-}
+posInSet : Int -> Html.Attribute msg
+posInSet =
+    Aria.posInSet
+
+
+{-| Supported by list-y elements: `article`, `listItem`, `menuItem`, `option`,
+`radio`, `tab`, `menuitemcheckbox`, `menuitemradio`, and `treeItem`.
+
+`setSize` indicates the total number of items in a set where not all the items are
+currently present in the DOM.
+-}
+setSize : Int -> Html.Attribute msg
+setSize =
+    Aria.setSize
+
+
+{-| Supported by all elements.
+
+Indicate that a link in a nav or list is the current location.
+-}
+currentPage : Html.Attribute msg
+currentPage =
+    Aria.currentPage
+
+
+{-| Supported by all elements.
+
+Indicate which step in a step-based flow is the current one.
+-}
+currentStep : Html.Attribute msg
+currentStep =
+    Aria.currentStep
+
+
+{-| Supported by all elements.
+-}
+currentLocation : Html.Attribute msg
+currentLocation =
+    Aria.currentLocation
+
+
+{-| Supported by all elements.
+
+As in a calendar widget.
+-}
+currentDate : Html.Attribute msg
+currentDate =
+    Aria.currentDate
+
+
+{-| Supported by all elements.
+
+As in a timepicker widget.
+-}
+currentTime : Html.Attribute msg
+currentTime =
+    Aria.currentTime
+
+
+{-| Supported by all elements.
+-}
+currentItem : Bool -> Html.Attribute msg
+currentItem =
+    Aria.currentItem
+
+
+{-| Supported by all elements.
+
+Kind of a more-verbose version of `labelledBy`. Pass it a list of ids
+of elements that describe the given element.
+-}
+describedBy : List String -> Html.Attribute msg
+describedBy =
+    Aria.describedBy
+
+
+{-| Supported by all elements.
+
+Refer to a single extended description section--maybe a couple of paragraphs
+and a chart. Pass in the section's id.
+-}
+details : String -> Html.Attribute msg
+details =
+    Aria.details
+
+
+{-| Supported by all elements.
+
+Reference the element that has error details. e.g., if you've got an input field
+that's invalid, add `errorMessage` to the input with the id of whatever element
+is telling the user in what way their submission is wrong.
+
+    input [ invalid True, errorMessage "error-message-id" ] []
+-}
+errorMessage : String -> Html.Attribute msg
+errorMessage =
+    Aria.errorMessage
+
+
+{-| Supported by all elements.
+
+Provide an alternative document reading order and offer navigation to the
+elements referenced in the passed-in list of ids.
+-}
+flowTo : List String -> Html.Attribute msg
+flowTo =
+    Aria.flowTo
+
+
+{-| Supported by all elements.
+
+Keyboard shortcuts!!! Pass in a list of keyboard shortcuts. See [recommendations](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_shortcuts)
+on how to make good shortcuts.
+
+TODO: Consider adding a keyboard library/type?
+
+    keyShortcuts [ "Alt+Shift+P", "Control+F" ]
+-}
+keyShortcuts : List String -> Html.Attribute msg
+keyShortcuts =
+    Aria.keyShortcuts
+
+
+{-| Supported by all elements.
+
+When the region's contents change, assistive technologies will wait for a good
+moment to interrupt and do so politely with the update.
+-}
+livePolite : Html.Attribute msg
+livePolite =
+    Aria.livePolite
+
+
+{-| Supported by all elements.
+
+Updates to the region will cause the assistive technologies to immediately
+interrupt the user with the big news.
+-}
+liveAssertive : Html.Attribute msg
+liveAssertive =
+    Aria.liveAssertive
+
+
+{-| Supported by `window`, `alert`, and `alertDialog`.
+
+Indicate that a modal is showing and the rest of the page contents are not
+interactable.
+-}
+modal : Bool -> Html.Attribute msg
+modal =
+    Aria.modal
+
+
+{-| Supported by `textbox` and `searchbox`.
+
+Provide a hint about an expected value.
+-}
+placeholder : String -> Html.Attribute msg
+placeholder =
+    Aria.placeholder
+
+
+{-| Supported by live regions.
+
+Keep track of additions to the live region.
+-}
+relevantAdditions : Html.Attribute msg
+relevantAdditions =
+    Aria.relevantAdditions
+
+
+{-| Supported by live regions.
+
+Keep track of node additions to the live region and text additions.
+-}
+relevantAdditionsText : Html.Attribute msg
+relevantAdditionsText =
+    Aria.relevantAdditionsText
+
+
+{-| Supported by live regions.
+
+Keep track of everything to occur in the live region. Use sparingly!
+-}
+relevantAll : Html.Attribute msg
+relevantAll =
+    Aria.relevantAll
+
+
+{-| Supported by live regions.
+
+Keep track of text or node removals. Use sparingly!
+-}
+relevantRemovals : Html.Attribute msg
+relevantRemovals =
+    Aria.relevantRemovals
+
+
+{-| Supported by live regions.
+
+Keep track of text additions to the live region.
+-}
+relevantText : Html.Attribute msg
+relevantText =
+    Aria.relevantText
+
+
+{-| Supported by all elements.
+
+Provide human-readable description of the role of an element. Should be used
+alongside an actual role--this is supplementary information.
+-}
+roleDescription : String -> Html.Attribute msg
+roleDescription =
+    Aria.roleDescription
+
+
+{-| Supported in container-y roles: `application`, `composite`, `group`, `textbox`,
+`comboBox`, `grid`, `listBox`, `menu`, `menuBar`, `radioGroup`, `row`, `searchBox`,
+`select`, `spinButton`, `tabList`, `toolBar`, `tree`, and `treeGrid`.
+
+Identifies the currently-active element.
+-}
+activeDescendant : String -> Html.Attribute msg
+activeDescendant =
+    Aria.activeDescendant
