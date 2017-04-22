@@ -25,7 +25,10 @@ module Attributes.Widget
         , readOnly
         , required
         , selected
-        , sort
+        , sortAscending
+        , sortDescending
+        , sortCustom
+        , sortNone
         , valueMax
         , valueMin
         , valueNow
@@ -81,6 +84,10 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 # Button
 
 @docs pressed
+
+# Table Sort-by-column
+
+@docs sortAscending, sortDescending, sortCustom, sortNone
 
 # Misc
 
@@ -346,9 +353,51 @@ selected =
     aria "selected" << toBoolString
 
 
-sort : String -> Html.Attribute msg
-sort =
-    aria "sort"
+{-| Supported by `columnHeader` and `rowHeader`, but only where those roles are
+used on table or grid headers.
+
+This should only be applied to one header at a time.
+
+Table is sorted by this column's values in ascending order.
+-}
+sortAscending : Html.Attribute msg
+sortAscending =
+    aria "sort" "ascending"
+
+
+{-| Supported by `columnHeader` and `rowHeader`, but only where those roles are
+used on table or grid headers.
+
+Only one column in a table should be sorting the values in table.
+
+Table is sorted by this column's values in descending order.
+-}
+sortDescending : Html.Attribute msg
+sortDescending =
+    aria "sort" "descending"
+
+
+{-| Supported by `columnHeader` and `rowHeader`, but only where those roles are
+used on table or grid headers.
+
+Only one column in a table should be sorting the values in table.
+
+Table is sorted by this column's values, but the algorithm for that sorting
+is custom (not ascending or descending).
+-}
+sortCustom : Html.Attribute msg
+sortCustom =
+    aria "sort" "other"
+
+
+{-| Supported by `columnHeader` and `rowHeader`, but only where those roles are
+used on table or grid headers.
+
+Table is not sorted by this column's values.
+-}
+sortNone : Html.Attribute msg
+sortNone =
+    aria "sort" "none"
 
 
 valueMax : String -> Html.Attribute msg
