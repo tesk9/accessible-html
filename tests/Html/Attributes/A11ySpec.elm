@@ -72,6 +72,22 @@ addsAriaBoolAttribute setter attribute =
     addsBoolAttribute setter ("aria-" ++ attribute)
 
 
+addsAriaTristateAttribute : (Maybe Bool -> Html.Attribute msg) -> String -> Test
+addsAriaTristateAttribute setter attribute =
+    let
+        adds state desiredState =
+            \() ->
+                div [] [ div [ setter state ] [] ]
+                    |> Query.fromHtml
+                    |> Query.has [ Selector.attribute ("aria-" ++ attribute) desiredState ]
+    in
+        describe ("sets the " ++ toString setter ++ " attribute")
+            [ test "True" <| adds (Just True) "true"
+            , test "False" <| adds (Just False) "false"
+            , test "Mixed" <| adds Nothing "mixed"
+            ]
+
+
 addsControls : Test
 addsControls =
     addsStringAttribute controls ( "aria-controls", "some-id" )
@@ -207,9 +223,9 @@ widgetTests =
         , addsAriaBoolAttribute readOnly "readonly"
         , addsAriaBoolAttribute required "required"
         , addsAriaBoolAttribute selected "selected"
+        , addsAriaTristateAttribute pressed "pressed"
+        , addsAriaTristateAttribute checked "checked"
 
-        --,  pressed
-        --,  checked
         --,  valueMax
         --,  valueMin
         --,  valueNow
