@@ -77,9 +77,9 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
 @docs multiline
 
-# Orientation
+# Orientation and Range Widgets
 
-@docs orientationHorizontal, orientationVertical
+@docs orientationHorizontal, orientationVertical, valueMin, valueMax, valueNow, valueText
 
 # Button
 
@@ -400,21 +400,38 @@ sortNone =
     aria "sort" "none"
 
 
-valueMax : String -> Html.Attribute msg
+{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+
+Set the max allowed value for a range widget.
+-}
+valueMax : number -> Html.Attribute msg
 valueMax =
-    aria "valuemax"
+    aria "valuemax" << toString
 
 
-valueMin : String -> Html.Attribute msg
+{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+
+Set the min allowed value for a range widget.
+-}
+valueMin : number -> Html.Attribute msg
 valueMin =
-    aria "valuemin"
+    aria "valuemin" << toString
 
 
-valueNow : String -> Html.Attribute msg
+{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+
+Set the current value for a range widget. Don't use this property for indeterminate states.
+-}
+valueNow : number -> Html.Attribute msg
 valueNow =
-    aria "valuenow"
+    aria "valuenow" << toString
 
 
+{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+
+This property takes precedence over `valueNow`, and should show a human-readable
+version of the current value. However, `valueNow` should always be used.
+-}
 valueText : String -> Html.Attribute msg
 valueText =
     aria "valuetext"
