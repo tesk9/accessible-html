@@ -18,3 +18,8 @@ toBoolString =
 toTriStateString : Maybe Bool -> String
 toTriStateString =
     Maybe.Extra.unwrap "mixed" toBoolString
+
+
+toListString : List String -> String
+toListString =
+    String.join " "
