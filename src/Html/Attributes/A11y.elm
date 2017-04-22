@@ -155,7 +155,7 @@ labelledBy =
 -}
 selected : Bool -> Html.Attribute msg
 selected =
-    Aria.selected
+    Widget.selected
 
 
 {-| Creates aria hidden attribute.

@@ -39,7 +39,14 @@ module Attributes.Widget
 
 # State
 
-@docs checked, disabled, expanded, hidden, invalid, invalidGrammar, invalidSpelling, readOnly
+## Selection
+@docs checked, selected
+
+## Validity
+@docs invalid, invalidGrammar, invalidSpelling
+
+## Interactability
+@docs expanded, hidden, readOnly, disabled
 
 # Form
 
@@ -330,9 +337,13 @@ required =
     aria "required" << toBoolString
 
 
-selected : String -> Html.Attribute msg
+{-| Supported by `gridCell`, `option`, `row`, `tab`.
+
+Indicate whether an element (in a single- or multi-selectable widget) is or is not selected.
+-}
+selected : Bool -> Html.Attribute msg
 selected =
-    aria "selected"
+    aria "selected" << toBoolString
 
 
 sort : String -> Html.Attribute msg

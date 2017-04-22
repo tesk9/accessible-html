@@ -2,13 +2,12 @@ module Attributes.Aria
     exposing
         ( controls
         , labelledBy
-        , selected
         , longDescription
         , indeterminate
         )
 
 {-|
-@docs controls, labelledBy, selected, longDescription, indeterminate
+@docs controls, labelledBy, longDescription, indeterminate
 -}
 
 import Html
@@ -24,11 +23,6 @@ controls =
 labelledBy : String -> Html.Attribute msg
 labelledBy =
     attribute "aria-labelledby"
-
-
-selected : Bool -> Html.Attribute msg
-selected =
-    attribute "aria-selected" << String.toLower << toString
 
 
 longDescription : String -> Html.Attribute msg
