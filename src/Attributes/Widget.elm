@@ -392,7 +392,7 @@ sortNone =
     aria "sort" "none"
 
 
-{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+{-| Supported by `scrollbar`, `separator`, `slider`, and `spinButton`.
 
 Set the max allowed value for a range widget.
 -}
@@ -401,7 +401,7 @@ valueMax =
     aria "valuemax" << toString
 
 
-{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+{-| Supported by `scrollbar`, `separator`, `slider`, and `spinButton`.
 
 Set the min allowed value for a range widget.
 -}
@@ -410,7 +410,7 @@ valueMin =
     aria "valuemin" << toString
 
 
-{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+{-| Supported by `scrollbar`, `separator`, `slider`, and `spinButton`.
 
 Set the current value for a range widget. Don't use this property for indeterminate states.
 -}
@@ -419,7 +419,7 @@ valueNow =
     aria "valuenow" << toString
 
 
-{-| Supported by `range`, `scrollbar`, `separator`, `slider`, and `spinButton`.
+{-| Supported by `scrollbar`, `separator`, `slider`, and `spinButton`.
 
 This property takes precedence over `valueNow`, and should show a human-readable
 version of the current value. However, `valueNow` should always be used.
