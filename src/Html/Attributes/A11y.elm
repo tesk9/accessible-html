@@ -72,36 +72,59 @@ module Html.Attributes.A11y
 
 {-|
 ## Hiding content
+@docs invisible
 
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
 
-@docs invisible
-
 ## Aria
-
-@docs controls, labelledBy, selected, hidden, longDescription, indeterminate
+@docs controls, labelledBy, longDescription, indeterminate
 
 ## Landmark
+@docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
 
 [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
 
-@docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
+## Elements
+### General
+@docs article, comboBox, definition, directory, document, img, link, math, note
 
-## Grouping
+### Dialogs
+@docs alertDialog, dialog
 
+### Grids
+@docs columnHeader, grid, gridCell, row, rowGroup, rowHeader
+
+### Grouping
 @docs group, radioGroup
 
-## Heading
-
+### Heading
 @docs heading
 
-## Elements
+### Inputs
+@docs button, checkBox, option, radio, textBox
 
-(e.g., stuff that isn't in the HTML spec or is in the HTML spec but you want to do something tricky.)
+### Lists
+@docs list, listBox, listItem
 
-@docs alert, alertDialog, article, button, checkBox, columnHeader, comboBox, definition, dialog, directory, document, grid, gridCell, img, link, list, listBox, listItem, log, marquee, math, menu, menuBar, menuItem, menuItemCheckBox, menuItemRadio, note, option, progressBar, radio, row, rowGroup, rowHeader, scrollBar, separator, slider, spinButton, status, tab, tabList, tabPanel, textBox, timer, toolBar, toolTip, tree, treeGrid, treeItem
+### Live Regions
+@docs alert, log, marquee, timer, status
+
+### Menus
+@docs menu, menuBar, menuItem, menuItemCheckBox, menuItemRadio,
+
+### Range-y widgets
+@docs progressBar, scrollBar, separator, slider, spinButton
+
+### Tabs
+@docs tab, tabList, tabPanel
+
+### Tools
+@docs toolBar, toolTip,
+
+### Trees
+@docs tree, treeGrid, treeItem
+
 ## Other
-
 @docs presentation
 
 -}
