@@ -1209,7 +1209,7 @@ posInSet =
 `setSize` indicates the total number of items in a set where not all the items are
 currently present in the DOM.
 -}
-setSize : String -> Html.Attribute msg
+setSize : Int -> Html.Attribute msg
 setSize =
     Aria.setSize
 

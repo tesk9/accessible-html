@@ -51,7 +51,7 @@ labelledBy =
 
 longDescription : String -> Html.Attribute msg
 longDescription =
-    attribute "longDesc"
+    attribute "longdesc"
 
 
 indeterminate : Html.Attribute msg
@@ -109,9 +109,9 @@ posInSet =
     aria "posinset" << toString
 
 
-setSize : String -> Html.Attribute msg
+setSize : Int -> Html.Attribute msg
 setSize =
-    aria "setsize"
+    aria "setsize" << toString
 
 
 controls : String -> Html.Attribute msg
