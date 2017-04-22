@@ -12,34 +12,32 @@ spec : Test
 spec =
     describe "Html.Attributes.A11ySpec"
         [ describe "attribute setters"
-            [ addsControls
-            , addsLabelledBy
-            , addsSelected True
-            , addsSelected False
+            [ addsAriaStringAttribute controls ( "controls", "some-id" )
+            , addsAriaStringAttribute labelledBy ( "labelledby", "some-id" )
             ]
         , describe "role" <|
             List.map (uncurry addsRole) allRoles
         , longDescriptionTests
+        , widgetTests
         ]
 
 
-addsAttribute : (String -> Html.Attribute msg) -> ( String, String ) -> Test
+addsAttribute : Html.Attribute msg -> ( String, String ) -> Test
 addsAttribute setter ( attribute, content ) =
+    test ("sets the " ++ toString setter ++ " attribute") <|
+        \() ->
+            div [] [ div [ setter ] [] ]
+                |> Query.fromHtml
+                |> Query.has [ Selector.attribute attribute content ]
+
+
+addsStringAttribute : (String -> Html.Attribute msg) -> ( String, String ) -> Test
+addsStringAttribute setter ( attribute, content ) =
     test ("sets the " ++ toString setter ++ " attribute") <|
         \() ->
             div [] [ div [ setter content ] [] ]
                 |> Query.fromHtml
                 |> Query.has [ Selector.attribute attribute content ]
-
-
-addsControls : Test
-addsControls =
-    addsAttribute controls ( "aria-controls", "some-id" )
-
-
-addsLabelledBy : Test
-addsLabelledBy =
-    addsAttribute labelledBy ( "aria-labelledby", "some-id" )
 
 
 addsBoolAttribute : (Bool -> Html.Attribute msg) -> String -> Test
@@ -57,9 +55,49 @@ addsBoolAttribute setter attribute =
             ]
 
 
-addsSelected : Bool -> Test
-addsSelected selected_ =
-    addsBoolAttribute selected "aria-selected"
+addsAriaAttribute : Html.Attribute msg -> ( String, String ) -> Test
+addsAriaAttribute setter ( attribute, content ) =
+    addsAttribute setter ( "aria-" ++ attribute, content )
+
+
+addsAriaStringAttribute : (String -> Html.Attribute msg) -> ( String, String ) -> Test
+addsAriaStringAttribute setter ( attribute, content ) =
+    addsStringAttribute setter ( "aria-" ++ attribute, content )
+
+
+addsAriaBoolAttribute : (Bool -> Html.Attribute msg) -> String -> Test
+addsAriaBoolAttribute setter attribute =
+    addsBoolAttribute setter ("aria-" ++ attribute)
+
+
+addsAriaTristateAttribute : (Maybe Bool -> Html.Attribute msg) -> String -> Test
+addsAriaTristateAttribute setter attribute =
+    let
+        adds state desiredState =
+            \() ->
+                div [] [ div [ setter state ] [] ]
+                    |> Query.fromHtml
+                    |> Query.has [ Selector.attribute ("aria-" ++ attribute) desiredState ]
+    in
+        describe ("sets the " ++ toString setter ++ " attribute")
+            [ test "True" <| adds (Just True) "true"
+            , test "False" <| adds (Just False) "false"
+            , test "Mixed" <| adds Nothing "mixed"
+            ]
+
+
+addsAriaNumAttribute : (number -> Html.Attribute msg) -> String -> Test
+addsAriaNumAttribute setter attribute =
+    --TODO: Fuzz?
+    let
+        adds state =
+            \() ->
+                div [] [ div [ setter state ] [] ]
+                    |> Query.fromHtml
+                    |> Query.has [ Selector.attribute ("aria-" ++ attribute) (toString state) ]
+    in
+        describe ("sets the " ++ toString setter ++ " attribute")
+            [ test "True" <| adds 8 ]
 
 
 addsRole : Html.Attribute msg -> String -> Test
@@ -150,3 +188,42 @@ allRoles =
     , ( treeGrid, "treegrid" )
     , ( treeItem, "treeitem" )
     ]
+
+
+widgetTests : Test
+widgetTests =
+    describe "Widgets" <|
+        [ addsAriaAttribute autoCompleteInline ( "autocomplete", "inline" )
+        , addsAriaAttribute autoCompleteList ( "autocomplete", "list" )
+        , addsAriaAttribute autoCompleteBoth ( "autocomplete", "both" )
+        , addsAriaAttribute hasMenuPopUp ( "haspopup", "menu" )
+        , addsAriaAttribute hasListBoxPopUp ( "haspopup", "listbox" )
+        , addsAriaAttribute hasTreePopUp ( "haspopup", "tree" )
+        , addsAriaAttribute hasGridPopUp ( "haspopup", "grid" )
+        , addsAriaAttribute hasDialogPopUp ( "haspopup", "dialog" )
+        , addsAriaAttribute invalidGrammar ( "invalid", "grammar" )
+        , addsAriaAttribute invalidSpelling ( "invalid", "spelling" )
+        , addsAriaAttribute orientationHorizontal ( "orientation", "horizontal" )
+        , addsAriaAttribute orientationVertical ( "orientation", "vertical" )
+        , addsAriaAttribute sortAscending ( "sort", "ascending" )
+        , addsAriaAttribute sortDescending ( "sort", "descending" )
+        , addsAriaAttribute sortCustom ( "sort", "other" )
+        , addsAriaAttribute sortNone ( "sort", "none" )
+        , addsAriaStringAttribute A11y.label ( "label", "some-id" )
+        , addsAriaStringAttribute valueText ( "valuetext", "Medium on the Range" )
+        , addsAriaBoolAttribute disabled "disabled"
+        , addsAriaBoolAttribute expanded "expanded"
+        , addsAriaBoolAttribute hidden "hidden"
+        , addsAriaBoolAttribute invalid "invalid"
+        , addsAriaBoolAttribute multiLine "multiline"
+        , addsAriaBoolAttribute multiSelectable "multiselectable"
+        , addsAriaBoolAttribute readOnly "readonly"
+        , addsAriaBoolAttribute required "required"
+        , addsAriaBoolAttribute selected "selected"
+        , addsAriaTristateAttribute pressed "pressed"
+        , addsAriaTristateAttribute checked "checked"
+        , addsAriaNumAttribute valueMax "valuemax"
+        , addsAriaNumAttribute valueMin "valuemin"
+        , addsAriaNumAttribute valueNow "valuenow"
+        , addsAriaNumAttribute level "level"
+        ]

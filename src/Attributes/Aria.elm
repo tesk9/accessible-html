@@ -2,14 +2,12 @@ module Attributes.Aria
     exposing
         ( controls
         , labelledBy
-        , selected
-        , hidden
         , longDescription
         , indeterminate
         )
 
 {-|
-@docs controls, labelledBy, selected, hidden, longDescription, indeterminate
+@docs controls, labelledBy, longDescription, indeterminate
 -}
 
 import Html
@@ -27,16 +25,6 @@ labelledBy =
     attribute "aria-labelledby"
 
 
-selected : Bool -> Html.Attribute msg
-selected =
-    attribute "aria-selected" << String.toLower << toString
-
-
-hidden : Bool -> Html.Attribute msg
-hidden =
-    attribute "aria-hidden" << String.toLower << toString
-
-
 longDescription : String -> Html.Attribute msg
 longDescription =
     attribute "longDesc"
@@ -45,8 +33,3 @@ longDescription =
 indeterminate : Html.Attribute msg
 indeterminate =
     property "indeterminate" (Json.Encode.bool True)
-
-
-level : Int -> Html.Attribute msg
-level =
-    attribute "aria-level" << toString
