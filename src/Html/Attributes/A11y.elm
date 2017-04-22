@@ -108,7 +108,7 @@ module Html.Attributes.A11y
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
 
 ## Aria
-@docs controls, label, labelledBy, longDescription, indeterminate
+@docs controls, label, labelledBy, longDescription
 
 ## Landmark
 @docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
@@ -181,7 +181,7 @@ For more information on hiding/semi-hiding elements, please see [the a11y projec
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 
 ##### Selection
-@docs checked, selected
+@docs checked, selected, indeterminate
 
 #### Validity
 @docs invalid, invalidGrammar, invalidSpelling
