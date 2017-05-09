@@ -1,12 +1,14 @@
 module Html.A11y
     exposing
-        ( Input
-        , textInput
-        , radioInput
-        , checkboxInput
-        , leftLabeledInput
-        , rightLabeledInput
-        , invisibleLabeledInput
+        ( textLeftLabeled
+        , textRightLabeled
+        , textInvisibleLabel
+        , radioLeftLabeled
+        , radioRightLabeled
+        , radioInvisibleLabel
+        , checkBoxLeftLabeled
+        , checkBoxRightLabeled
+        , checkBoxInvisibleLabel
         , tabList
         , tab
         , tabPanel
@@ -17,9 +19,21 @@ module Html.A11y
 
 {-|
 ## Inputs
-@docs Input
-@docs textInput, radioInput, checkboxInput
-@docs leftLabeledInput, rightLabeledInput, invisibleLabeledInput
+
+Inputs defined in this library are offered in three varieties: left-labeled, right-labeled, and featuring an invisible-label.
+Invisible-labelled views require an id.
+
+### Text Inputs
+
+@docs textLeftLabeled, textRightLabeled, textInvisibleLabel
+
+### Radio Inputs
+
+@docs radioLeftLabeled, radioRightLabeled, radioInvisibleLabel
+
+### CheckBox Inputs
+
+@docs checkBoxLeftLabeled, checkBoxRightLabeled, checkBoxInvisibleLabel
 
 ## Tabs
 @docs tabList, tab, tabPanel
@@ -34,71 +48,124 @@ import Tags.Inputs as Inputs
 import Tags.Tabs as Tabs
 
 
-{-| Describes the model used in input views in this library.
+{- *** Text Inputs *** -}
+
+
+textModel : String -> List (Html.Attribute msg) -> Html msg -> Inputs.Input msg
+textModel value attributes label =
+    { typeAndValue = Inputs.textInput value
+    , label = label
+    , attributes = attributes
+    }
+
+
+{-| Construct a left-labeled text input.
+
+    textLeftLabeled "This appears in the text input." [] <| text "I'm the label!"
 -}
-type alias Input msg =
-    Inputs.Input msg
+textLeftLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
+textLeftLabeled value attributes label =
+    Inputs.leftLabeledInput (textModel value attributes label)
 
 
-{-| Use helpers like `textInput` and `radioInput` to create InputTypeAndValue items.
+{-| Construct a right-labeled text input.
+
+    textRightLabeled "This appears in the text input." [] <| text "I'm the label!"
 -}
-type alias InputTypeAndValue =
-    Inputs.InputTypeAndValue
+textRightLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
+textRightLabeled value attributes label =
+    Inputs.rightLabeledInput (textModel value attributes label)
 
 
-{-| This will construct a text input with the value passed in.
+{-| Construct a text input with an invisible label.
 
-    textInput "This appears in the text input."
+    textInvisibleLabel "best-input-everrr" "This appears in the text input." [] <| text "I'm the label!"
 -}
-textInput : String -> InputTypeAndValue
-textInput =
-    Inputs.textInput
+textInvisibleLabel : String -> String -> List (Html.Attribute msg) -> Html msg -> Html msg
+textInvisibleLabel id value attributes label =
+    Inputs.invisibleLabeledInput (textModel value attributes label) id
 
 
-{-| This will construct a radio input. The first argument is the radio group name
-in common across radio items. THe second argument is the value of the radio.
-The third is whether the radio is checked or not.
 
-    radioInput "radio_name" "This is the actual value of the radio." True
+{- *** Radio Inputs *** -}
+
+
+radioModel : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Inputs.Input msg
+radioModel groupName value checked attributes label =
+    { typeAndValue = Inputs.radioInput groupName value checked
+    , label = label
+    , attributes = attributes
+    }
+
+
+{-| Construct a left-labeled radio input.
+
+    radioLeftLabeled "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
 -}
-radioInput : String -> String -> Bool -> InputTypeAndValue
-radioInput =
-    Inputs.radioInput
+radioLeftLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+radioLeftLabeled groupName value checked attributes label =
+    Inputs.leftLabeledInput (radioModel groupName value checked attributes label)
 
 
-{-| This will construct a checkbox input. THe first argument is the value of the checkbox.
-The second is whether the radio is checked, unchecked, or indeterminate.
+{-| Construct a right-labeled radio input.
 
-    checkboxInput "radio_name" "This is the actual value of the radio." True
+    radioRightLabeled  "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
 -}
-checkboxInput : String -> Maybe Bool -> InputTypeAndValue
-checkboxInput =
-    Inputs.checkboxInput
+radioRightLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+radioRightLabeled groupName value checked attributes label =
+    Inputs.rightLabeledInput (radioModel groupName value checked attributes label)
 
 
-{-| Produces a labeled input of a given label type. The label appears on the left side on the input.
+{-| Construct a radio button with an invisible label.
+
+    radioInvisibleLabel "best-input-everrr" "This is the actual value of the radio." [] <| text "I'm the label!"
 -}
-leftLabeledInput : Input msg -> Html msg
-leftLabeledInput =
-    Inputs.leftLabeledInput
+radioInvisibleLabel : String -> String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+radioInvisibleLabel id groupName value checked attributes label =
+    Inputs.invisibleLabeledInput (radioModel groupName value checked attributes label) id
 
 
-{-| Produces a labeled input of a given label type. The label appears on the right side on the input.
+
+{- *** Checkbox Inputs *** -}
+
+
+checkBoxModel : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Inputs.Input msg
+checkBoxModel value checked attributes label =
+    { typeAndValue = Inputs.checkboxInput value checked
+    , label = label
+    , attributes = attributes
+    }
+
+
+{-| Construct a left-labeled check box input.
+
+    checkBoxLeftLabeled "This is the actual value of the check box." (Just True) [] <| text "I'm the label!"
 -}
-rightLabeledInput : Input msg -> Html msg
-rightLabeledInput =
-    Inputs.rightLabeledInput
+checkBoxLeftLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+checkBoxLeftLabeled value checked attributes label =
+    Inputs.leftLabeledInput (checkBoxModel value checked attributes label)
 
 
-{-| Produces a labeled input of a given label type.
-This label is visibly hidden, but is still available for screen readers.
-E.g., use this input if your design asks that you convey information via placeholders
-rather than visible labels.
-Requires that you pass an id.
+{-| Construct a right-labeled check box input.
+
+    checkBoxRightLabeled  "This is the actual value of the checkBox." (Just True) [] <| text "I'm the label!"
 -}
-invisibleLabeledInput : Input msg -> String -> Html msg
-invisibleLabeledInput =
-    Inputs.invisibleLabeledInput
+checkBoxRightLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+checkBoxRightLabeled value checked attributes label =
+    Inputs.rightLabeledInput (checkBoxModel value checked attributes label)
+
+
+{-| Construct a check box with an invisible label.
+
+    checkBoxInvisibleLabel "checkbox-id" "Checkbox value" (Just False) [] <| text "I'm the label!"
+-}
+checkBoxInvisibleLabel : String -> String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+checkBoxInvisibleLabel id value checked attributes label =
+    Inputs.invisibleLabeledInput (checkBoxModel value checked attributes label) id
+
+
+
+{- *** Tabs *** -}
 
 
 {-| Create a tablist. This is the outer container for a list of tabs.
@@ -122,6 +189,10 @@ tab =
 tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabPanel =
     Tabs.tabPanel
+
+
+
+{- *** Images *** -}
 
 
 {-| Use this tag when the image provides information not expressed in the text of the page.
