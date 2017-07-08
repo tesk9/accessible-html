@@ -1,38 +1,73 @@
 module Html.Attributes.A11y
     exposing
-        ( invisible
-        , banner
-        , complementary
-        , contentInfo
-        , form
-        , main_
-        , navigation
-        , search
-        , application
-        , region
-        , group
-        , radioGroup
-        , heading
-        , presentation
+        ( activeDescendant
         , alert
         , alertDialog
+        , application
         , article
+        , atomic
+        , autoCompleteBoth
+        , autoCompleteInline
+        , autoCompleteList
+        , banner
+        , busy
         , button
         , checkBox
+        , checked
+        , colCount
+        , colIndex
+        , colSpan
         , columnHeader
         , comboBox
+        , complementary
+        , contentInfo
+        , controls
+        , currentDate
+        , currentItem
+        , currentLocation
+        , currentPage
+        , currentStep
+        , currentTime
         , definition
+        , describedBy
+        , details
         , dialog
         , directory
+        , disabled
         , document
+        , errorMessage
+        , expanded
+        , flowTo
+        , form
         , grid
         , gridCell
+        , group
+        , hasDialogPopUp
+        , hasGridPopUp
+        , hasListBoxPopUp
+        , hasMenuPopUp
+        , hasTreePopUp
+        , heading
+        , hidden
         , img
+        , indeterminate
+        , invalid
+        , invalidGrammar
+        , invalidSpelling
+        , invisible
+        , keyShortcuts
+        , label
+        , labelledBy
+        , level
         , link
         , list
         , listBox
         , listItem
+        , liveAssertive
+        , livePolite
         , log
+        , longDescription
+        , main_
         , marquee
         , math
         , menu
@@ -40,16 +75,46 @@ module Html.Attributes.A11y
         , menuItem
         , menuItemCheckBox
         , menuItemRadio
+        , modal
+        , multiLine
+        , multiSelectable
+        , navigation
         , note
         , option
+        , orientationHorizontal
+        , orientationVertical
+        , placeholder
+        , posInSet
+        , presentation
+        , pressed
         , progressBar
         , radio
+        , radioGroup
+        , readOnly
+        , region
+        , relevantAdditions
+        , relevantAdditionsText
+        , relevantAll
+        , relevantRemovals
+        , relevantText
+        , required
+        , roleDescription
         , row
+        , rowCount
         , rowGroup
         , rowHeader
+        , rowIndex
+        , rowSpan
         , scrollBar
+        , search
+        , selected
         , separator
+        , setSize
         , slider
+        , sortAscending
+        , sortCustom
+        , sortDescending
+        , sortNone
         , spinButton
         , status
         , tab
@@ -62,163 +127,154 @@ module Html.Attributes.A11y
         , tree
         , treeGrid
         , treeItem
-        , autoCompleteInline
-        , autoCompleteList
-        , autoCompleteBoth
-        , checked
-        , disabled
-        , expanded
-        , hasMenuPopUp
-        , hasListBoxPopUp
-        , hasTreePopUp
-        , hasGridPopUp
-        , hasDialogPopUp
-        , hidden
-        , invalid
-        , invalidGrammar
-        , invalidSpelling
-        , label
-        , level
-        , multiLine
-        , multiSelectable
-        , orientationHorizontal
-        , orientationVertical
-        , pressed
-        , readOnly
-        , required
-        , selected
-        , sortAscending
-        , sortDescending
-        , sortCustom
-        , sortNone
         , valueMax
         , valueMin
         , valueNow
         , valueText
-        , labelledBy
-        , longDescription
-        , indeterminate
-        , activeDescendant
-        , atomic
-        , busy
-        , colCount
-        , colIndex
-        , colSpan
-        , controls
-        , currentItem
-        , currentPage
-        , currentStep
-        , currentLocation
-        , currentDate
-        , currentTime
-        , describedBy
-        , details
-        , errorMessage
-        , flowTo
-        , keyShortcuts
-        , livePolite
-        , liveAssertive
-        , modal
-        , placeholder
-        , posInSet
-        , relevantAdditions
-        , relevantAdditionsText
-        , relevantAll
-        , relevantRemovals
-        , relevantText
-        , roleDescription
-        , rowCount
-        , rowIndex
-        , rowSpan
-        , setSize
         )
 
 {-|
+
+
 ## Hiding content
+
 @docs invisible
 
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
 
+
 ## Landmark
+
 @docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
 
 [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
 
+
 ## Elements
+
+
 ### General
+
 @docs article, comboBox, definition, directory, document, img, link, math, note
 
+
 ### Dialogs
+
 @docs alertDialog, dialog
 
+
 ### Grids
+
 @docs columnHeader, grid, gridCell, row, rowGroup, rowHeader
 
+
 ### Grouping
+
 @docs group, radioGroup
 
+
 ### Heading
+
 @docs heading
 
+
 ### Inputs
+
 @docs button, checkBox, option, radio, textBox
 
+
 ### Lists
+
 @docs list, listBox, listItem
 
+
 ### Live Regions
+
 @docs alert, log, marquee, timer, status
 
+
 ### Menus
+
 @docs menu, menuBar, menuItem, menuItemCheckBox, menuItemRadio
 
+
 ### Range-y widgets
+
 @docs progressBar, scrollBar, separator, slider, spinButton
 
+
 ### Tabs
+
 @docs tab, tabList, tabPanel
 
+
 ### Tools
+
 @docs toolBar, toolTip
 
+
 ### Trees
+
 @docs tree, treeGrid, treeItem
 
+
 ## Other
+
 @docs presentation
 
+
 ## Widget States and Properties
+
 (Some of these are also globally available:: `busy`, `disabled`, `grabbed`, `hidden`, `invalid`)
 
+
 ### Page Hierarchy
+
 @docs level
+
 
 ### State
 
+
 #### Inputs
+
 @docs required
 
+
 ##### Button
+
 @docs pressed
 
+
 ##### TextBox
+
 @docs multiLine
 
+
 ##### Auto-complete behavior
+
 @docs autoCompleteInline, autoCompleteList, autoCompleteBoth
 
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 
+
 ##### Selection
+
 @docs checked, selected, indeterminate
 
+
 #### Validity
+
 @docs invalid, invalidGrammar, invalidSpelling
 
+
 ### Interactability
+
 @docs expanded, hidden, readOnly, disabled
 
+
 ### Pop-Ups
+
 @docs hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
 
 Pop-ups are supported for all elements (but not meant for use on tooltips).
@@ -229,47 +285,73 @@ That is, use `hasMenuPopUp` if the pop-up container has a role of `menu`.
 
 See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
+
 ### Orientation and Range Widgets
+
 @docs orientationHorizontal, orientationVertical, valueMin, valueMax, valueNow, valueText
 
+
 ### Table Sort-by-column
+
 @docs sortAscending, sortDescending, sortCustom, sortNone
 
+
 ### Misc
+
 @docs multiSelectable
 
-## Aria
 
 ## Aria
+
+
+## Aria
+
 @docs indeterminate, activeDescendant, controls
 
+
 ### Providing More Info
+
 @docs longDescription, details, describedBy, labelledBy, label
 @docs modal, keyShortcuts, roleDescription
 
+
 ### Live Region Attributes
+
 Learn more about how to use live regions [here](https://www.w3.org/TR/wai-aria-practices-1.1/#liveprops).
 @docs atomic, busy, livePolite, liveAssertive
 
+
 #### Relevant
+
 @docs relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
 
+
 ### Navigation and Flow
+
 @docs flowTo
 
+
 ### Textbox Related
+
 @docs placeholder
 
+
 ### Table Related
+
 @docs colCount, colIndex, colSpan, rowCount, rowIndex, rowSpan
 
+
 ### Set-related
+
 @docs setSize, posInSet
 
+
 ### Current
+
 @docs currentItem, currentPage, currentStep, currentLocation, currentDate, currentTime
 
 @docs errorMessage
+
 -}
 
 import Attributes.Aria as Aria
@@ -287,6 +369,7 @@ import Html.Attributes exposing (..)
 {-| Makes content invisible without making it inaccessible.
 
     label [ invisible ] [ text "Screen readers can still read me!" ]
+
 -}
 invisible : Html.Attribute msg
 invisible =
@@ -320,6 +403,7 @@ labelledBy =
 {-| Creates the longDesc attribute with the given url, which should point to a text description of the content. This attribute is only supported on img tags.
 
     Html.A11y.img "Growth Chart in Some Sweet Unit (Quarter 4)" [ longDescription "/quarter_4_summary#Growth" ]
+
 -}
 longDescription : String -> Html.Attribute msg
 longDescription =
@@ -383,7 +467,7 @@ search =
 
 
 {-| Declare a region as a web application.
-Be careful with this one--see https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html.
+Be careful with this one--see <https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html>.
 -}
 application : Html.Attribute msg
 application =
@@ -415,6 +499,7 @@ radioGroup =
 Really this attribute should only be necessary if you need an `h7`-type heading.
 
     div [ heading, level 7 ] []
+
 -}
 heading : Html.Attribute msg
 heading =
@@ -787,6 +872,7 @@ of options from which the user can pick.
 Be sure to indicate that the auto-completed text is selected.
 
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
+
 -}
 autoCompleteList : Html.Attribute msg
 autoCompleteList =
@@ -800,6 +886,7 @@ inline autocomplete and list autocomplete occurring at once.
 Be sure to indicate that the auto-completed text is selected.
 
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
+
 -}
 autoCompleteBoth : Html.Attribute msg
 autoCompleteBoth =
@@ -812,6 +899,7 @@ Check boxes can be checked (`Just True`), unchecked (`Just False`), or indetermi
 Other elements won't support tri-state checkedness.
 
 See [the checked spec](https://www.w3.org/TR/wai-aria-1.1/#aria-checked).
+
 -}
 checked : Maybe Bool -> Html.Attribute msg
 checked =
@@ -830,6 +918,7 @@ disabled =
 Trickily, this attribute can be applied to either an element that is itself
 expanded/collapsed, OR to an elment it controls that is either expanded/collapsed.
 In the latter case, throw on a `controls` attribute as well to clarify the relationship.
+
 -}
 expanded : Bool -> Html.Attribute msg
 expanded =
@@ -839,6 +928,7 @@ expanded =
 {-| Indicate that interaction with this element can trigger a `menu` pop-up.
 
 Be careful while managing focus and triggering.
+
 -}
 hasMenuPopUp : Html.Attribute msg
 hasMenuPopUp =
@@ -848,6 +938,7 @@ hasMenuPopUp =
 {-| Indicate that interaction with this element can trigger a `listBox` pop-up.
 
 Be careful while managing focus and triggering.
+
 -}
 hasListBoxPopUp : Html.Attribute msg
 hasListBoxPopUp =
@@ -857,6 +948,7 @@ hasListBoxPopUp =
 {-| Indicate that interaction with this element can trigger a `tree` pop-up.
 
 Be careful while managing focus and triggering.
+
 -}
 hasTreePopUp : Html.Attribute msg
 hasTreePopUp =
@@ -866,6 +958,7 @@ hasTreePopUp =
 {-| Indicate that interaction with this element can trigger a `grid` pop-up.
 
 Be careful while managing focus and triggering.
+
 -}
 hasGridPopUp : Html.Attribute msg
 hasGridPopUp =
@@ -875,14 +968,14 @@ hasGridPopUp =
 {-| Indicate that interaction with this element can trigger a `dialog` pop-up.
 
 Be careful while managing focus and triggering.
+
 -}
 hasDialogPopUp : Html.Attribute msg
 hasDialogPopUp =
     Widget.hasDialogPopUp
 
 
-{-|
--}
+{-| -}
 hidden : Bool -> Html.Attribute msg
 hidden =
     Widget.hidden
@@ -891,6 +984,7 @@ hidden =
 {-| Supported for all elements.
 
 For invalid grammar or spelling, please see `invalidGrammar` and `invalidSpelling` respectively.
+
 -}
 invalid : Bool -> Html.Attribute msg
 invalid =
@@ -926,6 +1020,7 @@ This attribute is about hierarchy--how many "levels" deep is an element?
         div (heading :: level 7 :: attributes)
 
 Please refer to the [documentation](https://www.w3.org/TR/wai-aria-1.1/#aria-level) to get a better sense of when to use.
+
 -}
 level : Int -> Html.Attribute msg
 level =
@@ -939,6 +1034,7 @@ Indicate whether the `textbox` is for multi-line inputs or single-line inputs.
 TODO: should the role just be `textBoxSingleLine` and `textBoxMultiLine` instead?
 
 Careful of Enter behavior on this one.
+
 -}
 multiLine : Bool -> Html.Attribute msg
 multiLine =
@@ -949,6 +1045,7 @@ multiLine =
 for a `tabList`, say, to have multiple selectable descendants?)
 
 When true, users are not restricted to selecting only one selectable descendant at a time.
+
 -}
 multiSelectable : Bool -> Html.Attribute msg
 multiSelectable =
@@ -961,6 +1058,7 @@ multiSelectable =
 Careful: default behavior is inconsistent across those roles.
 
 TODO: should the non-default behavior be explicit from the role perspective?
+
 -}
 orientationHorizontal : Html.Attribute msg
 orientationHorizontal =
@@ -973,6 +1071,7 @@ orientationHorizontal =
 Careful: default behavior is inconsistent across those roles.
 
 TODO: should the non-default behavior be explicit from the role perspective?
+
 -}
 orientationVertical : Html.Attribute msg
 orientationVertical =
@@ -982,9 +1081,10 @@ orientationVertical =
 {-| Supported on `button`.
 
 If you're confused about different button options, please check out these
-[examples](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/button/button.html.
+[examples](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/button/button.html>.
 
 TODO: Move to be a button role option?
+
 -}
 pressed : Maybe Bool -> Html.Attribute msg
 pressed =
@@ -997,6 +1097,7 @@ pressed =
 Indicates read-only status of a widget, although normal navigation rules and
 copying behavior should apply. (Read: `readOnly` elements are navigable but
 unchangeable, and `disabled` elements are neither navigable nor unchangebale).
+
 -}
 readOnly : Bool -> Html.Attribute msg
 readOnly =
@@ -1006,6 +1107,7 @@ readOnly =
 {-| Supported by `comboBox`, `gridCell`, `listBox`, `radioGroup`, `spinButton`, `textBox`, `tree`
 
 Indicate whether user input is or is not required on a field for valid form submission.
+
 -}
 required : Bool -> Html.Attribute msg
 required =
@@ -1015,6 +1117,7 @@ required =
 {-| Supported by `gridCell`, `option`, `row`, `tab`.
 
 Indicate whether an element (in a single- or multi-selectable widget) is or is not selected.
+
 -}
 selected : Bool -> Html.Attribute msg
 selected =
@@ -1027,6 +1130,7 @@ used on table or grid headers.
 This should only be applied to one header at a time.
 
 Table is sorted by this column's values in ascending order.
+
 -}
 sortAscending : Html.Attribute msg
 sortAscending =
@@ -1039,6 +1143,7 @@ used on table or grid headers.
 Only one column in a table should be sorting the values in table.
 
 Table is sorted by this column's values in descending order.
+
 -}
 sortDescending : Html.Attribute msg
 sortDescending =
@@ -1052,6 +1157,7 @@ Only one column in a table should be sorting the values in table.
 
 Table is sorted by this column's values, but the algorithm for that sorting
 is custom (not ascending or descending).
+
 -}
 sortCustom : Html.Attribute msg
 sortCustom =
@@ -1062,6 +1168,7 @@ sortCustom =
 used on table or grid headers.
 
 Table is not sorted by this column's values.
+
 -}
 sortNone : Html.Attribute msg
 sortNone =
@@ -1071,6 +1178,7 @@ sortNone =
 {-| Supported by `progressBar`, `scrollbar`, `separator`, `slider`, and `spinButton`.
 
 Set the max allowed value for a range widget.
+
 -}
 valueMax : number -> Html.Attribute msg
 valueMax =
@@ -1080,6 +1188,7 @@ valueMax =
 {-| Supported by `progressBar`, `scrollbar`, `separator`, `slider`, and `spinButton`.
 
 Set the min allowed value for a range widget.
+
 -}
 valueMin : number -> Html.Attribute msg
 valueMin =
@@ -1089,6 +1198,7 @@ valueMin =
 {-| Supported by `progressBar`, `scrollbar`, `separator`, `slider`, and `spinButton`.
 
 Set the current value for a range widget. Don't use this property for indeterminate states.
+
 -}
 valueNow : number -> Html.Attribute msg
 valueNow =
@@ -1099,6 +1209,7 @@ valueNow =
 
 This property takes precedence over `valueNow`, and should show a human-readable
 version of the current value. However, `valueNow` should always be used.
+
 -}
 valueText : String -> Html.Attribute msg
 valueText =
@@ -1114,6 +1225,7 @@ valueText =
 This property indicates that a region is live, and may change even when the
 region doesn't have focus. When `True`, all the contents of the element will be
 presented to the user.
+
 -}
 atomic : Bool -> Html.Attribute msg
 atomic =
@@ -1124,6 +1236,7 @@ atomic =
 
 When set to `True`, this is the aria equivalent of a loading spinner--indicates
 that stuff is changing/is not ready for interaction/reading-off yet.
+
 -}
 busy : Bool -> Html.Attribute msg
 busy =
@@ -1136,6 +1249,7 @@ Declares the number of columns in a grid in which not all of the columns are
 displayed. (If all columns are present--skip using this.)
 
 `-1` indicates total column number is unknown.
+
 -}
 colCount : Int -> Html.Attribute msg
 colCount =
@@ -1148,6 +1262,7 @@ Indexing begins from 1, NOT 0. Plus, the colIndex should not be greater than the
 If a cell stretches across multiple columns, use the starting column index and `colSpan`.
 
 The simplest rule is to put the `colIndex` on every child of a `row`.
+
 -}
 colIndex : Int -> Html.Attribute msg
 colIndex =
@@ -1157,6 +1272,7 @@ colIndex =
 {-| Supported by `cell`, `columnHeader`, `gridCell`, and `rowHeader`.
 
 Indicate how many columns-wide a cell is.
+
 -}
 colSpan : Int -> Html.Attribute msg
 colSpan =
@@ -1169,6 +1285,7 @@ Declares the number of rows in a grid in which not all of the rows are
 displayed. (If all rows are present--skip using this.)
 
 `-1` indicates total row number is unknown.
+
 -}
 rowCount : Int -> Html.Attribute msg
 rowCount =
@@ -1178,6 +1295,7 @@ rowCount =
 {-| Supported by `cell`, `row`, `columnHeader`, `gridCell`, and `rowHeader`.
 
 Analagous to `colIndex`.
+
 -}
 rowIndex : Int -> Html.Attribute msg
 rowIndex =
@@ -1187,6 +1305,7 @@ rowIndex =
 {-| Supported by `cell`, `columnHeader`, `gridCell`, and `rowHeader`.
 
 Indicate how many rows-wide a cell is.
+
 -}
 rowSpan : Int -> Html.Attribute msg
 rowSpan =
@@ -1197,6 +1316,7 @@ rowSpan =
 `radio`, `tab`, `menuitemcheckbox`, `menuitemradio`, and `treeItem`.
 
 Only necessary when not all of the items in the set are in the DOM. Use with `setSize`.
+
 -}
 posInSet : Int -> Html.Attribute msg
 posInSet =
@@ -1208,6 +1328,7 @@ posInSet =
 
 `setSize` indicates the total number of items in a set where not all the items are
 currently present in the DOM.
+
 -}
 setSize : Int -> Html.Attribute msg
 setSize =
@@ -1217,6 +1338,7 @@ setSize =
 {-| Supported by all elements.
 
 Indicate that a link in a nav or list is the current location.
+
 -}
 currentPage : Html.Attribute msg
 currentPage =
@@ -1226,6 +1348,7 @@ currentPage =
 {-| Supported by all elements.
 
 Indicate which step in a step-based flow is the current one.
+
 -}
 currentStep : Html.Attribute msg
 currentStep =
@@ -1242,6 +1365,7 @@ currentLocation =
 {-| Supported by all elements.
 
 As in a calendar widget.
+
 -}
 currentDate : Html.Attribute msg
 currentDate =
@@ -1251,6 +1375,7 @@ currentDate =
 {-| Supported by all elements.
 
 As in a timepicker widget.
+
 -}
 currentTime : Html.Attribute msg
 currentTime =
@@ -1268,6 +1393,7 @@ currentItem =
 
 Kind of a more-verbose version of `labelledBy`. Pass it a list of ids
 of elements that describe the given element.
+
 -}
 describedBy : List String -> Html.Attribute msg
 describedBy =
@@ -1278,6 +1404,7 @@ describedBy =
 
 Refer to a single extended description section--maybe a couple of paragraphs
 and a chart. Pass in the section's id.
+
 -}
 details : String -> Html.Attribute msg
 details =
@@ -1291,6 +1418,7 @@ that's invalid, add `errorMessage` to the input with the id of whatever element
 is telling the user in what way their submission is wrong.
 
     input [ invalid True, errorMessage "error-message-id" ] []
+
 -}
 errorMessage : String -> Html.Attribute msg
 errorMessage =
@@ -1301,6 +1429,7 @@ errorMessage =
 
 Provide an alternative document reading order and offer navigation to the
 elements referenced in the passed-in list of ids.
+
 -}
 flowTo : List String -> Html.Attribute msg
 flowTo =
@@ -1315,6 +1444,7 @@ on how to make good shortcuts.
 TODO: Consider adding a keyboard library/type?
 
     keyShortcuts [ "Alt+Shift+P", "Control+F" ]
+
 -}
 keyShortcuts : List String -> Html.Attribute msg
 keyShortcuts =
@@ -1325,6 +1455,7 @@ keyShortcuts =
 
 When the region's contents change, assistive technologies will wait for a good
 moment to interrupt and do so politely with the update.
+
 -}
 livePolite : Html.Attribute msg
 livePolite =
@@ -1335,6 +1466,7 @@ livePolite =
 
 Updates to the region will cause the assistive technologies to immediately
 interrupt the user with the big news.
+
 -}
 liveAssertive : Html.Attribute msg
 liveAssertive =
@@ -1345,6 +1477,7 @@ liveAssertive =
 
 Indicate that a modal is showing and the rest of the page contents are not
 interactable.
+
 -}
 modal : Bool -> Html.Attribute msg
 modal =
@@ -1354,6 +1487,7 @@ modal =
 {-| Supported by `textbox` and `searchbox`.
 
 Provide a hint about an expected value.
+
 -}
 placeholder : String -> Html.Attribute msg
 placeholder =
@@ -1363,6 +1497,7 @@ placeholder =
 {-| Supported by live regions.
 
 Keep track of additions to the live region.
+
 -}
 relevantAdditions : Html.Attribute msg
 relevantAdditions =
@@ -1372,6 +1507,7 @@ relevantAdditions =
 {-| Supported by live regions.
 
 Keep track of node additions to the live region and text additions.
+
 -}
 relevantAdditionsText : Html.Attribute msg
 relevantAdditionsText =
@@ -1381,6 +1517,7 @@ relevantAdditionsText =
 {-| Supported by live regions.
 
 Keep track of everything to occur in the live region. Use sparingly!
+
 -}
 relevantAll : Html.Attribute msg
 relevantAll =
@@ -1390,6 +1527,7 @@ relevantAll =
 {-| Supported by live regions.
 
 Keep track of text or node removals. Use sparingly!
+
 -}
 relevantRemovals : Html.Attribute msg
 relevantRemovals =
@@ -1399,6 +1537,7 @@ relevantRemovals =
 {-| Supported by live regions.
 
 Keep track of text additions to the live region.
+
 -}
 relevantText : Html.Attribute msg
 relevantText =
@@ -1409,6 +1548,7 @@ relevantText =
 
 Provide human-readable description of the role of an element. Should be used
 alongside an actual role--this is supplementary information.
+
 -}
 roleDescription : String -> Html.Attribute msg
 roleDescription =
@@ -1420,6 +1560,7 @@ roleDescription =
 `select`, `spinButton`, `tabList`, `toolBar`, `tree`, and `treeGrid`.
 
 Identifies the currently-active element.
+
 -}
 activeDescendant : String -> Html.Attribute msg
 activeDescendant =

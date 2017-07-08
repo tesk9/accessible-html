@@ -1,8 +1,8 @@
 module Tags.Images
     exposing
-        ( img
-        , decorativeImg
+        ( decorativeImg
         , figure
+        , img
         )
 
 import Html exposing (..)

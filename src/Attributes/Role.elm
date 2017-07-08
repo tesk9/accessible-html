@@ -1,12 +1,13 @@
 module Attributes.Role
     exposing
-        ( role
-        , Role(..)
+        ( Role(..)
+        , role
         )
 
 {-| Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles).
 
 @docs Role, role
+
 -}
 
 import Html
@@ -21,18 +22,19 @@ role role_ =
 {-| Set the role of a given element to be a given string.
 
     div [ customRole "tablist" ] [ tab1, tab2 ]
+
 -}
 customRole : String -> Html.Attribute msg
 customRole =
     attribute "role"
 
 
-{-|
-The roles defined here match [w3 website](https://www.w3.org/TR/wai-aria/roles).
+{-| The roles defined here match [w3 website](https://www.w3.org/TR/wai-aria/roles).
 
 To be used with `role`.
 
     div [ customRole Button ] []
+
 -}
 type Role
     = Alert

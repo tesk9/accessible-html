@@ -46,10 +46,10 @@ addsBoolAttribute setter attribute =
                     |> Query.fromHtml
                     |> Query.has [ Selector.attribute attribute (String.toLower <| toString bool) ]
     in
-        describe ("sets the " ++ toString setter ++ " attribute")
-            [ test "True" <| adds True
-            , test "False" <| adds False
-            ]
+    describe ("sets the " ++ toString setter ++ " attribute")
+        [ test "True" <| adds True
+        , test "False" <| adds False
+        ]
 
 
 addsAriaAttribute : Html.Attribute msg -> ( String, String ) -> Test
@@ -81,11 +81,11 @@ addsAriaTristateAttribute setter attribute =
                     |> Query.fromHtml
                     |> Query.has [ Selector.attribute ("aria-" ++ attribute) desiredState ]
     in
-        describe ("sets the " ++ toString setter ++ " attribute")
-            [ test "True" <| adds (Just True) "true"
-            , test "False" <| adds (Just False) "false"
-            , test "Mixed" <| adds Nothing "mixed"
-            ]
+    describe ("sets the " ++ toString setter ++ " attribute")
+        [ test "True" <| adds (Just True) "true"
+        , test "False" <| adds (Just False) "false"
+        , test "Mixed" <| adds Nothing "mixed"
+        ]
 
 
 addsAriaNumAttribute : (number -> Html.Attribute msg) -> String -> Test
@@ -98,8 +98,8 @@ addsAriaNumAttribute setter attribute =
                     |> Query.fromHtml
                     |> Query.has [ Selector.attribute ("aria-" ++ attribute) (toString state) ]
     in
-        describe ("sets the " ++ toString setter ++ " attribute")
-            [ test "True" <| adds 8 ]
+    describe ("sets the " ++ toString setter ++ " attribute")
+        [ test "True" <| adds 8 ]
 
 
 addsRole : Html.Attribute msg -> String -> Test
@@ -119,11 +119,11 @@ longDescriptionTests =
                 |> Query.fromHtml
                 |> Query.find [ Selector.tag "img" ]
     in
-        describe "longDescription"
-            [ test "sets the longDesc attribute" <|
-                \() ->
-                    Query.has [ Selector.attribute "longdesc" "/quarter_4_summary#Growth" ] queryView
-            ]
+    describe "longDescription"
+        [ test "sets the longDesc attribute" <|
+            \() ->
+                Query.has [ Selector.attribute "longdesc" "/quarter_4_summary#Growth" ] queryView
+        ]
 
 
 allRoles : List ( Html.Attribute msg, String )

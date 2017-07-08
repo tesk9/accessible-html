@@ -1,7 +1,7 @@
 module Attributes.Heading exposing (heading)
 
-import Html
 import Attributes.Role exposing (..)
+import Html
 
 
 heading : Html.Attribute msg

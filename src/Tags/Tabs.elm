@@ -1,7 +1,7 @@
 module Tags.Tabs
     exposing
-        ( tabList
-        , tab
+        ( tab
+        , tabList
         , tabPanel
         )
 

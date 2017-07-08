@@ -1,45 +1,55 @@
 module Html.A11y
     exposing
-        ( textLeftLabeled
-        , textRightLabeled
-        , textInvisibleLabel
-        , radioLeftLabeled
-        , radioRightLabeled
-        , radioInvisibleLabel
+        ( checkBoxInvisibleLabel
         , checkBoxLeftLabeled
         , checkBoxRightLabeled
-        , checkBoxInvisibleLabel
-        , tabList
-        , tab
-        , tabPanel
-        , img
         , decorativeImg
         , figure
+        , img
+        , radioInvisibleLabel
+        , radioLeftLabeled
+        , radioRightLabeled
+        , tab
+        , tabList
+        , tabPanel
+        , textInvisibleLabel
+        , textLeftLabeled
+        , textRightLabeled
         )
 
 {-|
+
+
 ## Inputs
 
 Inputs defined in this library are offered in three varieties: left-labeled, right-labeled, and featuring an invisible-label.
 Invisible-labelled views require an id.
 
+
 ### Text Inputs
 
 @docs textLeftLabeled, textRightLabeled, textInvisibleLabel
+
 
 ### Radio Inputs
 
 @docs radioLeftLabeled, radioRightLabeled, radioInvisibleLabel
 
+
 ### CheckBox Inputs
 
 @docs checkBoxLeftLabeled, checkBoxRightLabeled, checkBoxInvisibleLabel
 
+
 ## Tabs
+
 @docs tabList, tab, tabPanel
 
+
 ## Images
+
 @docs img, decorativeImg, figure
+
 -}
 
 import Html exposing (..)
@@ -62,6 +72,7 @@ textModel value attributes label =
 {-| Construct a left-labeled text input.
 
     textLeftLabeled "This appears in the text input." [] <| text "I'm the label!"
+
 -}
 textLeftLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
 textLeftLabeled value attributes label =
@@ -71,6 +82,7 @@ textLeftLabeled value attributes label =
 {-| Construct a right-labeled text input.
 
     textRightLabeled "This appears in the text input." [] <| text "I'm the label!"
+
 -}
 textRightLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
 textRightLabeled value attributes label =
@@ -80,6 +92,7 @@ textRightLabeled value attributes label =
 {-| Construct a text input with an invisible label.
 
     textInvisibleLabel "best-input-everrr" "This appears in the text input." [] <| text "I'm the label!"
+
 -}
 textInvisibleLabel : String -> String -> List (Html.Attribute msg) -> Html msg -> Html msg
 textInvisibleLabel id value attributes label =
@@ -101,6 +114,7 @@ radioModel groupName value checked attributes label =
 {-| Construct a left-labeled radio input.
 
     radioLeftLabeled "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
+
 -}
 radioLeftLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
 radioLeftLabeled groupName value checked attributes label =
@@ -110,6 +124,7 @@ radioLeftLabeled groupName value checked attributes label =
 {-| Construct a right-labeled radio input.
 
     radioRightLabeled  "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
+
 -}
 radioRightLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
 radioRightLabeled groupName value checked attributes label =
@@ -119,6 +134,7 @@ radioRightLabeled groupName value checked attributes label =
 {-| Construct a radio button with an invisible label.
 
     radioInvisibleLabel "best-input-everrr" "This is the actual value of the radio." [] <| text "I'm the label!"
+
 -}
 radioInvisibleLabel : String -> String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
 radioInvisibleLabel id groupName value checked attributes label =
@@ -140,6 +156,7 @@ checkBoxModel value checked attributes label =
 {-| Construct a left-labeled check box input.
 
     checkBoxLeftLabeled "This is the actual value of the check box." (Just True) [] <| text "I'm the label!"
+
 -}
 checkBoxLeftLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
 checkBoxLeftLabeled value checked attributes label =
@@ -149,6 +166,7 @@ checkBoxLeftLabeled value checked attributes label =
 {-| Construct a right-labeled check box input.
 
     checkBoxRightLabeled  "This is the actual value of the checkBox." (Just True) [] <| text "I'm the label!"
+
 -}
 checkBoxRightLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
 checkBoxRightLabeled value checked attributes label =
@@ -158,6 +176,7 @@ checkBoxRightLabeled value checked attributes label =
 {-| Construct a check box with an invisible label.
 
     checkBoxInvisibleLabel "checkbox-id" "Checkbox value" (Just False) [] <| text "I'm the label!"
+
 -}
 checkBoxInvisibleLabel : String -> String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
 checkBoxInvisibleLabel id value checked attributes label =
@@ -185,6 +204,7 @@ tab =
 {-| Create a tab panel.
 
     tabPanel [] [ h3 [] [ text "Panel Header" ], text "Panel Content" ]
+
 -}
 tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabPanel =
@@ -203,6 +223,7 @@ Read through [the w3 informative image tutorial](https://www.w3.org/WAI/tutorial
 For graphs and diagrams, see `figure` and `longDesc`.
 
     img "Bear rubbing back on tree" [ src "bear.png" ]
+
 -}
 img : String -> List (Html.Attribute msg) -> Html msg
 img =
@@ -212,6 +233,7 @@ img =
 {-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
 
     decorativeImg [ src "smiling_family.jpg" ]
+
 -}
 decorativeImg : List (Html.Attribute msg) -> Html msg
 decorativeImg =
