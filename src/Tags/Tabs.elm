@@ -10,9 +10,6 @@ import Html.Attributes exposing (..)
 import Html.Attributes.A11y as A11y
 
 
--- TODO these belong in A11y
-
-
 tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabList attributes children =
     div (A11y.tabList :: attributes) children
