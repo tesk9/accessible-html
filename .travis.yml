@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - "node"
 install:
-  - npm install -g elm elm-test
+  - npm install --dev
