@@ -23,7 +23,7 @@ module Html.A11y
 ## Inputs
 
 Inputs defined in this library are offered in three varieties: left-labeled, right-labeled, and featuring an invisible-label.
-Invisible-labelled views require an id.
+Invisible-labeled views require an id.
 
 
 ### Text Inputs
