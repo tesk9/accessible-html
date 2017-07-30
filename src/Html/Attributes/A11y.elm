@@ -57,6 +57,7 @@ module Html.Attributes.A11y
         , invisible
         , keyShortcuts
         , label
+        , labeledBy
         , labelledBy
         , level
         , link
@@ -311,7 +312,7 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
 ### Providing More Info
 
-@docs longDescription, details, describedBy, labelledBy, label
+@docs longDescription, details, describedBy, label, labelledBy, labeledBy
 @docs modal, keyShortcuts, roleDescription
 
 
@@ -394,6 +395,15 @@ controls =
 
 
 {-| Creates aria labelledby attribute. Pass the unique string id of the labelling element.
+`labeledBy` and `labelledBy` are identical.
+-}
+labeledBy : String -> Html.Attribute msg
+labeledBy =
+    Aria.labelledBy
+
+
+{-| Creates aria labelledby attribute. Pass the unique string id of the labelling element.
+`labeledBy` and `labelledBy` are identical.
 -}
 labelledBy : String -> Html.Attribute msg
 labelledBy =
