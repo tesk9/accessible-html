@@ -235,6 +235,7 @@ ariaTests : Test
 ariaTests =
     describe "Aria"
         [ addsAriaStringAttribute labelledBy ( "labelledby", "label-id" )
+        , addsAriaStringAttribute labeledBy ( "labelledby", "label-id" )
         , addsStringAttribute longDescription ( "longdesc", "element-id" )
         , addsAriaStringAttribute activeDescendant ( "activedescendant", "element-id" )
         , addsAriaBoolAttribute atomic "atomic"
