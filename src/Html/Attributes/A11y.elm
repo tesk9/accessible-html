@@ -150,6 +150,7 @@ For more information on hiding/semi-hiding elements, please see [the a11y projec
 
 Generally, these landmark tags are implicit in HTML5. The default landmark roles
 are specified [here](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/HTML5.html).
+`search` does not have a corresponding HTML5 tag.
 
 @docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
 
