@@ -1548,13 +1548,12 @@ flowTo =
 Keyboard shortcuts!!! Pass in a list of keyboard shortcuts. See [recommendations](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_shortcuts)
 on how to make good shortcuts.
 
-TODO: Consider adding a keyboard library/type?
-
     keyShortcuts [ "Alt+Shift+P", "Control+F" ]
 
 -}
 keyShortcuts : List String -> Html.Attribute msg
 keyShortcuts =
+    --TODO: Consider adding a keyboard library/type?
     Aria.keyShortcuts
 
 
