@@ -485,7 +485,10 @@ contentInfo =
     Landmark.contentinfo
 
 
-{-| A form container.
+{-| A form container. The HTML5 alternative is to use a `form` element with a `name`.
+
+For examples, please see [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/form.html).
+
 -}
 form : Html.Attribute msg
 form =
