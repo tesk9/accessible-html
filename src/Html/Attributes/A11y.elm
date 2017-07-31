@@ -467,7 +467,18 @@ complementary =
     Landmark.complementary
 
 
-{-| Copyrights, privacy statements, etc.
+{-| Copyrights, privacy statements, etc. There ought only be one element with the
+content info role per page.
+
+You may already have a content info element role fulfilled
+on your page via the HTML5 `footer` element--as long as its context is the `body`, not
+a `section` or `main` or what-have-you (see [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/contentinfo.html) for the full list).
+
+    div [ contentInfo ]
+        [ h2 []
+            [ text "Link to the Privacy Statement You Probably Really Should Read Someday" ]
+        ]
+
 -}
 contentInfo : Html.Attribute msg
 contentInfo =
