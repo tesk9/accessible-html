@@ -139,16 +139,19 @@ module Html.Attributes.A11y
 
 ## Hiding content
 
-@docs invisible
-
 For more information on hiding/semi-hiding elements, please see [the a11y project.](http://a11yproject.com/posts/how-to-hide-content/)
+
+@docs invisible
 
 
 ## Landmark
 
-@docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
-
 [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
+
+Generally, these landmark tags are implicit in HTML5. The default landmark roles
+are specified [here](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/HTML5.html).
+
+@docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
 
 
 ## Elements
@@ -434,7 +437,30 @@ banner =
     Landmark.banner
 
 
-{-| "Complements" the main content.
+{-| "Complements" the main content. If there are more than one complementary elements
+on the page, please be sure to use `labeledBy` to point to the heading of each
+complementary element.
+
+The HTML5 `aside` tag has this role by default (you still need to use `labeledBy`
+if there are more than one asides!).
+
+Check out [W3's docs for `complementary`](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/complementary.html)--
+note that you can toggle the "Show Landmarks" button at the top of the page
+to see a real example of using the complementary role!
+
+    import Html.Attributes.A11y exposing (complementary, labeledBy)
+
+    div []
+        [ div
+            [ complementary, labeledBy "extra-thoughts" ]
+            [ h2 [ id "extra-thoughts"] [ text "Extra thoughts..."]
+            , text "some content"
+            ]
+        , div
+            [ complementary, labeledBy "related-docs" ]
+            [ h2 [ id "related-docs"] [ text "Related Documentation"] ]
+        ]
+
 -}
 complementary : Html.Attribute msg
 complementary =
