@@ -332,7 +332,7 @@ Learn more about how to use live regions [here](https://www.w3.org/TR/wai-aria-p
 @docs atomic, busy, livePolite, liveAssertive
 
 
-#### Relevant
+### Relevant
 
 @docs relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
 
