@@ -506,7 +506,14 @@ main_ =
     Landmark.main_
 
 
-{-| Navigation.
+{-| Navigation--wrap lists of links intended to help your users navigate your site
+in an element with this role or use HTML5's `nav` tag.
+
+If there's more than one `nav` list on a given page, please make sure that the
+navigation is labeled (what kinds of links should your users expect to find in
+this list?). For examples of how to do this using the `labeledBy` property,
+check out [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/navigation.html).
+
 -}
 navigation : Html.Attribute msg
 navigation =
