@@ -5,7 +5,7 @@ import Html.Attributes.A11ySpec
 import Json.Encode exposing (Value)
 import Tags.InputsSpec
 import Test
-import Test.Runner.Node exposing (run, TestProgram)
+import Test.Runner.Node exposing (TestProgram, run)
 
 
 main : TestProgram

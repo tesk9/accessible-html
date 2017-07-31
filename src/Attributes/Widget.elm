@@ -1,16 +1,16 @@
 module Attributes.Widget
     exposing
-        ( autoCompleteInline
+        ( autoCompleteBoth
+        , autoCompleteInline
         , autoCompleteList
-        , autoCompleteBoth
         , checked
         , disabled
         , expanded
-        , hasMenuPopUp
-        , hasListBoxPopUp
-        , hasTreePopUp
-        , hasGridPopUp
         , hasDialogPopUp
+        , hasGridPopUp
+        , hasListBoxPopUp
+        , hasMenuPopUp
+        , hasTreePopUp
         , hidden
         , invalid
         , invalidGrammar
@@ -26,8 +26,8 @@ module Attributes.Widget
         , required
         , selected
         , sortAscending
-        , sortDescending
         , sortCustom
+        , sortDescending
         , sortNone
         , valueMax
         , valueMin

@@ -2,12 +2,12 @@ module Tags.Inputs
     exposing
         ( Input
         , InputTypeAndValue
-        , textInput
-        , radioInput
         , checkboxInput
-        , leftLabeledInput
-        , rightLabeledInput
         , invisibleLabeledInput
+        , leftLabeledInput
+        , radioInput
+        , rightLabeledInput
+        , textInput
         )
 
 import Html exposing (..)

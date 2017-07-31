@@ -1,28 +1,28 @@
 module Attributes.Aria
     exposing
-        ( labelledBy
-        , longDescription
-        , indeterminate
-        , activeDescendant
+        ( activeDescendant
         , atomic
         , busy
         , colCount
         , colIndex
         , colSpan
         , controls
+        , currentDate
         , currentItem
+        , currentLocation
         , currentPage
         , currentStep
-        , currentLocation
-        , currentDate
         , currentTime
         , describedBy
         , details
         , errorMessage
         , flowTo
+        , indeterminate
         , keyShortcuts
-        , livePolite
+        , labelledBy
         , liveAssertive
+        , livePolite
+        , longDescription
         , modal
         , placeholder
         , posInSet

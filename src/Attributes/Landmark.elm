@@ -1,18 +1,18 @@
 module Attributes.Landmark
     exposing
-        ( banner
+        ( application
+        , banner
         , complementary
         , contentinfo
         , form
         , main_
         , navigation
-        , search
-        , application
         , region
+        , search
         )
 
-import Html
 import Attributes.Role exposing (..)
+import Html
 
 
 banner : Html.Attribute msg

@@ -50,8 +50,8 @@ module Attributes.Element
         , treeitem
         )
 
-import Html
 import Attributes.Role exposing (..)
+import Html
 
 
 alert : Html.Attribute msg
