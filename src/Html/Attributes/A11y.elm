@@ -434,7 +434,7 @@ indeterminate =
 generally is implicitly a `banner`. (For specifics on what DOM relationships will
 affect this default behavior, please check out [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/banner.html).)
 
-    import Html exposing (div, h1)
+    import Html exposing (div, h1, text)
     import Html.A11y exposing (img)
     import Html.A11y.Attributes exposing (banner)
     import Html.Attributes exposing (src)
@@ -535,7 +535,25 @@ navigation =
     Landmark.navigation
 
 
-{-| A search input.
+{-| A search input. [W3 docs](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/search.html?)
+
+If you're going to learn about an ARIA Landmark role, this is the one to know,
+as HTML5 does NOT have a corresponding element! Add this property to forms to signify
+that they describe search functionality.
+
+As ever, if there's more than one search element on the page, please be sure to label.
+
+    import Html exposing (button, form, text)
+    import Html.A11y exposing (textLeftLabeled)
+    import Html.Attributes exposing (type_, value)
+    import Html.Attributes.A11y exposing (search)
+
+    form [ search ]
+        [ textLeftLabeled "Search Value" [] <|
+            text "Search for something good"
+        , button [ type_ "submit" ] [ text "Search" ]
+        ]
+
 -}
 search : Html.Attribute msg
 search =
