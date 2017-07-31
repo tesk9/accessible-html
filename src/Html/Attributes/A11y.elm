@@ -1115,12 +1115,11 @@ label =
 
 {-| Supported for `grid`, `heading`, `listItem`, `row`, and `tabList`.
 
-This attribute is about hierarchy--how many "levels" deep is an element?
+This attribute is about hierarchy--how many "levels" deep is an element? Please
+refer to the [documentation](https://www.w3.org/TR/wai-aria-1.1/#aria-level) to get a better sense of when to use.
 
     h7 attributes =
         div (heading :: level 7 :: attributes)
-
-Please refer to the [documentation](https://www.w3.org/TR/wai-aria-1.1/#aria-level) to get a better sense of when to use.
 
 -}
 level : Int -> Html.Attribute msg
@@ -1132,13 +1131,13 @@ level =
 
 Indicate whether the `textbox` is for multi-line inputs or single-line inputs.
 
-TODO: should the role just be `textBoxSingleLine` and `textBoxMultiLine` instead?
-
-Careful of Enter behavior on this one.
+Careful of default keyboard behavior when coupling this property with text inputs,
+which by default submit their form group on enter.
 
 -}
 multiLine : Bool -> Html.Attribute msg
 multiLine =
+    --TODO: should the role just be `textBoxSingleLine` and `textBoxMultiLine` instead?
     Widget.multiLine
 
 
@@ -1158,11 +1157,10 @@ multiSelectable =
 
 Careful: default behavior is inconsistent across those roles.
 
-TODO: should the non-default behavior be explicit from the role perspective?
-
 -}
 orientationHorizontal : Html.Attribute msg
 orientationHorizontal =
+    --TODO: should the non-default behavior be explicit from the role perspective?
     Widget.orientationHorizontal
 
 
@@ -1171,11 +1169,10 @@ orientationHorizontal =
 
 Careful: default behavior is inconsistent across those roles.
 
-TODO: should the non-default behavior be explicit from the role perspective?
-
 -}
 orientationVertical : Html.Attribute msg
 orientationVertical =
+    --TODO: should the non-default behavior be explicit from the role perspective?
     Widget.orientationVertical
 
 
