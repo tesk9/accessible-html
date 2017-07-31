@@ -317,9 +317,6 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 
 ## Aria
 
-
-## Aria
-
 @docs indeterminate, activeDescendant, controls
 
 
