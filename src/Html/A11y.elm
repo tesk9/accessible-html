@@ -23,7 +23,7 @@ module Html.A11y
 ## Inputs
 
 Inputs defined in this library are offered in three varieties: left-labeled, right-labeled, and featuring an invisible-label.
-Invisible-labelled views require an id.
+Invisible-labeled views require an id.
 
 
 ### Text Inputs
@@ -42,6 +42,47 @@ Invisible-labelled views require an id.
 
 
 ## Tabs
+
+Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab component view.
+
+    import Html exposing (text)
+    import Html.A11y exposing (tab, tabList, tabPanel)
+    import Html.Attributes
+    import Html.Attributes.A11y as A11yAttributes
+
+    view : Html msg
+    view =
+        tabList
+            [ id "tab-list" ]
+            [ tab
+                [ id "tab-1"
+                , A11yAttributes.selected True
+                , A11yAttributes.controls "panel-1"
+                ]
+                [ text "Tab One" ]
+            , tab
+                [ id "tab-2"
+                , A11yAttributes.selected False
+                , A11yAttributes.controls "panel-1"
+                ]
+                [ text "Tab Two" ]
+            , tabPanel
+                [ id "panel-1"
+                , A11yAttributes.labelledBy "tab-1"
+                , A11yAttributes.hidden False
+                , Html.Attributes.hidden False
+                ]
+                [ text "Panel One Content" ]
+            , tabPanel
+                [ id "panel-2"
+                , A11yAttributes.labelledBy "tab-2"
+                , A11yAttributes.hidden True
+                , Html.Attributes.hidden True
+                ]
+                [ text "Panel Two Content" ]
+            ]
+
+For a more fully-fledged example using these helpers check out [elm-tabs](http://package.elm-lang.org/packages/tesk9/elm-tabs/latest).
 
 @docs tabList, tab, tabPanel
 
