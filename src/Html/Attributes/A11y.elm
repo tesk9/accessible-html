@@ -495,7 +495,11 @@ form =
     Landmark.form
 
 
-{-| Main content in a document. (There can only be one.)
+{-| Main content in a document. (There should only be one--if you require more than
+one element with role main, make sure each is labeled. See [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/main.html).)
+
+HTML5's `main` tag is implicitly role `main`.
+
 -}
 main_ : Html.Attribute msg
 main_ =
