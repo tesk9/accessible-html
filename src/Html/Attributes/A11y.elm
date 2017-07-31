@@ -1184,14 +1184,20 @@ orientationVertical =
 
 {-| Supported on `button`.
 
-If you're confused about different button options, please check out these
-[examples](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/button/button.html>.
+Use `pressed` when describing a toggle button--a button that can be "toggled" between
+an on state and an off state (or an on state, an indeterminate state, and an off state).
 
-TODO: Move to be a button role option?
+Please check out these [examples](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/button/button.html)
+as well.
+
+    button
+        [ pressed <| Just True ]
+        [ text "This button should be styled for site viewers such that it's clear it's pressed!" ]
 
 -}
 pressed : Maybe Bool -> Html.Attribute msg
 pressed =
+    --TODO: Move to be a button role option?
     Widget.pressed
 
 
