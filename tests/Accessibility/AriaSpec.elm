@@ -8,16 +8,21 @@ import Test exposing (..)
 spec : Test
 spec =
     describe "Accessibility.Aria"
-        [ addsAriaStringAttribute labelledBy ( "labelledby", "label-id" )
-        , addsAriaStringAttribute labeledBy ( "labelledby", "label-id" )
-        , addsStringAttribute longDescription ( "longdesc", "element-id" )
-        , addsAriaStringAttribute activeDescendant ( "activedescendant", "element-id" )
+        [ test "labelledBy" <|
+            expectAria ( labelledBy, "label-id" ) ( "labelledby", "label-id" )
+        , test "labeledBy" <|
+            expectAria ( labeledBy, "label-id" ) ( "labelledby", "label-id" )
+        , test "longDescription" <|
+            expectAttribute ( longDescription, "element-id" ) ( "longdesc", "element-id" )
+        , test "activeDescendant" <|
+            expectAria ( activeDescendant, "element-id" ) ( "activedescendant", "element-id" )
         , addsAriaBoolAttribute atomic "atomic"
         , addsAriaBoolAttribute busy "busy"
         , addsAriaNumAttribute colCount "colcount"
         , addsAriaNumAttribute colIndex "colindex"
         , addsAriaNumAttribute colSpan "colspan"
-        , addsAriaStringAttribute controls ( "controls", "controlled-element-id" )
+        , test "controls" <|
+            expectAria ( controls, "controlled-element-id" ) ( "controls", "controlled-element-id" )
         , addsAriaBoolAttribute currentItem "current"
         , test "currentPage" <|
             expectAria ( \() -> currentPage, () ) ( "current", "page" )
@@ -30,8 +35,10 @@ spec =
         , test "currentTime" <|
             expectAria ( \() -> currentTime, () ) ( "current", "time" )
         , addsAriaListStringAttribute describedBy ( "describedby", "some-value some-other-value" )
-        , addsAriaStringAttribute details ( "details", "element-id" )
-        , addsAriaStringAttribute errorMessage ( "errormessage", "element-id" )
+        , test "details" <|
+            expectAria ( details, "element-id" ) ( "details", "element-id" )
+        , test "errorMessage" <|
+            expectAria ( errorMessage, "element-id" ) ( "errormessage", "element-id" )
         , addsAriaListStringAttribute flowTo ( "flowto", "element-id some-other-element-id" )
         , addsAriaListStringAttribute keyShortcuts ( "keyshortcuts", "Alt+Shift+P Control+F" )
         , test "livePolite" <|
@@ -39,7 +46,8 @@ spec =
         , test "liveAssertive" <|
             expectAria ( \() -> liveAssertive, () ) ( "live", "assertive" )
         , addsAriaBoolAttribute modal "modal"
-        , addsAriaStringAttribute placeholder ( "placeholder", "element-id" )
+        , test "placeholder" <|
+            expectAria ( placeholder, "element-id" ) ( "placeholder", "element-id" )
         , addsAriaNumAttribute posInSet "posinset"
         , test "relevantAdditions" <|
             expectAria ( \() -> relevantAdditions, () ) ( "relevant", "additions" )
@@ -51,7 +59,8 @@ spec =
             expectAria ( \() -> relevantRemovals, () ) ( "relevant", "removals" )
         , test "relevantText" <|
             expectAria ( \() -> relevantText, () ) ( "relevant", "text" )
-        , addsAriaStringAttribute roleDescription ( "roledescription", "element-id" )
+        , test "roleDescription" <|
+            expectAria ( roleDescription, "element-id" ) ( "roledescription", "element-id" )
         , addsAriaNumAttribute rowCount "rowcount"
         , addsAriaNumAttribute rowIndex "rowindex"
         , addsAriaNumAttribute rowSpan "rowspan"

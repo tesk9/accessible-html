@@ -40,8 +40,10 @@ spec =
             expectAria ( \() -> sortCustom, () ) ( "sort", "other" )
         , test "sortNone" <|
             expectAria ( \() -> sortNone, () ) ( "sort", "none" )
-        , addsAriaStringAttribute label ( "label", "some-id" )
-        , addsAriaStringAttribute valueText ( "valuetext", "Medium on the Range" )
+        , test "label" <|
+            expectAria ( label, "some-id" ) ( "label", "some-id" )
+        , test "valueText" <|
+            expectAria ( valueText, "Medium on the Range" ) ( "valuetext", "Medium on the Range" )
         , addsAriaBoolAttribute disabled "disabled"
         , addsAriaBoolAttribute expanded "expanded"
         , addsAriaBoolAttribute hidden "hidden"

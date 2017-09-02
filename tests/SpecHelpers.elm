@@ -15,23 +15,12 @@ addsAttribute setter ( attribute, content ) =
         expectAttribute ( \() -> setter, () ) ( attribute, content )
 
 
-addsStringAttribute : (String -> Html.Attribute msg) -> ( String, String ) -> Test
-addsStringAttribute setter ( attribute, content ) =
-    test ("sets the " ++ toString setter ++ " attribute") <|
-        expectAttribute ( setter, content ) ( attribute, content )
-
-
 addsBoolAttribute : (Bool -> Html.Attribute msg) -> String -> Test
 addsBoolAttribute setter attribute =
     describe ("sets the " ++ toString setter ++ " attribute")
         [ test "True" <| expectAttribute ( setter, True ) ( attribute, "true" )
         , test "False" <| expectAttribute ( setter, False ) ( attribute, "false" )
         ]
-
-
-addsAriaStringAttribute : (String -> Html.Attribute msg) -> ( String, String ) -> Test
-addsAriaStringAttribute setter ( attribute, content ) =
-    addsStringAttribute setter ( "aria-" ++ attribute, content )
 
 
 addsAriaBoolAttribute : (Bool -> Html.Attribute msg) -> String -> Test
