@@ -1,32 +1,32 @@
-module Attributes.Role
-    exposing
-        ( Role(..)
-        , role
-        )
-
-{-| Learn more about roles on the [w3 website](https://www.w3.org/TR/wai-aria/roles).
-
-@docs Role, role
-
--}
+module Accessibility.Utils exposing (..)
 
 import Html
 import Html.Attributes exposing (..)
 
 
+aria : String -> String -> Html.Attribute msg
+aria =
+    attribute << (++) "aria-"
+
+
+toBoolString : Bool -> String
+toBoolString =
+    String.toLower << toString
+
+
+toTriStateString : Maybe Bool -> String
+toTriStateString =
+    Maybe.withDefault "mixed" << Maybe.map toBoolString
+
+
+toListString : List String -> String
+toListString =
+    String.join " "
+
+
 role : Role -> Html.Attribute msg
 role role_ =
-    customRole <| roleToString role_
-
-
-{-| Set the role of a given element to be a given string.
-
-    div [ customRole "tablist" ] [ tab1, tab2 ]
-
--}
-customRole : String -> Html.Attribute msg
-customRole =
-    attribute "role"
+    attribute "role" <| roleToString role_
 
 
 {-| The roles defined here match [w3 website](https://www.w3.org/TR/wai-aria/roles).

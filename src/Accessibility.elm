@@ -1,4 +1,4 @@
-module Html.A11y
+module Accessibility
     exposing
         ( checkBoxInvisibleLabel
         , checkBoxLeftLabeled
@@ -50,7 +50,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
     import Html.Attributes
     import Html.Attributes.A11y as A11yAttributes
 
-    view : Html msg
+    view : Html.Html msg
     view =
         tabList
             [ id "tab-list" ]
@@ -93,18 +93,19 @@ For a more fully-fledged example using these helpers check out [elm-tabs](http:/
 
 -}
 
-import Html exposing (..)
-import Tags.Images as Images
-import Tags.Inputs as Inputs
-import Tags.Tabs as Tabs
+import Accessibility.Role as Role
+import Accessibility.Style as Style
+import Accessibility.Widget as Widget
+import Html
+import Html.Attributes
 
 
 {- *** Text Inputs *** -}
 
 
-textModel : String -> List (Html.Attribute msg) -> Html msg -> Inputs.Input msg
+textModel : String -> List (Html.Attribute msg) -> Html.Html msg -> Input msg
 textModel value attributes label =
-    { typeAndValue = Inputs.textInput value
+    { typeAndValue = textInput value
     , label = label
     , attributes = attributes
     }
@@ -115,9 +116,9 @@ textModel value attributes label =
     textLeftLabeled "This appears in the text input." [] <| text "I'm the label!"
 
 -}
-textLeftLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
+textLeftLabeled : String -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 textLeftLabeled value attributes label =
-    Inputs.leftLabeledInput (textModel value attributes label)
+    leftLabeledInput (textModel value attributes label)
 
 
 {-| Construct a right-labeled text input.
@@ -125,9 +126,9 @@ textLeftLabeled value attributes label =
     textRightLabeled "This appears in the text input." [] <| text "I'm the label!"
 
 -}
-textRightLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
+textRightLabeled : String -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 textRightLabeled value attributes label =
-    Inputs.rightLabeledInput (textModel value attributes label)
+    rightLabeledInput (textModel value attributes label)
 
 
 {-| Construct a text input with an invisible label.
@@ -135,18 +136,18 @@ textRightLabeled value attributes label =
     textInvisibleLabel "best-input-everrr" "This appears in the text input." [] <| text "I'm the label!"
 
 -}
-textInvisibleLabel : String -> String -> List (Html.Attribute msg) -> Html msg -> Html msg
+textInvisibleLabel : String -> String -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 textInvisibleLabel id value attributes label =
-    Inputs.invisibleLabeledInput (textModel value attributes label) id
+    invisibleLabeledInput (textModel value attributes label) id
 
 
 
 {- *** Radio Inputs *** -}
 
 
-radioModel : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Inputs.Input msg
+radioModel : String -> String -> Bool -> List (Html.Attribute msg) -> Html.Html msg -> Input msg
 radioModel groupName value checked attributes label =
-    { typeAndValue = Inputs.radioInput groupName value checked
+    { typeAndValue = radioInput groupName value checked
     , label = label
     , attributes = attributes
     }
@@ -157,9 +158,9 @@ radioModel groupName value checked attributes label =
     radioLeftLabeled "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
 
 -}
-radioLeftLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+radioLeftLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 radioLeftLabeled groupName value checked attributes label =
-    Inputs.leftLabeledInput (radioModel groupName value checked attributes label)
+    leftLabeledInput (radioModel groupName value checked attributes label)
 
 
 {-| Construct a right-labeled radio input.
@@ -167,9 +168,9 @@ radioLeftLabeled groupName value checked attributes label =
     radioRightLabeled  "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
 
 -}
-radioRightLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+radioRightLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 radioRightLabeled groupName value checked attributes label =
-    Inputs.rightLabeledInput (radioModel groupName value checked attributes label)
+    rightLabeledInput (radioModel groupName value checked attributes label)
 
 
 {-| Construct a radio button with an invisible label.
@@ -177,18 +178,18 @@ radioRightLabeled groupName value checked attributes label =
     radioInvisibleLabel "best-input-everrr" "This is the actual value of the radio." [] <| text "I'm the label!"
 
 -}
-radioInvisibleLabel : String -> String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+radioInvisibleLabel : String -> String -> String -> Bool -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 radioInvisibleLabel id groupName value checked attributes label =
-    Inputs.invisibleLabeledInput (radioModel groupName value checked attributes label) id
+    invisibleLabeledInput (radioModel groupName value checked attributes label) id
 
 
 
 {- *** Checkbox Inputs *** -}
 
 
-checkBoxModel : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Inputs.Input msg
+checkBoxModel : String -> Maybe Bool -> List (Html.Attribute msg) -> Html.Html msg -> Input msg
 checkBoxModel value checked attributes label =
-    { typeAndValue = Inputs.checkboxInput value checked
+    { typeAndValue = checkboxInput value checked
     , label = label
     , attributes = attributes
     }
@@ -199,9 +200,9 @@ checkBoxModel value checked attributes label =
     checkBoxLeftLabeled "This is the actual value of the check box." (Just True) [] <| text "I'm the label!"
 
 -}
-checkBoxLeftLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+checkBoxLeftLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 checkBoxLeftLabeled value checked attributes label =
-    Inputs.leftLabeledInput (checkBoxModel value checked attributes label)
+    leftLabeledInput (checkBoxModel value checked attributes label)
 
 
 {-| Construct a right-labeled check box input.
@@ -209,9 +210,9 @@ checkBoxLeftLabeled value checked attributes label =
     checkBoxRightLabeled  "This is the actual value of the checkBox." (Just True) [] <| text "I'm the label!"
 
 -}
-checkBoxRightLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+checkBoxRightLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 checkBoxRightLabeled value checked attributes label =
-    Inputs.rightLabeledInput (checkBoxModel value checked attributes label)
+    rightLabeledInput (checkBoxModel value checked attributes label)
 
 
 {-| Construct a check box with an invisible label.
@@ -219,9 +220,100 @@ checkBoxRightLabeled value checked attributes label =
     checkBoxInvisibleLabel "checkbox-id" "Checkbox value" (Just False) [] <| text "I'm the label!"
 
 -}
-checkBoxInvisibleLabel : String -> String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
+checkBoxInvisibleLabel : String -> String -> Maybe Bool -> List (Html.Attribute msg) -> Html.Html msg -> Html.Html msg
 checkBoxInvisibleLabel id value checked attributes label =
-    Inputs.invisibleLabeledInput (checkBoxModel value checked attributes label) id
+    invisibleLabeledInput (checkBoxModel value checked attributes label) id
+
+
+
+-- INPUT HELPERS
+
+
+type alias Input msg =
+    { label : Html.Html msg
+    , typeAndValue : InputTypeAndValue
+    , attributes : List (Html.Attribute msg)
+    }
+
+
+type InputTypeAndValue
+    = Text String
+    | Radio String String Bool
+    | Checkbox String (Maybe Bool)
+
+
+textInput : String -> InputTypeAndValue
+textInput =
+    Text
+
+
+radioInput : String -> String -> Bool -> InputTypeAndValue
+radioInput =
+    Radio
+
+
+checkboxInput : String -> Maybe Bool -> InputTypeAndValue
+checkboxInput =
+    Checkbox
+
+
+typeAndValueAttibutes : InputTypeAndValue -> List (Html.Attribute msg)
+typeAndValueAttibutes typeAndValue =
+    case typeAndValue of
+        Text value_ ->
+            [ Html.Attributes.type_ "text"
+            , Html.Attributes.value value_
+            ]
+
+        Radio name_ value_ checked_ ->
+            [ Html.Attributes.type_ "radio"
+            , Html.Attributes.name name_
+            , Html.Attributes.value value_
+            , Html.Attributes.checked checked_
+            ]
+
+        Checkbox value_ maybe_checked ->
+            [ Html.Attributes.type_ "checkbox"
+            , Html.Attributes.value value_
+            , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybe_checked)
+            ]
+
+
+baseInput : Input msg -> Html.Html msg
+baseInput inputModel =
+    Html.input (typeAndValueAttibutes inputModel.typeAndValue ++ inputModel.attributes) []
+
+
+leftLabeledInput : Input msg -> Html.Html msg
+leftLabeledInput inputModel =
+    Html.label
+        []
+        [ inputModel.label
+        , baseInput inputModel
+        ]
+
+
+rightLabeledInput : Input msg -> Html.Html msg
+rightLabeledInput inputModel =
+    Html.label
+        []
+        [ baseInput inputModel
+        , inputModel.label
+        ]
+
+
+invisibleLabeledInput : Input msg -> String -> Html.Html msg
+invisibleLabeledInput inputModel id_ =
+    Html.span
+        []
+        [ Html.label [ Style.invisible, Html.Attributes.for id_ ] [ inputModel.label ]
+        , Html.input
+            (typeAndValueAttibutes inputModel.typeAndValue
+                ++ Html.Attributes.id id_
+                :: inputModel.attributes
+            )
+            []
+        ]
 
 
 
@@ -230,16 +322,16 @@ checkBoxInvisibleLabel id value checked attributes label =
 
 {-| Create a tablist. This is the outer container for a list of tabs.
 -}
-tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-tabList =
-    Tabs.tabList
+tabList : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
+tabList attributes =
+    Html.div (Role.tabList :: attributes)
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
 -}
-tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-tab =
-    Tabs.tab
+tab : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
+tab attributes =
+    Html.div (Role.tab :: Html.Attributes.tabindex 0 :: attributes)
 
 
 {-| Create a tab panel.
@@ -247,9 +339,9 @@ tab =
     tabPanel [] [ h3 [] [ text "Panel Header" ], text "Panel Content" ]
 
 -}
-tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-tabPanel =
-    Tabs.tabPanel
+tabPanel : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
+tabPanel attributes =
+    Html.div (Role.tabPanel :: attributes)
 
 
 
@@ -266,9 +358,9 @@ For graphs and diagrams, see `figure` and `longDesc`.
     img "Bear rubbing back on tree" [ src "bear.png" ]
 
 -}
-img : String -> List (Html.Attribute msg) -> Html msg
-img =
-    Images.img
+img : String -> List (Html.Attribute msg) -> Html.Html msg
+img alt_ attributes =
+    Html.img (Html.Attributes.alt alt_ :: attributes) []
 
 
 {-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
@@ -276,13 +368,13 @@ img =
     decorativeImg [ src "smiling_family.jpg" ]
 
 -}
-decorativeImg : List (Html.Attribute msg) -> Html msg
-decorativeImg =
-    Images.decorativeImg
+decorativeImg : List (Html.Attribute msg) -> Html.Html msg
+decorativeImg attributes =
+    Html.img (Html.Attributes.alt "" :: Role.presentation :: attributes) []
 
 
 {-| Adds the group role to a figure.
 -}
-figure : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-figure =
-    Images.figure
+figure : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
+figure attributes =
+    Html.figure (Role.group :: attributes)

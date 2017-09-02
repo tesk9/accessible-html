@@ -1,23 +1,15 @@
-module Html.A11ySpec exposing (spec)
+module AccessibilitySpec exposing (imageSpec, inputSpec)
 
-import Html exposing (..)
-import Html.A11y exposing (..)
+import Accessibility exposing (..)
+import Html exposing (text)
+import Html.Attributes as Attribute
 import Test exposing (..)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector
 
 
-spec : Test
-spec =
-    describe "Html.Attributes.A11ySpec"
-        [ inputsTests
-        , describe "tabs" []
-        , imagesTests
-        ]
-
-
-inputsTests : Test
-inputsTests =
+inputSpec : Test
+inputSpec =
     describe "inputs" <|
         [ describe "text inputs" <|
             let
@@ -85,11 +77,11 @@ inputsTests =
         ]
 
 
-baseInputTests : { label : String, value : String, type_ : String } -> Html msg -> Test
+baseInputTests : { label : String, value : String, type_ : String } -> Html.Html msg -> Test
 baseInputTests { label, value, type_ } view =
     let
         queryView =
-            div [] [ Html.A11y.figure [] [ view ] ]
+            Html.div [] [ figure [] [ view ] ]
                 |> Query.fromHtml
     in
     describe "Basic input tests"
@@ -102,20 +94,20 @@ baseInputTests { label, value, type_ } view =
             \() ->
                 queryView
                     |> Query.find [ Selector.tag "input" ]
-                    |> Query.has [ Selector.attribute "value" value ]
+                    |> Query.has [ Selector.attribute <| Attribute.value value ]
         , test "is an input of the appropriate type" <|
             \() ->
                 queryView
                     |> Query.find [ Selector.tag "input" ]
-                    |> Query.has [ Selector.attribute "type" type_ ]
+                    |> Query.has [ Selector.attribute <| Attribute.type_ type_ ]
         ]
 
 
-imagesTests : Test
-imagesTests =
+imageSpec : Test
+imageSpec =
     let
         queryView view =
-            div [] [ Html.A11y.figure [] [ view ] ]
+            Html.div [] [ Accessibility.figure [] [ view ] ]
                 |> Query.fromHtml
                 |> Query.find [ Selector.tag "img" ]
     in
@@ -123,13 +115,13 @@ imagesTests =
         [ describe "img"
             [ test "has alt text" <|
                 \() ->
-                    queryView (Html.A11y.img "Birthday cake" [])
-                        |> Query.has [ Selector.attribute "alt" "Birthday cake" ]
+                    queryView (Accessibility.img "Birthday cake" [])
+                        |> Query.has [ Selector.attribute <| Attribute.alt "Birthday cake" ]
             ]
         , describe "decorativeImg"
             [ test "has empty alt text" <|
                 \() ->
                     queryView (decorativeImg [])
-                        |> Query.has [ Selector.attribute "alt" "" ]
+                        |> Query.has [ Selector.attribute <| Attribute.alt "" ]
             ]
         ]
