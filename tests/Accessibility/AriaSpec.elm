@@ -1,13 +1,8 @@
 module Accessibility.AriaSpec exposing (spec)
 
 import Accessibility.Aria exposing (..)
-import Html
-import Html.Attributes
-import Json.Encode
 import SpecHelpers exposing (..)
 import Test exposing (..)
-import Test.Html.Query as Query
-import Test.Html.Selector as Selector
 
 
 spec : Test
@@ -24,26 +19,38 @@ spec =
         , addsAriaNumAttribute colSpan "colspan"
         , addsAriaStringAttribute controls ( "controls", "controlled-element-id" )
         , addsAriaBoolAttribute currentItem "current"
-        , addsAriaAttribute currentPage ( "current", "page" )
-        , addsAriaAttribute currentStep ( "current", "step" )
-        , addsAriaAttribute currentLocation ( "current", "location" )
-        , addsAriaAttribute currentDate ( "current", "date" )
-        , addsAriaAttribute currentTime ( "current", "time" )
+        , test "currentPage" <|
+            expectAria ( \() -> currentPage, () ) ( "current", "page" )
+        , test "currentStep" <|
+            expectAria ( \() -> currentStep, () ) ( "current", "step" )
+        , test "currentLocation" <|
+            expectAria ( \() -> currentLocation, () ) ( "current", "location" )
+        , test "currentDate" <|
+            expectAria ( \() -> currentDate, () ) ( "current", "date" )
+        , test "currentTime" <|
+            expectAria ( \() -> currentTime, () ) ( "current", "time" )
         , addsAriaListStringAttribute describedBy ( "describedby", "some-value some-other-value" )
         , addsAriaStringAttribute details ( "details", "element-id" )
         , addsAriaStringAttribute errorMessage ( "errormessage", "element-id" )
         , addsAriaListStringAttribute flowTo ( "flowto", "element-id some-other-element-id" )
         , addsAriaListStringAttribute keyShortcuts ( "keyshortcuts", "Alt+Shift+P Control+F" )
-        , addsAriaAttribute livePolite ( "live", "polite" )
-        , addsAriaAttribute liveAssertive ( "live", "assertive" )
+        , test "livePolite" <|
+            expectAria ( \() -> livePolite, () ) ( "live", "polite" )
+        , test "liveAssertive" <|
+            expectAria ( \() -> liveAssertive, () ) ( "live", "assertive" )
         , addsAriaBoolAttribute modal "modal"
         , addsAriaStringAttribute placeholder ( "placeholder", "element-id" )
         , addsAriaNumAttribute posInSet "posinset"
-        , addsAriaAttribute relevantAdditions ( "relevant", "additions" )
-        , addsAriaAttribute relevantAdditionsText ( "relevant", "additions text" )
-        , addsAriaAttribute relevantAll ( "relevant", "all" )
-        , addsAriaAttribute relevantRemovals ( "relevant", "removals" )
-        , addsAriaAttribute relevantText ( "relevant", "text" )
+        , test "relevantAdditions" <|
+            expectAria ( \() -> relevantAdditions, () ) ( "relevant", "additions" )
+        , test "relevantAdditionsText" <|
+            expectAria ( \() -> relevantAdditionsText, () ) ( "relevant", "additions text" )
+        , test "relevantAll" <|
+            expectAria ( \() -> relevantAll, () ) ( "relevant", "all" )
+        , test "relevantRemovals" <|
+            expectAria ( \() -> relevantRemovals, () ) ( "relevant", "removals" )
+        , test "relevantText" <|
+            expectAria ( \() -> relevantText, () ) ( "relevant", "text" )
         , addsAriaStringAttribute roleDescription ( "roledescription", "element-id" )
         , addsAriaNumAttribute rowCount "rowcount"
         , addsAriaNumAttribute rowIndex "rowindex"

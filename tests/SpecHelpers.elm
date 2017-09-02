@@ -29,11 +29,6 @@ addsBoolAttribute setter attribute =
         ]
 
 
-addsAriaAttribute : Html.Attribute msg -> ( String, String ) -> Test
-addsAriaAttribute setter ( attribute, content ) =
-    addsAttribute setter ( "aria-" ++ attribute, content )
-
-
 addsAriaStringAttribute : (String -> Html.Attribute msg) -> ( String, String ) -> Test
 addsAriaStringAttribute setter ( attribute, content ) =
     addsStringAttribute setter ( "aria-" ++ attribute, content )

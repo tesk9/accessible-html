@@ -1,34 +1,45 @@
 module Accessibility.WidgetSpec exposing (spec)
 
 import Accessibility.Widget exposing (..)
-import Html
-import Html.Attributes
-import Json.Encode
 import SpecHelpers exposing (..)
 import Test exposing (..)
-import Test.Html.Query as Query
-import Test.Html.Selector as Selector
 
 
 spec : Test
 spec =
     describe "Accessibility.Widget"
-        [ addsAriaAttribute autoCompleteInline ( "autocomplete", "inline" )
-        , addsAriaAttribute autoCompleteList ( "autocomplete", "list" )
-        , addsAriaAttribute autoCompleteBoth ( "autocomplete", "both" )
-        , addsAriaAttribute hasMenuPopUp ( "haspopup", "menu" )
-        , addsAriaAttribute hasListBoxPopUp ( "haspopup", "listbox" )
-        , addsAriaAttribute hasTreePopUp ( "haspopup", "tree" )
-        , addsAriaAttribute hasGridPopUp ( "haspopup", "grid" )
-        , addsAriaAttribute hasDialogPopUp ( "haspopup", "dialog" )
-        , addsAriaAttribute invalidGrammar ( "invalid", "grammar" )
-        , addsAriaAttribute invalidSpelling ( "invalid", "spelling" )
-        , addsAriaAttribute orientationHorizontal ( "orientation", "horizontal" )
-        , addsAriaAttribute orientationVertical ( "orientation", "vertical" )
-        , addsAriaAttribute sortAscending ( "sort", "ascending" )
-        , addsAriaAttribute sortDescending ( "sort", "descending" )
-        , addsAriaAttribute sortCustom ( "sort", "other" )
-        , addsAriaAttribute sortNone ( "sort", "none" )
+        [ test "autoCompleteInline" <|
+            expectAria ( \() -> autoCompleteInline, () ) ( "autocomplete", "inline" )
+        , test "autoCompleteList" <|
+            expectAria ( \() -> autoCompleteList, () ) ( "autocomplete", "list" )
+        , test "autoCompleteBoth" <|
+            expectAria ( \() -> autoCompleteBoth, () ) ( "autocomplete", "both" )
+        , test "hasMenuPopUp" <|
+            expectAria ( \() -> hasMenuPopUp, () ) ( "haspopup", "menu" )
+        , test "hasListBoxPopUp" <|
+            expectAria ( \() -> hasListBoxPopUp, () ) ( "haspopup", "listbox" )
+        , test "hasTreePopUp" <|
+            expectAria ( \() -> hasTreePopUp, () ) ( "haspopup", "tree" )
+        , test "hasGridPopUp" <|
+            expectAria ( \() -> hasGridPopUp, () ) ( "haspopup", "grid" )
+        , test "hasDialogPopUp" <|
+            expectAria ( \() -> hasDialogPopUp, () ) ( "haspopup", "dialog" )
+        , test "invalidGrammar" <|
+            expectAria ( \() -> invalidGrammar, () ) ( "invalid", "grammar" )
+        , test "invalidSpelling" <|
+            expectAria ( \() -> invalidSpelling, () ) ( "invalid", "spelling" )
+        , test "orientationHorizontal" <|
+            expectAria ( \() -> orientationHorizontal, () ) ( "orientation", "horizontal" )
+        , test "orientationVertical" <|
+            expectAria ( \() -> orientationVertical, () ) ( "orientation", "vertical" )
+        , test "sortAscending" <|
+            expectAria ( \() -> sortAscending, () ) ( "sort", "ascending" )
+        , test "sortDescending" <|
+            expectAria ( \() -> sortDescending, () ) ( "sort", "descending" )
+        , test "sortCustom" <|
+            expectAria ( \() -> sortCustom, () ) ( "sort", "other" )
+        , test "sortNone" <|
+            expectAria ( \() -> sortNone, () ) ( "sort", "none" )
         , addsAriaStringAttribute label ( "label", "some-id" )
         , addsAriaStringAttribute valueText ( "valuetext", "Medium on the Range" )
         , addsAriaBoolAttribute disabled "disabled"
