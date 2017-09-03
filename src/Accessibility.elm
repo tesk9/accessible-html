@@ -378,3 +378,666 @@ decorativeImg attributes =
 figure : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
 figure attributes =
     Html.figure (Role.group :: attributes)
+
+
+
+{- *** Aliasing Html Elements *** -}
+
+
+{-| `body` should generally not have event listeners.
+-}
+body : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+body attributes =
+    Html.body (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `section` should generally not have event listeners.
+-}
+section : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+section attributes =
+    Html.section (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `nav` should generally not have event listeners.
+-}
+nav : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+nav attributes =
+    Html.nav (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `article` should generally not have event listeners.
+-}
+article : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+article attributes =
+    Html.article (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `aside` should generally not have event listeners.
+-}
+aside : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+aside attributes =
+    Html.aside (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `h1` should generally not have event listeners.
+-}
+h1 : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+h1 attributes =
+    Html.h1 (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `h2` should generally not have event listeners.
+-}
+h2 : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+h2 attributes =
+    Html.h2 (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `h3` should generally not have event listeners.
+-}
+h3 : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+h3 attributes =
+    Html.h3 (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `h4` should generally not have event listeners.
+-}
+h4 : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+h4 attributes =
+    Html.h4 (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `h5` should generally not have event listeners.
+-}
+h5 : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+h5 attributes =
+    Html.h5 (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `h6` should generally not have event listeners.
+-}
+h6 : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+h6 attributes =
+    Html.h6 (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `header` should generally not have event listeners.
+-}
+header : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+header attributes =
+    Html.header (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `footer` should generally not have event listeners.
+-}
+footer : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+footer attributes =
+    Html.footer (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `address` should generally not have event listeners.
+-}
+address : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+address attributes =
+    Html.address (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `main_` should generally not have event listeners.
+-}
+main_ : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+main_ attributes =
+    Html.main_ (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+
+-- GROUPING CONTENT
+
+
+{-| `p` should generally not have event listeners.
+-}
+p : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+p attributes =
+    Html.p (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `hr` should generally not have event listeners.
+-}
+hr : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+hr attributes =
+    Html.hr (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `pre` should generally not have event listeners.
+-}
+pre : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+pre attributes =
+    Html.pre (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `blockquote` should generally not have event listeners.
+-}
+blockquote : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+blockquote attributes =
+    Html.blockquote (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `ol` should generally not have event listeners.
+-}
+ol : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+ol attributes =
+    Html.ol (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `ul` should generally not have event listeners.
+-}
+ul : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+ul attributes =
+    Html.ul (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `li` should generally not have event listeners.
+-}
+li : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+li attributes =
+    Html.li (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `dl` should generally not have event listeners.
+-}
+dl : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+dl attributes =
+    Html.dl (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `dt` should generally not have event listeners.
+-}
+dt : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+dt attributes =
+    Html.dt (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `dd` should generally not have event listeners.
+-}
+dd : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+dd attributes =
+    Html.dd (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `figcaption` should generally not have event listeners.
+-}
+figcaption : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+figcaption attributes =
+    Html.figcaption (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `div` should generally not have event listeners.
+-}
+div : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+div attributes =
+    Html.div (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+
+-- TEXT LEVEL SEMANTIC
+
+
+{-| `:` should generally not have event listeners.
+-}
+a : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+a attributes =
+    Html.a (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `em` should generally not have event listeners.
+-}
+em : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+em attributes =
+    Html.em (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `strong` should generally not have event listeners.
+-}
+strong : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+strong attributes =
+    Html.strong (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `small` should generally not have event listeners.
+-}
+small : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+small attributes =
+    Html.small (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `s` should generally not have event listeners.
+-}
+s : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+s attributes =
+    Html.s (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `cite` should generally not have event listeners.
+-}
+cite : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+cite attributes =
+    Html.cite (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `q` should generally not have event listeners.
+-}
+q : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+q attributes =
+    Html.q (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `dfn` should generally not have event listeners.
+-}
+dfn : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+dfn attributes =
+    Html.dfn (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `abbr` should generally not have event listeners.
+-}
+abbr : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+abbr attributes =
+    Html.abbr (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `time` should generally not have event listeners.
+-}
+time : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+time attributes =
+    Html.time (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `code` should generally not have event listeners.
+-}
+code : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+code attributes =
+    Html.code (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `var` should generally not have event listeners.
+-}
+var : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+var attributes =
+    Html.var (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `samp` should generally not have event listeners.
+-}
+samp : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+samp attributes =
+    Html.samp (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `kbd` should generally not have event listeners.
+-}
+kbd : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+kbd attributes =
+    Html.kbd (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `sub` should generally not have event listeners.
+-}
+sub : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+sub attributes =
+    Html.sub (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `sup` should generally not have event listeners.
+-}
+sup : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+sup attributes =
+    Html.sup (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `i` should generally not have event listeners.
+-}
+i : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+i attributes =
+    Html.i (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `b` should generally not have event listeners.
+-}
+b : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+b attributes =
+    Html.b (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `u` should generally not have event listeners.
+-}
+u : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+u attributes =
+    Html.u (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `mark` should generally not have event listeners.
+-}
+mark : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+mark attributes =
+    Html.mark (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `ruby` should generally not have event listeners.
+-}
+ruby : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+ruby attributes =
+    Html.ruby (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `rt` should generally not have event listeners.
+-}
+rt : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+rt attributes =
+    Html.rt (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `rp` should generally not have event listeners.
+-}
+rp : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+rp attributes =
+    Html.rp (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `bdi` should generally not have event listeners.
+-}
+bdi : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+bdi attributes =
+    Html.bdi (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `bdo` should generally not have event listeners.
+-}
+bdo : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+bdo attributes =
+    Html.bdo (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `span` should generally not have event listeners.
+-}
+span : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+span attributes =
+    Html.span (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `br` should generally not have event listeners.
+-}
+br : List (Html.Attribute Never) -> Html.Html Never
+br attributes =
+    Html.br (List.map (Html.Attributes.map Basics.never) attributes) []
+
+
+{-| `wbr` should generally not have event listeners.
+-}
+wbr : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+wbr attributes =
+    Html.wbr (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `ins` should generally not have event listeners.
+-}
+ins : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+ins attributes =
+    Html.ins (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `del` should generally not have event listeners.
+-}
+del : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+del attributes =
+    Html.del (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `iframe` should generally not have event listeners.
+-}
+iframe : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+iframe attributes =
+    Html.iframe (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `embed` should generally not have event listeners.
+-}
+embed : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+embed attributes =
+    Html.embed (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `object` should generally not have event listeners.
+-}
+object : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+object attributes =
+    Html.object (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `param` should generally not have event listeners.
+-}
+param : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+param attributes =
+    Html.param (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `video` should generally not have event listeners.
+-}
+video : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+video attributes =
+    Html.video (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `audio` should generally not have event listeners.
+-}
+audio : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+audio attributes =
+    Html.audio (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `source` should generally not have event listeners.
+-}
+source : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+source attributes =
+    Html.source (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `track` should generally not have event listeners.
+-}
+track : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+track attributes =
+    Html.track (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `canvas` should generally not have event listeners.
+-}
+canvas : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+canvas attributes =
+    Html.canvas (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `math` should generally not have event listeners.
+-}
+math : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+math attributes =
+    Html.math (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `table` should generally not have event listeners.
+-}
+table : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+table attributes =
+    Html.table (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `caption` should generally not have event listeners.
+-}
+caption : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+caption attributes =
+    Html.caption (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `colgroup` should generally not have event listeners.
+-}
+colgroup : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+colgroup attributes =
+    Html.colgroup (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `col` should generally not have event listeners.
+-}
+col : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+col attributes =
+    Html.col (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `tbody` should generally not have event listeners.
+-}
+tbody : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+tbody attributes =
+    Html.tbody (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `thead` should generally not have event listeners.
+-}
+thead : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+thead attributes =
+    Html.thead (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `tfoot` should generally not have event listeners.
+-}
+tfoot : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+tfoot attributes =
+    Html.tfoot (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `tr` should generally not have event listeners.
+-}
+tr : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+tr attributes =
+    Html.tr (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `td` should generally not have event listeners.
+-}
+td : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+td attributes =
+    Html.td (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `th` should generally not have event listeners.
+-}
+th : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+th attributes =
+    Html.th (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `form` should generally not have event listeners.
+-}
+form : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+form attributes =
+    Html.form (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `fieldset` should generally not have event listeners.
+-}
+fieldset : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+fieldset attributes =
+    Html.fieldset (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `legend` should generally not have event listeners.
+-}
+legend : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+legend attributes =
+    Html.legend (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `label` should generally not have event listeners.
+-}
+label : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+label attributes =
+    Html.label (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `datalist` should generally not have event listeners.
+-}
+datalist : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+datalist attributes =
+    Html.datalist (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `optgroup` should generally not have event listeners.
+-}
+optgroup : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+optgroup attributes =
+    Html.optgroup (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `option` should generally not have event listeners.
+-}
+option : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+option attributes =
+    Html.option (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `textarea` should generally not have event listeners.
+-}
+textarea : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+textarea attributes =
+    Html.textarea (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `keygen` should generally not have event listeners.
+-}
+keygen : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+keygen attributes =
+    Html.keygen (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `output` should generally not have event listeners.
+-}
+output : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+output attributes =
+    Html.output (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `progress` should generally not have event listeners.
+-}
+progress : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+progress attributes =
+    Html.progress (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `meter` should generally not have event listeners.
+-}
+meter : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+meter attributes =
+    Html.meter (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `details` should generally not have event listeners.
+-}
+details : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+details attributes =
+    Html.details (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `summary` should generally not have event listeners.
+-}
+summary : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+summary attributes =
+    Html.summary (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `menuitem` should generally not have event listeners.
+-}
+menuitem : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+menuitem attributes =
+    Html.menuitem (List.map (Html.Attributes.map Basics.never) attributes)
+
+
+{-| `menu` should generally not have event listeners.
+-}
+menu : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
+menu attributes =
+    Html.menu (List.map (Html.Attributes.map Basics.never) attributes)
