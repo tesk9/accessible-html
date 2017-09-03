@@ -16,14 +16,20 @@ spec =
             expectAttribute ( longDescription, "element-id" ) ( "longdesc", "element-id" )
         , test "activeDescendant" <|
             expectAria ( activeDescendant, "element-id" ) ( "activedescendant", "element-id" )
-        , addsAriaBoolAttribute atomic "atomic"
-        , addsAriaBoolAttribute busy "busy"
-        , addsAriaNumAttribute colCount "colcount"
-        , addsAriaNumAttribute colIndex "colindex"
-        , addsAriaNumAttribute colSpan "colspan"
+        , describe "atomic" <|
+            expectAriaBoolAttribute atomic "atomic"
+        , describe "busy" <|
+            expectAriaBoolAttribute busy "busy"
+        , test "colCount" <|
+            expectAria ( colCount, 15 ) ( "colcount", "15" )
+        , test "colIndex" <|
+            expectAria ( colIndex, 15 ) ( "colindex", "15" )
+        , test "colSpan" <|
+            expectAria ( colSpan, 15 ) ( "colspan", "15" )
         , test "controls" <|
             expectAria ( controls, "controlled-element-id" ) ( "controls", "controlled-element-id" )
-        , addsAriaBoolAttribute currentItem "current"
+        , describe "currentItem" <|
+            expectAriaBoolAttribute currentItem "current"
         , test "currentPage" <|
             expectAria ( \() -> currentPage, () ) ( "current", "page" )
         , test "currentStep" <|
@@ -34,21 +40,29 @@ spec =
             expectAria ( \() -> currentDate, () ) ( "current", "date" )
         , test "currentTime" <|
             expectAria ( \() -> currentTime, () ) ( "current", "time" )
-        , addsAriaListStringAttribute describedBy ( "describedby", "some-value some-other-value" )
+        , test "describedBy" <|
+            expectAria ( describedBy, [ "some-value", "some-other-value" ] )
+                ( "describedby", "some-value some-other-value" )
         , test "details" <|
             expectAria ( details, "element-id" ) ( "details", "element-id" )
         , test "errorMessage" <|
             expectAria ( errorMessage, "element-id" ) ( "errormessage", "element-id" )
-        , addsAriaListStringAttribute flowTo ( "flowto", "element-id some-other-element-id" )
-        , addsAriaListStringAttribute keyShortcuts ( "keyshortcuts", "Alt+Shift+P Control+F" )
+        , test "flowTo" <|
+            expectAria ( flowTo, [ "element-id", "some-other-element-id" ] )
+                ( "flowto", "element-id some-other-element-id" )
+        , test "keyShortcuts" <|
+            expectAria ( keyShortcuts, [ "Alt+Shift+P", "Control+F" ] )
+                ( "keyshortcuts", "Alt+Shift+P Control+F" )
         , test "livePolite" <|
             expectAria ( \() -> livePolite, () ) ( "live", "polite" )
         , test "liveAssertive" <|
             expectAria ( \() -> liveAssertive, () ) ( "live", "assertive" )
-        , addsAriaBoolAttribute modal "modal"
+        , describe "modal" <|
+            expectAriaBoolAttribute modal "modal"
         , test "placeholder" <|
             expectAria ( placeholder, "element-id" ) ( "placeholder", "element-id" )
-        , addsAriaNumAttribute posInSet "posinset"
+        , test "posInSet" <|
+            expectAria ( posInSet, 15 ) ( "posinset", "15" )
         , test "relevantAdditions" <|
             expectAria ( \() -> relevantAdditions, () ) ( "relevant", "additions" )
         , test "relevantAdditionsText" <|
@@ -61,8 +75,12 @@ spec =
             expectAria ( \() -> relevantText, () ) ( "relevant", "text" )
         , test "roleDescription" <|
             expectAria ( roleDescription, "element-id" ) ( "roledescription", "element-id" )
-        , addsAriaNumAttribute rowCount "rowcount"
-        , addsAriaNumAttribute rowIndex "rowindex"
-        , addsAriaNumAttribute rowSpan "rowspan"
-        , addsAriaNumAttribute setSize "setsize"
+        , test "rowCount" <|
+            expectAria ( rowCount, 15 ) ( "rowcount", "15" )
+        , test "rowIndex" <|
+            expectAria ( rowIndex, 15 ) ( "rowindex", "15" )
+        , test "rowSpan" <|
+            expectAria ( rowSpan, 15 ) ( "rowspan", "15" )
+        , test "setSize" <|
+            expectAria ( setSize, 15 ) ( "setsize", "15" )
         ]

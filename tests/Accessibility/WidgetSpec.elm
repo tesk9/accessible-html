@@ -44,19 +44,34 @@ spec =
             expectAria ( label, "some-id" ) ( "label", "some-id" )
         , test "valueText" <|
             expectAria ( valueText, "Medium on the Range" ) ( "valuetext", "Medium on the Range" )
-        , addsAriaBoolAttribute disabled "disabled"
-        , addsAriaBoolAttribute expanded "expanded"
-        , addsAriaBoolAttribute hidden "hidden"
-        , addsAriaBoolAttribute invalid "invalid"
-        , addsAriaBoolAttribute multiLine "multiline"
-        , addsAriaBoolAttribute multiSelectable "multiselectable"
-        , addsAriaBoolAttribute readOnly "readonly"
-        , addsAriaBoolAttribute required "required"
-        , addsAriaBoolAttribute selected "selected"
-        , addsAriaTristateAttribute pressed "pressed"
-        , addsAriaTristateAttribute checked "checked"
-        , addsAriaNumAttribute valueMax "valuemax"
-        , addsAriaNumAttribute valueMin "valuemin"
-        , addsAriaNumAttribute valueNow "valuenow"
-        , addsAriaNumAttribute level "level"
+        , describe "disabled" <|
+            expectAriaBoolAttribute disabled "disabled"
+        , describe "expanded" <|
+            expectAriaBoolAttribute expanded "expanded"
+        , describe "hidden" <|
+            expectAriaBoolAttribute hidden "hidden"
+        , describe "invalid" <|
+            expectAriaBoolAttribute invalid "invalid"
+        , describe "multiLine" <|
+            expectAriaBoolAttribute multiLine "multiline"
+        , describe "multiSelectable" <|
+            expectAriaBoolAttribute multiSelectable "multiselectable"
+        , describe "readOnly" <|
+            expectAriaBoolAttribute readOnly "readonly"
+        , describe "required" <|
+            expectAriaBoolAttribute required "required"
+        , describe "selected" <|
+            expectAriaBoolAttribute selected "selected"
+        , describe "pressed" <|
+            expectAriaTristateAttribute pressed "pressed"
+        , describe "checked" <|
+            expectAriaTristateAttribute checked "checked"
+        , test "valueMax" <|
+            expectAria ( valueMax, 10 ) ( "valuemax", "10" )
+        , test "valueMin" <|
+            expectAria ( valueMin, 10 ) ( "valuemin", "10" )
+        , test "valueNow" <|
+            expectAria ( valueNow, 10 ) ( "valuenow", "10" )
+        , test "level" <|
+            expectAria ( level, 10 ) ( "level", "10" )
         ]
