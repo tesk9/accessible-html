@@ -1,43 +1,32 @@
-# elm-html-a11y
-![](https://travis-ci.org/tesk9/elm-html-a11y.svg?branch=master)
+# accessible-html
+![](https://travis-ci.org/tesk9/accessible-html.svg?branch=master)
 
-elm-html-a11y makes writing accessible websites easier.
+accessible-html makes writing accessible websites easier.
 
-## Html.A11y
+## Accessibility
 
 This section of the library focuses on bridging the gap between the HTML spec and the WAI-ARIA (Web Accessibility Initiative -- Accessible Rich Internet Applications) spec. A developer needs to know a lot about each spec and ask multiple questions before even adding simple elements to the wep page. These view functions push the user to follow both specifications with less mental work involved.
 
 
 ```
-import Html exposing (div, Html)
-import Html.A11y exposing (..)
-import Html.Attributes exposing (src)
+import Accessibility as Html exposing (Html)
+import Html.Attributes as Attributes
 
-view : Html msg
+view : Html.Html msg
 view =
-    div []
-        [ img "Bear rubbing back on tree" [ src "bear.png" ]
-        , decorativeImg [ src "smiling_family.jpg" ]
+    Html.div []
+        [ Html.img "Bear rubbing back on tree" [ Attributes.src "bear.png" ]
+        , Html.decorativeImg [ Attributes.src "smiling_family.jpg" ]
         ]
 
 ```
 
-## Attributes
+##  Accessibility.Style
 
-Attributes defines aria/role helpers.
+This section contains helpers for changing the look of your site without making it unusable.
 
-It's not recommended to expose every function in this section--some, (`hidden`, `selected`, etc.) may shadow other functions inconveniently.
+For instance, if you prefer to use placeholders to convey what sort of values belong in an input, you can use the `invisible` helper to remove the label for screenviewers without removing it for screenreaders.
 
-```
-import Html exposing (Html, input)
-import Html.Attributes exposing (src)
-import Html.Attributes.A11y as A11yAttributes
+## Accessibility.Aria, Accessibility.Landmark, Accessibility.Role, Accessibility.Widget
 
-view : Html msg
-view =
-    input [ A11yAttributes.search ] []
-```
-
-## Examples
-
-Check out the [examples repo](https://github.com/tesk9/elm-html-a11y-examples) for more.
+These are more advanced helpers that allow you to do some pretty advanced cool stuff!
