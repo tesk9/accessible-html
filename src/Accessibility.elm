@@ -1,20 +1,115 @@
 module Accessibility
     exposing
-        ( checkBoxInvisibleLabel
+        ( a
+        , abbr
+        , address
+        , article
+        , aside
+        , audio
+        , b
+        , bdi
+        , bdo
+        , blockquote
+        , body
+        , br
+        , button
+        , canvas
+        , caption
+        , checkBoxInvisibleLabel
         , checkBoxLeftLabeled
         , checkBoxRightLabeled
+        , cite
+        , code
+        , col
+        , colgroup
+        , datalist
+        , dd
         , decorativeImg
+        , del
+        , details
+        , dfn
+        , div
+        , dl
+        , dt
+        , em
+        , embed
+        , fieldset
+        , figcaption
         , figure
+        , footer
+        , form
+        , h1
+        , h2
+        , h3
+        , h4
+        , h5
+        , h6
+        , header
+        , hr
+        , i
+        , iframe
         , img
+        , ins
+        , kbd
+        , keygen
+        , label
+        , legend
+        , li
+        , main_
+        , mark
+        , math
+        , menu
+        , menuitem
+        , meter
+        , nav
+        , object
+        , ol
+        , optgroup
+        , option
+        , output
+        , p
+        , param
+        , pre
+        , progress
+        , q
         , radioInvisibleLabel
         , radioLeftLabeled
         , radioRightLabeled
+        , rp
+        , rt
+        , ruby
+        , s
+        , samp
+        , section
+        , select
+        , small
+        , source
+        , span
+        , strong
+        , sub
+        , summary
+        , sup
         , tab
         , tabList
         , tabPanel
+        , table
+        , tbody
+        , td
         , textInvisibleLabel
         , textLeftLabeled
         , textRightLabeled
+        , textarea
+        , tfoot
+        , th
+        , thead
+        , time
+        , tr
+        , track
+        , u
+        , ul
+        , var
+        , video
+        , wbr
         )
 
 {-|
@@ -90,6 +185,31 @@ For a more fully-fledged example using these helpers check out [elm-tabs](http:/
 ## Images
 
 @docs img, decorativeImg, figure
+
+
+## Interactable elements from the Html library
+
+@docs button, textarea, select
+
+
+## Non-interactable elements from the Html library
+
+@docs h1, h2, h3, h4, h5, h6
+@docs div, p, hr, pre, blockquote
+@docs span, a, code, em, strong, i, b, u, sub, sup, br
+@docs ol, ul, li, dl, dt, dd
+@docs img, iframe, canvas, math
+@docs form, option
+@docs section, nav, article, aside, header, footer, address, main_, body
+@docs figure, figcaption
+@docs table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th
+@docs fieldset, legend, label, datalist, optgroup, keygen, output, progress, meter
+@docs audio, video, source, track
+@docs embed, object, param
+@docs ins, del
+@docs small, cite, dfn, abbr, time, var, samp, kbd, s, q
+@docs mark, ruby, rt, rp, bdi, bdo, wbr
+@docs details, summary, menuitem, menu
 
 -}
 
@@ -382,6 +502,23 @@ figure attributes =
 
 
 {- *** Aliasing Html Elements *** -}
+-- INTERACTABLE
+
+
+{-| -}
+select : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
+select =
+    Html.select
+
+
+{-| -}
+button : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
+button =
+    Html.button
+
+
+
+-- NOT INTERACTABLE
 
 
 {-| `body` should generally not have event listeners.
@@ -973,11 +1110,10 @@ optgroup attributes =
     Html.optgroup (List.map (Html.Attributes.map Basics.never) attributes)
 
 
-{-| `option` should generally not have event listeners.
--}
-option : List (Html.Attribute Never) -> List (Html.Html msg) -> Html.Html msg
-option attributes =
-    Html.option (List.map (Html.Attributes.map Basics.never) attributes)
+{-| -}
+option : List (Html.Attribute msg) -> List (Html.Html msg) -> Html.Html msg
+option =
+    Html.option
 
 
 {-| `textarea` should generally not have event listeners.
