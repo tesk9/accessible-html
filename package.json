@@ -25,6 +25,6 @@
   "homepage": "https://github.com/tesk9/elm-html-a11y#readme",
   "devDependencies": {
     "elm": "0.18.0",
-    "elm-test": "<0.18.0"
+    "elm-test": "0.18.8"
   }
 }
