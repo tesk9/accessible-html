@@ -1,7 +1,6 @@
 module AccessibilitySpec exposing (htmlSpec, imageSpec, inputSpec)
 
 import Accessibility exposing (..)
-import Html exposing (text)
 import Html.Attributes as Attribute
 import Html.Events exposing (onClick)
 import Test exposing (..)
@@ -79,11 +78,11 @@ inputSpec =
         ]
 
 
-baseInputTests : { label : String, value : String, type_ : String } -> Html.Html msg -> Test
+baseInputTests : { label : String, value : String, type_ : String } -> Html msg -> Test
 baseInputTests { label, value, type_ } view =
     let
         queryView =
-            Html.div [] [ figure [] [ view ] ]
+            div [] [ figure [] [ view ] ]
                 |> Query.fromHtml
     in
     describe "Basic input tests"
@@ -109,7 +108,7 @@ imageSpec : Test
 imageSpec =
     let
         queryView view =
-            Html.div [] [ Accessibility.figure [] [ view ] ]
+            div [] [ Accessibility.figure [] [ view ] ]
                 |> Query.fromHtml
                 |> Query.find [ Selector.tag "img" ]
     in
@@ -137,7 +136,7 @@ htmlSpec : Test
 htmlSpec =
     let
         expectClickableChild element =
-            Html.div [] [ element [] [ Html.button [ onClick DoAThing ] [] ] ]
+            div [] [ element [] [ button [ onClick DoAThing ] [] ] ]
                 |> Query.fromHtml
                 |> Query.find [ Selector.tag "button" ]
                 |> Event.simulate Event.click
