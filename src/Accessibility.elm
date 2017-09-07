@@ -221,6 +221,57 @@ import Html
 import Html.Attributes
 
 
+{-| All inputs must be associated with a `<label>` tag. Here is an example
+that creates a text input for first names:
+
+    firstNameInput : String -> Html msg
+    firstNameInput name =
+        labelBefore
+            [ class "data-entry" ]
+            (text "First Name:")
+            (input [ type_ "text" ] name)
+
+Now if you said `firstNameInput "Tom"` you would get HTML like this:
+
+```html
+<label class="data-entry">
+  First Name:
+  <input type="text" value="Tom"></input>
+</label>
+```
+
+-}
+labelBefore : List (Html.Attribute Never) -> Html Never -> Html msg -> Html msg
+labelBefore attributes labelContent input =
+    label attributes [ Html.map Basics.never labelContent, input ]
+
+
+{-| All inputs must be associated with a `<label>` tag. Here is an example
+that creates a text input for first names:
+
+    firstNameInput : String -> Html msg
+    firstNameInput name =
+        labelAfter
+            [ class "data-entry" ]
+            (text "First Name:")
+            (input [ type_ "text" ] name)
+
+Now if you said `firstNameInput "Tom"` you would get HTML like this:
+
+```html
+<label class="data-entry">
+  <input type="text" value="Tom"></input>
+  First Name:
+</label>
+```
+
+-}
+labelAfter : List (Html.Attribute Never) -> Html Never -> Html msg -> Html msg
+labelAfter attributes labelContent input =
+    label attributes [ input, Html.map Basics.never labelContent ]
+
+
+
 {- *** Text Inputs *** -}
 
 
