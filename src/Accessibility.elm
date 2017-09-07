@@ -193,13 +193,7 @@ For a more fully-fledged example using these helpers check out [elm-tabs](http:/
 
 @docs Html, text
 
-
-### Interactable elements
-
 @docs button, textarea, select
-
-
-### Non-interactable elements
 
 @docs h1, h2, h3, h4, h5, h6
 @docs div, p, hr, pre, blockquote
@@ -536,6 +530,12 @@ select =
 button : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 button =
     Html.button
+
+
+{-| -}
+textarea : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+textarea =
+    Html.textarea
 
 
 
@@ -1131,17 +1131,11 @@ optgroup attributes =
     Html.optgroup (List.map (Html.Attributes.map Basics.never) attributes)
 
 
-{-| -}
-option : List (Html.Attribute msg) -> List (Html msg) -> Html msg
-option =
-    Html.option
-
-
-{-| `textarea` should generally not have event listeners.
+{-| `option` should generally not have event listeners.
 -}
-textarea : List (Html.Attribute Never) -> List (Html msg) -> Html msg
-textarea attributes =
-    Html.textarea (List.map (Html.Attributes.map Basics.never) attributes)
+option : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+option attributes =
+    Html.option (List.map (Html.Attributes.map Basics.never) attributes)
 
 
 {-| `keygen` should generally not have event listeners.
