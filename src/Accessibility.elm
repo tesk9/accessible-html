@@ -307,6 +307,18 @@ labelHidden id attributes labelContent input =
 {- *** Inputs *** -}
 
 
+{-| Constructs an input of type "text". Use in conjunction with one of the label
+helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    firstNameInput : String -> Html Msg
+    firstNameInput name =
+        labelHidden
+            "name-input"
+            [ class "data-entry" ]
+            (text "First Name:")
+            (inputText name [ onBlur FirstName ])
+
+-}
 inputText : String -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
 inputText value_ attributes =
     Html.input
@@ -317,6 +329,17 @@ inputText value_ attributes =
         )
 
 
+{-| Constructs an input of type "radio". Use in conjunction with one of the label
+helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    elementaryGradeInput : String -> Html Msg
+    elementaryGradeInput name =
+        labelAfter
+            []
+            (text "Elementary School")
+            (radio "school-radio-group" "Elementary" True [])
+
+-}
 radio : String -> String -> Bool -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
 radio name_ value_ checked_ attributes =
     Html.input
@@ -329,12 +352,24 @@ radio name_ value_ checked_ attributes =
         )
 
 
+{-| Constructs an input of type "checkbox". Use in conjunction with one of the label
+helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+Checkboxes may be checked, unchecked, or indeterminate.
+
+    filterResultsInput : Maybe Bool -> Html Msg
+    filterResultsInput checked =
+        labelBefore
+            []
+            (text "Filter Results")
+            (checkbox "No filter" Nothing [])
+
+-}
 checkbox : String -> Maybe Bool -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
-checkbox value_ maybe_checked attributes =
+checkbox value_ maybeChecked attributes =
     Html.input
         ([ Html.Attributes.type_ "checkbox"
          , Html.Attributes.value value_
-         , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybe_checked)
+         , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
          ]
             ++ attributes
         )
