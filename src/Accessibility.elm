@@ -271,6 +271,75 @@ labelAfter attributes labelContent input =
     label attributes [ input, Html.map Basics.never labelContent ]
 
 
+{-| All inputs must be associated with a `<label>` tag. Here is an example
+that creates a text input for first names:
+
+    firstNameInput : String -> Html msg
+    firstNameInput name =
+        labelHidden
+            "name-input"
+            [ class "data-entry" ]
+            (text "First Name:")
+            (input [ type_ "text", id "name-input" ] name)
+
+Now if you said `firstNameInput "Tom"` you would get HTML like this:
+
+```html
+<span>
+    <label for="name-input" class="data-entry" style="[styles hiding the input]">
+        First Name:
+    </label>
+    <input id="name-input" type="text" value="Tom"></input>
+</span>
+```
+
+-}
+labelHidden : String -> List (Html.Attribute Never) -> Html Never -> Html msg -> Html msg
+labelHidden id attributes labelContent input =
+    span []
+        [ label (Html.Attributes.for id :: Style.invisible :: attributes)
+            [ Html.map Basics.never labelContent ]
+        , input
+        ]
+
+
+
+{- *** Inputs *** -}
+
+
+inputText : String -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+inputText value_ attributes =
+    Html.input
+        ([ Html.Attributes.type_ "text"
+         , Html.Attributes.value value_
+         ]
+            ++ attributes
+        )
+
+
+radio : String -> String -> Bool -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+radio name_ value_ checked_ attributes =
+    Html.input
+        ([ Html.Attributes.type_ "radio"
+         , Html.Attributes.name name_
+         , Html.Attributes.value value_
+         , Html.Attributes.checked checked_
+         ]
+            ++ attributes
+        )
+
+
+checkbox : String -> Maybe Bool -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+checkbox value_ maybe_checked attributes =
+    Html.input
+        ([ Html.Attributes.type_ "checkbox"
+         , Html.Attributes.value value_
+         , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybe_checked)
+         ]
+            ++ attributes
+        )
+
+
 
 {- *** Text Inputs *** -}
 
