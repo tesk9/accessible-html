@@ -20,17 +20,24 @@ inputSpec =
                     , type_ = "text"
                     }
             in
-            [ describe "textLeftLabeled"
+            [ describe "labelBefore"
                 [ baseInputTests expected <|
-                    textLeftLabeled "the value" [] (text "the label")
+                    labelBefore []
+                        (text "the label")
+                        (inputText "the value" [])
                 ]
-            , describe "textRightLabeled"
+            , describe "labelAfter"
                 [ baseInputTests expected <|
-                    textRightLabeled "the value" [] (text "the label")
+                    labelAfter []
+                        (text "the label")
+                        (inputText "the value" [])
                 ]
-            , describe "textInvisibleLabel"
+            , describe "labelHidden"
                 [ baseInputTests expected <|
-                    textInvisibleLabel "id" "the value" [] (text "the label")
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputText "the value" [])
                 ]
             ]
         , describe "radio inputs" <|
@@ -41,17 +48,24 @@ inputSpec =
                     , type_ = "radio"
                     }
             in
-            [ describe "radioLeftLabeled"
+            [ describe "labelBefore"
                 [ baseInputTests expected <|
-                    radioLeftLabeled "group_name" "the value" True [] (text "the label")
+                    labelBefore []
+                        (text "the label")
+                        (radio "group_name" "the value" True [])
                 ]
-            , describe "radioRightLabeled"
+            , describe "labelAfter"
                 [ baseInputTests expected <|
-                    radioRightLabeled "group_name" "the value" True [] (text "the label")
+                    labelAfter []
+                        (text "the label")
+                        (radio "group_name" "the value" True [])
                 ]
-            , describe "radioInvisibleLabel"
+            , describe "labelHidden"
                 [ baseInputTests expected <|
-                    radioInvisibleLabel "group_name" "id" "the value" True [] (text "the label")
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (radio "group_name" "the value" True [ Attribute.id "id" ])
                 ]
             ]
         , describe "checkbox inputs" <|
@@ -62,17 +76,24 @@ inputSpec =
                     , type_ = "checkbox"
                     }
             in
-            [ describe "checkBoxLeftLabeled"
+            [ describe "labelBefore"
                 [ baseInputTests expected <|
-                    checkBoxLeftLabeled "the value" (Just True) [] (text "the label")
+                    labelBefore []
+                        (text "the label")
+                        (checkbox "the value" (Just True) [])
                 ]
-            , describe "checkBoxRightLabeled"
+            , describe "labelAfter"
                 [ baseInputTests expected <|
-                    checkBoxRightLabeled "the value" (Just True) [] (text "the label")
+                    labelAfter []
+                        (text "the label")
+                        (checkbox "the value" (Just True) [])
                 ]
-            , describe "checkBoxInvisibleLabel"
+            , describe "labelHidden"
                 [ baseInputTests expected <|
-                    checkBoxInvisibleLabel "id" "the value" (Just True) [] (text "the label")
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (checkbox "the value" (Just True) [ Attribute.id "id" ])
                 ]
             ]
         ]

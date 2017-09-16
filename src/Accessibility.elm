@@ -16,9 +16,7 @@ module Accessibility
         , button
         , canvas
         , caption
-        , checkBoxInvisibleLabel
-        , checkBoxLeftLabeled
-        , checkBoxRightLabeled
+        , checkbox
         , cite
         , code
         , col
@@ -50,10 +48,14 @@ module Accessibility
         , i
         , iframe
         , img
+        , inputText
         , ins
         , kbd
         , keygen
         , label
+        , labelAfter
+        , labelBefore
+        , labelHidden
         , legend
         , li
         , main_
@@ -73,9 +75,7 @@ module Accessibility
         , pre
         , progress
         , q
-        , radioInvisibleLabel
-        , radioLeftLabeled
-        , radioRightLabeled
+        , radio
         , rp
         , rt
         , ruby
@@ -97,9 +97,6 @@ module Accessibility
         , tbody
         , td
         , text
-        , textInvisibleLabel
-        , textLeftLabeled
-        , textRightLabeled
         , textarea
         , tfoot
         , th
@@ -117,25 +114,29 @@ module Accessibility
 {-|
 
 
+## Inputs and Labels
+
+    firstNameInput : String -> Html msg
+    firstNameInput name =
+        labelHidden
+            "name-input"
+            [ class "data-entry" ]
+            (text "First Name:")
+            (inputText name [])
+
+
+## Labels
+
+@docs labelBefore, labelAfter, labelHidden
+
+
 ## Inputs
 
-Inputs defined in this library are offered in three varieties: left-labeled, right-labeled, and featuring an invisible-label.
-Invisible-labeled views require an id.
+Right now, this library only supports a few input types. Many more input types exist.
+See [MDN's input information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) for
+more options.
 
-
-### Text Inputs
-
-@docs textLeftLabeled, textRightLabeled, textInvisibleLabel
-
-
-### Radio Inputs
-
-@docs radioLeftLabeled, radioRightLabeled, radioInvisibleLabel
-
-
-### CheckBox Inputs
-
-@docs checkBoxLeftLabeled, checkBoxRightLabeled, checkBoxInvisibleLabel
+@docs inputText, radio, checkbox
 
 
 ## Tabs
@@ -319,7 +320,7 @@ helpers (`labelBefore`, `labelAfter`, `labelHidden`).
             (inputText name [ onBlur FirstName ])
 
 -}
-inputText : String -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+inputText : String -> List (Html.Attribute msg) -> Html msg
 inputText value_ attributes =
     Html.input
         ([ Html.Attributes.type_ "text"
@@ -327,6 +328,7 @@ inputText value_ attributes =
          ]
             ++ attributes
         )
+        []
 
 
 {-| Constructs an input of type "radio". Use in conjunction with one of the label
@@ -340,7 +342,7 @@ helpers (`labelBefore`, `labelAfter`, `labelHidden`).
             (radio "school-radio-group" "Elementary" True [])
 
 -}
-radio : String -> String -> Bool -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+radio : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg
 radio name_ value_ checked_ attributes =
     Html.input
         ([ Html.Attributes.type_ "radio"
@@ -350,6 +352,7 @@ radio name_ value_ checked_ attributes =
          ]
             ++ attributes
         )
+        []
 
 
 {-| Constructs an input of type "checkbox". Use in conjunction with one of the label
@@ -364,7 +367,7 @@ Checkboxes may be checked, unchecked, or indeterminate.
             (checkbox "No filter" Nothing [])
 
 -}
-checkbox : String -> Maybe Bool -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+checkbox : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg
 checkbox value_ maybeChecked attributes =
     Html.input
         ([ Html.Attributes.type_ "checkbox"
@@ -373,223 +376,7 @@ checkbox value_ maybeChecked attributes =
          ]
             ++ attributes
         )
-
-
-
-{- *** Text Inputs *** -}
-
-
-textModel : String -> List (Html.Attribute msg) -> Html msg -> Input msg
-textModel value attributes label =
-    { typeAndValue = textInput value
-    , label = label
-    , attributes = attributes
-    }
-
-
-{-| Construct a left-labeled text input.
-
-    textLeftLabeled "This appears in the text input." [] <| text "I'm the label!"
-
--}
-textLeftLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
-textLeftLabeled value attributes label =
-    leftLabeledInput (textModel value attributes label)
-
-
-{-| Construct a right-labeled text input.
-
-    textRightLabeled "This appears in the text input." [] <| text "I'm the label!"
-
--}
-textRightLabeled : String -> List (Html.Attribute msg) -> Html msg -> Html msg
-textRightLabeled value attributes label =
-    rightLabeledInput (textModel value attributes label)
-
-
-{-| Construct a text input with an invisible label.
-
-    textInvisibleLabel "best-input-everrr" "This appears in the text input." [] <| text "I'm the label!"
-
--}
-textInvisibleLabel : String -> String -> List (Html.Attribute msg) -> Html msg -> Html msg
-textInvisibleLabel id value attributes label =
-    invisibleLabeledInput (textModel value attributes label) id
-
-
-
-{- *** Radio Inputs *** -}
-
-
-radioModel : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Input msg
-radioModel groupName value checked attributes label =
-    { typeAndValue = radioInput groupName value checked
-    , label = label
-    , attributes = attributes
-    }
-
-
-{-| Construct a left-labeled radio input.
-
-    radioLeftLabeled "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
-
--}
-radioLeftLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
-radioLeftLabeled groupName value checked attributes label =
-    leftLabeledInput (radioModel groupName value checked attributes label)
-
-
-{-| Construct a right-labeled radio input.
-
-    radioRightLabeled  "radio_name" "This is the actual value of the radio." True [] <| text "I'm the label!"
-
--}
-radioRightLabeled : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
-radioRightLabeled groupName value checked attributes label =
-    rightLabeledInput (radioModel groupName value checked attributes label)
-
-
-{-| Construct a radio button with an invisible label.
-
-    radioInvisibleLabel "best-input-everrr" "This is the actual value of the radio." [] <| text "I'm the label!"
-
--}
-radioInvisibleLabel : String -> String -> String -> Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
-radioInvisibleLabel id groupName value checked attributes label =
-    invisibleLabeledInput (radioModel groupName value checked attributes label) id
-
-
-
-{- *** Checkbox Inputs *** -}
-
-
-checkBoxModel : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Input msg
-checkBoxModel value checked attributes label =
-    { typeAndValue = checkboxInput value checked
-    , label = label
-    , attributes = attributes
-    }
-
-
-{-| Construct a left-labeled check box input.
-
-    checkBoxLeftLabeled "This is the actual value of the check box." (Just True) [] <| text "I'm the label!"
-
--}
-checkBoxLeftLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
-checkBoxLeftLabeled value checked attributes label =
-    leftLabeledInput (checkBoxModel value checked attributes label)
-
-
-{-| Construct a right-labeled check box input.
-
-    checkBoxRightLabeled  "This is the actual value of the checkBox." (Just True) [] <| text "I'm the label!"
-
--}
-checkBoxRightLabeled : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
-checkBoxRightLabeled value checked attributes label =
-    rightLabeledInput (checkBoxModel value checked attributes label)
-
-
-{-| Construct a check box with an invisible label.
-
-    checkBoxInvisibleLabel "checkbox-id" "Checkbox value" (Just False) [] <| text "I'm the label!"
-
--}
-checkBoxInvisibleLabel : String -> String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg -> Html msg
-checkBoxInvisibleLabel id value checked attributes label =
-    invisibleLabeledInput (checkBoxModel value checked attributes label) id
-
-
-
--- INPUT HELPERS
-
-
-type alias Input msg =
-    { label : Html msg
-    , typeAndValue : InputTypeAndValue
-    , attributes : List (Html.Attribute msg)
-    }
-
-
-type InputTypeAndValue
-    = Text String
-    | Radio String String Bool
-    | Checkbox String (Maybe Bool)
-
-
-textInput : String -> InputTypeAndValue
-textInput =
-    Text
-
-
-radioInput : String -> String -> Bool -> InputTypeAndValue
-radioInput =
-    Radio
-
-
-checkboxInput : String -> Maybe Bool -> InputTypeAndValue
-checkboxInput =
-    Checkbox
-
-
-typeAndValueAttibutes : InputTypeAndValue -> List (Html.Attribute msg)
-typeAndValueAttibutes typeAndValue =
-    case typeAndValue of
-        Text value_ ->
-            [ Html.Attributes.type_ "text"
-            , Html.Attributes.value value_
-            ]
-
-        Radio name_ value_ checked_ ->
-            [ Html.Attributes.type_ "radio"
-            , Html.Attributes.name name_
-            , Html.Attributes.value value_
-            , Html.Attributes.checked checked_
-            ]
-
-        Checkbox value_ maybe_checked ->
-            [ Html.Attributes.type_ "checkbox"
-            , Html.Attributes.value value_
-            , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybe_checked)
-            ]
-
-
-baseInput : Input msg -> Html msg
-baseInput inputModel =
-    Html.input (typeAndValueAttibutes inputModel.typeAndValue ++ inputModel.attributes) []
-
-
-leftLabeledInput : Input msg -> Html msg
-leftLabeledInput inputModel =
-    Html.label
         []
-        [ inputModel.label
-        , baseInput inputModel
-        ]
-
-
-rightLabeledInput : Input msg -> Html msg
-rightLabeledInput inputModel =
-    Html.label
-        []
-        [ baseInput inputModel
-        , inputModel.label
-        ]
-
-
-invisibleLabeledInput : Input msg -> String -> Html msg
-invisibleLabeledInput inputModel id_ =
-    Html.span
-        []
-        [ Html.label [ Style.invisible, Html.Attributes.for id_ ] [ inputModel.label ]
-        , Html.input
-            (typeAndValueAttibutes inputModel.typeAndValue
-                ++ Html.Attributes.id id_
-                :: inputModel.attributes
-            )
-            []
-        ]
 
 
 
