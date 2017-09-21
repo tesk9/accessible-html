@@ -178,12 +178,21 @@ For a more fully-fledged example using these helpers check out [elm-tabs](http:/
 @docs img, decorativeImg, figure
 
 
-## From Html
+## From [Html](http://package.elm-lang.org/packages/elm-lang/html/latest)
 
-@docs Html, text
+
+### Interactive
 
 @docs button, textarea, select
 
+
+### Non-interactive
+
+These elements will prevent you from adding event listeners.
+
+    import Accessibility exposing (..)
+
+@docs Html, text
 @docs h1, h2, h3, h4, h5, h6
 @docs div, p, hr, pre, blockquote
 @docs span, a, code, em, strong, i, b, u, sub, sup, br
@@ -472,105 +481,120 @@ textarea =
 -- NOT INTERACTABLE
 
 
-{-| `body` should generally not have event listeners.
+{-| `body` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 body : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 body attributes =
     Html.body (nonInteractive attributes)
 
 
-{-| `section` should generally not have event listeners.
+{-| `section` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 section : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 section attributes =
     Html.section (nonInteractive attributes)
 
 
-{-| `nav` should generally not have event listeners.
+{-| `nav` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 nav : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 nav attributes =
     Html.nav (nonInteractive attributes)
 
 
-{-| `article` should generally not have event listeners.
+{-| `article` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 article : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 article attributes =
     Html.article (nonInteractive attributes)
 
 
-{-| `aside` should generally not have event listeners.
+{-| `aside` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 aside : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 aside attributes =
     Html.aside (nonInteractive attributes)
 
 
-{-| `h1` should generally not have event listeners.
+{-| `h1` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 h1 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 h1 attributes =
     Html.h1 (nonInteractive attributes)
 
 
-{-| `h2` should generally not have event listeners.
+{-| `h2` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 h2 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 h2 attributes =
     Html.h2 (nonInteractive attributes)
 
 
-{-| `h3` should generally not have event listeners.
+{-| `h3` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 h3 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 h3 attributes =
     Html.h3 (nonInteractive attributes)
 
 
-{-| `h4` should generally not have event listeners.
+{-| `h4` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 h4 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 h4 attributes =
     Html.h4 (nonInteractive attributes)
 
 
-{-| `h5` should generally not have event listeners.
+{-| `h5` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 h5 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 h5 attributes =
     Html.h5 (nonInteractive attributes)
 
 
-{-| `h6` should generally not have event listeners.
+{-| `h6` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 h6 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 h6 attributes =
     Html.h6 (nonInteractive attributes)
 
 
-{-| `header` should generally not have event listeners.
+{-| `header` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 header : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 header attributes =
     Html.header (nonInteractive attributes)
 
 
-{-| `footer` should generally not have event listeners.
+{-| `footer` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 footer : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 footer attributes =
     Html.footer (nonInteractive attributes)
 
 
-{-| `address` should generally not have event listeners.
+{-| `address` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 address : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 address attributes =
     Html.address (nonInteractive attributes)
 
 
-{-| `main_` should generally not have event listeners.
+{-| `main_` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 main_ : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 main_ attributes =
@@ -581,84 +605,96 @@ main_ attributes =
 -- GROUPING CONTENT
 
 
-{-| `p` should generally not have event listeners.
+{-| `p` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 p : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 p attributes =
     Html.p (nonInteractive attributes)
 
 
-{-| `hr` should generally not have event listeners.
+{-| `hr` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 hr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 hr attributes =
     Html.hr (nonInteractive attributes)
 
 
-{-| `pre` should generally not have event listeners.
+{-| `pre` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 pre : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 pre attributes =
     Html.pre (nonInteractive attributes)
 
 
-{-| `blockquote` should generally not have event listeners.
+{-| `blockquote` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 blockquote : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 blockquote attributes =
     Html.blockquote (nonInteractive attributes)
 
 
-{-| `ol` should generally not have event listeners.
+{-| `ol` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 ol : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 ol attributes =
     Html.ol (nonInteractive attributes)
 
 
-{-| `ul` should generally not have event listeners.
+{-| `ul` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 ul : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 ul attributes =
     Html.ul (nonInteractive attributes)
 
 
-{-| `li` should generally not have event listeners.
+{-| `li` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 li : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 li attributes =
     Html.li (nonInteractive attributes)
 
 
-{-| `dl` should generally not have event listeners.
+{-| `dl` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 dl : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 dl attributes =
     Html.dl (nonInteractive attributes)
 
 
-{-| `dt` should generally not have event listeners.
+{-| `dt` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 dt : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 dt attributes =
     Html.dt (nonInteractive attributes)
 
 
-{-| `dd` should generally not have event listeners.
+{-| `dd` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 dd : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 dd attributes =
     Html.dd (nonInteractive attributes)
 
 
-{-| `figcaption` should generally not have event listeners.
+{-| `figcaption` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 figcaption : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 figcaption attributes =
     Html.figcaption (nonInteractive attributes)
 
 
-{-| `div` should generally not have event listeners.
+{-| `div` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 div : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 div attributes =
@@ -669,455 +705,520 @@ div attributes =
 -- TEXT LEVEL SEMANTIC
 
 
-{-| `:` should generally not have event listeners.
+{-| `:` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 a : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 a attributes =
     Html.a (nonInteractive attributes)
 
 
-{-| `em` should generally not have event listeners.
+{-| `em` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 em : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 em attributes =
     Html.em (nonInteractive attributes)
 
 
-{-| `strong` should generally not have event listeners.
+{-| `strong` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 strong : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 strong attributes =
     Html.strong (nonInteractive attributes)
 
 
-{-| `small` should generally not have event listeners.
+{-| `small` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 small : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 small attributes =
     Html.small (nonInteractive attributes)
 
 
-{-| `s` should generally not have event listeners.
+{-| `s` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 s : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 s attributes =
     Html.s (nonInteractive attributes)
 
 
-{-| `cite` should generally not have event listeners.
+{-| `cite` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 cite : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 cite attributes =
     Html.cite (nonInteractive attributes)
 
 
-{-| `q` should generally not have event listeners.
+{-| `q` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 q : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 q attributes =
     Html.q (nonInteractive attributes)
 
 
-{-| `dfn` should generally not have event listeners.
+{-| `dfn` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 dfn : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 dfn attributes =
     Html.dfn (nonInteractive attributes)
 
 
-{-| `abbr` should generally not have event listeners.
+{-| `abbr` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 abbr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 abbr attributes =
     Html.abbr (nonInteractive attributes)
 
 
-{-| `time` should generally not have event listeners.
+{-| `time` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 time : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 time attributes =
     Html.time (nonInteractive attributes)
 
 
-{-| `code` should generally not have event listeners.
+{-| `code` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 code : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 code attributes =
     Html.code (nonInteractive attributes)
 
 
-{-| `var` should generally not have event listeners.
+{-| `var` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 var : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 var attributes =
     Html.var (nonInteractive attributes)
 
 
-{-| `samp` should generally not have event listeners.
+{-| `samp` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 samp : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 samp attributes =
     Html.samp (nonInteractive attributes)
 
 
-{-| `kbd` should generally not have event listeners.
+{-| `kbd` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 kbd : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 kbd attributes =
     Html.kbd (nonInteractive attributes)
 
 
-{-| `sub` should generally not have event listeners.
+{-| `sub` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 sub : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 sub attributes =
     Html.sub (nonInteractive attributes)
 
 
-{-| `sup` should generally not have event listeners.
+{-| `sup` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 sup : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 sup attributes =
     Html.sup (nonInteractive attributes)
 
 
-{-| `i` should generally not have event listeners.
+{-| `i` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 i : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 i attributes =
     Html.i (nonInteractive attributes)
 
 
-{-| `b` should generally not have event listeners.
+{-| `b` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 b : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 b attributes =
     Html.b (nonInteractive attributes)
 
 
-{-| `u` should generally not have event listeners.
+{-| `u` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 u : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 u attributes =
     Html.u (nonInteractive attributes)
 
 
-{-| `mark` should generally not have event listeners.
+{-| `mark` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 mark : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 mark attributes =
     Html.mark (nonInteractive attributes)
 
 
-{-| `ruby` should generally not have event listeners.
+{-| `ruby` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 ruby : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 ruby attributes =
     Html.ruby (nonInteractive attributes)
 
 
-{-| `rt` should generally not have event listeners.
+{-| `rt` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 rt : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 rt attributes =
     Html.rt (nonInteractive attributes)
 
 
-{-| `rp` should generally not have event listeners.
+{-| `rp` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 rp : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 rp attributes =
     Html.rp (nonInteractive attributes)
 
 
-{-| `bdi` should generally not have event listeners.
+{-| `bdi` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 bdi : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 bdi attributes =
     Html.bdi (nonInteractive attributes)
 
 
-{-| `bdo` should generally not have event listeners.
+{-| `bdo` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 bdo : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 bdo attributes =
     Html.bdo (nonInteractive attributes)
 
 
-{-| `span` should generally not have event listeners.
+{-| `span` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 span : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 span attributes =
     Html.span (nonInteractive attributes)
 
 
-{-| `br` should generally not have event listeners.
+{-| `br` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 br : List (Html.Attribute Never) -> Html Never
 br attributes =
     Html.br (nonInteractive attributes) []
 
 
-{-| `wbr` should generally not have event listeners.
+{-| `wbr` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 wbr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 wbr attributes =
     Html.wbr (nonInteractive attributes)
 
 
-{-| `ins` should generally not have event listeners.
+{-| `ins` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 ins : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 ins attributes =
     Html.ins (nonInteractive attributes)
 
 
-{-| `del` should generally not have event listeners.
+{-| `del` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 del : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 del attributes =
     Html.del (nonInteractive attributes)
 
 
-{-| `iframe` should generally not have event listeners.
+{-| `iframe` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 iframe : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 iframe attributes =
     Html.iframe (nonInteractive attributes)
 
 
-{-| `embed` should generally not have event listeners.
+{-| `embed` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 embed : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 embed attributes =
     Html.embed (nonInteractive attributes)
 
 
-{-| `object` should generally not have event listeners.
+{-| `object` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 object : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 object attributes =
     Html.object (nonInteractive attributes)
 
 
-{-| `param` should generally not have event listeners.
+{-| `param` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 param : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 param attributes =
     Html.param (nonInteractive attributes)
 
 
-{-| `video` should generally not have event listeners.
+{-| `video` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 video : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 video attributes =
     Html.video (nonInteractive attributes)
 
 
-{-| `audio` should generally not have event listeners.
+{-| `audio` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 audio : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 audio attributes =
     Html.audio (nonInteractive attributes)
 
 
-{-| `source` should generally not have event listeners.
+{-| `source` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 source : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 source attributes =
     Html.source (nonInteractive attributes)
 
 
-{-| `track` should generally not have event listeners.
+{-| `track` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 track : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 track attributes =
     Html.track (nonInteractive attributes)
 
 
-{-| `canvas` should generally not have event listeners.
+{-| `canvas` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 canvas : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 canvas attributes =
     Html.canvas (nonInteractive attributes)
 
 
-{-| `math` should generally not have event listeners.
+{-| `math` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 math : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 math attributes =
     Html.math (nonInteractive attributes)
 
 
-{-| `table` should generally not have event listeners.
+{-| `table` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 table : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 table attributes =
     Html.table (nonInteractive attributes)
 
 
-{-| `caption` should generally not have event listeners.
+{-| `caption` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 caption : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 caption attributes =
     Html.caption (nonInteractive attributes)
 
 
-{-| `colgroup` should generally not have event listeners.
+{-| `colgroup` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 colgroup : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 colgroup attributes =
     Html.colgroup (nonInteractive attributes)
 
 
-{-| `col` should generally not have event listeners.
+{-| `col` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 col : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 col attributes =
     Html.col (nonInteractive attributes)
 
 
-{-| `tbody` should generally not have event listeners.
+{-| `tbody` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 tbody : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 tbody attributes =
     Html.tbody (nonInteractive attributes)
 
 
-{-| `thead` should generally not have event listeners.
+{-| `thead` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 thead : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 thead attributes =
     Html.thead (nonInteractive attributes)
 
 
-{-| `tfoot` should generally not have event listeners.
+{-| `tfoot` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 tfoot : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 tfoot attributes =
     Html.tfoot (nonInteractive attributes)
 
 
-{-| `tr` should generally not have event listeners.
+{-| `tr` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 tr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 tr attributes =
     Html.tr (nonInteractive attributes)
 
 
-{-| `td` should generally not have event listeners.
+{-| `td` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 td : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 td attributes =
     Html.td (nonInteractive attributes)
 
 
-{-| `th` should generally not have event listeners.
+{-| `th` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 th : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 th attributes =
     Html.th (nonInteractive attributes)
 
 
-{-| `form` should generally not have event listeners.
+{-| `form` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 form : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 form attributes =
     Html.form (nonInteractive attributes)
 
 
-{-| `fieldset` should generally not have event listeners.
+{-| `fieldset` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 fieldset : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 fieldset attributes =
     Html.fieldset (nonInteractive attributes)
 
 
-{-| `legend` should generally not have event listeners.
+{-| `legend` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 legend : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 legend attributes =
     Html.legend (nonInteractive attributes)
 
 
-{-| `label` should generally not have event listeners.
+{-| `label` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 label : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 label attributes =
     Html.label (nonInteractive attributes)
 
 
-{-| `datalist` should generally not have event listeners.
+{-| `datalist` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 datalist : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 datalist attributes =
     Html.datalist (nonInteractive attributes)
 
 
-{-| `optgroup` should generally not have event listeners.
+{-| `optgroup` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 optgroup : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 optgroup attributes =
     Html.optgroup (nonInteractive attributes)
 
 
-{-| `option` should generally not have event listeners.
+{-| `option` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 option : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 option attributes =
     Html.option (nonInteractive attributes)
 
 
-{-| `keygen` should generally not have event listeners.
+{-| `keygen` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 keygen : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 keygen attributes =
     Html.keygen (nonInteractive attributes)
 
 
-{-| `output` should generally not have event listeners.
+{-| `output` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 output : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 output attributes =
     Html.output (nonInteractive attributes)
 
 
-{-| `progress` should generally not have event listeners.
+{-| `progress` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 progress : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 progress attributes =
     Html.progress (nonInteractive attributes)
 
 
-{-| `meter` should generally not have event listeners.
+{-| `meter` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 meter : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 meter attributes =
     Html.meter (nonInteractive attributes)
 
 
-{-| `details` should generally not have event listeners.
+{-| `details` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 details : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 details attributes =
     Html.details (nonInteractive attributes)
 
 
-{-| `summary` should generally not have event listeners.
+{-| `summary` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 summary : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 summary attributes =
     Html.summary (nonInteractive attributes)
 
 
-{-| `menuitem` should generally not have event listeners.
+{-| `menuitem` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 menuitem : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 menuitem attributes =
     Html.menuitem (nonInteractive attributes)
 
 
-{-| `menu` should generally not have event listeners.
+{-| `menu` should generally not have event listeners. If you _really_ need to add
+an event listener, use the elm-lang/html library instead.
 -}
 menu : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 menu attributes =
