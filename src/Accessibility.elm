@@ -374,9 +374,9 @@ checkbox value_ maybeChecked attributes =
 
 {-| Create a tablist. This is the outer container for a list of tabs.
 -}
-tabList : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tabList : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 tabList attributes =
-    Html.div (Role.tabList :: attributes)
+    Html.div (Role.tabList :: nonInteractive attributes)
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
@@ -390,9 +390,9 @@ tab attributes =
 
 {-| Create a tab panel.
 -}
-tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tabPanel : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 tabPanel attributes =
-    Html.div (Role.tabPanel :: attributes)
+    Html.div (Role.tabPanel :: nonInteractive attributes)
 
 
 
@@ -409,9 +409,9 @@ For graphs and diagrams, see `figure` and `longDesc`.
     img "Bear rubbing back on tree" [ src "bear.png" ]
 
 -}
-img : String -> List (Html.Attribute msg) -> Html msg
+img : String -> List (Html.Attribute Never) -> Html msg
 img alt_ attributes =
-    Html.img (Html.Attributes.alt alt_ :: attributes) []
+    Html.img (Html.Attributes.alt alt_ :: nonInteractive attributes) []
 
 
 {-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
@@ -419,16 +419,16 @@ img alt_ attributes =
     decorativeImg [ src "smiling_family.jpg" ]
 
 -}
-decorativeImg : List (Html.Attribute msg) -> Html msg
+decorativeImg : List (Html.Attribute Never) -> Html msg
 decorativeImg attributes =
-    Html.img (Html.Attributes.alt "" :: Role.presentation :: attributes) []
+    Html.img (Html.Attributes.alt "" :: Role.presentation :: nonInteractive attributes) []
 
 
 {-| Adds the group role to a figure.
 -}
-figure : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+figure : List (Html.Attribute Never) -> List (Html msg) -> Html msg
 figure attributes =
-    Html.figure (Role.group :: attributes)
+    Html.figure (Role.group :: nonInteractive attributes)
 
 
 
