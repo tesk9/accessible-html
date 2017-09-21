@@ -29,4 +29,9 @@ For instance, if you prefer to use placeholders to convey what sort of values be
 
 ## Accessibility.Aria, Accessibility.Landmark, Accessibility.Role, Accessibility.Widget
 
-These are more advanced helpers that allow you to do some pretty advanced cool stuff!
+These are more advanced helpers that allow you to do some pretty advanced cool stuff! Many of these helpers are not necessary when writing semantically correct HTML5 code, but you will still need some of them on occassion. The import expressions below point out some of the helpers that you are more likely to need:
+
+
+    import Accessibility.Aria exposing (controls, labelledBy, describedBy)
+    import Accessibility.Landmark exposing (search)
+    import Accessibility.Role exposing (presentation)
