@@ -38,17 +38,17 @@ import Html
 generally is implicitly a `banner`. (For specifics on what DOM relationships will
 affect this default behavior, please check out [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/banner.html).)
 
-    import Html exposing (div, h1, text)
-    import Html.A11y exposing (img)
-    import Html.A11y.Attributes exposing (banner)
+    import Accessibility as Html exposing (Html, div, h1, img, text)
+    import Accessibility.Landmark exposing (banner)
     import Html.Attributes exposing (src)
 
-
-    div
-        [ banner ]
-        [ h1 [] [ text "Such Site!"]
-        , img "Such Logo!" [ src "logo.png" ]
-        ]
+    view : Html msg
+    view =
+        div
+            [ banner ]
+            [ h1 [] [ text "Such Site!" ]
+            , img "Such Logo!" [ src "logo.png" ]
+            ]
 
 -}
 banner : Html.Attribute msg
