@@ -4,9 +4,16 @@ import Html
 import Html.Attributes exposing (..)
 
 
+-- ARIA
+
+
 aria : String -> String -> Html.Attribute msg
 aria =
     attribute << (++) "aria-"
+
+
+
+-- WIDGET STATE
 
 
 toBoolString : Bool -> String
@@ -22,6 +29,19 @@ toTriStateString =
 toListString : List String -> String
 toListString =
     String.join " "
+
+
+
+-- NEVER-ing
+
+
+nonInteractive : List (Html.Attribute Never) -> List (Html.Attribute a)
+nonInteractive =
+    List.map (Html.Attributes.map Basics.never)
+
+
+
+-- ROLE
 
 
 role : Role -> Html.Attribute msg
