@@ -143,10 +143,9 @@ more options.
 
 Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab component view.
 
-    import Html exposing (text)
-    import Html.A11y exposing (tab, tabList, tabPanel)
-    import Html.Attributes
-    import Html.Attributes.A11y as A11yAttributes
+    import Accessibility exposing (Html, tab, tabList, tabPanel, text)
+    import Accessibility.Widget exposing (controls, hidden, labelledBy, selected)
+    import Html.Attributes exposing (id)
 
     view : Html msg
     view =
@@ -154,27 +153,27 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
             [ id "tab-list" ]
             [ tab
                 [ id "tab-1"
-                , A11yAttributes.selected True
-                , A11yAttributes.controls "panel-1"
+                , selected True
+                , controls "panel-1"
                 ]
                 [ text "Tab One" ]
             , tab
                 [ id "tab-2"
-                , A11yAttributes.selected False
-                , A11yAttributes.controls "panel-1"
+                , selected False
+                , controls "panel-1"
                 ]
                 [ text "Tab Two" ]
             , tabPanel
                 [ id "panel-1"
-                , A11yAttributes.labelledBy "tab-1"
-                , A11yAttributes.hidden False
+                , labelledBy "tab-1"
+                , hidden False
                 , Html.Attributes.hidden False
                 ]
                 [ text "Panel One Content" ]
             , tabPanel
                 [ id "panel-2"
-                , A11yAttributes.labelledBy "tab-2"
-                , A11yAttributes.hidden True
+                , labelledBy "tab-2"
+                , hidden True
                 , Html.Attributes.hidden True
                 ]
                 [ text "Panel Two Content" ]
