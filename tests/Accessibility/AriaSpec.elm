@@ -55,16 +55,6 @@ spec =
             expectAria ( placeholder, "element-id" ) ( "placeholder", "element-id" )
         , test "posInSet" <|
             expectAria ( posInSet, 15 ) ( "posinset", "15" )
-        , test "relevantAdditions" <|
-            expectAria ( \() -> relevantAdditions, () ) ( "relevant", "additions" )
-        , test "relevantAdditionsText" <|
-            expectAria ( \() -> relevantAdditionsText, () ) ( "relevant", "additions text" )
-        , test "relevantAll" <|
-            expectAria ( \() -> relevantAll, () ) ( "relevant", "all" )
-        , test "relevantRemovals" <|
-            expectAria ( \() -> relevantRemovals, () ) ( "relevant", "removals" )
-        , test "relevantText" <|
-            expectAria ( \() -> relevantText, () ) ( "relevant", "text" )
         , test "roleDescription" <|
             expectAria ( roleDescription, "element-id" ) ( "roledescription", "element-id" )
         , test "rowCount" <|

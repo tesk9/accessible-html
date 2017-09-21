@@ -16,4 +16,14 @@ spec =
             expectAria ( \() -> livePolite, () ) ( "live", "polite" )
         , test "liveAssertive" <|
             expectAria ( \() -> liveAssertive, () ) ( "live", "assertive" )
+        , test "relevantAdditions" <|
+            expectAria ( \() -> relevantAdditions, () ) ( "relevant", "additions" )
+        , test "relevantAdditionsText" <|
+            expectAria ( \() -> relevantAdditionsText, () ) ( "relevant", "additions text" )
+        , test "relevantAll" <|
+            expectAria ( \() -> relevantAll, () ) ( "relevant", "all" )
+        , test "relevantRemovals" <|
+            expectAria ( \() -> relevantRemovals, () ) ( "relevant", "removals" )
+        , test "relevantText" <|
+            expectAria ( \() -> relevantText, () ) ( "relevant", "text" )
         ]

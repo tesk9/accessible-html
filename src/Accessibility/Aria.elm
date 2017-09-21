@@ -22,11 +22,6 @@ module Accessibility.Aria
         , modal
         , placeholder
         , posInSet
-        , relevantAdditions
-        , relevantAdditionsText
-        , relevantAll
-        , relevantRemovals
-        , relevantText
         , roleDescription
         , rowCount
         , rowIndex
@@ -43,11 +38,6 @@ module Accessibility.Aria
 
 @docs longDescription, details, describedBy, labelledBy, labeledBy
 @docs modal, keyShortcuts, roleDescription
-
-
-### Relevant
-
-@docs relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
 
 
 ### Navigation and Flow
@@ -360,56 +350,6 @@ Provide a hint about an expected value.
 placeholder : String -> Html.Attribute msg
 placeholder =
     aria "placeholder"
-
-
-{-| Supported by live regions.
-
-Keep track of additions to the live region.
-
--}
-relevantAdditions : Html.Attribute msg
-relevantAdditions =
-    aria "relevant" "additions"
-
-
-{-| Supported by live regions.
-
-Keep track of node additions to the live region and text additions.
-
--}
-relevantAdditionsText : Html.Attribute msg
-relevantAdditionsText =
-    aria "relevant" "additions text"
-
-
-{-| Supported by live regions.
-
-Keep track of everything to occur in the live region. Use sparingly!
-
--}
-relevantAll : Html.Attribute msg
-relevantAll =
-    aria "relevant" "all"
-
-
-{-| Supported by live regions.
-
-Keep track of text or node removals. Use sparingly!
-
--}
-relevantRemovals : Html.Attribute msg
-relevantRemovals =
-    aria "relevant" "removals"
-
-
-{-| Supported by live regions.
-
-Keep track of text additions to the live region.
-
--}
-relevantText : Html.Attribute msg
-relevantText =
-    aria "relevant" "text"
 
 
 {-| Supported by all elements.

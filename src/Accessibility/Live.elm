@@ -4,6 +4,11 @@ module Accessibility.Live
         , busy
         , liveAssertive
         , livePolite
+        , relevantAdditions
+        , relevantAdditionsText
+        , relevantAll
+        , relevantRemovals
+        , relevantText
         )
 
 {-|
@@ -13,6 +18,11 @@ module Accessibility.Live
 
 Learn more about how to use live regions [here](https://www.w3.org/TR/wai-aria-practices-1.1/#liveprops).
 @docs atomic, busy, livePolite, liveAssertive
+
+
+# Properties on Live Attributes
+
+@docs relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
 
 -}
 
@@ -63,3 +73,53 @@ interrupt the user with the big news.
 liveAssertive : Html.Attribute msg
 liveAssertive =
     aria "live" "assertive"
+
+
+{-| Supported by live regions.
+
+Keep track of additions to the live region.
+
+-}
+relevantAdditions : Html.Attribute msg
+relevantAdditions =
+    aria "relevant" "additions"
+
+
+{-| Supported by live regions.
+
+Keep track of node additions to the live region and text additions.
+
+-}
+relevantAdditionsText : Html.Attribute msg
+relevantAdditionsText =
+    aria "relevant" "additions text"
+
+
+{-| Supported by live regions.
+
+Keep track of everything to occur in the live region. Use sparingly!
+
+-}
+relevantAll : Html.Attribute msg
+relevantAll =
+    aria "relevant" "all"
+
+
+{-| Supported by live regions.
+
+Keep track of text or node removals. Use sparingly!
+
+-}
+relevantRemovals : Html.Attribute msg
+relevantRemovals =
+    aria "relevant" "removals"
+
+
+{-| Supported by live regions.
+
+Keep track of text additions to the live region.
+
+-}
+relevantText : Html.Attribute msg
+relevantText =
+    aria "relevant" "text"
