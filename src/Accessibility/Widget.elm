@@ -42,45 +42,36 @@ module Accessibility.Widget
 
 ## Widget States and Properties
 
-Some of these are also globally available, including: `busy`, `disabled`, `grabbed`, `hidden`, `invalid`
+Some of these are also globally available, including: `busy`, `disabled`, `grabbed`, `hidden`, `invalid`.
 
 
-### Page Hierarchy
-
-@docs level
-
-
-### State
-
-
-#### Inputs
+### Inputs
 
 @docs required, label
 
 
-##### Button
+### Button
 
 @docs pressed
 
 
-##### TextBox
+### TextBox
 
 @docs multiLine
 
 
-##### Auto-complete behavior
-
-@docs autoCompleteInline, autoCompleteList, autoCompleteBoth
+#### Auto-complete behavior:
 
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
+@docs autoCompleteInline, autoCompleteList, autoCompleteBoth
 
 
-##### Selection
+### Selection
 
 @docs checked, selected, indeterminate
 
 
-#### Validity
+### Validity
 
 @docs invalid, invalidGrammar, invalidSpelling
 
@@ -92,8 +83,6 @@ See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplet
 
 ### Pop-Ups
 
-@docs hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
-
 Pop-ups are supported for all elements (but not meant for use on tooltips).
 
 The pop-up itself needs to have a containing element with one of these roles:
@@ -101,6 +90,8 @@ The pop-up itself needs to have a containing element with one of these roles:
 That is, use `hasMenuPopUp` if the pop-up container has a role of `menu`.
 
 See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
+
+@docs hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
 
 
 ### Orientation and Range Widgets
@@ -116,6 +107,11 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 ### Misc
 
 @docs multiSelectable
+
+
+### Page Hierarchy
+
+@docs level
 
 -}
 
