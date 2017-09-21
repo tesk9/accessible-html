@@ -379,6 +379,8 @@ tabList attributes =
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
+You'll want to listen for click events **and** for keyboard events: when users hit
+the right and left keys on their keyboards, they expect for the selected tab to change.
 -}
 tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tab attributes =
@@ -386,9 +388,6 @@ tab attributes =
 
 
 {-| Create a tab panel.
-
-    tabPanel [] [ h3 [] [ text "Panel Header" ], text "Panel Content" ]
-
 -}
 tabPanel : List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tabPanel attributes =
