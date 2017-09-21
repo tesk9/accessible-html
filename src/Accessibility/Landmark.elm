@@ -151,16 +151,22 @@ that they describe search functionality.
 
 As ever, if there's more than one search element on the page, please be sure to label.
 
-    import Html exposing (button, form, text)
-    import Html.A11y exposing (textLeftLabeled)
-    import Html.Attributes exposing (type_, value)
-    import Html.Attributes.A11y exposing (search)
+    import Accessibility exposing (Html, button, form, inputText, labelBefore, text)
+    import Accessibility.Landmark exposing (search)
+    import Html.Attributes exposing (type_)
+    import Html.Events exposing (onChange)
 
-    form [ search ]
-        [ textLeftLabeled "Search Value" [] <|
-            text "Search for something good"
-        , button [ type_ "submit" ] [ text "Search" ]
-        ]
+    type Msg
+        = Search String
+
+    view : String -> Html Msg
+    view value =
+        form [ search ]
+            [ labelBefore []
+                (text "Search for something good")
+                (inputText value [ onChange Search ])
+            , button [ type_ "submit" ] [ text "Search" ]
+            ]
 
 -}
 search : Html.Attribute msg
