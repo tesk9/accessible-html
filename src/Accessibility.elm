@@ -114,17 +114,6 @@ module Accessibility
 {-|
 
 
-## Inputs and Labels
-
-    firstNameInput : String -> Html msg
-    firstNameInput name =
-        labelHidden
-            "name-input"
-            [ class "data-entry" ]
-            (text "First Name:")
-            (inputText name [])
-
-
 ## Labels
 
 @docs labelBefore, labelAfter, labelHidden
