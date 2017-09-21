@@ -111,7 +111,14 @@ labelledBy =
 
 {-| Creates the longDesc attribute with the given url, which should point to a text description of the content. This attribute is only supported on img tags.
 
-    Html.A11y.img "Growth Chart in Some Sweet Unit (Quarter 4)" [ longDescription "/quarter_4_summary#Growth" ]
+    import Accessibility exposing (Html, img)
+    import Accessibility.Aria exposing (longDescription)
+
+    view : Html msg
+    view =
+        img
+            "Growth Chart in Some Sweet Unit (Quarter 4)"
+            [ longDescription "/quarter_4_summary#Growth" ]
 
 -}
 longDescription : String -> Html.Attribute msg
