@@ -67,18 +67,22 @@ Check out [W3's docs for `complementary`](https://www.w3.org/TR/wai-aria-practic
 note that you can toggle the "Show Landmarks" button at the top of the page
 to see a real example of using the complementary role!
 
-    import Html.Attributes.A11y exposing (complementary, labeledBy)
+    import Accessibility as Html exposing (Html, div, text)
+    import Accessibility.Aria exposing (labeledBy)
+    import Accessibility.Landmark exposing (complementary)
 
-    div []
-        [ div
-            [ complementary, labeledBy "extra-thoughts" ]
-            [ h2 [ id "extra-thoughts"] [ text "Extra thoughts..."]
-            , text "some content"
+    view : Html msg
+    view =
+        div []
+            [ div
+                [ complementary, labeledBy "extra-thoughts" ]
+                [ h2 [ id "extra-thoughts" ] [ text "Extra thoughts..." ]
+                , text "some content"
+                ]
+            , div
+                [ complementary, labeledBy "related-docs" ]
+                [ h2 [ id "related-docs" ] [ text "Related Documentation" ] ]
             ]
-        , div
-            [ complementary, labeledBy "related-docs" ]
-            [ h2 [ id "related-docs"] [ text "Related Documentation"] ]
-        ]
 
 -}
 complementary : Html.Attribute msg
