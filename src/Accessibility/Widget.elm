@@ -83,6 +83,8 @@ See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplet
 
 ### Pop-Ups
 
+@docs modal
+
 Pop-ups are supported for all elements (but not meant for use on tooltips).
 
 The pop-up itself needs to have a containing element with one of these roles:
