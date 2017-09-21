@@ -705,7 +705,7 @@ div attributes =
 -- TEXT LEVEL SEMANTIC
 
 
-{-| `:` should generally not have event listeners. If you _really_ need to add
+{-| `a` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
 a : List (Html.Attribute Never) -> List (Html msg) -> Html msg
