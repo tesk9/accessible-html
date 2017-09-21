@@ -49,8 +49,6 @@ spec =
         , test "keyShortcuts" <|
             expectAria ( keyShortcuts, [ "Alt+Shift+P", "Control+F" ] )
                 ( "keyshortcuts", "Alt+Shift+P Control+F" )
-        , describe "modal" <|
-            expectAriaBoolAttribute modal "modal"
         , test "placeholder" <|
             expectAria ( placeholder, "element-id" ) ( "placeholder", "element-id" )
         , test "posInSet" <|

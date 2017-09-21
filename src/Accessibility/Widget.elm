@@ -18,6 +18,7 @@ module Accessibility.Widget
         , invalidSpelling
         , label
         , level
+        , modal
         , multiLine
         , multiSelectable
         , orientationHorizontal
@@ -302,6 +303,28 @@ refer to the [documentation](https://www.w3.org/TR/wai-aria-1.1/#aria-level) to 
 level : Int -> Html.Attribute msg
 level =
     aria "level" << toString
+
+
+{-| Indicate that a modal is showing and the rest of the page contents are not
+interactable.
+
+    import Accessibility exposing (div, h2, p, text)
+    import Accessibility.Aria exposing (labelledBy)
+    import Accessibility.Role exposing (dialog)
+    import Accessibility.Widget exposing (modal)
+    import Html.Attributes exposing (id)
+
+    modal : Html msg
+    modal =
+        div [ dialog, modal, labelledBy "header-id" ]
+            [ h2 [ id "header-id" ] [ text "Modal Header" ]
+            , p [] [ text "Wow, such modal contents!" ]
+            ]
+
+-}
+modal : Bool -> Html.Attribute msg
+modal =
+    aria "modal" << toBoolString
 
 
 {-| Supported for `textbox` only.

@@ -74,4 +74,6 @@ spec =
             expectAria ( valueNow, 10 ) ( "valuenow", "10" )
         , test "level" <|
             expectAria ( level, 10 ) ( "level", "10" )
+        , describe "modal" <|
+            expectAriaBoolAttribute modal "modal"
         ]

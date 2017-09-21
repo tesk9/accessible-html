@@ -19,7 +19,6 @@ module Accessibility.Aria
         , labeledBy
         , labelledBy
         , longDescription
-        , modal
         , placeholder
         , posInSet
         , roleDescription
@@ -37,7 +36,7 @@ module Accessibility.Aria
 ### Providing More Info
 
 @docs longDescription, details, describedBy, labelledBy, labeledBy
-@docs modal, keyShortcuts, roleDescription
+@docs keyShortcuts, roleDescription
 
 
 ### Navigation and Flow
@@ -329,17 +328,6 @@ on how to make good shortcuts.
 keyShortcuts : List String -> Html.Attribute msg
 keyShortcuts =
     aria "keyshortcuts" << toListString
-
-
-{-| Supported by `window`, `alert`, and `alertDialog`.
-
-Indicate that a modal is showing and the rest of the page contents are not
-interactable.
-
--}
-modal : Bool -> Html.Attribute msg
-modal =
-    aria "modal" << toBoolString
 
 
 {-| Supported by `textbox` and `searchbox`.
