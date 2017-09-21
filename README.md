@@ -28,11 +28,13 @@ This section contains helpers for changing the look of your site without making 
 
 For instance, if you prefer to use placeholders to convey what sort of values belong in an input, you can use the `invisible` helper to remove the label for screenviewers without removing it for screenreaders.
 
-## Accessibility.Aria, Accessibility.Landmark, Accessibility.Role, Accessibility.Widget
+## Accessibility.Aria, Accessibility.Landmark, Accessibility.Live Accessibility.Role, Accessibility.Widget
 
 These are more advanced helpers that allow you to do some pretty advanced cool stuff! Many of these helpers are not necessary when writing semantically correct HTML5 code, but you will still need some of them on occassion. The import expressions below point out some of the helpers that you are more likely to need:
 
 
     import Accessibility.Aria exposing (controls, labelledBy, describedBy)
     import Accessibility.Landmark exposing (search)
+    import Accessibility.Live exposing (atomic, busy, liveAssertive, livePolite)
     import Accessibility.Role exposing (presentation)
+

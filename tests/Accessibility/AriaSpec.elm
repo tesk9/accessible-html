@@ -16,10 +16,6 @@ spec =
             expectAttribute ( longDescription, "element-id" ) ( "longdesc", "element-id" )
         , test "activeDescendant" <|
             expectAria ( activeDescendant, "element-id" ) ( "activedescendant", "element-id" )
-        , describe "atomic" <|
-            expectAriaBoolAttribute atomic "atomic"
-        , describe "busy" <|
-            expectAriaBoolAttribute busy "busy"
         , test "colCount" <|
             expectAria ( colCount, 15 ) ( "colcount", "15" )
         , test "colIndex" <|
@@ -53,10 +49,6 @@ spec =
         , test "keyShortcuts" <|
             expectAria ( keyShortcuts, [ "Alt+Shift+P", "Control+F" ] )
                 ( "keyshortcuts", "Alt+Shift+P Control+F" )
-        , test "livePolite" <|
-            expectAria ( \() -> livePolite, () ) ( "live", "polite" )
-        , test "liveAssertive" <|
-            expectAria ( \() -> liveAssertive, () ) ( "live", "assertive" )
         , describe "modal" <|
             expectAriaBoolAttribute modal "modal"
         , test "placeholder" <|
