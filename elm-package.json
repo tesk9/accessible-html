@@ -11,6 +11,7 @@
         "Accessibility.Aria",
         "Accessibility.Landmark",
         "Accessibility.Live",
+        "Accessibility.Key",
         "Accessibility.Role",
         "Accessibility.Style",
         "Accessibility.Widget"
