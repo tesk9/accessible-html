@@ -1,4 +1,4 @@
-module Accessibility.Key exposing (enter, left, onKeyDown, right, tab, tabBack)
+module Accessibility.Key exposing (enter, left, onKeyDown, right, space, tab, tabBack)
 
 {-|
 
@@ -10,7 +10,7 @@ module Accessibility.Key exposing (enter, left, onKeyDown, right, tab, tabBack)
 
 ## Decoders
 
-@docs enter, right, left, tab, tabBack
+@docs enter, right, left, tab, tabBack, space
 
 -}
 
@@ -37,6 +37,16 @@ onKeyDown decoders =
 enter : msg -> Json.Decoder msg
 enter msg =
     succeedForKeyCode 13 msg
+
+
+{-| Use with `onKeyDown` to succeed when user hits the spacebar.
+
+    onKeyDown [ space SpaceBar ]
+
+-}
+space : msg -> Json.Decoder msg
+space msg =
+    succeedForKeyCode 32 msg
 
 
 {-| Use with `onKeyDown` to succeed when user hits the left arrow key.

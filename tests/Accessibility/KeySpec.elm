@@ -29,6 +29,12 @@ spec =
                     |> Query.fromHtml
                     |> Event.simulate (keydown <| withKey 13)
                     |> Event.expect Enter
+        , test "spacebar produces expected Msg" <|
+            \() ->
+                view
+                    |> Query.fromHtml
+                    |> Event.simulate (keydown <| withKey 32)
+                    |> Event.expect SpaceBar
         , test "tab key produces expected Msg" <|
             \() ->
                 view
@@ -78,6 +84,7 @@ view =
             , enter Enter
             , tab Tab
             , tabBack TabBack
+            , space SpaceBar
             ]
         ]
         []
@@ -89,3 +96,4 @@ type Msg
     | Enter
     | Tab
     | TabBack
+    | SpaceBar
