@@ -2,7 +2,15 @@ module Accessibility.Key exposing (enter, left, onKeyDown, right)
 
 {-|
 
-@docs onKeyDown, enter, right, left
+
+## Keyboard event listener
+
+@docs onKeyDown
+
+
+## Decoders
+
+@docs enter, right, left
 
 -}
 
@@ -21,21 +29,30 @@ onKeyDown decoders =
     on "keydown" (Json.Decode.oneOf decoders)
 
 
-{-| For enter keydown.
+{-| Use with `onKeyDown` to succeed when user hits the Enter key.
+
+    onKeyDown [ enter TheyHitEnterDoSomething ]
+
 -}
 enter : msg -> Json.Decode.Decoder msg
 enter msg =
     succeedForKeyCode 13 msg
 
 
-{-| For left arrow keydown.
+{-| Use with `onKeyDown` to succeed when user hits the left arrow key.
+
+    onKeyDown [ left Left ]
+
 -}
 left : msg -> Json.Decode.Decoder msg
 left msg =
     succeedForKeyCode 37 msg
 
 
-{-| For right arrow keydown.
+{-| Use with `onKeyDown` to succeed when user hits the right arrow key.
+
+    onKeyDown [ right Right ]
+
 -}
 right : msg -> Json.Decode.Decoder msg
 right msg =
