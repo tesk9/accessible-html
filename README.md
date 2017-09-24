@@ -39,6 +39,12 @@ These are more advanced helpers that allow you to do some pretty advanced cool s
 
 This section includes roles for working with sets, grids, controls, and more. You're most likely to want the helpers for connecting elements to each other, by specifying that one `controls` another, or that a figure has `details` somewhere else.
 
+### Accessibility.Key
+
+When making widgets, you will need to add keyboard shortcuts to make keyboard navigation possible.
+
+For instance, `space` and on `enter` should activate a button,`space` should change a checkbox's state, `escape` should close a modal, and `up`, `down`, `left`, and `right` should navigate focus in a menu.
+
 ### Accessibility.Landmark
 
 You're likely to only want `search` from this section unless you're not using HTML5 elements.
