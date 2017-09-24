@@ -11,6 +11,7 @@ module Accessibility
         , b
         , bdi
         , bdo
+        , beginnerProgram
         , blockquote
         , body
         , br
@@ -74,6 +75,8 @@ module Accessibility
         , p
         , param
         , pre
+        , program
+        , programWithFlags
         , progress
         , q
         , radio
@@ -181,8 +184,6 @@ For a more fully-fledged example using these helpers check out [elm-tabs](http:/
 
 ## From [Html](http://package.elm-lang.org/packages/elm-lang/html/latest)
 
-@docs Html, Attribute
-
 
 ### Interactive
 
@@ -212,6 +213,15 @@ These elements will prevent you from adding event listeners.
 @docs small, cite, dfn, abbr, time, var, samp, kbd, s, q
 @docs mark, ruby, rt, rp, bdi, bdo, wbr
 @docs details, summary, menuitem, menu
+
+
+### Html aliases for Convenience
+
+These are here to make the following nicer:
+
+    import Accessibility as Html exposing (..)
+
+@docs Html, Attribute, beginnerProgram, program, programWithFlags
 
 -}
 
@@ -455,6 +465,82 @@ type alias Html msg =
 {-| -}
 type alias Attribute msg =
     Html.Attribute msg
+
+
+{-| `beginnerProgram` directly aliases the function of the same name from elm-lang/html.
+If you haven't used this to set up an Elm app before, please check out the documentation
+and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
+
+    import Accessibility as Html
+
+    main =
+        Html.beginnerProgram
+            { model = model
+            , update = update
+            , view = view
+            }
+
+-}
+beginnerProgram :
+    { model : model
+    , update : msg -> model -> model
+    , view : model -> Html.Html msg
+    }
+    -> Program Never model msg
+beginnerProgram =
+    Html.beginnerProgram
+
+
+{-| `program` directly aliases the function of the same name from elm-lang/html.
+If you haven't used this to set up an Elm app before, please check out the documentation
+and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
+
+    import Accessibility as Html
+
+    main =
+        Html.program
+            { init = init
+            , update = update
+            , view = view
+            , subscriptions = subscriptions
+            }
+
+-}
+program :
+    { init : ( model, Cmd msg )
+    , subscriptions : model -> Sub msg
+    , update : msg -> model -> ( model, Cmd msg )
+    , view : model -> Html.Html msg
+    }
+    -> Program Never model msg
+program =
+    Html.program
+
+
+{-| `programWithFlags` directly aliases the function of the same name from elm-lang/html.
+If you haven't used this to set up an Elm app before, please check out the documentation
+and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
+
+    import Accessibility as Html
+
+    main =
+        Html.programWithFlags
+            { init = init
+            , update = update
+            , view = view
+            , subscriptions = subscriptions
+            }
+
+-}
+programWithFlags :
+    { init : flags -> ( model, Cmd msg )
+    , subscriptions : model -> Sub msg
+    , update : msg -> model -> ( model, Cmd msg )
+    , view : model -> Html.Html msg
+    }
+    -> Program flags model msg
+programWithFlags =
+    Html.programWithFlags
 
 
 {-| -}
