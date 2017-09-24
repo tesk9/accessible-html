@@ -9,10 +9,16 @@ module Accessibility.Key
         , space
         , tab
         , tabBack
+        , tabbable
         , up
         )
 
 {-|
+
+
+## Managing focus
+
+@docs tabbable
 
 
 ## Keyboard event listener
@@ -42,8 +48,27 @@ module Accessibility.Key
 -}
 
 import Html exposing (Attribute)
+import Html.Attributes
 import Html.Events exposing (keyCode, on)
 import Json.Decode as Json
+
+
+{-| Add or remove an element from the normal flow of tabbable/focusable elements.
+
+`tabbable True` will set the tabindex to 0, and `tabbable False` will set the
+tabindex to -1.
+
+You may use Html.Attributes.tabindex if you need to control the tab order more
+explicitly, but you may want to restructure your HTML to match how you want
+users to interact with it instead.
+
+-}
+tabbable : Bool -> Attribute Never
+tabbable isTabbable =
+    if isTabbable then
+        Html.Attributes.tabindex 0
+    else
+        Html.Attributes.tabindex -1
 
 
 {-| Pass a list of decoders.
