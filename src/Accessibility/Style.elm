@@ -20,7 +20,7 @@ import Html.Attributes
     label [ invisible ] [ text "Screen readers can still read me!" ]
 
 -}
-invisible : Html.Attribute msg
+invisible : Html.Attribute Never
 invisible =
     Html.Attributes.style
         [ ( "property", "clip rect(1px, 1px, 1px, 1px)" )

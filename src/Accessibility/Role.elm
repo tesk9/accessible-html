@@ -138,105 +138,105 @@ import Html.Attributes
     div [ custom "tablist" ] [ tab1, tab2 ]
 
 -}
-custom : String -> Html.Attribute msg
+custom : String -> Html.Attribute Never
 custom =
     Html.Attributes.attribute "role"
 
 
 {-| Add `role="alert"` to the attributes of an element.
 -}
-alert : Html.Attribute msg
+alert : Html.Attribute Never
 alert =
     role Alert
 
 
 {-| Add `role="alertdialog"` to the attributes of an element.
 -}
-alertDialog : Html.Attribute msg
+alertDialog : Html.Attribute Never
 alertDialog =
     role Alertdialog
 
 
 {-| Add `role="article"` to the attributes of an element.
 -}
-article : Html.Attribute msg
+article : Html.Attribute Never
 article =
     role Article
 
 
 {-| Add `role="button"` to the attributes of an element.
 -}
-button : Html.Attribute msg
+button : Html.Attribute Never
 button =
     role Button
 
 
 {-| Add `role="checkbox"` to the attributes of an element.
 -}
-checkBox : Html.Attribute msg
+checkBox : Html.Attribute Never
 checkBox =
     role Checkbox
 
 
 {-| Add `role="columnheader"` to the attributes of an element.
 -}
-columnHeader : Html.Attribute msg
+columnHeader : Html.Attribute Never
 columnHeader =
     role Columnheader
 
 
 {-| Add `role="combobox"` to the attributes of an element.
 -}
-comboBox : Html.Attribute msg
+comboBox : Html.Attribute Never
 comboBox =
     role Combobox
 
 
 {-| Add `role="definition"` to the attributes of an element.
 -}
-definition : Html.Attribute msg
+definition : Html.Attribute Never
 definition =
     role Definition
 
 
 {-| Add `role="dialog"` to the attributes of an element.
 -}
-dialog : Html.Attribute msg
+dialog : Html.Attribute Never
 dialog =
     role Dialog
 
 
 {-| Add `role="directory"` to the attributes of an element.
 -}
-directory : Html.Attribute msg
+directory : Html.Attribute Never
 directory =
     role Directory
 
 
 {-| Add `role="document"` to the attributes of an element.
 -}
-document : Html.Attribute msg
+document : Html.Attribute Never
 document =
     role Document
 
 
 {-| Add `role="grid"` to the attributes of an element.
 -}
-grid : Html.Attribute msg
+grid : Html.Attribute Never
 grid =
     role Grid
 
 
 {-| Add `role="gridcell"` to the attributes of an element.
 -}
-gridCell : Html.Attribute msg
+gridCell : Html.Attribute Never
 gridCell =
     role Gridcell
 
 
 {-| Define a set of controls. (for a group of radio inputs, see radioGroup).
 -}
-group : Html.Attribute msg
+group : Html.Attribute Never
 group =
     role Group
 
@@ -247,265 +247,265 @@ Really this attribute should only be necessary if you need an `h7`-type heading.
     div [ heading, level 7 ] []
 
 -}
-heading : Html.Attribute msg
+heading : Html.Attribute Never
 heading =
     role Heading
 
 
 {-| Add `role="img"` to the attributes of an element.
 -}
-img : Html.Attribute msg
+img : Html.Attribute Never
 img =
     role Img
 
 
 {-| Add `role="link"` to the attributes of an element.
 -}
-link : Html.Attribute msg
+link : Html.Attribute Never
 link =
     role Link
 
 
 {-| Add `role="list"` to the attributes of an element.
 -}
-list : Html.Attribute msg
+list : Html.Attribute Never
 list =
     role List
 
 
 {-| Add `role="listbox"` to the attributes of an element.
 -}
-listBox : Html.Attribute msg
+listBox : Html.Attribute Never
 listBox =
     role Listbox
 
 
 {-| Add `role="listitem"` to the attributes of an element.
 -}
-listItem : Html.Attribute msg
+listItem : Html.Attribute Never
 listItem =
     role Listitem
 
 
 {-| Add `role="log"` to the attributes of an element.
 -}
-log : Html.Attribute msg
+log : Html.Attribute Never
 log =
     role Log
 
 
 {-| Add `role="marquee"` to the attributes of an element.
 -}
-marquee : Html.Attribute msg
+marquee : Html.Attribute Never
 marquee =
     role Marquee
 
 
 {-| Add `role="math"` to the attributes of an element.
 -}
-math : Html.Attribute msg
+math : Html.Attribute Never
 math =
     role Math
 
 
 {-| Add `role="menu"` to the attributes of an element.
 -}
-menu : Html.Attribute msg
+menu : Html.Attribute Never
 menu =
     role Menu
 
 
 {-| Add `role="menubar"` to the attributes of an element.
 -}
-menuBar : Html.Attribute msg
+menuBar : Html.Attribute Never
 menuBar =
     role Menubar
 
 
 {-| Add `role="menuitem"` to the attributes of an element.
 -}
-menuItem : Html.Attribute msg
+menuItem : Html.Attribute Never
 menuItem =
     role Menuitem
 
 
 {-| Add `role="menuitemcheckbox"` to the attributes of an element.
 -}
-menuItemCheckBox : Html.Attribute msg
+menuItemCheckBox : Html.Attribute Never
 menuItemCheckBox =
     role Menuitemcheckbox
 
 
 {-| Add `role="menuitemradio"` to the attributes of an element.
 -}
-menuItemRadio : Html.Attribute msg
+menuItemRadio : Html.Attribute Never
 menuItemRadio =
     role Menuitemradio
 
 
 {-| Add `role="note"` to the attributes of an element.
 -}
-note : Html.Attribute msg
+note : Html.Attribute Never
 note =
     role Note
 
 
 {-| Add `role="option"` to the attributes of an element.
 -}
-option : Html.Attribute msg
+option : Html.Attribute Never
 option =
     role Option
 
 
 {-| Sets role presentation.
 -}
-presentation : Html.Attribute msg
+presentation : Html.Attribute Never
 presentation =
     role Presentation
 
 
 {-| Add `role="progressbar"` to the attributes of an element.
 -}
-progressBar : Html.Attribute msg
+progressBar : Html.Attribute Never
 progressBar =
     role Progressbar
 
 
 {-| Add `role="radio"` to the attributes of an element.
 -}
-radio : Html.Attribute msg
+radio : Html.Attribute Never
 radio =
     role Radio
 
 
 {-| Define a set of radio-controls.
 -}
-radioGroup : Html.Attribute msg
+radioGroup : Html.Attribute Never
 radioGroup =
     role Radiogroup
 
 
 {-| Add `role="row"` to the attributes of an element.
 -}
-row : Html.Attribute msg
+row : Html.Attribute Never
 row =
     role Row
 
 
 {-| Add `role="rowgroup"` to the attributes of an element.
 -}
-rowGroup : Html.Attribute msg
+rowGroup : Html.Attribute Never
 rowGroup =
     role Rowgroup
 
 
 {-| Add `role="rowheader"` to the attributes of an element.
 -}
-rowHeader : Html.Attribute msg
+rowHeader : Html.Attribute Never
 rowHeader =
     role Rowheader
 
 
 {-| Add `role="scrollbar"` to the attributes of an element.
 -}
-scrollBar : Html.Attribute msg
+scrollBar : Html.Attribute Never
 scrollBar =
     role Scrollbar
 
 
 {-| Add `role="separator"` to the attributes of an element.
 -}
-separator : Html.Attribute msg
+separator : Html.Attribute Never
 separator =
     role Separator
 
 
 {-| Add `role="slider"` to the attributes of an element.
 -}
-slider : Html.Attribute msg
+slider : Html.Attribute Never
 slider =
     role Slider
 
 
 {-| Add `role="spinbutton"` to the attributes of an element.
 -}
-spinButton : Html.Attribute msg
+spinButton : Html.Attribute Never
 spinButton =
     role Spinbutton
 
 
 {-| Add `role="status"` to the attributes of an element.
 -}
-status : Html.Attribute msg
+status : Html.Attribute Never
 status =
     role Status
 
 
 {-| Add `role="tab"` to the attributes of an element.
 -}
-tab : Html.Attribute msg
+tab : Html.Attribute Never
 tab =
     role Tab
 
 
 {-| Add `role="tablist"` to the attributes of an element.
 -}
-tabList : Html.Attribute msg
+tabList : Html.Attribute Never
 tabList =
     role Tablist
 
 
 {-| Add `role="tabpanel"` to the attributes of an element.
 -}
-tabPanel : Html.Attribute msg
+tabPanel : Html.Attribute Never
 tabPanel =
     role Tabpanel
 
 
 {-| Add `role="textbox"` to the attributes of an element.
 -}
-textBox : Html.Attribute msg
+textBox : Html.Attribute Never
 textBox =
     role Textbox
 
 
 {-| Add `role="timer"` to the attributes of an element.
 -}
-timer : Html.Attribute msg
+timer : Html.Attribute Never
 timer =
     role Timer
 
 
 {-| Add `role="toolbar"` to the attributes of an element.
 -}
-toolBar : Html.Attribute msg
+toolBar : Html.Attribute Never
 toolBar =
     role Toolbar
 
 
 {-| Add `role="tooltip"` to the attributes of an element.
 -}
-toolTip : Html.Attribute msg
+toolTip : Html.Attribute Never
 toolTip =
     role Tooltip
 
 
 {-| Add `role="tree"` to the attributes of an element.
 -}
-tree : Html.Attribute msg
+tree : Html.Attribute Never
 tree =
     role Tree
 
 
 {-| Add `role="treegrid"` to the attributes of an element.
 -}
-treeGrid : Html.Attribute msg
+treeGrid : Html.Attribute Never
 treeGrid =
     role Treegrid
 
 
 {-| Add `role="treeitem"` to the attributes of an element.
 -}
-treeItem : Html.Attribute msg
+treeItem : Html.Attribute Never
 treeItem =
     role Treeitem

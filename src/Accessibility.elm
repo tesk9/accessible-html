@@ -225,6 +225,7 @@ These are here to make the following nicer:
 
 -}
 
+import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
@@ -381,10 +382,11 @@ Checkboxes may be checked, unchecked, or indeterminate.
 checkbox : String -> Maybe Bool -> List (Attribute msg) -> Html msg
 checkbox value_ maybeChecked attributes =
     Html.input
-        ([ Html.Attributes.type_ "checkbox"
-         , Html.Attributes.value value_
-         , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
-         ]
+        (nonInteractive
+            [ Html.Attributes.type_ "checkbox"
+            , Html.Attributes.value value_
+            , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
+            ]
             ++ attributes
         )
         []
@@ -398,7 +400,7 @@ checkbox value_ maybeChecked attributes =
 -}
 tabList : List (Attribute Never) -> List (Html msg) -> Html msg
 tabList attributes =
-    Html.div (Role.tabList :: nonInteractive attributes)
+    Html.div (nonInteractive (Role.tabList :: attributes))
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
@@ -407,14 +409,14 @@ the right and left keys on their keyboards, they expect for the selected tab to 
 -}
 tab : List (Attribute msg) -> List (Html msg) -> Html msg
 tab attributes =
-    Html.div (Role.tab :: Html.Attributes.tabindex 0 :: attributes)
+    Html.div (nonInteractive [ Key.tabbable True, Role.tab ] ++ attributes)
 
 
 {-| Create a tab panel.
 -}
 tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
 tabPanel attributes =
-    Html.div (Role.tabPanel :: nonInteractive attributes)
+    Html.div (nonInteractive (Role.tabPanel :: attributes))
 
 
 
@@ -443,14 +445,14 @@ img alt_ attributes =
 -}
 decorativeImg : List (Attribute Never) -> Html msg
 decorativeImg attributes =
-    Html.img (Html.Attributes.alt "" :: Role.presentation :: nonInteractive attributes) []
+    Html.img (Html.Attributes.alt "" :: nonInteractive (Role.presentation :: attributes)) []
 
 
 {-| Adds the group role to a figure.
 -}
 figure : List (Attribute Never) -> List (Html msg) -> Html msg
 figure attributes =
-    Html.figure (Role.group :: nonInteractive attributes)
+    Html.figure (nonInteractive (Role.group :: attributes))
 
 
 
