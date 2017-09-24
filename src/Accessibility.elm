@@ -179,6 +179,21 @@ For a more fully-fledged example using these helpers check out [elm-tabs](http:/
 
 ## Images
 
+There are two `img` tag helpers that ask you as the developer to decide whether
+the image you want to display for screenviewers is necessary or distracting for
+screenreaders. Essentailly, does it convey meaning and value, or is it decorative?
+Remember, **redundant** information can be confusing too.
+
+    import Accessibility as Html exposing (..)
+    import Html.Attributes exposing (src)
+
+    view : Html msg
+    view =
+        div []
+            [ img "Bear rubbing back on tree" [ src "bear.png" ]
+            , decorativeImg [ src "smiling_family.jpg" ]
+            ]
+
 @docs img, decorativeImg, figure
 
 

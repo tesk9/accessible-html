@@ -1,39 +1,40 @@
 # accessible-html
 ![](https://travis-ci.org/tesk9/accessible-html.svg?branch=master)
 
-accessible-html makes writing accessible websites easier.
+`tesk9/accessible-html` makes writing accessible websites easier.
 
-## Elements
+## Using this Library
 
-### Accessibility
+Use the `Accessibility` module to encourage accessible practices:
 
-This section of the library focuses on bridging the gap between the HTML spec and the WAI-ARIA (Web Accessibility Initiative -- Accessible Rich Internet Applications) spec. A developer needs to know a lot about each spec and ask multiple questions before even adding simple elements to the wep page. These view functions push the user to write less typo-prone and semantic code.
+    import Accessibility as Html exposing (..)
 
-However, the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html) go beyond correctness and into the realm of good design. For example, there are two `img` tag helpers that ask you as the developer to decide whether the image you want to display for screenviewers is necessary or distracting for screenreaders. Essentailly, does it convey meaning and value, or is it decorative?
 
-```
-import Accessibility as Html exposing (..)
-import Html.Attributes exposing (src)
-
-view : Html msg
-view =
-    div []
-        [ img "Bear rubbing back on tree" [ src "bear.png" ]
-        , decorativeImg [ src "smiling_family.jpg" ]
-        ]
-
-```
-
-## Attributes
-
-These are more advanced helpers that allow you to do some pretty advanced cool stuff! Many of these helpers are not necessary when writing semantically correct HTML5 code, but you will still need some of them on occassion. The import expressions below point out some of the helpers that you are more likely to need:
+There are also attribute helpers that enable you to do some pretty advanced cool stuff! Many of these helpers are not necessary when writing semantically correct HTML5 code, but you will still need some of them when rolling your own dynamic widgets. The import expressions below point out some of the helpers that you are more likely to need:
 
 
     import Accessibility.Aria exposing (controls, labelledBy, describedBy)
+    import Accessibility.Key exposing (onKeyDown, left, right, enter, escape)
     import Accessibility.Landmark exposing (search)
     import Accessibility.Live exposing (atomic, busy, liveAssertive, livePolite)
     import Accessibility.Role exposing (presentation)
+    import Accessibility.Style exposing (invisible)
 
+
+## Resources
+
+A great place to start is reading about the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html). By starting out with the design goals of Perceivable, Operable, Understandable, and Robust, you'll be able to find the information you need when reading the WAI-ARIA spec.
+
+If you know you want to make a specific kind of widget, the Web Accessibility Initiative has specific [authoring best practices](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex) and recommendations for you, along with really great examples.
+
+For examples of how to use this library, check out [`accessible-html-examples`](https://tesk9.github.io/accessible-html-examples) and its [source code](https://github.com/tesk9/accessible-html-examples).
+
+
+## Modules
+
+### Accessibility
+
+This section extends the html library to include `tab*` elements, `radio`, `inputText`, `checkbox`, and more. It also shadows the `elm-lang/html` library to encourage limiting interactive behavior to html5 interactable elements.
 
 ### Accessibility.Aria
 
