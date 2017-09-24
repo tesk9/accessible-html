@@ -1,7 +1,7 @@
 # accessible-html
 ![](https://travis-ci.org/tesk9/accessible-html.svg?branch=master)
 
-accessible-html makes writing accessible websites easier.
+`tesk9/accessible-html` makes writing accessible websites easier.
 
 Read about the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html) to get started.
 
