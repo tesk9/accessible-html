@@ -19,6 +19,7 @@ spec =
         , expectEvent "spacebar" (withKey 32) SpaceBar
         , expectEvent "tab key" (withKey 9) Tab
         , expectEvent "tab+shift" (withShiftAndKey 9) TabBack
+        , expectEvent "escape key" (withKey 27) Escape
         ]
 
 
@@ -69,6 +70,7 @@ view =
             , tab Tab
             , tabBack TabBack
             , space SpaceBar
+            , escape Escape
             ]
         ]
         []
@@ -83,3 +85,4 @@ type Msg
     | Tab
     | TabBack
     | SpaceBar
+    | Escape

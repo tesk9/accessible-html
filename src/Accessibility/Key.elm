@@ -2,6 +2,7 @@ module Accessibility.Key
     exposing
         ( down
         , enter
+        , escape
         , left
         , onKeyDown
         , right
@@ -33,6 +34,11 @@ module Accessibility.Key
 
 @docs enter, space
 
+
+### Deactivation
+
+@docs escape
+
 -}
 
 import Html exposing (Attribute)
@@ -48,6 +54,10 @@ import Json.Decode as Json
 onKeyDown : List (Json.Decoder msg) -> Attribute msg
 onKeyDown decoders =
     on "keydown" (Json.oneOf decoders)
+
+
+
+-- ACTIVATION
 
 
 {-| Use with `onKeyDown` to succeed when user hits the Enter key.
@@ -68,6 +78,20 @@ enter msg =
 space : msg -> Json.Decoder msg
 space msg =
     succeedForKeyCode 32 msg
+
+
+
+-- DEACTIVATION
+
+
+{-| Use with `onKeyDown` to succeed when user hits `esc`.
+
+    onKeyDown [ escape CloseModal ]
+
+-}
+escape : msg -> Json.Decoder msg
+escape msg =
+    succeedForKeyCode 27 msg
 
 
 
