@@ -51,7 +51,7 @@ You're likely to only want `search` from this section unless you're not using HT
 
 ### Accessibility.Live
 
-Describe which sections of the page are changing over time, and how aggressively assisstive technologies should notify the user about those changes.
+Describe which sections of the page are changing over time, and how aggressively assistive technologies should notify the user about those changes.
 
 ### Accessibility.Role
 
