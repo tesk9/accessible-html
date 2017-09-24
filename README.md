@@ -3,11 +3,7 @@
 
 `tesk9/accessible-html` makes writing accessible websites easier.
 
-Read about the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html) to get started.
-
-See basic example uses of this library [here](https://tesk9.github.io/accessible-html-examples/) and then check out the [source code](https://github.com/tesk9/accessible-html-examples).
-
-## Imports
+## Using this Library
 
 Use the `Accessibility` module to encourage accessible practices:
 
@@ -24,6 +20,17 @@ There are also attribute helpers that enable you to do some pretty advanced cool
     import Accessibility.Role exposing (presentation)
     import Accessibility.Style exposing (invisible)
 
+
+## Resources
+
+A great place to start is reading about the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html). By starting out with the design goals of Perceivable, Operable, Understandable, and Robust, you'll be able to find the information you need when reading the WAI-ARIA spec.
+
+If you know you want to make a specific kind of widget, the Web Accessibility Initiative has specific [authoring best practices](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex) and recommendations for you, along with really great examples.
+
+For examples of how to use this library, check out [`accessible-html-examples`](https://tesk9.github.io/accessible-html-examples) and its [source code](https://github.com/tesk9/accessible-html-examples).
+
+
+## Modules
 
 ### Accessibility
 
