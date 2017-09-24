@@ -50,6 +50,16 @@ spec =
         ]
 
 
+expectEvent : String -> Encode.Value -> Msg -> Test
+expectEvent name keyState msg =
+    test name <|
+        \() ->
+            view
+                |> Query.fromHtml
+                |> Event.simulate (keydown keyState)
+                |> Event.expect msg
+
+
 keydown : Encode.Value -> ( String, Encode.Value )
 keydown =
     Event.custom "keydown"
