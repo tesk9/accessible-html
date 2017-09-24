@@ -3,37 +3,29 @@
 
 accessible-html makes writing accessible websites easier.
 
-## Elements
+Read about the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html) to get started.
 
-### Accessibility
+## Imports
 
-This section of the library focuses on bridging the gap between the HTML spec and the WAI-ARIA (Web Accessibility Initiative -- Accessible Rich Internet Applications) spec. A developer needs to know a lot about each spec and ask multiple questions before even adding simple elements to the wep page. These view functions push the user to write less typo-prone and semantic code.
+Use the `Accessibility` module to encourage accessible practices:
 
-However, the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html) go beyond correctness and into the realm of good design. For example, there are two `img` tag helpers that ask you as the developer to decide whether the image you want to display for screenviewers is necessary or distracting for screenreaders. Essentailly, does it convey meaning and value, or is it decorative?
+    import Accessibility as Html exposing (..)
 
-```
-import Accessibility as Html exposing (..)
-import Html.Attributes exposing (src)
 
-view : Html msg
-view =
-    div []
-        [ img "Bear rubbing back on tree" [ src "bear.png" ]
-        , decorativeImg [ src "smiling_family.jpg" ]
-        ]
-
-```
-
-## Attributes
-
-These are more advanced helpers that allow you to do some pretty advanced cool stuff! Many of these helpers are not necessary when writing semantically correct HTML5 code, but you will still need some of them on occassion. The import expressions below point out some of the helpers that you are more likely to need:
+There are also attribute helpers that enable you to do some pretty advanced cool stuff! Many of these helpers are not necessary when writing semantically correct HTML5 code, but you will still need some of them when rolling your own dynamic widgets. The import expressions below point out some of the helpers that you are more likely to need:
 
 
     import Accessibility.Aria exposing (controls, labelledBy, describedBy)
+    import Accessibility.Key exposing (onKeyDown, left, right, enter, escape)
     import Accessibility.Landmark exposing (search)
     import Accessibility.Live exposing (atomic, busy, liveAssertive, livePolite)
     import Accessibility.Role exposing (presentation)
+    import Accessibility.Style exposing (invisible)
 
+
+### Accessibility
+
+This section extends the html library to include `tab*` elements, `radio`, `inputText`, `checkbox`, and more. It also shadows the `elm-lang/html` library to encourage limiting interactive behavior to html5 interactable elements.
 
 ### Accessibility.Aria
 
