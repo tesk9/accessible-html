@@ -5,6 +5,8 @@ accessible-html makes writing accessible websites easier.
 
 Read about the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html) to get started.
 
+See basic example uses of this library [here](https://tesk9.github.io/accessible-html-examples/) and then check out the [source code](https://github.com/tesk9/accessible-html-examples).
+
 ## Imports
 
 Use the `Accessibility` module to encourage accessible practices:
