@@ -11,48 +11,18 @@ import Test.Html.Query as Query
 spec : Test
 spec =
     describe "Accessibility.Key"
-        [ test "left key produces expected Msg" <|
-            \() ->
-                view
-                    |> Query.fromHtml
-                    |> Event.simulate (keydown <| withKey 37)
-                    |> Event.expect Left
-        , test "right key produces expected Msg" <|
-            \() ->
-                view
-                    |> Query.fromHtml
-                    |> Event.simulate (keydown <| withKey 39)
-                    |> Event.expect Right
-        , test "enter key produces expected Msg" <|
-            \() ->
-                view
-                    |> Query.fromHtml
-                    |> Event.simulate (keydown <| withKey 13)
-                    |> Event.expect Enter
-        , test "spacebar produces expected Msg" <|
-            \() ->
-                view
-                    |> Query.fromHtml
-                    |> Event.simulate (keydown <| withKey 32)
-                    |> Event.expect SpaceBar
-        , test "tab key produces expected Msg" <|
-            \() ->
-                view
-                    |> Query.fromHtml
-                    |> Event.simulate (keydown <| withKey 9)
-                    |> Event.expect Tab
-        , test "tab+shift produces expected Msg" <|
-            \() ->
-                view
-                    |> Query.fromHtml
-                    |> Event.simulate (keydown <| withShiftAndKey 9)
-                    |> Event.expect TabBack
+        [ expectEvent "left key" (withKey 37) Left
+        , expectEvent "right key" (withKey 39) Right
+        , expectEvent "enter key" (withKey 13) Enter
+        , expectEvent "spacebar" (withKey 32) SpaceBar
+        , expectEvent "tab key" (withKey 9) Tab
+        , expectEvent "tab+shift" (withShiftAndKey 9) TabBack
         ]
 
 
 expectEvent : String -> Encode.Value -> Msg -> Test
 expectEvent name keyState msg =
-    test name <|
+    test (name ++ " produces " ++ toString msg) <|
         \() ->
             view
                 |> Query.fromHtml
