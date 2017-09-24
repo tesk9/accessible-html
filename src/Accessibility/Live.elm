@@ -37,7 +37,7 @@ region doesn't have focus. When `True`, all the contents of the element will be
 presented to the user.
 
 -}
-atomic : Bool -> Html.Attribute msg
+atomic : Bool -> Html.Attribute Never
 atomic =
     aria "atomic" << toBoolString
 
@@ -48,7 +48,7 @@ When set to `True`, this is the aria equivalent of a loading spinner--indicates
 that stuff is changing/is not ready for interaction/reading-off yet.
 
 -}
-busy : Bool -> Html.Attribute msg
+busy : Bool -> Html.Attribute Never
 busy =
     aria "busy" << toBoolString
 
@@ -59,7 +59,7 @@ When the region's contents change, assistive technologies will wait for a good
 moment to interrupt and do so politely with the update.
 
 -}
-livePolite : Html.Attribute msg
+livePolite : Html.Attribute Never
 livePolite =
     aria "live" "polite"
 
@@ -70,7 +70,7 @@ Updates to the region will cause the assistive technologies to immediately
 interrupt the user with the big news.
 
 -}
-liveAssertive : Html.Attribute msg
+liveAssertive : Html.Attribute Never
 liveAssertive =
     aria "live" "assertive"
 
@@ -80,7 +80,7 @@ liveAssertive =
 Keep track of additions to the live region.
 
 -}
-relevantAdditions : Html.Attribute msg
+relevantAdditions : Html.Attribute Never
 relevantAdditions =
     aria "relevant" "additions"
 
@@ -90,7 +90,7 @@ relevantAdditions =
 Keep track of node additions to the live region and text additions.
 
 -}
-relevantAdditionsText : Html.Attribute msg
+relevantAdditionsText : Html.Attribute Never
 relevantAdditionsText =
     aria "relevant" "additions text"
 
@@ -100,7 +100,7 @@ relevantAdditionsText =
 Keep track of everything to occur in the live region. Use sparingly!
 
 -}
-relevantAll : Html.Attribute msg
+relevantAll : Html.Attribute Never
 relevantAll =
     aria "relevant" "all"
 
@@ -110,7 +110,7 @@ relevantAll =
 Keep track of text or node removals. Use sparingly!
 
 -}
-relevantRemovals : Html.Attribute msg
+relevantRemovals : Html.Attribute Never
 relevantRemovals =
     aria "relevant" "removals"
 
@@ -120,6 +120,6 @@ relevantRemovals =
 Keep track of text additions to the live region.
 
 -}
-relevantText : Html.Attribute msg
+relevantText : Html.Attribute Never
 relevantText =
     aria "relevant" "text"

@@ -1,6 +1,7 @@
 module Accessibility
     exposing
-        ( Html
+        ( Attribute
+        , Html
         , a
         , abbr
         , address
@@ -10,6 +11,7 @@ module Accessibility
         , b
         , bdi
         , bdo
+        , beginnerProgram
         , blockquote
         , body
         , br
@@ -73,6 +75,8 @@ module Accessibility
         , p
         , param
         , pre
+        , program
+        , programWithFlags
         , progress
         , q
         , radio
@@ -192,7 +196,7 @@ These elements will prevent you from adding event listeners.
 
     import Accessibility exposing (..)
 
-@docs Html, text
+@docs text
 @docs h1, h2, h3, h4, h5, h6
 @docs div, p, hr, pre, blockquote
 @docs span, a, code, em, strong, i, b, u, sub, sup, br
@@ -210,8 +214,18 @@ These elements will prevent you from adding event listeners.
 @docs mark, ruby, rt, rp, bdi, bdo, wbr
 @docs details, summary, menuitem, menu
 
+
+### Html aliases for Convenience
+
+These are here to make the following nicer:
+
+    import Accessibility as Html exposing (..)
+
+@docs Html, Attribute, beginnerProgram, program, programWithFlags
+
 -}
 
+import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
@@ -240,7 +254,7 @@ Now if you said `firstNameInput "Tom"` you would get HTML like this:
 ```
 
 -}
-labelBefore : List (Html.Attribute Never) -> Html Never -> Html msg -> Html msg
+labelBefore : List (Attribute Never) -> Html Never -> Html msg -> Html msg
 labelBefore attributes labelContent input =
     label attributes [ Html.map Basics.never labelContent, input ]
 
@@ -265,7 +279,7 @@ Now if you said `firstNameInput "Tom"` you would get HTML like this:
 ```
 
 -}
-labelAfter : List (Html.Attribute Never) -> Html Never -> Html msg -> Html msg
+labelAfter : List (Attribute Never) -> Html Never -> Html msg -> Html msg
 labelAfter attributes labelContent input =
     label attributes [ input, Html.map Basics.never labelContent ]
 
@@ -293,7 +307,7 @@ Now if you said `firstNameInput "Tom"` you would get HTML like this:
 ```
 
 -}
-labelHidden : String -> List (Html.Attribute Never) -> Html Never -> Html msg -> Html msg
+labelHidden : String -> List (Attribute Never) -> Html Never -> Html msg -> Html msg
 labelHidden id attributes labelContent input =
     span []
         [ label (Html.Attributes.for id :: Style.invisible :: attributes)
@@ -318,7 +332,7 @@ helpers (`labelBefore`, `labelAfter`, `labelHidden`).
             (inputText name [ onBlur FirstName ])
 
 -}
-inputText : String -> List (Html.Attribute msg) -> Html msg
+inputText : String -> List (Attribute msg) -> Html msg
 inputText value_ attributes =
     Html.input
         ([ Html.Attributes.type_ "text"
@@ -340,7 +354,7 @@ helpers (`labelBefore`, `labelAfter`, `labelHidden`).
             (radio "school-radio-group" "Elementary" True [])
 
 -}
-radio : String -> String -> Bool -> List (Html.Attribute msg) -> Html msg
+radio : String -> String -> Bool -> List (Attribute msg) -> Html msg
 radio name_ value_ checked_ attributes =
     Html.input
         ([ Html.Attributes.type_ "radio"
@@ -365,13 +379,14 @@ Checkboxes may be checked, unchecked, or indeterminate.
             (checkbox "No filter" Nothing [])
 
 -}
-checkbox : String -> Maybe Bool -> List (Html.Attribute msg) -> Html msg
+checkbox : String -> Maybe Bool -> List (Attribute msg) -> Html msg
 checkbox value_ maybeChecked attributes =
     Html.input
-        ([ Html.Attributes.type_ "checkbox"
-         , Html.Attributes.value value_
-         , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
-         ]
+        (nonInteractive
+            [ Html.Attributes.type_ "checkbox"
+            , Html.Attributes.value value_
+            , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
+            ]
             ++ attributes
         )
         []
@@ -383,25 +398,25 @@ checkbox value_ maybeChecked attributes =
 
 {-| Create a tablist. This is the outer container for a list of tabs.
 -}
-tabList : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+tabList : List (Attribute Never) -> List (Html msg) -> Html msg
 tabList attributes =
-    Html.div (Role.tabList :: nonInteractive attributes)
+    Html.div (nonInteractive (Role.tabList :: attributes))
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
 You'll want to listen for click events **and** for keyboard events: when users hit
 the right and left keys on their keyboards, they expect for the selected tab to change.
 -}
-tab : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tab : List (Attribute msg) -> List (Html msg) -> Html msg
 tab attributes =
-    Html.div (Role.tab :: Html.Attributes.tabindex 0 :: attributes)
+    Html.div (nonInteractive [ Key.tabbable True, Role.tab ] ++ attributes)
 
 
 {-| Create a tab panel.
 -}
-tabPanel : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
 tabPanel attributes =
-    Html.div (Role.tabPanel :: nonInteractive attributes)
+    Html.div (nonInteractive (Role.tabPanel :: attributes))
 
 
 
@@ -418,7 +433,7 @@ For graphs and diagrams, see `figure` and `longDesc`.
     img "Bear rubbing back on tree" [ src "bear.png" ]
 
 -}
-img : String -> List (Html.Attribute Never) -> Html msg
+img : String -> List (Attribute Never) -> Html msg
 img alt_ attributes =
     Html.img (Html.Attributes.alt alt_ :: nonInteractive attributes) []
 
@@ -428,16 +443,16 @@ img alt_ attributes =
     decorativeImg [ src "smiling_family.jpg" ]
 
 -}
-decorativeImg : List (Html.Attribute Never) -> Html msg
+decorativeImg : List (Attribute Never) -> Html msg
 decorativeImg attributes =
-    Html.img (Html.Attributes.alt "" :: Role.presentation :: nonInteractive attributes) []
+    Html.img (Html.Attributes.alt "" :: nonInteractive (Role.presentation :: attributes)) []
 
 
 {-| Adds the group role to a figure.
 -}
-figure : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+figure : List (Attribute Never) -> List (Html msg) -> Html msg
 figure attributes =
-    Html.figure (Role.group :: nonInteractive attributes)
+    Html.figure (nonInteractive (Role.group :: attributes))
 
 
 
@@ -447,6 +462,87 @@ figure attributes =
 {-| -}
 type alias Html msg =
     Html.Html msg
+
+
+{-| -}
+type alias Attribute msg =
+    Html.Attribute msg
+
+
+{-| `beginnerProgram` directly aliases the function of the same name from elm-lang/html.
+If you haven't used this to set up an Elm app before, please check out the documentation
+and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
+
+    import Accessibility as Html
+
+    main =
+        Html.beginnerProgram
+            { model = model
+            , update = update
+            , view = view
+            }
+
+-}
+beginnerProgram :
+    { model : model
+    , update : msg -> model -> model
+    , view : model -> Html.Html msg
+    }
+    -> Program Never model msg
+beginnerProgram =
+    Html.beginnerProgram
+
+
+{-| `program` directly aliases the function of the same name from elm-lang/html.
+If you haven't used this to set up an Elm app before, please check out the documentation
+and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
+
+    import Accessibility as Html
+
+    main =
+        Html.program
+            { init = init
+            , update = update
+            , view = view
+            , subscriptions = subscriptions
+            }
+
+-}
+program :
+    { init : ( model, Cmd msg )
+    , subscriptions : model -> Sub msg
+    , update : msg -> model -> ( model, Cmd msg )
+    , view : model -> Html.Html msg
+    }
+    -> Program Never model msg
+program =
+    Html.program
+
+
+{-| `programWithFlags` directly aliases the function of the same name from elm-lang/html.
+If you haven't used this to set up an Elm app before, please check out the documentation
+and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
+
+    import Accessibility as Html
+
+    main =
+        Html.programWithFlags
+            { init = init
+            , update = update
+            , view = view
+            , subscriptions = subscriptions
+            }
+
+-}
+programWithFlags :
+    { init : flags -> ( model, Cmd msg )
+    , subscriptions : model -> Sub msg
+    , update : msg -> model -> ( model, Cmd msg )
+    , view : model -> Html.Html msg
+    }
+    -> Program flags model msg
+programWithFlags =
+    Html.programWithFlags
 
 
 {-| -}
@@ -460,19 +556,19 @@ text =
 
 
 {-| -}
-select : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+select : List (Attribute msg) -> List (Html msg) -> Html msg
 select =
     Html.select
 
 
 {-| -}
-button : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+button : List (Attribute msg) -> List (Html msg) -> Html msg
 button =
     Html.button
 
 
 {-| -}
-textarea : List (Html.Attribute msg) -> List (Html msg) -> Html msg
+textarea : List (Attribute msg) -> List (Html msg) -> Html msg
 textarea =
     Html.textarea
 
@@ -484,7 +580,7 @@ textarea =
 {-| `body` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-body : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+body : List (Attribute Never) -> List (Html msg) -> Html msg
 body attributes =
     Html.body (nonInteractive attributes)
 
@@ -492,7 +588,7 @@ body attributes =
 {-| `section` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-section : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+section : List (Attribute Never) -> List (Html msg) -> Html msg
 section attributes =
     Html.section (nonInteractive attributes)
 
@@ -500,7 +596,7 @@ section attributes =
 {-| `nav` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-nav : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+nav : List (Attribute Never) -> List (Html msg) -> Html msg
 nav attributes =
     Html.nav (nonInteractive attributes)
 
@@ -508,7 +604,7 @@ nav attributes =
 {-| `article` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-article : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+article : List (Attribute Never) -> List (Html msg) -> Html msg
 article attributes =
     Html.article (nonInteractive attributes)
 
@@ -516,7 +612,7 @@ article attributes =
 {-| `aside` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-aside : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+aside : List (Attribute Never) -> List (Html msg) -> Html msg
 aside attributes =
     Html.aside (nonInteractive attributes)
 
@@ -524,7 +620,7 @@ aside attributes =
 {-| `h1` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-h1 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+h1 : List (Attribute Never) -> List (Html msg) -> Html msg
 h1 attributes =
     Html.h1 (nonInteractive attributes)
 
@@ -532,7 +628,7 @@ h1 attributes =
 {-| `h2` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-h2 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+h2 : List (Attribute Never) -> List (Html msg) -> Html msg
 h2 attributes =
     Html.h2 (nonInteractive attributes)
 
@@ -540,7 +636,7 @@ h2 attributes =
 {-| `h3` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-h3 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+h3 : List (Attribute Never) -> List (Html msg) -> Html msg
 h3 attributes =
     Html.h3 (nonInteractive attributes)
 
@@ -548,7 +644,7 @@ h3 attributes =
 {-| `h4` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-h4 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+h4 : List (Attribute Never) -> List (Html msg) -> Html msg
 h4 attributes =
     Html.h4 (nonInteractive attributes)
 
@@ -556,7 +652,7 @@ h4 attributes =
 {-| `h5` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-h5 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+h5 : List (Attribute Never) -> List (Html msg) -> Html msg
 h5 attributes =
     Html.h5 (nonInteractive attributes)
 
@@ -564,7 +660,7 @@ h5 attributes =
 {-| `h6` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-h6 : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+h6 : List (Attribute Never) -> List (Html msg) -> Html msg
 h6 attributes =
     Html.h6 (nonInteractive attributes)
 
@@ -572,7 +668,7 @@ h6 attributes =
 {-| `header` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-header : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+header : List (Attribute Never) -> List (Html msg) -> Html msg
 header attributes =
     Html.header (nonInteractive attributes)
 
@@ -580,7 +676,7 @@ header attributes =
 {-| `footer` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-footer : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+footer : List (Attribute Never) -> List (Html msg) -> Html msg
 footer attributes =
     Html.footer (nonInteractive attributes)
 
@@ -588,7 +684,7 @@ footer attributes =
 {-| `address` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-address : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+address : List (Attribute Never) -> List (Html msg) -> Html msg
 address attributes =
     Html.address (nonInteractive attributes)
 
@@ -596,7 +692,7 @@ address attributes =
 {-| `main_` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-main_ : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+main_ : List (Attribute Never) -> List (Html msg) -> Html msg
 main_ attributes =
     Html.main_ (nonInteractive attributes)
 
@@ -608,7 +704,7 @@ main_ attributes =
 {-| `p` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-p : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+p : List (Attribute Never) -> List (Html msg) -> Html msg
 p attributes =
     Html.p (nonInteractive attributes)
 
@@ -616,7 +712,7 @@ p attributes =
 {-| `hr` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-hr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+hr : List (Attribute Never) -> List (Html msg) -> Html msg
 hr attributes =
     Html.hr (nonInteractive attributes)
 
@@ -624,7 +720,7 @@ hr attributes =
 {-| `pre` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-pre : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+pre : List (Attribute Never) -> List (Html msg) -> Html msg
 pre attributes =
     Html.pre (nonInteractive attributes)
 
@@ -632,7 +728,7 @@ pre attributes =
 {-| `blockquote` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-blockquote : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+blockquote : List (Attribute Never) -> List (Html msg) -> Html msg
 blockquote attributes =
     Html.blockquote (nonInteractive attributes)
 
@@ -640,7 +736,7 @@ blockquote attributes =
 {-| `ol` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-ol : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+ol : List (Attribute Never) -> List (Html msg) -> Html msg
 ol attributes =
     Html.ol (nonInteractive attributes)
 
@@ -648,7 +744,7 @@ ol attributes =
 {-| `ul` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-ul : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+ul : List (Attribute Never) -> List (Html msg) -> Html msg
 ul attributes =
     Html.ul (nonInteractive attributes)
 
@@ -656,7 +752,7 @@ ul attributes =
 {-| `li` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-li : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+li : List (Attribute Never) -> List (Html msg) -> Html msg
 li attributes =
     Html.li (nonInteractive attributes)
 
@@ -664,7 +760,7 @@ li attributes =
 {-| `dl` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-dl : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+dl : List (Attribute Never) -> List (Html msg) -> Html msg
 dl attributes =
     Html.dl (nonInteractive attributes)
 
@@ -672,7 +768,7 @@ dl attributes =
 {-| `dt` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-dt : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+dt : List (Attribute Never) -> List (Html msg) -> Html msg
 dt attributes =
     Html.dt (nonInteractive attributes)
 
@@ -680,7 +776,7 @@ dt attributes =
 {-| `dd` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-dd : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+dd : List (Attribute Never) -> List (Html msg) -> Html msg
 dd attributes =
     Html.dd (nonInteractive attributes)
 
@@ -688,7 +784,7 @@ dd attributes =
 {-| `figcaption` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-figcaption : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+figcaption : List (Attribute Never) -> List (Html msg) -> Html msg
 figcaption attributes =
     Html.figcaption (nonInteractive attributes)
 
@@ -696,7 +792,7 @@ figcaption attributes =
 {-| `div` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-div : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+div : List (Attribute Never) -> List (Html msg) -> Html msg
 div attributes =
     Html.div (nonInteractive attributes)
 
@@ -708,7 +804,7 @@ div attributes =
 {-| `a` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-a : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+a : List (Attribute Never) -> List (Html msg) -> Html msg
 a attributes =
     Html.a (nonInteractive attributes)
 
@@ -716,7 +812,7 @@ a attributes =
 {-| `em` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-em : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+em : List (Attribute Never) -> List (Html msg) -> Html msg
 em attributes =
     Html.em (nonInteractive attributes)
 
@@ -724,7 +820,7 @@ em attributes =
 {-| `strong` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-strong : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+strong : List (Attribute Never) -> List (Html msg) -> Html msg
 strong attributes =
     Html.strong (nonInteractive attributes)
 
@@ -732,7 +828,7 @@ strong attributes =
 {-| `small` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-small : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+small : List (Attribute Never) -> List (Html msg) -> Html msg
 small attributes =
     Html.small (nonInteractive attributes)
 
@@ -740,7 +836,7 @@ small attributes =
 {-| `s` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-s : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+s : List (Attribute Never) -> List (Html msg) -> Html msg
 s attributes =
     Html.s (nonInteractive attributes)
 
@@ -748,7 +844,7 @@ s attributes =
 {-| `cite` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-cite : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+cite : List (Attribute Never) -> List (Html msg) -> Html msg
 cite attributes =
     Html.cite (nonInteractive attributes)
 
@@ -756,7 +852,7 @@ cite attributes =
 {-| `q` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-q : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+q : List (Attribute Never) -> List (Html msg) -> Html msg
 q attributes =
     Html.q (nonInteractive attributes)
 
@@ -764,7 +860,7 @@ q attributes =
 {-| `dfn` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-dfn : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+dfn : List (Attribute Never) -> List (Html msg) -> Html msg
 dfn attributes =
     Html.dfn (nonInteractive attributes)
 
@@ -772,7 +868,7 @@ dfn attributes =
 {-| `abbr` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-abbr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+abbr : List (Attribute Never) -> List (Html msg) -> Html msg
 abbr attributes =
     Html.abbr (nonInteractive attributes)
 
@@ -780,7 +876,7 @@ abbr attributes =
 {-| `time` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-time : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+time : List (Attribute Never) -> List (Html msg) -> Html msg
 time attributes =
     Html.time (nonInteractive attributes)
 
@@ -788,7 +884,7 @@ time attributes =
 {-| `code` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-code : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+code : List (Attribute Never) -> List (Html msg) -> Html msg
 code attributes =
     Html.code (nonInteractive attributes)
 
@@ -796,7 +892,7 @@ code attributes =
 {-| `var` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-var : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+var : List (Attribute Never) -> List (Html msg) -> Html msg
 var attributes =
     Html.var (nonInteractive attributes)
 
@@ -804,7 +900,7 @@ var attributes =
 {-| `samp` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-samp : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+samp : List (Attribute Never) -> List (Html msg) -> Html msg
 samp attributes =
     Html.samp (nonInteractive attributes)
 
@@ -812,7 +908,7 @@ samp attributes =
 {-| `kbd` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-kbd : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+kbd : List (Attribute Never) -> List (Html msg) -> Html msg
 kbd attributes =
     Html.kbd (nonInteractive attributes)
 
@@ -820,7 +916,7 @@ kbd attributes =
 {-| `sub` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-sub : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+sub : List (Attribute Never) -> List (Html msg) -> Html msg
 sub attributes =
     Html.sub (nonInteractive attributes)
 
@@ -828,7 +924,7 @@ sub attributes =
 {-| `sup` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-sup : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+sup : List (Attribute Never) -> List (Html msg) -> Html msg
 sup attributes =
     Html.sup (nonInteractive attributes)
 
@@ -836,7 +932,7 @@ sup attributes =
 {-| `i` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-i : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+i : List (Attribute Never) -> List (Html msg) -> Html msg
 i attributes =
     Html.i (nonInteractive attributes)
 
@@ -844,7 +940,7 @@ i attributes =
 {-| `b` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-b : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+b : List (Attribute Never) -> List (Html msg) -> Html msg
 b attributes =
     Html.b (nonInteractive attributes)
 
@@ -852,7 +948,7 @@ b attributes =
 {-| `u` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-u : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+u : List (Attribute Never) -> List (Html msg) -> Html msg
 u attributes =
     Html.u (nonInteractive attributes)
 
@@ -860,7 +956,7 @@ u attributes =
 {-| `mark` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-mark : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+mark : List (Attribute Never) -> List (Html msg) -> Html msg
 mark attributes =
     Html.mark (nonInteractive attributes)
 
@@ -868,7 +964,7 @@ mark attributes =
 {-| `ruby` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-ruby : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+ruby : List (Attribute Never) -> List (Html msg) -> Html msg
 ruby attributes =
     Html.ruby (nonInteractive attributes)
 
@@ -876,7 +972,7 @@ ruby attributes =
 {-| `rt` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-rt : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+rt : List (Attribute Never) -> List (Html msg) -> Html msg
 rt attributes =
     Html.rt (nonInteractive attributes)
 
@@ -884,7 +980,7 @@ rt attributes =
 {-| `rp` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-rp : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+rp : List (Attribute Never) -> List (Html msg) -> Html msg
 rp attributes =
     Html.rp (nonInteractive attributes)
 
@@ -892,7 +988,7 @@ rp attributes =
 {-| `bdi` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-bdi : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+bdi : List (Attribute Never) -> List (Html msg) -> Html msg
 bdi attributes =
     Html.bdi (nonInteractive attributes)
 
@@ -900,7 +996,7 @@ bdi attributes =
 {-| `bdo` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-bdo : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+bdo : List (Attribute Never) -> List (Html msg) -> Html msg
 bdo attributes =
     Html.bdo (nonInteractive attributes)
 
@@ -908,7 +1004,7 @@ bdo attributes =
 {-| `span` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-span : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+span : List (Attribute Never) -> List (Html msg) -> Html msg
 span attributes =
     Html.span (nonInteractive attributes)
 
@@ -916,7 +1012,7 @@ span attributes =
 {-| `br` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-br : List (Html.Attribute Never) -> Html Never
+br : List (Attribute Never) -> Html Never
 br attributes =
     Html.br (nonInteractive attributes) []
 
@@ -924,7 +1020,7 @@ br attributes =
 {-| `wbr` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-wbr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+wbr : List (Attribute Never) -> List (Html msg) -> Html msg
 wbr attributes =
     Html.wbr (nonInteractive attributes)
 
@@ -932,7 +1028,7 @@ wbr attributes =
 {-| `ins` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-ins : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+ins : List (Attribute Never) -> List (Html msg) -> Html msg
 ins attributes =
     Html.ins (nonInteractive attributes)
 
@@ -940,7 +1036,7 @@ ins attributes =
 {-| `del` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-del : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+del : List (Attribute Never) -> List (Html msg) -> Html msg
 del attributes =
     Html.del (nonInteractive attributes)
 
@@ -948,7 +1044,7 @@ del attributes =
 {-| `iframe` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-iframe : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+iframe : List (Attribute Never) -> List (Html msg) -> Html msg
 iframe attributes =
     Html.iframe (nonInteractive attributes)
 
@@ -956,7 +1052,7 @@ iframe attributes =
 {-| `embed` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-embed : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+embed : List (Attribute Never) -> List (Html msg) -> Html msg
 embed attributes =
     Html.embed (nonInteractive attributes)
 
@@ -964,7 +1060,7 @@ embed attributes =
 {-| `object` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-object : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+object : List (Attribute Never) -> List (Html msg) -> Html msg
 object attributes =
     Html.object (nonInteractive attributes)
 
@@ -972,7 +1068,7 @@ object attributes =
 {-| `param` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-param : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+param : List (Attribute Never) -> List (Html msg) -> Html msg
 param attributes =
     Html.param (nonInteractive attributes)
 
@@ -980,7 +1076,7 @@ param attributes =
 {-| `video` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-video : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+video : List (Attribute Never) -> List (Html msg) -> Html msg
 video attributes =
     Html.video (nonInteractive attributes)
 
@@ -988,7 +1084,7 @@ video attributes =
 {-| `audio` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-audio : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+audio : List (Attribute Never) -> List (Html msg) -> Html msg
 audio attributes =
     Html.audio (nonInteractive attributes)
 
@@ -996,7 +1092,7 @@ audio attributes =
 {-| `source` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-source : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+source : List (Attribute Never) -> List (Html msg) -> Html msg
 source attributes =
     Html.source (nonInteractive attributes)
 
@@ -1004,7 +1100,7 @@ source attributes =
 {-| `track` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-track : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+track : List (Attribute Never) -> List (Html msg) -> Html msg
 track attributes =
     Html.track (nonInteractive attributes)
 
@@ -1012,7 +1108,7 @@ track attributes =
 {-| `canvas` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-canvas : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+canvas : List (Attribute Never) -> List (Html msg) -> Html msg
 canvas attributes =
     Html.canvas (nonInteractive attributes)
 
@@ -1020,7 +1116,7 @@ canvas attributes =
 {-| `math` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-math : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+math : List (Attribute Never) -> List (Html msg) -> Html msg
 math attributes =
     Html.math (nonInteractive attributes)
 
@@ -1028,7 +1124,7 @@ math attributes =
 {-| `table` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-table : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+table : List (Attribute Never) -> List (Html msg) -> Html msg
 table attributes =
     Html.table (nonInteractive attributes)
 
@@ -1036,7 +1132,7 @@ table attributes =
 {-| `caption` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-caption : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+caption : List (Attribute Never) -> List (Html msg) -> Html msg
 caption attributes =
     Html.caption (nonInteractive attributes)
 
@@ -1044,7 +1140,7 @@ caption attributes =
 {-| `colgroup` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-colgroup : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+colgroup : List (Attribute Never) -> List (Html msg) -> Html msg
 colgroup attributes =
     Html.colgroup (nonInteractive attributes)
 
@@ -1052,7 +1148,7 @@ colgroup attributes =
 {-| `col` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-col : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+col : List (Attribute Never) -> List (Html msg) -> Html msg
 col attributes =
     Html.col (nonInteractive attributes)
 
@@ -1060,7 +1156,7 @@ col attributes =
 {-| `tbody` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-tbody : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+tbody : List (Attribute Never) -> List (Html msg) -> Html msg
 tbody attributes =
     Html.tbody (nonInteractive attributes)
 
@@ -1068,7 +1164,7 @@ tbody attributes =
 {-| `thead` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-thead : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+thead : List (Attribute Never) -> List (Html msg) -> Html msg
 thead attributes =
     Html.thead (nonInteractive attributes)
 
@@ -1076,7 +1172,7 @@ thead attributes =
 {-| `tfoot` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-tfoot : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+tfoot : List (Attribute Never) -> List (Html msg) -> Html msg
 tfoot attributes =
     Html.tfoot (nonInteractive attributes)
 
@@ -1084,7 +1180,7 @@ tfoot attributes =
 {-| `tr` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-tr : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+tr : List (Attribute Never) -> List (Html msg) -> Html msg
 tr attributes =
     Html.tr (nonInteractive attributes)
 
@@ -1092,7 +1188,7 @@ tr attributes =
 {-| `td` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-td : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+td : List (Attribute Never) -> List (Html msg) -> Html msg
 td attributes =
     Html.td (nonInteractive attributes)
 
@@ -1100,7 +1196,7 @@ td attributes =
 {-| `th` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-th : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+th : List (Attribute Never) -> List (Html msg) -> Html msg
 th attributes =
     Html.th (nonInteractive attributes)
 
@@ -1108,7 +1204,7 @@ th attributes =
 {-| `form` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-form : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+form : List (Attribute Never) -> List (Html msg) -> Html msg
 form attributes =
     Html.form (nonInteractive attributes)
 
@@ -1116,7 +1212,7 @@ form attributes =
 {-| `fieldset` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-fieldset : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+fieldset : List (Attribute Never) -> List (Html msg) -> Html msg
 fieldset attributes =
     Html.fieldset (nonInteractive attributes)
 
@@ -1124,7 +1220,7 @@ fieldset attributes =
 {-| `legend` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-legend : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+legend : List (Attribute Never) -> List (Html msg) -> Html msg
 legend attributes =
     Html.legend (nonInteractive attributes)
 
@@ -1132,7 +1228,7 @@ legend attributes =
 {-| `label` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-label : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+label : List (Attribute Never) -> List (Html msg) -> Html msg
 label attributes =
     Html.label (nonInteractive attributes)
 
@@ -1140,7 +1236,7 @@ label attributes =
 {-| `datalist` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-datalist : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+datalist : List (Attribute Never) -> List (Html msg) -> Html msg
 datalist attributes =
     Html.datalist (nonInteractive attributes)
 
@@ -1148,7 +1244,7 @@ datalist attributes =
 {-| `optgroup` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-optgroup : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+optgroup : List (Attribute Never) -> List (Html msg) -> Html msg
 optgroup attributes =
     Html.optgroup (nonInteractive attributes)
 
@@ -1156,7 +1252,7 @@ optgroup attributes =
 {-| `option` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-option : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+option : List (Attribute Never) -> List (Html msg) -> Html msg
 option attributes =
     Html.option (nonInteractive attributes)
 
@@ -1164,7 +1260,7 @@ option attributes =
 {-| `keygen` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-keygen : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+keygen : List (Attribute Never) -> List (Html msg) -> Html msg
 keygen attributes =
     Html.keygen (nonInteractive attributes)
 
@@ -1172,7 +1268,7 @@ keygen attributes =
 {-| `output` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-output : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+output : List (Attribute Never) -> List (Html msg) -> Html msg
 output attributes =
     Html.output (nonInteractive attributes)
 
@@ -1180,7 +1276,7 @@ output attributes =
 {-| `progress` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-progress : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+progress : List (Attribute Never) -> List (Html msg) -> Html msg
 progress attributes =
     Html.progress (nonInteractive attributes)
 
@@ -1188,7 +1284,7 @@ progress attributes =
 {-| `meter` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-meter : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+meter : List (Attribute Never) -> List (Html msg) -> Html msg
 meter attributes =
     Html.meter (nonInteractive attributes)
 
@@ -1196,7 +1292,7 @@ meter attributes =
 {-| `details` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-details : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+details : List (Attribute Never) -> List (Html msg) -> Html msg
 details attributes =
     Html.details (nonInteractive attributes)
 
@@ -1204,7 +1300,7 @@ details attributes =
 {-| `summary` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-summary : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+summary : List (Attribute Never) -> List (Html msg) -> Html msg
 summary attributes =
     Html.summary (nonInteractive attributes)
 
@@ -1212,7 +1308,7 @@ summary attributes =
 {-| `menuitem` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-menuitem : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+menuitem : List (Attribute Never) -> List (Html msg) -> Html msg
 menuitem attributes =
     Html.menuitem (nonInteractive attributes)
 
@@ -1220,6 +1316,6 @@ menuitem attributes =
 {-| `menu` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-menu : List (Html.Attribute Never) -> List (Html msg) -> Html msg
+menu : List (Attribute Never) -> List (Html msg) -> Html msg
 menu attributes =
     Html.menu (nonInteractive attributes)

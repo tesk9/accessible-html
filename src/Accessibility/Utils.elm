@@ -7,7 +7,7 @@ import Html.Attributes exposing (..)
 -- ARIA
 
 
-aria : String -> String -> Html.Attribute msg
+aria : String -> String -> Html.Attribute Never
 aria =
     attribute << (++) "aria-"
 
@@ -44,7 +44,7 @@ nonInteractive =
 -- ROLE
 
 
-role : Role -> Html.Attribute msg
+role : Role -> Html.Attribute Never
 role role_ =
     attribute "role" <| roleToString role_
 
