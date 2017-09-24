@@ -1,7 +1,7 @@
 module Accessibility.RoleSpec exposing (spec)
 
+import Accessibility as Html
 import Accessibility.Role exposing (..)
-import Html
 import Html.Attributes
 import Json.Encode
 import Test exposing (..)
@@ -68,7 +68,7 @@ spec =
             ]
 
 
-addsRole : Html.Attribute msg -> String -> Test
+addsRole : Html.Attribute Never -> String -> Test
 addsRole role_ expected =
     test ("sets the role attribute: " ++ toString role_) <|
         \() ->
