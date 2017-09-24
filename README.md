@@ -12,14 +12,14 @@ This section of the library focuses on bridging the gap between the HTML spec an
 However, the [principles of accessibility](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html) go beyond correctness and into the realm of good design. For example, there are two `img` tag helpers that ask you as the developer to decide whether the image you want to display for screenviewers is necessary or distracting for screenreaders. Essentailly, does it convey meaning and value, or is it decorative?
 
 ```
-import Accessibility as Html exposing (Html)
-import Html.Attributes as Attributes
+import Accessibility as Html exposing (..)
+import Html.Attributes exposing (src)
 
-view : Html.Html msg
+view : Html msg
 view =
-    Html.div []
-        [ Html.img "Bear rubbing back on tree" [ Attributes.src "bear.png" ]
-        , Html.decorativeImg [ Attributes.src "smiling_family.jpg" ]
+    div []
+        [ img "Bear rubbing back on tree" [ src "bear.png" ]
+        , decorativeImg [ src "smiling_family.jpg" ]
         ]
 
 ```
