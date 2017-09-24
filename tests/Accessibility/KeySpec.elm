@@ -12,7 +12,9 @@ spec : Test
 spec =
     describe "Accessibility.Key"
         [ expectEvent "left key" (withKey 37) Left
+        , expectEvent "up key" (withKey 38) Up
         , expectEvent "right key" (withKey 39) Right
+        , expectEvent "down key" (withKey 40) Down
         , expectEvent "enter key" (withKey 13) Enter
         , expectEvent "spacebar" (withKey 32) SpaceBar
         , expectEvent "tab key" (withKey 9) Tab
@@ -60,7 +62,9 @@ view =
     div
         [ onKeyDown
             [ left Left
+            , up Up
             , right Right
+            , down Down
             , enter Enter
             , tab Tab
             , tabBack TabBack
@@ -72,7 +76,9 @@ view =
 
 type Msg
     = Left
+    | Up
     | Right
+    | Down
     | Enter
     | Tab
     | TabBack

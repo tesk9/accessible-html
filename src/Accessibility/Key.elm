@@ -1,4 +1,15 @@
-module Accessibility.Key exposing (enter, left, onKeyDown, right, space, tab, tabBack)
+module Accessibility.Key
+    exposing
+        ( down
+        , enter
+        , left
+        , onKeyDown
+        , right
+        , space
+        , tab
+        , tabBack
+        , up
+        )
 
 {-|
 
@@ -10,7 +21,17 @@ module Accessibility.Key exposing (enter, left, onKeyDown, right, space, tab, ta
 
 ## Decoders
 
-@docs enter, right, left, tab, tabBack, space
+
+### Navigation
+
+@docs tab, tabBack
+
+@docs up, right, down, left
+
+
+### Activation
+
+@docs enter, space
 
 -}
 
@@ -49,6 +70,10 @@ space msg =
     succeedForKeyCode 32 msg
 
 
+
+-- ARROW KEYS
+
+
 {-| Use with `onKeyDown` to succeed when user hits the left arrow key.
 
     onKeyDown [ left Left ]
@@ -59,6 +84,16 @@ left msg =
     succeedForKeyCode 37 msg
 
 
+{-| Use with `onKeyDown` to succeed when user hits the up arrow key.
+
+    onKeyDown [ up Up ]
+
+-}
+up : msg -> Json.Decoder msg
+up msg =
+    succeedForKeyCode 38 msg
+
+
 {-| Use with `onKeyDown` to succeed when user hits the right arrow key.
 
     onKeyDown [ right Right ]
@@ -67,6 +102,20 @@ left msg =
 right : msg -> Json.Decoder msg
 right msg =
     succeedForKeyCode 39 msg
+
+
+{-| Use with `onKeyDown` to succeed when user hits the down arrow key.
+
+    onKeyDown [ down Down ]
+
+-}
+down : msg -> Json.Decoder msg
+down msg =
+    succeedForKeyCode 40 msg
+
+
+
+-- TABS
 
 
 {-| Use with `onKeyDown` to succeed when user hits the tab key.
