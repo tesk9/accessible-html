@@ -1012,7 +1012,7 @@ span attributes =
 {-| `br` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm-lang/html library instead.
 -}
-br : List (Attribute Never) -> Html Never
+br : List (Attribute Never) -> Html msg
 br attributes =
     Html.br (nonInteractive attributes) []
 
