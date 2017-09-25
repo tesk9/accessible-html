@@ -415,7 +415,7 @@ checkbox value_ maybeChecked attributes =
 -}
 tabList : List (Attribute Never) -> List (Html msg) -> Html msg
 tabList attributes =
-    Html.div (nonInteractive (Role.tabList :: attributes))
+    Html.div (Role.tabList :: nonInteractive attributes)
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
@@ -424,14 +424,14 @@ the right and left keys on their keyboards, they expect for the selected tab to 
 -}
 tab : List (Attribute msg) -> List (Html msg) -> Html msg
 tab attributes =
-    Html.div (nonInteractive [ Key.tabbable True, Role.tab ] ++ attributes)
+    Html.div (Role.tab :: Key.tabbable True :: attributes)
 
 
 {-| Create a tab panel.
 -}
 tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
 tabPanel attributes =
-    Html.div (nonInteractive (Role.tabPanel :: attributes))
+    Html.div (Role.tabPanel :: nonInteractive attributes)
 
 
 

@@ -51,7 +51,7 @@ affect this default behavior, please check out [W3](https://www.w3.org/TR/wai-ar
             ]
 
 -}
-banner : Html.Attribute Never
+banner : Html.Attribute msg
 banner =
     role Banner
 
@@ -85,7 +85,7 @@ to see a real example of using the complementary role!
             ]
 
 -}
-complementary : Html.Attribute Never
+complementary : Html.Attribute msg
 complementary =
     role Complementary
 
@@ -103,7 +103,7 @@ a `section` or `main` or what-have-you (see [W3](https://www.w3.org/TR/wai-aria-
         ]
 
 -}
-contentInfo : Html.Attribute Never
+contentInfo : Html.Attribute msg
 contentInfo =
     role Contentinfo
 
@@ -113,7 +113,7 @@ contentInfo =
 For examples, please see [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/form.html).
 
 -}
-form : Html.Attribute Never
+form : Html.Attribute msg
 form =
     role Form
 
@@ -124,7 +124,7 @@ one element with role main, make sure each is labeled. See [W3](https://www.w3.o
 HTML5's `main` tag is implicitly role `main`.
 
 -}
-main_ : Html.Attribute Never
+main_ : Html.Attribute msg
 main_ =
     role Main
 
@@ -138,7 +138,7 @@ this list?). For examples of how to do this using the `labeledBy` property,
 check out [W3](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/navigation.html).
 
 -}
-navigation : Html.Attribute Never
+navigation : Html.Attribute msg
 navigation =
     role Navigation
 
@@ -169,7 +169,7 @@ As ever, if there's more than one search element on the page, please be sure to 
             ]
 
 -}
-search : Html.Attribute Never
+search : Html.Attribute msg
 search =
     role Search
 
@@ -177,13 +177,13 @@ search =
 {-| Declare a region as a web application.
 Be careful with this one--see <https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html>.
 -}
-application : Html.Attribute Never
+application : Html.Attribute msg
 application =
     role Application
 
 
 {-| Prefer the other Landmark options to `region`. Be sure to add a name when using this attribute!
 -}
-region : Html.Attribute Never
+region : Html.Attribute msg
 region =
     role Region
