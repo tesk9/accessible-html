@@ -75,7 +75,7 @@ import Html.Attributes exposing (..)
 {-| Creates aria labelledby attribute. Pass the unique string id of the labelling element.
 `labeledBy` and `labelledBy` are identical.
 -}
-labeledBy : String -> Html.Attribute Never
+labeledBy : String -> Html.Attribute msg
 labeledBy =
     labelledBy
 
@@ -83,7 +83,7 @@ labeledBy =
 {-| Creates aria labelledby attribute. Pass the unique string id of the labelling element.
 `labeledBy` and `labelledBy` are identical.
 -}
-labelledBy : String -> Html.Attribute Never
+labelledBy : String -> Html.Attribute msg
 labelledBy =
     attribute "aria-labelledby"
 
@@ -100,7 +100,7 @@ labelledBy =
             [ longDescription "/quarter_4_summary#Growth" ]
 
 -}
-longDescription : String -> Html.Attribute Never
+longDescription : String -> Html.Attribute msg
 longDescription =
     attribute "longdesc"
 
@@ -112,7 +112,7 @@ longDescription =
 Identifies the currently-active element.
 
 -}
-activeDescendant : String -> Html.Attribute Never
+activeDescendant : String -> Html.Attribute msg
 activeDescendant =
     aria "activedescendant"
 
@@ -125,7 +125,7 @@ displayed. (If all columns are present--skip using this.)
 `-1` indicates total column number is unknown.
 
 -}
-colCount : Int -> Html.Attribute Never
+colCount : Int -> Html.Attribute msg
 colCount =
     aria "colcount" << toString
 
@@ -138,7 +138,7 @@ If a cell stretches across multiple columns, use the starting column index and `
 The simplest rule is to put the `colIndex` on every child of a `row`.
 
 -}
-colIndex : Int -> Html.Attribute Never
+colIndex : Int -> Html.Attribute msg
 colIndex =
     aria "colindex" << toString
 
@@ -148,7 +148,7 @@ colIndex =
 Indicate how many columns-wide a cell is.
 
 -}
-colSpan : Int -> Html.Attribute Never
+colSpan : Int -> Html.Attribute msg
 colSpan =
     aria "colspan" << toString
 
@@ -161,7 +161,7 @@ displayed. (If all rows are present--skip using this.)
 `-1` indicates total row number is unknown.
 
 -}
-rowCount : Int -> Html.Attribute Never
+rowCount : Int -> Html.Attribute msg
 rowCount =
     aria "rowcount" << toString
 
@@ -171,7 +171,7 @@ rowCount =
 Analagous to `colIndex`.
 
 -}
-rowIndex : Int -> Html.Attribute Never
+rowIndex : Int -> Html.Attribute msg
 rowIndex =
     aria "rowindex" << toString
 
@@ -181,7 +181,7 @@ rowIndex =
 Indicate how many rows-wide a cell is.
 
 -}
-rowSpan : Int -> Html.Attribute Never
+rowSpan : Int -> Html.Attribute msg
 rowSpan =
     aria "rowspan" << toString
 
@@ -192,7 +192,7 @@ rowSpan =
 Only necessary when not all of the items in the set are in the DOM. Use with `setSize`.
 
 -}
-posInSet : Int -> Html.Attribute Never
+posInSet : Int -> Html.Attribute msg
 posInSet =
     aria "posinset" << toString
 
@@ -204,14 +204,14 @@ posInSet =
 currently present in the DOM.
 
 -}
-setSize : Int -> Html.Attribute Never
+setSize : Int -> Html.Attribute msg
 setSize =
     aria "setsize" << toString
 
 
 {-| Creates aria controls attribute. Pass the unique string id of whatever is being controlled.
 -}
-controls : String -> Html.Attribute Never
+controls : String -> Html.Attribute msg
 controls =
     aria "controls"
 
@@ -221,7 +221,7 @@ controls =
 Indicate that a link in a nav or list is the current location.
 
 -}
-currentPage : Html.Attribute Never
+currentPage : Html.Attribute msg
 currentPage =
     aria "current" "page"
 
@@ -231,14 +231,14 @@ currentPage =
 Indicate which step in a step-based flow is the current one.
 
 -}
-currentStep : Html.Attribute Never
+currentStep : Html.Attribute msg
 currentStep =
     aria "current" "step"
 
 
 {-| Supported by all elements.
 -}
-currentLocation : Html.Attribute Never
+currentLocation : Html.Attribute msg
 currentLocation =
     aria "current" "location"
 
@@ -248,7 +248,7 @@ currentLocation =
 As in a calendar widget.
 
 -}
-currentDate : Html.Attribute Never
+currentDate : Html.Attribute msg
 currentDate =
     aria "current" "date"
 
@@ -258,14 +258,14 @@ currentDate =
 As in a timepicker widget.
 
 -}
-currentTime : Html.Attribute Never
+currentTime : Html.Attribute msg
 currentTime =
     aria "current" "time"
 
 
 {-| Supported by all elements.
 -}
-currentItem : Bool -> Html.Attribute Never
+currentItem : Bool -> Html.Attribute msg
 currentItem =
     aria "current" << toBoolString
 
@@ -276,7 +276,7 @@ Kind of a more-verbose version of `labelledBy`. Pass it a list of ids
 of elements that describe the given element.
 
 -}
-describedBy : List String -> Html.Attribute Never
+describedBy : List String -> Html.Attribute msg
 describedBy =
     aria "describedby" << toListString
 
@@ -287,7 +287,7 @@ Refer to a single extended description section--maybe a couple of paragraphs
 and a chart. Pass in the section's id.
 
 -}
-details : String -> Html.Attribute Never
+details : String -> Html.Attribute msg
 details =
     aria "details"
 
@@ -301,7 +301,7 @@ is telling the user in what way their submission is wrong.
     input [ invalid True, errorMessage "error-message-id" ] []
 
 -}
-errorMessage : String -> Html.Attribute Never
+errorMessage : String -> Html.Attribute msg
 errorMessage =
     aria "errormessage"
 
@@ -312,7 +312,7 @@ Provide an alternative document reading order and offer navigation to the
 elements referenced in the passed-in list of ids.
 
 -}
-flowTo : List String -> Html.Attribute Never
+flowTo : List String -> Html.Attribute msg
 flowTo =
     aria "flowto" << toListString
 
@@ -325,7 +325,7 @@ on how to make good shortcuts.
     keyShortcuts [ "Alt+Shift+P", "Control+F" ]
 
 -}
-keyShortcuts : List String -> Html.Attribute Never
+keyShortcuts : List String -> Html.Attribute msg
 keyShortcuts =
     aria "keyshortcuts" << toListString
 
@@ -335,7 +335,7 @@ keyShortcuts =
 Provide a hint about an expected value.
 
 -}
-placeholder : String -> Html.Attribute Never
+placeholder : String -> Html.Attribute msg
 placeholder =
     aria "placeholder"
 
@@ -346,6 +346,6 @@ Provide human-readable description of the role of an element. Should be used
 alongside an actual role--this is supplementary information.
 
 -}
-roleDescription : String -> Html.Attribute Never
+roleDescription : String -> Html.Attribute msg
 roleDescription =
     aria "roledescription"

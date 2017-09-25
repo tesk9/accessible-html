@@ -130,7 +130,7 @@ in the line that the user is completing.
 Be sure to indicate that the auto-completed text is selected.
 
 -}
-autoCompleteInline : Html.Attribute Never
+autoCompleteInline : Html.Attribute msg
 autoCompleteInline =
     aria "autocomplete" "inline"
 
@@ -144,7 +144,7 @@ Be sure to indicate that the auto-completed text is selected.
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 
 -}
-autoCompleteList : Html.Attribute Never
+autoCompleteList : Html.Attribute msg
 autoCompleteList =
     aria "autocomplete" "list"
 
@@ -158,7 +158,7 @@ Be sure to indicate that the auto-completed text is selected.
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
 
 -}
-autoCompleteBoth : Html.Attribute Never
+autoCompleteBoth : Html.Attribute msg
 autoCompleteBoth =
     aria "autocomplete" "both"
 
@@ -171,21 +171,21 @@ Other elements won't support tri-state checkedness.
 See [the checked spec](https://www.w3.org/TR/wai-aria-1.1/#aria-checked).
 
 -}
-checked : Maybe Bool -> Html.Attribute Never
+checked : Maybe Bool -> Html.Attribute msg
 checked =
     aria "checked" << toTriStateString
 
 
 {-| Sets the indeterminate value to be true.
 -}
-indeterminate : Html.Attribute Never
+indeterminate : Html.Attribute msg
 indeterminate =
     property "indeterminate" (Json.Encode.bool True)
 
 
 {-| Supported for all elements. Elements are not disabled (are enabled) by default.
 -}
-disabled : Bool -> Html.Attribute Never
+disabled : Bool -> Html.Attribute msg
 disabled =
     aria "disabled" << toBoolString
 
@@ -197,7 +197,7 @@ expanded/collapsed, OR to an elment it controls that is either expanded/collapse
 In the latter case, throw on a `controls` attribute as well to clarify the relationship.
 
 -}
-expanded : Bool -> Html.Attribute Never
+expanded : Bool -> Html.Attribute msg
 expanded =
     aria "expanded" << toBoolString
 
@@ -207,7 +207,7 @@ expanded =
 Be careful while managing focus and triggering.
 
 -}
-hasMenuPopUp : Html.Attribute Never
+hasMenuPopUp : Html.Attribute msg
 hasMenuPopUp =
     aria "haspopup" "menu"
 
@@ -217,7 +217,7 @@ hasMenuPopUp =
 Be careful while managing focus and triggering.
 
 -}
-hasListBoxPopUp : Html.Attribute Never
+hasListBoxPopUp : Html.Attribute msg
 hasListBoxPopUp =
     aria "haspopup" "listbox"
 
@@ -227,7 +227,7 @@ hasListBoxPopUp =
 Be careful while managing focus and triggering.
 
 -}
-hasTreePopUp : Html.Attribute Never
+hasTreePopUp : Html.Attribute msg
 hasTreePopUp =
     aria "haspopup" "tree"
 
@@ -237,7 +237,7 @@ hasTreePopUp =
 Be careful while managing focus and triggering.
 
 -}
-hasGridPopUp : Html.Attribute Never
+hasGridPopUp : Html.Attribute msg
 hasGridPopUp =
     aria "haspopup" "grid"
 
@@ -247,13 +247,13 @@ hasGridPopUp =
 Be careful while managing focus and triggering.
 
 -}
-hasDialogPopUp : Html.Attribute Never
+hasDialogPopUp : Html.Attribute msg
 hasDialogPopUp =
     aria "haspopup" "dialog"
 
 
 {-| -}
-hidden : Bool -> Html.Attribute Never
+hidden : Bool -> Html.Attribute msg
 hidden =
     aria "hidden" << toBoolString
 
@@ -263,28 +263,28 @@ hidden =
 For invalid grammar or spelling, please see `invalidGrammar` and `invalidSpelling` respectively.
 
 -}
-invalid : Bool -> Html.Attribute Never
+invalid : Bool -> Html.Attribute msg
 invalid =
     aria "invalid" << toBoolString
 
 
 {-| Supported for all elements.
 -}
-invalidGrammar : Html.Attribute Never
+invalidGrammar : Html.Attribute msg
 invalidGrammar =
     aria "invalid" "grammar"
 
 
 {-| Supported for all elements.
 -}
-invalidSpelling : Html.Attribute Never
+invalidSpelling : Html.Attribute msg
 invalidSpelling =
     aria "invalid" "spelling"
 
 
 {-| Supported for all elements.
 -}
-label : String -> Html.Attribute Never
+label : String -> Html.Attribute msg
 label =
     aria "label"
 
@@ -298,7 +298,7 @@ refer to the [documentation](https://www.w3.org/TR/wai-aria-1.1/#aria-level) to 
         div (heading :: level 7 :: attributes)
 
 -}
-level : Int -> Html.Attribute Never
+level : Int -> Html.Attribute msg
 level =
     aria "level" << toString
 
@@ -320,7 +320,7 @@ interactable.
             ]
 
 -}
-modal : Bool -> Html.Attribute Never
+modal : Bool -> Html.Attribute msg
 modal =
     aria "modal" << toBoolString
 
@@ -333,7 +333,7 @@ Careful of default keyboard behavior when coupling this property with text input
 which by default submit their form group on enter.
 
 -}
-multiLine : Bool -> Html.Attribute Never
+multiLine : Bool -> Html.Attribute msg
 multiLine =
     aria "multiline" << toBoolString
 
@@ -344,7 +344,7 @@ for a `tabList`, say, to have multiple selectable descendants?)
 When true, users are not restricted to selecting only one selectable descendant at a time.
 
 -}
-multiSelectable : Bool -> Html.Attribute Never
+multiSelectable : Bool -> Html.Attribute msg
 multiSelectable =
     aria "multiselectable" << toBoolString
 
@@ -355,7 +355,7 @@ multiSelectable =
 Careful: default behavior is inconsistent across those roles.
 
 -}
-orientationHorizontal : Html.Attribute Never
+orientationHorizontal : Html.Attribute msg
 orientationHorizontal =
     --TODO: should the non-default behavior be explicit from the role perspective?
     aria "orientation" "horizontal"
@@ -367,7 +367,7 @@ orientationHorizontal =
 Careful: default behavior is inconsistent across those roles.
 
 -}
-orientationVertical : Html.Attribute Never
+orientationVertical : Html.Attribute msg
 orientationVertical =
     --TODO: should the non-default behavior be explicit from the role perspective?
     aria "orientation" "vertical"
@@ -386,7 +386,7 @@ as well.
         [ text "This button should be styled for site viewers such that it's clear it's pressed!" ]
 
 -}
-pressed : Maybe Bool -> Html.Attribute Never
+pressed : Maybe Bool -> Html.Attribute msg
 pressed =
     --TODO: Move to be a button role option?
     aria "pressed" << toTriStateString
@@ -400,7 +400,7 @@ copying behavior should apply. (Read: `readOnly` elements are navigable but
 unchangeable, and `disabled` elements are neither navigable nor unchangebale).
 
 -}
-readOnly : Bool -> Html.Attribute Never
+readOnly : Bool -> Html.Attribute msg
 readOnly =
     aria "readonly" << toBoolString
 
@@ -410,7 +410,7 @@ readOnly =
 Indicate whether user input is or is not required on a field for valid form submission.
 
 -}
-required : Bool -> Html.Attribute Never
+required : Bool -> Html.Attribute msg
 required =
     aria "required" << toBoolString
 
@@ -420,7 +420,7 @@ required =
 Indicate whether an element (in a single- or multi-selectable widget) is or is not selected.
 
 -}
-selected : Bool -> Html.Attribute Never
+selected : Bool -> Html.Attribute msg
 selected =
     aria "selected" << toBoolString
 
@@ -433,7 +433,7 @@ This should only be applied to one header at a time.
 Table is sorted by this column's values in ascending order.
 
 -}
-sortAscending : Html.Attribute Never
+sortAscending : Html.Attribute msg
 sortAscending =
     aria "sort" "ascending"
 
@@ -446,7 +446,7 @@ Only one column in a table should be sorting the values in table.
 Table is sorted by this column's values in descending order.
 
 -}
-sortDescending : Html.Attribute Never
+sortDescending : Html.Attribute msg
 sortDescending =
     aria "sort" "descending"
 
@@ -460,7 +460,7 @@ Table is sorted by this column's values, but the algorithm for that sorting
 is custom (not ascending or descending).
 
 -}
-sortCustom : Html.Attribute Never
+sortCustom : Html.Attribute msg
 sortCustom =
     aria "sort" "other"
 
@@ -471,7 +471,7 @@ used on table or grid headers.
 Table is not sorted by this column's values.
 
 -}
-sortNone : Html.Attribute Never
+sortNone : Html.Attribute msg
 sortNone =
     aria "sort" "none"
 
@@ -481,7 +481,7 @@ sortNone =
 Set the max allowed value for a range widget.
 
 -}
-valueMax : number -> Html.Attribute Never
+valueMax : number -> Html.Attribute msg
 valueMax =
     aria "valuemax" << toString
 
@@ -491,7 +491,7 @@ valueMax =
 Set the min allowed value for a range widget.
 
 -}
-valueMin : number -> Html.Attribute Never
+valueMin : number -> Html.Attribute msg
 valueMin =
     aria "valuemin" << toString
 
@@ -501,7 +501,7 @@ valueMin =
 Set the current value for a range widget. Don't use this property for indeterminate states.
 
 -}
-valueNow : number -> Html.Attribute Never
+valueNow : number -> Html.Attribute msg
 valueNow =
     aria "valuenow" << toString
 
@@ -512,6 +512,6 @@ This property takes precedence over `valueNow`, and should show a human-readable
 version of the current value. However, `valueNow` should always be used.
 
 -}
-valueText : String -> Html.Attribute Never
+valueText : String -> Html.Attribute msg
 valueText =
     aria "valuetext"

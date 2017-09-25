@@ -63,7 +63,7 @@ explicitly, but you may want to restructure your HTML to match how you want
 users to interact with it instead.
 
 -}
-tabbable : Bool -> Attribute Never
+tabbable : Bool -> Attribute msg
 tabbable isTabbable =
     if isTabbable then
         Html.Attributes.tabindex 0
