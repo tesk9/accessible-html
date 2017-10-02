@@ -153,7 +153,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
             , tab
                 [ id "tab-2"
                 , selected False
-                , controls "panel-1"
+                , controls "panel-2"
                 ]
                 [ text "Tab Two" ]
             , tabPanel
