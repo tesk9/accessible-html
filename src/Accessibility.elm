@@ -444,7 +444,20 @@ tabPanel attributes =
 {- *** Modal *** -}
 
 
-{-| -}
+{-| Create a modal. This sets the role `modal`.
+
+When using this modal, set focus to the first focusable element in the dialog
+unless the dialog is super long. If setting focus to the first input would
+result in a scroll, you may set focus on the first content. For simple interfaces,
+it may also make sense to set focus to the confirmation button.
+
+When a user closes the dialog without any other action, return focus to
+whatever element launched the modal.
+
+Use `describedBy` to describe the purpose of the modal, or use `labeledBy` to
+refer to the name of the dialog.
+
+-}
 modal : List (Attribute msg) -> Html msg
 modal attributes =
     Html.div (Widget.modal True :: attributes) []
