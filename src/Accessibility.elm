@@ -61,6 +61,7 @@ module Accessibility
         , legend
         , li
         , main_
+        , map
         , mark
         , math
         , menu
@@ -236,7 +237,7 @@ These are here to make the following nicer:
 
     import Accessibility as Html exposing (..)
 
-@docs Html, Attribute, beginnerProgram, program, programWithFlags
+@docs Html, Attribute, beginnerProgram, program, programWithFlags, map
 
 -}
 
@@ -482,6 +483,16 @@ type alias Html msg =
 {-| -}
 type alias Attribute msg =
     Html.Attribute msg
+
+
+{-| `map` directly aliases the function of the same name from elm-lang/html.
+
+Please see [the docs for the original](http://package.elm-lang.org/packages/elm-lang/html/2.0.0/Html#map).
+
+-}
+map : (a -> msg) -> Html a -> Html msg
+map =
+    Html.map
 
 
 {-| `beginnerProgram` directly aliases the function of the same name from elm-lang/html.
