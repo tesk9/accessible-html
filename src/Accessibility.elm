@@ -66,6 +66,7 @@ module Accessibility
         , menu
         , menuitem
         , meter
+        , modal
         , nav
         , object
         , ol
@@ -175,6 +176,11 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
 For a more fully-fledged example using these helpers check out [elm-tabs](http://package.elm-lang.org/packages/tesk9/elm-tabs/latest).
 
 @docs tabList, tab, tabPanel
+
+
+## Modals
+
+@docs modal
 
 
 ## Images
@@ -432,6 +438,16 @@ tab attributes =
 tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
 tabPanel attributes =
     Html.div (Role.tabPanel :: nonInteractive attributes)
+
+
+
+{- *** Modal *** -}
+
+
+{-| -}
+modal : List (Attribute msg) -> Html msg
+modal attributes =
+    Html.div (Widget.modal True :: attributes) []
 
 
 
