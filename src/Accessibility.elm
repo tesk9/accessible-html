@@ -444,7 +444,7 @@ tabPanel attributes =
 {- *** Modal *** -}
 
 
-{-| Create a modal. This sets the role `modal`.
+{-| Create a modal. This sets the role `modal`, and closes the modal on escape.
 
 When using this modal, set focus to the first focusable element in the dialog
 unless the dialog is super long. If setting focus to the first input would
@@ -457,10 +457,17 @@ whatever element launched the modal.
 Use `describedBy` to describe the purpose of the modal, or use `labeledBy` to
 refer to the name of the dialog.
 
+    modal Close [ Aria.describedBy [ "some-other-element" ] ] []
+
 -}
-modal : List (Attribute msg) -> Html msg
-modal attributes =
-    Html.div (Widget.modal True :: attributes) []
+modal : msg -> List (Attribute Never) -> List (Html msg) -> Html msg
+modal close attributes content =
+    Html.div
+        (Widget.modal True
+            :: Key.onKeyDown [ Key.escape close ]
+            :: nonInteractive attributes
+        )
+        content
 
 
 
