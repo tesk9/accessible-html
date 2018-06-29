@@ -182,7 +182,7 @@ For a more fully-fledged example using these helpers check out [elm-tabs](http:/
 
 There are two `img` tag helpers that ask you as the developer to decide whether
 the image you want to display for screenviewers is necessary or distracting for
-screenreaders. Essentailly, does it convey meaning and value, or is it decorative?
+screenreaders. Essentially, does it convey meaning and value, or is it decorative?
 Remember, **redundant** information can be confusing too.
 
     import Accessibility as Html exposing (..)
