@@ -1,5 +1,5 @@
 # accessible-html
-![](https://travis-ci.org/tesk9/accessible-html.svg?branch=master)
+[![Travis build status](https://travis-ci.org/tesk9/accessible-html.svg?branch=master)](https://travis-ci.org/tesk9/accessible-html)
 
 `tesk9/accessible-html` makes writing accessible websites easier.
 
