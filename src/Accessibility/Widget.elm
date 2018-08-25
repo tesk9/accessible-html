@@ -278,7 +278,7 @@ refer to the [documentation](https://www.w3.org/TR/wai-aria-1.1/#aria-level) to 
 -}
 level : Int -> Html.Attribute msg
 level =
-    aria "level" << toString
+    aria "level" << String.fromInt
 
 
 {-| Indicate that a modal is showing and the rest of the page contents are not
@@ -459,9 +459,9 @@ sortNone =
 Set the max allowed value for a range widget.
 
 -}
-valueMax : number -> Html.Attribute msg
+valueMax : Float -> Html.Attribute msg
 valueMax =
-    aria "valuemax" << toString
+    aria "valuemax" << String.fromFloat
 
 
 {-| Supported by `progressBar`, `scrollbar`, `separator`, `slider`, and `spinButton`.
@@ -469,9 +469,9 @@ valueMax =
 Set the min allowed value for a range widget.
 
 -}
-valueMin : number -> Html.Attribute msg
+valueMin : Float -> Html.Attribute msg
 valueMin =
-    aria "valuemin" << toString
+    aria "valuemin" << String.fromFloat
 
 
 {-| Supported by `progressBar`, `scrollbar`, `separator`, `slider`, and `spinButton`.
@@ -479,9 +479,9 @@ valueMin =
 Set the current value for a range widget. Don't use this property for indeterminate states.
 
 -}
-valueNow : number -> Html.Attribute msg
+valueNow : Float -> Html.Attribute msg
 valueNow =
-    aria "valuenow" << toString
+    aria "valuenow" << String.fromFloat
 
 
 {-| Supported by `progressBar`, `scrollbar`, `separator`, `slider`, and `spinButton`.

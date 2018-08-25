@@ -1,120 +1,28 @@
-module Accessibility
-    exposing
-        ( Attribute
-        , Html
-        , a
-        , abbr
-        , address
-        , article
-        , aside
-        , audio
-        , b
-        , bdi
-        , bdo
-        , beginnerProgram
-        , blockquote
-        , body
-        , br
-        , button
-        , canvas
-        , caption
-        , checkbox
-        , cite
-        , code
-        , col
-        , colgroup
-        , datalist
-        , dd
-        , decorativeImg
-        , del
-        , details
-        , dfn
-        , div
-        , dl
-        , dt
-        , em
-        , embed
-        , fieldset
-        , figcaption
-        , figure
-        , footer
-        , form
-        , h1
-        , h2
-        , h3
-        , h4
-        , h5
-        , h6
-        , header
-        , hr
-        , i
-        , iframe
-        , img
-        , inputText
-        , ins
-        , kbd
-        , keygen
-        , label
-        , labelAfter
-        , labelBefore
-        , labelHidden
-        , legend
-        , li
-        , main_
-        , map
-        , mark
-        , math
-        , menu
-        , menuitem
-        , meter
-        , nav
-        , object
-        , ol
-        , optgroup
-        , option
-        , output
-        , p
-        , param
-        , pre
-        , program
-        , programWithFlags
-        , progress
-        , q
-        , radio
-        , rp
-        , rt
-        , ruby
-        , s
-        , samp
-        , section
-        , select
-        , small
-        , source
-        , span
-        , strong
-        , sub
-        , summary
-        , sup
-        , tab
-        , tabList
-        , tabPanel
-        , table
-        , tbody
-        , td
-        , text
-        , textarea
-        , tfoot
-        , th
-        , thead
-        , time
-        , tr
-        , track
-        , u
-        , ul
-        , var
-        , video
-        , wbr
-        )
+module Accessibility exposing
+    ( labelBefore, labelAfter, labelHidden
+    , inputText, radio, checkbox
+    , tabList, tab, tabPanel
+    , img, decorativeImg, figure
+    , button, textarea, select
+    , text
+    , h1, h2, h3, h4, h5, h6
+    , div, p, hr, pre, blockquote
+    , span, a, code, em, strong, i, b, u, sub, sup, br
+    , ol, ul, li, dl, dt, dd
+    , img, iframe, canvas, math
+    , form, option
+    , section, nav, article, aside, header, footer, address, main_
+    , figure, figcaption
+    , table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th
+    , fieldset, legend, label, datalist, optgroup, output, progress, meter
+    , audio, video, source, track
+    , embed, object, param
+    , ins, del
+    , small, cite, dfn, abbr, time, var, samp, kbd, s, q
+    , mark, ruby, rt, rp, bdi, bdo, wbr
+    , details, summary, menuitem, menu
+    , Html, Attribute, map
+    )
 
 {-|
 
@@ -219,10 +127,10 @@ These elements will prevent you from adding event listeners.
 @docs ol, ul, li, dl, dt, dd
 @docs img, iframe, canvas, math
 @docs form, option
-@docs section, nav, article, aside, header, footer, address, main_, body
+@docs section, nav, article, aside, header, footer, address, main_
 @docs figure, figcaption
 @docs table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th
-@docs fieldset, legend, label, datalist, optgroup, keygen, output, progress, meter
+@docs fieldset, legend, label, datalist, optgroup, output, progress, meter
 @docs audio, video, source, track
 @docs embed, object, param
 @docs ins, del
@@ -237,7 +145,7 @@ These are here to make the following nicer:
 
     import Accessibility as Html exposing (..)
 
-@docs Html, Attribute, beginnerProgram, program, programWithFlags, map
+@docs Html, Attribute, map
 
 -}
 
@@ -326,7 +234,7 @@ Now if you said `firstNameInput "Tom"` you would get HTML like this:
 labelHidden : String -> List (Attribute Never) -> Html Never -> Html msg -> Html msg
 labelHidden id attributes labelContent input =
     span []
-        [ label (Html.Attributes.for id :: Style.invisible :: attributes)
+        [ label (Html.Attributes.for id :: Style.invisible ++ attributes)
             [ Html.map Basics.never labelContent ]
         , input
         ]
@@ -495,82 +403,6 @@ map =
     Html.map
 
 
-{-| `beginnerProgram` directly aliases the function of the same name from elm-lang/html.
-If you haven't used this to set up an Elm app before, please check out the documentation
-and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
-
-    import Accessibility as Html
-
-    main =
-        Html.beginnerProgram
-            { model = model
-            , update = update
-            , view = view
-            }
-
--}
-beginnerProgram :
-    { model : model
-    , update : msg -> model -> model
-    , view : model -> Html.Html msg
-    }
-    -> Program Never model msg
-beginnerProgram =
-    Html.beginnerProgram
-
-
-{-| `program` directly aliases the function of the same name from elm-lang/html.
-If you haven't used this to set up an Elm app before, please check out the documentation
-and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
-
-    import Accessibility as Html
-
-    main =
-        Html.program
-            { init = init
-            , update = update
-            , view = view
-            , subscriptions = subscriptions
-            }
-
--}
-program :
-    { init : ( model, Cmd msg )
-    , subscriptions : model -> Sub msg
-    , update : msg -> model -> ( model, Cmd msg )
-    , view : model -> Html.Html msg
-    }
-    -> Program Never model msg
-program =
-    Html.program
-
-
-{-| `programWithFlags` directly aliases the function of the same name from elm-lang/html.
-If you haven't used this to set up an Elm app before, please check out the documentation
-and links provided in the [html package](http://package.elm-lang.org/packages/elm-lang/html/latest/Html).
-
-    import Accessibility as Html
-
-    main =
-        Html.programWithFlags
-            { init = init
-            , update = update
-            , view = view
-            , subscriptions = subscriptions
-            }
-
--}
-programWithFlags :
-    { init : flags -> ( model, Cmd msg )
-    , subscriptions : model -> Sub msg
-    , update : msg -> model -> ( model, Cmd msg )
-    , view : model -> Html.Html msg
-    }
-    -> Program flags model msg
-programWithFlags =
-    Html.programWithFlags
-
-
 {-| -}
 text : String -> Html.Html msg
 text =
@@ -601,14 +433,6 @@ textarea =
 
 
 -- NOT INTERACTABLE
-
-
-{-| `body` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
--}
-body : List (Attribute Never) -> List (Html msg) -> Html msg
-body attributes =
-    Html.body (nonInteractive attributes)
 
 
 {-| `section` should generally not have event listeners. If you _really_ need to add
@@ -1281,14 +1105,6 @@ an event listener, use the elm-lang/html library instead.
 option : List (Attribute Never) -> List (Html msg) -> Html msg
 option attributes =
     Html.option (nonInteractive attributes)
-
-
-{-| `keygen` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
--}
-keygen : List (Attribute Never) -> List (Html msg) -> Html msg
-keygen attributes =
-    Html.keygen (nonInteractive attributes)
 
 
 {-| `output` should generally not have event listeners. If you _really_ need to add

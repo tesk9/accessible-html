@@ -197,7 +197,7 @@ forKeyCode key msg keyCode =
         Json.succeed msg
 
     else
-        Json.fail (toString keyCode)
+        Json.fail (String.fromInt keyCode)
 
 
 
