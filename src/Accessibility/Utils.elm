@@ -1,7 +1,8 @@
-module Accessibility.Utils exposing (..)
+module Accessibility.Utils exposing (Role(..), aria, nonInteractive, role, roleToString, toBoolString, toListString, toTriStateString)
 
 import Html
 import Html.Attributes exposing (..)
+
 
 
 -- ARIA

@@ -1,41 +1,18 @@
-module Accessibility.Widget
-    exposing
-        ( autoCompleteBoth
-        , autoCompleteInline
-        , autoCompleteList
-        , checked
-        , disabled
-        , expanded
-        , hasDialogPopUp
-        , hasGridPopUp
-        , hasListBoxPopUp
-        , hasMenuPopUp
-        , hasTreePopUp
-        , hidden
-        , indeterminate
-        , invalid
-        , invalidGrammar
-        , invalidSpelling
-        , label
-        , level
-        , modal
-        , multiLine
-        , multiSelectable
-        , orientationHorizontal
-        , orientationVertical
-        , pressed
-        , readOnly
-        , required
-        , selected
-        , sortAscending
-        , sortCustom
-        , sortDescending
-        , sortNone
-        , valueMax
-        , valueMin
-        , valueNow
-        , valueText
-        )
+module Accessibility.Widget exposing
+    ( required, label
+    , pressed
+    , multiLine
+    , autoCompleteInline, autoCompleteList, autoCompleteBoth
+    , checked, selected, indeterminate
+    , invalid, invalidGrammar, invalidSpelling
+    , expanded, hidden, readOnly, disabled
+    , modal
+    , hasMenuPopUp, hasListBoxPopUp, hasTreePopUp, hasGridPopUp, hasDialogPopUp
+    , orientationHorizontal, orientationVertical, valueMin, valueMax, valueNow, valueText
+    , sortAscending, sortDescending, sortCustom, sortNone
+    , multiSelectable
+    , level
+    )
 
 {-|
 
@@ -63,6 +40,7 @@ Some of these are also globally available, including: `busy`, `disabled`, `grabb
 #### Auto-complete behavior:
 
 See [the autocomplete spec](https://www.w3.org/TR/wai-aria-1.1/#aria-autocomplete).
+
 @docs autoCompleteInline, autoCompleteList, autoCompleteBoth
 
 

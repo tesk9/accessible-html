@@ -1,32 +1,14 @@
-module Accessibility.Aria
-    exposing
-        ( activeDescendant
-        , colCount
-        , colIndex
-        , colSpan
-        , controls
-        , currentDate
-        , currentItem
-        , currentLocation
-        , currentPage
-        , currentStep
-        , currentTime
-        , describedBy
-        , details
-        , errorMessage
-        , flowTo
-        , keyShortcuts
-        , labeledBy
-        , labelledBy
-        , longDescription
-        , placeholder
-        , posInSet
-        , roleDescription
-        , rowCount
-        , rowIndex
-        , rowSpan
-        , setSize
-        )
+module Accessibility.Aria exposing
+    ( activeDescendant, controls
+    , longDescription, details, describedBy, labelledBy, labeledBy
+    , keyShortcuts, roleDescription
+    , flowTo
+    , placeholder
+    , colCount, colIndex, colSpan, rowCount, rowIndex, rowSpan
+    , setSize, posInSet
+    , currentItem, currentPage, currentStep, currentLocation, currentDate, currentTime
+    , errorMessage
+    )
 
 {-|
 
