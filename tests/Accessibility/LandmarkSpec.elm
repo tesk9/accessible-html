@@ -12,7 +12,7 @@ import Test.Html.Selector as Selector
 spec : Test
 spec =
     describe "Accessibility.Landmark" <|
-        List.map (uncurry addsRole)
+        List.map (\( a, b ) -> addsRole a b)
             [ ( application, "application" )
             , ( banner, "banner" )
             , ( complementary, "complementary" )
