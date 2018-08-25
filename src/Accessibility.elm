@@ -106,7 +106,7 @@ Remember, **redundant** information can be confusing too.
 @docs img, decorativeImg, figure
 
 
-## From [Html](http://package.elm-lang.org/packages/elm-lang/html/latest)
+## From [Html](http://package.elm-lang.org/packages/elm/html/latest)
 
 
 ### Interactive
@@ -393,9 +393,9 @@ type alias Attribute msg =
     Html.Attribute msg
 
 
-{-| `map` directly aliases the function of the same name from elm-lang/html.
+{-| `map` directly aliases the function of the same name from elm/html.
 
-Please see [the docs for the original](http://package.elm-lang.org/packages/elm-lang/html/2.0.0/Html#map).
+Please see [the docs for the original](http://package.elm-lang.org/packages/elm/html/2.0.0/Html#map).
 
 -}
 map : (a -> msg) -> Html a -> Html msg
@@ -436,7 +436,7 @@ textarea =
 
 
 {-| `section` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 section : List (Attribute Never) -> List (Html msg) -> Html msg
 section attributes =
@@ -444,7 +444,7 @@ section attributes =
 
 
 {-| `nav` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 nav : List (Attribute Never) -> List (Html msg) -> Html msg
 nav attributes =
@@ -452,7 +452,7 @@ nav attributes =
 
 
 {-| `article` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 article : List (Attribute Never) -> List (Html msg) -> Html msg
 article attributes =
@@ -460,7 +460,7 @@ article attributes =
 
 
 {-| `aside` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 aside : List (Attribute Never) -> List (Html msg) -> Html msg
 aside attributes =
@@ -468,7 +468,7 @@ aside attributes =
 
 
 {-| `h1` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 h1 : List (Attribute Never) -> List (Html msg) -> Html msg
 h1 attributes =
@@ -476,7 +476,7 @@ h1 attributes =
 
 
 {-| `h2` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 h2 : List (Attribute Never) -> List (Html msg) -> Html msg
 h2 attributes =
@@ -484,7 +484,7 @@ h2 attributes =
 
 
 {-| `h3` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 h3 : List (Attribute Never) -> List (Html msg) -> Html msg
 h3 attributes =
@@ -492,7 +492,7 @@ h3 attributes =
 
 
 {-| `h4` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 h4 : List (Attribute Never) -> List (Html msg) -> Html msg
 h4 attributes =
@@ -500,7 +500,7 @@ h4 attributes =
 
 
 {-| `h5` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 h5 : List (Attribute Never) -> List (Html msg) -> Html msg
 h5 attributes =
@@ -508,7 +508,7 @@ h5 attributes =
 
 
 {-| `h6` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 h6 : List (Attribute Never) -> List (Html msg) -> Html msg
 h6 attributes =
@@ -516,7 +516,7 @@ h6 attributes =
 
 
 {-| `header` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 header : List (Attribute Never) -> List (Html msg) -> Html msg
 header attributes =
@@ -524,7 +524,7 @@ header attributes =
 
 
 {-| `footer` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 footer : List (Attribute Never) -> List (Html msg) -> Html msg
 footer attributes =
@@ -532,7 +532,7 @@ footer attributes =
 
 
 {-| `address` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 address : List (Attribute Never) -> List (Html msg) -> Html msg
 address attributes =
@@ -540,7 +540,7 @@ address attributes =
 
 
 {-| `main_` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 main_ : List (Attribute Never) -> List (Html msg) -> Html msg
 main_ attributes =
@@ -552,7 +552,7 @@ main_ attributes =
 
 
 {-| `p` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 p : List (Attribute Never) -> List (Html msg) -> Html msg
 p attributes =
@@ -560,7 +560,7 @@ p attributes =
 
 
 {-| `hr` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 hr : List (Attribute Never) -> List (Html msg) -> Html msg
 hr attributes =
@@ -568,7 +568,7 @@ hr attributes =
 
 
 {-| `pre` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 pre : List (Attribute Never) -> List (Html msg) -> Html msg
 pre attributes =
@@ -576,7 +576,7 @@ pre attributes =
 
 
 {-| `blockquote` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 blockquote : List (Attribute Never) -> List (Html msg) -> Html msg
 blockquote attributes =
@@ -584,7 +584,7 @@ blockquote attributes =
 
 
 {-| `ol` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 ol : List (Attribute Never) -> List (Html msg) -> Html msg
 ol attributes =
@@ -592,7 +592,7 @@ ol attributes =
 
 
 {-| `ul` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 ul : List (Attribute Never) -> List (Html msg) -> Html msg
 ul attributes =
@@ -600,7 +600,7 @@ ul attributes =
 
 
 {-| `li` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 li : List (Attribute Never) -> List (Html msg) -> Html msg
 li attributes =
@@ -608,7 +608,7 @@ li attributes =
 
 
 {-| `dl` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 dl : List (Attribute Never) -> List (Html msg) -> Html msg
 dl attributes =
@@ -616,7 +616,7 @@ dl attributes =
 
 
 {-| `dt` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 dt : List (Attribute Never) -> List (Html msg) -> Html msg
 dt attributes =
@@ -624,7 +624,7 @@ dt attributes =
 
 
 {-| `dd` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 dd : List (Attribute Never) -> List (Html msg) -> Html msg
 dd attributes =
@@ -632,7 +632,7 @@ dd attributes =
 
 
 {-| `figcaption` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 figcaption : List (Attribute Never) -> List (Html msg) -> Html msg
 figcaption attributes =
@@ -640,7 +640,7 @@ figcaption attributes =
 
 
 {-| `div` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 div : List (Attribute Never) -> List (Html msg) -> Html msg
 div attributes =
@@ -652,7 +652,7 @@ div attributes =
 
 
 {-| `a` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 a : List (Attribute Never) -> List (Html msg) -> Html msg
 a attributes =
@@ -660,7 +660,7 @@ a attributes =
 
 
 {-| `em` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 em : List (Attribute Never) -> List (Html msg) -> Html msg
 em attributes =
@@ -668,7 +668,7 @@ em attributes =
 
 
 {-| `strong` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 strong : List (Attribute Never) -> List (Html msg) -> Html msg
 strong attributes =
@@ -676,7 +676,7 @@ strong attributes =
 
 
 {-| `small` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 small : List (Attribute Never) -> List (Html msg) -> Html msg
 small attributes =
@@ -684,7 +684,7 @@ small attributes =
 
 
 {-| `s` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 s : List (Attribute Never) -> List (Html msg) -> Html msg
 s attributes =
@@ -692,7 +692,7 @@ s attributes =
 
 
 {-| `cite` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 cite : List (Attribute Never) -> List (Html msg) -> Html msg
 cite attributes =
@@ -700,7 +700,7 @@ cite attributes =
 
 
 {-| `q` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 q : List (Attribute Never) -> List (Html msg) -> Html msg
 q attributes =
@@ -708,7 +708,7 @@ q attributes =
 
 
 {-| `dfn` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 dfn : List (Attribute Never) -> List (Html msg) -> Html msg
 dfn attributes =
@@ -716,7 +716,7 @@ dfn attributes =
 
 
 {-| `abbr` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 abbr : List (Attribute Never) -> List (Html msg) -> Html msg
 abbr attributes =
@@ -724,7 +724,7 @@ abbr attributes =
 
 
 {-| `time` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 time : List (Attribute Never) -> List (Html msg) -> Html msg
 time attributes =
@@ -732,7 +732,7 @@ time attributes =
 
 
 {-| `code` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 code : List (Attribute Never) -> List (Html msg) -> Html msg
 code attributes =
@@ -740,7 +740,7 @@ code attributes =
 
 
 {-| `var` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 var : List (Attribute Never) -> List (Html msg) -> Html msg
 var attributes =
@@ -748,7 +748,7 @@ var attributes =
 
 
 {-| `samp` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 samp : List (Attribute Never) -> List (Html msg) -> Html msg
 samp attributes =
@@ -756,7 +756,7 @@ samp attributes =
 
 
 {-| `kbd` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 kbd : List (Attribute Never) -> List (Html msg) -> Html msg
 kbd attributes =
@@ -764,7 +764,7 @@ kbd attributes =
 
 
 {-| `sub` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 sub : List (Attribute Never) -> List (Html msg) -> Html msg
 sub attributes =
@@ -772,7 +772,7 @@ sub attributes =
 
 
 {-| `sup` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 sup : List (Attribute Never) -> List (Html msg) -> Html msg
 sup attributes =
@@ -780,7 +780,7 @@ sup attributes =
 
 
 {-| `i` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 i : List (Attribute Never) -> List (Html msg) -> Html msg
 i attributes =
@@ -788,7 +788,7 @@ i attributes =
 
 
 {-| `b` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 b : List (Attribute Never) -> List (Html msg) -> Html msg
 b attributes =
@@ -796,7 +796,7 @@ b attributes =
 
 
 {-| `u` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 u : List (Attribute Never) -> List (Html msg) -> Html msg
 u attributes =
@@ -804,7 +804,7 @@ u attributes =
 
 
 {-| `mark` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 mark : List (Attribute Never) -> List (Html msg) -> Html msg
 mark attributes =
@@ -812,7 +812,7 @@ mark attributes =
 
 
 {-| `ruby` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 ruby : List (Attribute Never) -> List (Html msg) -> Html msg
 ruby attributes =
@@ -820,7 +820,7 @@ ruby attributes =
 
 
 {-| `rt` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 rt : List (Attribute Never) -> List (Html msg) -> Html msg
 rt attributes =
@@ -828,7 +828,7 @@ rt attributes =
 
 
 {-| `rp` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 rp : List (Attribute Never) -> List (Html msg) -> Html msg
 rp attributes =
@@ -836,7 +836,7 @@ rp attributes =
 
 
 {-| `bdi` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 bdi : List (Attribute Never) -> List (Html msg) -> Html msg
 bdi attributes =
@@ -844,7 +844,7 @@ bdi attributes =
 
 
 {-| `bdo` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 bdo : List (Attribute Never) -> List (Html msg) -> Html msg
 bdo attributes =
@@ -852,7 +852,7 @@ bdo attributes =
 
 
 {-| `span` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 span : List (Attribute Never) -> List (Html msg) -> Html msg
 span attributes =
@@ -860,7 +860,7 @@ span attributes =
 
 
 {-| `br` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 br : List (Attribute Never) -> Html msg
 br attributes =
@@ -868,7 +868,7 @@ br attributes =
 
 
 {-| `wbr` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 wbr : List (Attribute Never) -> List (Html msg) -> Html msg
 wbr attributes =
@@ -876,7 +876,7 @@ wbr attributes =
 
 
 {-| `ins` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 ins : List (Attribute Never) -> List (Html msg) -> Html msg
 ins attributes =
@@ -884,7 +884,7 @@ ins attributes =
 
 
 {-| `del` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 del : List (Attribute Never) -> List (Html msg) -> Html msg
 del attributes =
@@ -892,7 +892,7 @@ del attributes =
 
 
 {-| `iframe` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 iframe : List (Attribute Never) -> List (Html msg) -> Html msg
 iframe attributes =
@@ -900,7 +900,7 @@ iframe attributes =
 
 
 {-| `embed` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 embed : List (Attribute Never) -> List (Html msg) -> Html msg
 embed attributes =
@@ -908,7 +908,7 @@ embed attributes =
 
 
 {-| `object` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 object : List (Attribute Never) -> List (Html msg) -> Html msg
 object attributes =
@@ -916,7 +916,7 @@ object attributes =
 
 
 {-| `param` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 param : List (Attribute Never) -> List (Html msg) -> Html msg
 param attributes =
@@ -924,7 +924,7 @@ param attributes =
 
 
 {-| `video` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 video : List (Attribute Never) -> List (Html msg) -> Html msg
 video attributes =
@@ -932,7 +932,7 @@ video attributes =
 
 
 {-| `audio` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 audio : List (Attribute Never) -> List (Html msg) -> Html msg
 audio attributes =
@@ -940,7 +940,7 @@ audio attributes =
 
 
 {-| `source` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 source : List (Attribute Never) -> List (Html msg) -> Html msg
 source attributes =
@@ -948,7 +948,7 @@ source attributes =
 
 
 {-| `track` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 track : List (Attribute Never) -> List (Html msg) -> Html msg
 track attributes =
@@ -956,7 +956,7 @@ track attributes =
 
 
 {-| `canvas` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 canvas : List (Attribute Never) -> List (Html msg) -> Html msg
 canvas attributes =
@@ -964,7 +964,7 @@ canvas attributes =
 
 
 {-| `math` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 math : List (Attribute Never) -> List (Html msg) -> Html msg
 math attributes =
@@ -972,7 +972,7 @@ math attributes =
 
 
 {-| `table` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 table : List (Attribute Never) -> List (Html msg) -> Html msg
 table attributes =
@@ -980,7 +980,7 @@ table attributes =
 
 
 {-| `caption` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 caption : List (Attribute Never) -> List (Html msg) -> Html msg
 caption attributes =
@@ -988,7 +988,7 @@ caption attributes =
 
 
 {-| `colgroup` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 colgroup : List (Attribute Never) -> List (Html msg) -> Html msg
 colgroup attributes =
@@ -996,7 +996,7 @@ colgroup attributes =
 
 
 {-| `col` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 col : List (Attribute Never) -> List (Html msg) -> Html msg
 col attributes =
@@ -1004,7 +1004,7 @@ col attributes =
 
 
 {-| `tbody` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 tbody : List (Attribute Never) -> List (Html msg) -> Html msg
 tbody attributes =
@@ -1012,7 +1012,7 @@ tbody attributes =
 
 
 {-| `thead` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 thead : List (Attribute Never) -> List (Html msg) -> Html msg
 thead attributes =
@@ -1020,7 +1020,7 @@ thead attributes =
 
 
 {-| `tfoot` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 tfoot : List (Attribute Never) -> List (Html msg) -> Html msg
 tfoot attributes =
@@ -1028,7 +1028,7 @@ tfoot attributes =
 
 
 {-| `tr` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 tr : List (Attribute Never) -> List (Html msg) -> Html msg
 tr attributes =
@@ -1036,7 +1036,7 @@ tr attributes =
 
 
 {-| `td` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 td : List (Attribute Never) -> List (Html msg) -> Html msg
 td attributes =
@@ -1044,7 +1044,7 @@ td attributes =
 
 
 {-| `th` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 th : List (Attribute Never) -> List (Html msg) -> Html msg
 th attributes =
@@ -1052,7 +1052,7 @@ th attributes =
 
 
 {-| `form` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 form : List (Attribute Never) -> List (Html msg) -> Html msg
 form attributes =
@@ -1060,7 +1060,7 @@ form attributes =
 
 
 {-| `fieldset` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 fieldset : List (Attribute Never) -> List (Html msg) -> Html msg
 fieldset attributes =
@@ -1068,7 +1068,7 @@ fieldset attributes =
 
 
 {-| `legend` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 legend : List (Attribute Never) -> List (Html msg) -> Html msg
 legend attributes =
@@ -1076,7 +1076,7 @@ legend attributes =
 
 
 {-| `label` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 label : List (Attribute Never) -> List (Html msg) -> Html msg
 label attributes =
@@ -1084,7 +1084,7 @@ label attributes =
 
 
 {-| `datalist` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 datalist : List (Attribute Never) -> List (Html msg) -> Html msg
 datalist attributes =
@@ -1092,7 +1092,7 @@ datalist attributes =
 
 
 {-| `optgroup` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 optgroup : List (Attribute Never) -> List (Html msg) -> Html msg
 optgroup attributes =
@@ -1100,7 +1100,7 @@ optgroup attributes =
 
 
 {-| `option` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 option : List (Attribute Never) -> List (Html msg) -> Html msg
 option attributes =
@@ -1108,7 +1108,7 @@ option attributes =
 
 
 {-| `output` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 output : List (Attribute Never) -> List (Html msg) -> Html msg
 output attributes =
@@ -1116,7 +1116,7 @@ output attributes =
 
 
 {-| `progress` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 progress : List (Attribute Never) -> List (Html msg) -> Html msg
 progress attributes =
@@ -1124,7 +1124,7 @@ progress attributes =
 
 
 {-| `meter` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 meter : List (Attribute Never) -> List (Html msg) -> Html msg
 meter attributes =
@@ -1132,7 +1132,7 @@ meter attributes =
 
 
 {-| `details` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 details : List (Attribute Never) -> List (Html msg) -> Html msg
 details attributes =
@@ -1140,7 +1140,7 @@ details attributes =
 
 
 {-| `summary` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 summary : List (Attribute Never) -> List (Html msg) -> Html msg
 summary attributes =
@@ -1148,7 +1148,7 @@ summary attributes =
 
 
 {-| `menuitem` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 menuitem : List (Attribute Never) -> List (Html msg) -> Html msg
 menuitem attributes =
@@ -1156,7 +1156,7 @@ menuitem attributes =
 
 
 {-| `menu` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm-lang/html library instead.
+an event listener, use the elm/html library instead.
 -}
 menu : List (Attribute Never) -> List (Html msg) -> Html msg
 menu attributes =

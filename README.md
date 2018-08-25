@@ -34,7 +34,7 @@ For examples of how to use this library, check out [`accessible-html-examples`](
 
 ### Accessibility
 
-This section extends the html library to include `tab*` elements, `radio`, `inputText`, `checkbox`, and more. It also shadows the `elm-lang/html` library to encourage limiting interactive behavior to html5 interactable elements.
+This section extends the html library to include `tab*` elements, `radio`, `inputText`, `checkbox`, and more. It also shadows the `elm/html` library to encourage limiting interactive behavior to html5 interactable elements.
 
 ### Accessibility.Aria
 
