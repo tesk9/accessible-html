@@ -1,15 +1,7 @@
-module Accessibility.Live
-    exposing
-        ( atomic
-        , busy
-        , liveAssertive
-        , livePolite
-        , relevantAdditions
-        , relevantAdditionsText
-        , relevantAll
-        , relevantRemovals
-        , relevantText
-        )
+module Accessibility.Live exposing
+    ( atomic, busy, livePolite, liveAssertive
+    , relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
+    )
 
 {-|
 
@@ -17,6 +9,7 @@ module Accessibility.Live
 # Live Region Attributes
 
 Learn more about how to use live regions [here](https://www.w3.org/TR/wai-aria-practices-1.1/#liveprops).
+
 @docs atomic, busy, livePolite, liveAssertive
 
 

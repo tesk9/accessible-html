@@ -1,58 +1,19 @@
-module Accessibility.Role
-    exposing
-        ( alert
-        , alertDialog
-        , article
-        , button
-        , checkBox
-        , columnHeader
-        , comboBox
-        , definition
-        , dialog
-        , directory
-        , document
-        , grid
-        , gridCell
-        , group
-        , heading
-        , img
-        , link
-        , list
-        , listBox
-        , listItem
-        , log
-        , marquee
-        , math
-        , menu
-        , menuBar
-        , menuItem
-        , menuItemCheckBox
-        , menuItemRadio
-        , note
-        , option
-        , presentation
-        , progressBar
-        , radio
-        , radioGroup
-        , row
-        , rowGroup
-        , rowHeader
-        , scrollBar
-        , separator
-        , slider
-        , spinButton
-        , status
-        , tab
-        , tabList
-        , tabPanel
-        , textBox
-        , timer
-        , toolBar
-        , toolTip
-        , tree
-        , treeGrid
-        , treeItem
-        )
+module Accessibility.Role exposing
+    ( article, comboBox, definition, directory, document, img, link, math, note
+    , alertDialog, dialog
+    , columnHeader, grid, gridCell, row, rowGroup, rowHeader
+    , group, radioGroup
+    , heading
+    , button, checkBox, option, radio, textBox
+    , list, listBox, listItem
+    , alert, log, marquee, timer, status
+    , menu, menuBar, menuItem, menuItemCheckBox, menuItemRadio
+    , progressBar, scrollBar, separator, slider, spinButton
+    , tab, tabList, tabPanel
+    , toolBar, toolTip
+    , tree, treeGrid, treeItem
+    , presentation
+    )
 
 {-|
 

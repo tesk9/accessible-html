@@ -1,15 +1,4 @@
-module Accessibility.Landmark
-    exposing
-        ( application
-        , banner
-        , complementary
-        , contentInfo
-        , form
-        , main_
-        , navigation
-        , region
-        , search
-        )
+module Accessibility.Landmark exposing (banner, complementary, contentInfo, form, main_, navigation, search, application, region)
 
 {-| [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
 
