@@ -109,7 +109,7 @@ displayed. (If all columns are present--skip using this.)
 -}
 colCount : Int -> Html.Attribute msg
 colCount =
-    aria "colcount" << toString
+    aria "colcount" << String.fromInt
 
 
 {-| Supported by `cell`, `row`, `columnHeader`, `gridCell`, and `rowHeader`.
@@ -122,7 +122,7 @@ The simplest rule is to put the `colIndex` on every child of a `row`.
 -}
 colIndex : Int -> Html.Attribute msg
 colIndex =
-    aria "colindex" << toString
+    aria "colindex" << String.fromInt
 
 
 {-| Supported by `cell`, `columnHeader`, `gridCell`, and `rowHeader`.
@@ -132,7 +132,7 @@ Indicate how many columns-wide a cell is.
 -}
 colSpan : Int -> Html.Attribute msg
 colSpan =
-    aria "colspan" << toString
+    aria "colspan" << String.fromInt
 
 
 {-| Supported by `table`, `grid`, `treegrid`.
@@ -145,7 +145,7 @@ displayed. (If all rows are present--skip using this.)
 -}
 rowCount : Int -> Html.Attribute msg
 rowCount =
-    aria "rowcount" << toString
+    aria "rowcount" << String.fromInt
 
 
 {-| Supported by `cell`, `row`, `columnHeader`, `gridCell`, and `rowHeader`.
@@ -155,7 +155,7 @@ Analagous to `colIndex`.
 -}
 rowIndex : Int -> Html.Attribute msg
 rowIndex =
-    aria "rowindex" << toString
+    aria "rowindex" << String.fromInt
 
 
 {-| Supported by `cell`, `columnHeader`, `gridCell`, and `rowHeader`.
@@ -165,7 +165,7 @@ Indicate how many rows-wide a cell is.
 -}
 rowSpan : Int -> Html.Attribute msg
 rowSpan =
-    aria "rowspan" << toString
+    aria "rowspan" << String.fromInt
 
 
 {-| Supported by list-y elements: `article`, `listItem`, `menuItem`, `option`,
@@ -176,7 +176,7 @@ Only necessary when not all of the items in the set are in the DOM. Use with `se
 -}
 posInSet : Int -> Html.Attribute msg
 posInSet =
-    aria "posinset" << toString
+    aria "posinset" << String.fromInt
 
 
 {-| Supported by list-y elements: `article`, `listItem`, `menuItem`, `option`,
@@ -188,7 +188,7 @@ currently present in the DOM.
 -}
 setSize : Int -> Html.Attribute msg
 setSize =
-    aria "setsize" << toString
+    aria "setsize" << String.fromInt
 
 
 {-| Creates aria controls attribute. Pass the unique string id of whatever is being controlled.
