@@ -3,7 +3,7 @@
     "name": "tesk9/accessible-html",
     "summary": "view helpers enforcing accessible practices",
     "license": "BSD-3-Clause",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "exposed-modules": [
         "Accessibility",
         "Accessibility.Aria",
