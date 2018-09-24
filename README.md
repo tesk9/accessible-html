@@ -2,11 +2,11 @@
 
 `tesk9/accessible-html` makes writing accessible websites easier.
 
-## Using this Library
-
-### Warning!
+## Warning!
 
 This library was upgraded to Elm 0.19 without its tests :scream_cat:. Upgrading the tests is blocked on adding the Elm HTML query testing library into the elm testing library. Issued [here](https://github.com/elm-explorations/test/issues/13). Tests & Travis build icon will be added once it's possible to add them.
+
+## Using this Library
 
 Use the `Accessibility` module to encourage accessible practices:
 
