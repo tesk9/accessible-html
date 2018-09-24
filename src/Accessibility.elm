@@ -2,14 +2,14 @@ module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
     , inputText, radio, checkbox
     , tabList, tab, tabPanel
-    , img, decorativeImg, figure
+    , img, decorativeImg
     , button, textarea, select
     , text
     , h1, h2, h3, h4, h5, h6
     , div, p, hr, pre, blockquote
     , span, a, code, em, strong, i, b, u, sub, sup, br
     , ol, ul, li, dl, dt, dd
-    , img, iframe, canvas, math
+    , iframe, canvas, math
     , form, option
     , section, nav, article, aside, header, footer, address, main_
     , figure, figcaption
@@ -103,7 +103,7 @@ Remember, **redundant** information can be confusing too.
             , decorativeImg [ src "smiling_family.jpg" ]
             ]
 
-@docs img, decorativeImg, figure
+@docs img, decorativeImg
 
 
 ## From [Html](http://package.elm-lang.org/packages/elm/html/latest)
@@ -125,7 +125,7 @@ These elements will prevent you from adding event listeners.
 @docs div, p, hr, pre, blockquote
 @docs span, a, code, em, strong, i, b, u, sub, sup, br
 @docs ol, ul, li, dl, dt, dd
-@docs img, iframe, canvas, math
+@docs iframe, canvas, math
 @docs form, option
 @docs section, nav, article, aside, header, footer, address, main_
 @docs figure, figcaption
