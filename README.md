@@ -30,7 +30,7 @@ A great place to start is reading about the [principles of accessibility](https:
 
 If you know you want to make a specific kind of widget, the Web Accessibility Initiative has specific [authoring best practices](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex) and recommendations for you, along with really great examples.
 
-For examples of how to use this library, check out [`accessible-html-examples`](https://tesk9.github.io/accessible-html-examples) and its [source code](https://github.com/tesk9/accessible-html-examples).
+For examples of how to use this library, check out [`accessible-html examples`](https://tesk9.github.io/accessible-html) and its [source code](https://github.com/tesk9/accessible-html).
 
 
 ## Modules
