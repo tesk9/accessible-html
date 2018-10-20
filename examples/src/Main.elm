@@ -16,6 +16,7 @@ import Browser exposing (sandbox)
 import Html.Attributes exposing (style)
 import Views.Images as Images
 import Views.Inputs as Inputs
+import Views.Tabs as Tabs
 
 
 main : Program () Model Msg
