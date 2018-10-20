@@ -19,7 +19,7 @@ view =
 
 viewImageBlock : String -> Html msg -> Html msg
 viewImageBlock header content =
-    div [ style "max-height" "200px", style "max-width" "200px" ]
+    div []
         [ h4 [] [ text header ]
         , content
         ]
