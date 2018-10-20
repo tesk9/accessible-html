@@ -50,7 +50,7 @@ viewHidden : String -> Int -> (List (Html.Attribute msg) -> Html msg) -> Html ms
 viewHidden inputType index viewInput =
     let
         hiddenId =
-            "hidden-" ++ String.toLower inputType ++ "-" ++ toString index
+            "hidden-" ++ String.toLower inputType ++ "-" ++ String.fromInt index
     in
     labelHidden hiddenId
         []

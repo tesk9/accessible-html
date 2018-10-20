@@ -1,7 +1,7 @@
 module Views.Images exposing (view)
 
 import Accessibility exposing (..)
-import Html.Attributes exposing (href, src)
+import Html.Attributes exposing (href, src, style)
 
 
 view : Html msg
@@ -19,7 +19,7 @@ view =
 
 viewImageBlock : String -> Html msg -> Html msg
 viewImageBlock header content =
-    div []
+    div [ style "max-height" "200px", style "max-width" "200px" ]
         [ h4 [] [ text header ]
         , content
         ]
