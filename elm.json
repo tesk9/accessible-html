@@ -3,7 +3,7 @@
     "name": "tesk9/accessible-html",
     "summary": "view helpers enforcing accessible practices",
     "license": "BSD-3-Clause",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "exposed-modules": [
         "Accessibility",
         "Accessibility.Aria",
@@ -20,5 +20,7 @@
         "elm/html": "1.0.0 <= v < 2.0.0",
         "elm/json": "1.0.0 <= v < 2.0.0"
     },
-    "test-dependencies": {}
+    "test-dependencies": {
+        "elm-explorations/test": "1.2.1 <= v < 2.0.0"
+    }
 }
