@@ -70,7 +70,7 @@ spec =
 
 addsRole : Html.Attribute Never -> String -> Test
 addsRole role_ expected =
-    test ("sets the role attribute: " ++ toString role_) <|
+    test ("sets the role attribute: " ++ Debug.toString role_) <|
         \() ->
             Html.div [] [ Html.div [ role_ ] [] ]
                 |> Query.fromHtml

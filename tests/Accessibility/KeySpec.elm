@@ -42,7 +42,7 @@ keys =
 
 expectEvent : String -> Encode.Value -> Msg -> Test
 expectEvent name keyState msg =
-    test (name ++ " produces " ++ toString msg) <|
+    test (name ++ " produces " ++ Debug.toString msg) <|
         \() ->
             view
                 |> Query.fromHtml

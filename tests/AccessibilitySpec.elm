@@ -164,10 +164,7 @@ htmlSpec =
                 |> Event.expect DoAThing
     in
     describe "aliased elements without event listener support"
-        [ test "body" <|
-            \() ->
-                expectClickableChild body
-        , test "section" <|
+        [ test "section" <|
             \() ->
                 expectClickableChild section
         , test "nav" <|
@@ -413,9 +410,6 @@ htmlSpec =
         , test "textarea" <|
             \() ->
                 expectClickableChild textarea
-        , test "keygen" <|
-            \() ->
-                expectClickableChild keygen
         , test "output" <|
             \() ->
                 expectClickableChild output
