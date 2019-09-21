@@ -653,10 +653,14 @@ div attributes =
 
 {-| `a` should generally not have event listeners. If you _really_ need to add
 an event listener, use the elm/html library instead.
+This tag will not let you have `a` without the href attribute.
+
+    a "/products?sortBy=price" [ class "products-link" ] [ text "sorted products" ]
+
 -}
-a : List (Attribute Never) -> List (Html msg) -> Html msg
-a attributes =
-    Html.a (nonInteractive attributes)
+a : String -> List (Attribute Never) -> List (Html msg) -> Html msg
+a href_ attributes =
+    Html.a (Html.Attributes.href href_ :: nonInteractive attributes)
 
 
 {-| `em` should generally not have event listeners. If you _really_ need to add
