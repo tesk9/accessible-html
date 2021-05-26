@@ -10,7 +10,7 @@ module Accessibility exposing
     , span, a, code, em, strong, i, b, u, sub, sup, br
     , ol, ul, li, dl, dt, dd
     , iframe, canvas, math
-    , form, option
+    , form, formWithListeners, option
     , section, nav, article, aside, header, footer, address, main_
     , figure, figcaption
     , table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th
@@ -1053,11 +1053,20 @@ th attributes =
 
 
 {-| `form` should generally not have event listeners. If you _really_ need to add
-an event listener, use the elm/html library instead.
+an event listener, use the formWithListeners method or directly use the elm/html library instead.
 -}
 form : List (Attribute Never) -> List (Html msg) -> Html msg
 form attributes =
     Html.form (nonInteractive attributes)
+
+
+{-| `form` should generally not have event listeners and `Accessibility.form` method
+should be your go to implementation. If you _really_ need to add an event listener,
+you can use this method instead but use caution when doing so!
+-}
+formWithListeners : List (Attribute msg) -> List (Html msg) -> Html msg
+formWithListeners attributes =
+    Html.form attributes
 
 
 {-| `fieldset` should generally not have event listeners. If you _really_ need to add
