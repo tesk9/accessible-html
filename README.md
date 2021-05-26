@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/tesk9/accessible-html.svg?branch=master)](https://travis-ci.org/tesk9/accessible-html)
+[![Build Status](https://travis-ci.com/tesk9/accessible-html.svg?branch=master)](https://travis-ci.com/tesk9/accessible-html)
 
 # accessible-html
 
