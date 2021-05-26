@@ -1,6 +1,6 @@
 module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
-    , inputText, radio, checkbox
+    , inputText, inputNumber, radio, checkbox
     , tabList, tab, tabPanel
     , img, decorativeImg
     , button, textarea, select
@@ -261,6 +261,30 @@ inputText : String -> List (Attribute msg) -> Html msg
 inputText value_ attributes =
     Html.input
         ([ Html.Attributes.type_ "text"
+         , Html.Attributes.value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "text" but constricting the input to allow only numbers as recommended by gov.uk (See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/). Use in conjunction with one of the label
+helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    firstAgeInput : String -> Html Msg
+    firstAgeInput age =
+        labelHidden
+            "age-input"
+            [ class "data-entry" ]
+            (text "Age:")
+            (inputNumber age [ onBlur Age ])
+-}
+inputNumber : String -> List (Attribute msg) -> Html msg
+inputNumber value_ attributes =
+    Html.input
+        ([ Html.Attributes.type_ "text"
+         , Html.Attributes.attribute "inputmode" "numeric"
+         , Html.Attributes.pattern "[0-9]*"
          , Html.Attributes.value value_
          ]
             ++ attributes
