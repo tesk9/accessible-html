@@ -38,7 +38,7 @@ Right now, this library only supports a few input types. Many more input types e
 See [MDN's input information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) for
 more options.
 
-@docs inputText, radio, checkbox
+@docs inputText, inputNumber, radio, checkbox
 
 
 ## Tabs
@@ -127,7 +127,7 @@ These elements will prevent you from adding event listeners.
 @docs span, a, code, em, strong, i, b, u, sub, sup, br
 @docs ol, ul, li, dl, dt, dd
 @docs iframe, canvas, math
-@docs form, option
+@docs form, formWithListeners, option
 @docs section, nav, article, aside, header, footer, address, main_
 @docs figure, figcaption
 @docs table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th
@@ -268,7 +268,7 @@ inputText value_ attributes =
         []
 
 
-{-| Constructs an input of type "text" but constricting the input to allow only numbers as recommended by gov.uk (See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/). Use in conjunction with one of the label
+{-| Constructs an input of type "text" but constricting the input to allow only numbers as recommended by gov.uk (See: <https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/>). Use in conjunction with one of the label
 helpers (`labelBefore`, `labelAfter`, `labelHidden`).
 
     ageInput : String -> Html Msg
@@ -278,6 +278,7 @@ helpers (`labelBefore`, `labelAfter`, `labelHidden`).
             [ class "data-entry" ]
             (text "Age:")
             (inputNumber age [ onBlur Age ])
+
 -}
 inputNumber : String -> List (Attribute msg) -> Html msg
 inputNumber value_ attributes =
