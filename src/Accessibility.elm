@@ -421,7 +421,7 @@ type alias Attribute msg =
 
 {-| `map` directly aliases the function of the same name from elm/html.
 
-Please see [the docs for the original](http://package.elm-lang.org/packages/elm/html/2.0.0/Html#map).
+Please see [the docs for the original](http://package.elm-lang.org/packages/elm/html/1.0.0/Html#map).
 
 -}
 map : (a -> msg) -> Html a -> Html msg
