@@ -1,4 +1,4 @@
-module AccessibilitySpec exposing (htmlSpec, imageSpec, inputSpec)
+module AccessibilitySpec exposing (anchorSpec, htmlSpec, imageSpec, inputSpec)
 
 import Accessibility exposing (..)
 import Html.Attributes as Attribute
@@ -7,6 +7,24 @@ import Test exposing (..)
 import Test.Html.Event as Event
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector
+
+
+anchorSpec : Test
+anchorSpec =
+    let
+        anchor =
+            div [] [ Accessibility.a "/hello-world" [] [] ]
+    in
+    describe "anchors" <|
+        [ describe "a"
+            [ test "has href" <|
+                \() ->
+                    anchor
+                        |> Query.fromHtml
+                        |> Query.find [ Selector.tag "a" ]
+                        |> Query.has [ Selector.attribute <| Attribute.href "/hello-world" ]
+            ]
+        ]
 
 
 inputSpec : Test
