@@ -3,7 +3,7 @@ module Accessibility.Live exposing
     , relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
     )
 
-{-|
+{-| If a screenreader reads some content, and then that content changes, the user may not be aware that anything happened. This is where live regions come in. Live regions (and associated properties) can tell the screenreader what relevant changing information to present to the user, and how urgently the information is needed.
 
 
 # Live Region Attributes
@@ -25,9 +25,7 @@ import Html
 
 {-| Supported for all elements.
 
-This property indicates that a region is live, and may change even when the
-region doesn't have focus. When `True`, all the contents of the element will be
-presented to the user.
+This property indicates that a region is live, and may change even when the region doesn't have focus. When `True`, all the contents of the element will be presented to the user.
 
 -}
 atomic : Bool -> Html.Attribute msg
@@ -37,8 +35,7 @@ atomic =
 
 {-| Supported for all elements.
 
-When set to `True`, this is the aria equivalent of a loading spinner--indicates
-that stuff is changing/is not ready for interaction/reading-off yet.
+When set to `True`, this is the aria equivalent of a loading spinner--indicates that stuff is changing/is not ready for interaction/reading-off yet.
 
 -}
 busy : Bool -> Html.Attribute msg
@@ -48,8 +45,7 @@ busy =
 
 {-| Supported by all elements.
 
-When the region's contents change, assistive technologies will wait for a good
-moment to interrupt and do so politely with the update.
+When the region's contents change, assistive technologies will wait for a good moment to interrupt and do so politely with the update.
 
 -}
 livePolite : Html.Attribute msg
@@ -59,8 +55,7 @@ livePolite =
 
 {-| Supported by all elements.
 
-Updates to the region will cause the assistive technologies to immediately
-interrupt the user with the big news.
+Updates to the region will cause the assistive technologies to immediately interrupt the user with the big news.
 
 -}
 liveAssertive : Html.Attribute msg
