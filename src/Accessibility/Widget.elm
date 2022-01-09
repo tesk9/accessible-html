@@ -80,7 +80,7 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 -}
 
 import Accessibility.Utils exposing (aria, toBoolString, toTriStateString)
-import Html as Html
+import Html
 import Html.Attributes exposing (property)
 import Json.Encode
 

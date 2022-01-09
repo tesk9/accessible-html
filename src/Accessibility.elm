@@ -154,7 +154,7 @@ import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
 import Accessibility.Widget as Widget
 import Css
-import Html as Html
+import Html
 import Html.Attributes
 
 

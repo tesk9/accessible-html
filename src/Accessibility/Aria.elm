@@ -73,7 +73,7 @@ Please also remember to use a descriptive title for your pages ([Understanding S
 -}
 
 import Accessibility.Utils exposing (..)
-import Html as Html
+import Html
 import Html.Attributes exposing (..)
 
 
