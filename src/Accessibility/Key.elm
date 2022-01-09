@@ -41,7 +41,7 @@ module Accessibility.Key exposing
 
 -}
 
-import Html exposing (Attribute)
+import Html as Html exposing (Attribute)
 import Html.Attributes
 import Html.Events exposing (keyCode, on)
 import Json.Decode as Json
@@ -49,12 +49,9 @@ import Json.Decode as Json
 
 {-| Add or remove an element from the normal flow of tabbable/focusable elements.
 
-`tabbable True` will set the tabindex to 0, and `tabbable False` will set the
-tabindex to -1.
+`tabbable True` will set the tabindex to 0, and `tabbable False` will set the tabindex to -1.
 
-You may use Html.Attributes.tabindex if you need to control the tab order more
-explicitly, but you may want to restructure your HTML to match how you want
-users to interact with it instead.
+You may use `Html.Attributes.tabindex` if you need to control the tab order more explicitly, but you may want to restructure your HTML to match how you want users to interact with it instead. If you're considering changing tabindex or restructuring your HTML, read [Understanding Success Criterion 1.3.2: Meaningful Sequence](https://www.w3.org/WAI/WCAG21/Understanding/meaningful-sequence).
 
 -}
 tabbable : Bool -> Attribute msg
