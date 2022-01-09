@@ -153,7 +153,6 @@ import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
 import Accessibility.Widget as Widget
-import Css
 import Html
 import Html.Attributes
 
