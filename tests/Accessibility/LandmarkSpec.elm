@@ -13,8 +13,7 @@ spec : Test
 spec =
     describe "Accessibility.Landmark" <|
         List.map (\( a, b ) -> addsRole a b)
-            [ ( application, "application" )
-            , ( banner, "banner" )
+            [ ( banner, "banner" )
             , ( complementary, "complementary" )
             , ( contentInfo, "contentinfo" )
             , ( form, "form" )
@@ -27,7 +26,7 @@ spec =
 
 addsRole : Html.Attribute Never -> String -> Test
 addsRole role_ expected =
-    test ("sets the role attribute: " ++ Debug.toString role_) <|
+    test ("sets the role attribute: " ++ expected) <|
         \() ->
             Html.div [] [ Html.div [ role_ ] [] ]
                 |> Query.fromHtml

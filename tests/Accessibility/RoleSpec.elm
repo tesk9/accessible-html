@@ -15,6 +15,7 @@ spec =
         List.map (\( a, b ) -> addsRole a b)
             [ ( alert, "alert" )
             , ( alertDialog, "alertdialog" )
+            , ( application, "application" )
             , ( article, "article" )
             , ( button, "button" )
             , ( checkBox, "checkbox" )
@@ -70,7 +71,7 @@ spec =
 
 addsRole : Html.Attribute Never -> String -> Test
 addsRole role_ expected =
-    test ("sets the role attribute: " ++ Debug.toString role_) <|
+    test ("sets the role attribute: " ++ expected) <|
         \() ->
             Html.div [] [ Html.div [ role_ ] [] ]
                 |> Query.fromHtml
