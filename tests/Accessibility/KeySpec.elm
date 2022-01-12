@@ -42,7 +42,7 @@ keys =
 
 expectEvent : String -> Encode.Value -> Msg -> Test
 expectEvent name keyState msg =
-    test (name ++ " produces " ++ Debug.toString msg) <|
+    test (name ++ " produces " ++ msgToString msg) <|
         \() ->
             view
                 |> Query.fromHtml
@@ -103,3 +103,34 @@ type Msg
     | TabBack
     | SpaceBar
     | Escape
+
+
+msgToString : Msg -> String
+msgToString msg =
+    case msg of
+        Left ->
+            "Left"
+
+        Up ->
+            "Up"
+
+        Right ->
+            "Right"
+
+        Down ->
+            "Down"
+
+        Enter ->
+            "Enter"
+
+        Tab ->
+            "Tab"
+
+        TabBack ->
+            "TabBack"
+
+        SpaceBar ->
+            "SpaceBar"
+
+        Escape ->
+            "Escape"

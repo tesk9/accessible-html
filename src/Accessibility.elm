@@ -46,8 +46,7 @@ more options.
 Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab component view.
 
     import Accessibility exposing (Html, tab, tabList, tabPanel, text)
-    import Accessibility.Aria exposing (controls, labelledBy)
-    import Accessibility.Widget exposing (hidden, selected)
+    import Accessibility.Aria exposing (controls, hidden, labelledBy, selected)
     import Html.Attributes exposing (id)
 
     view : Html msg
@@ -148,12 +147,12 @@ These are here to make the following nicer:
 
 -}
 
+import Accessibility.Aria as Aria
 import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
-import Accessibility.Widget as Widget
-import Html
+import Html as Html
 import Html.Attributes
 
 
@@ -203,7 +202,7 @@ labelHidden id attributes labelContent input =
 
 Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
 
-You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+You might notice that `Html.Attributes` and `Html.Attributes` don't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
 
 -}
 inputText : String -> List (Attribute msg) -> Html msg
@@ -223,7 +222,7 @@ inputText value_ attributes =
 
 Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
 
-You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+You might notice that `Html.Attributes` and `Html.Attributes` don't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
 
 -}
 inputNumber : String -> List (Attribute msg) -> Html msg
@@ -270,7 +269,7 @@ checkbox value_ maybeChecked attributes =
         (nonInteractive
             [ Html.Attributes.type_ "checkbox"
             , Html.Attributes.value value_
-            , Maybe.withDefault Widget.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
+            , Maybe.withDefault Aria.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
             ]
             ++ attributes
         )
@@ -355,9 +354,9 @@ type alias Attribute msg =
     Html.Attribute msg
 
 
-{-| `map` directly aliases the function of the same name from elm/html.
+{-| `map` directly aliases the function of the same name from rtfeldman/elm-css.
 
-Please see [the docs for the original](http://package.elm-lang.org/packages/elm/html/1.0.0/Html#map).
+Please see [the docs for the Html.map](https://package.elm-lang.org/packages/rtfeldman/elm-css/17.0.1/Html-Styled#map).
 
 -}
 map : (a -> msg) -> Html a -> Html msg

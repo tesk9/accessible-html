@@ -1,4 +1,4 @@
-module Accessibility.Landmark exposing (banner, complementary, contentInfo, form, main_, navigation, search, application, region)
+module Accessibility.Landmark exposing (banner, complementary, contentInfo, form, main_, navigation, region, search)
 
 {-| [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
 
@@ -10,12 +10,12 @@ Most landmark tags are implicit in HTML5. The default landmark roles are specifi
 
 The landmark you're most likely to need to set directly is `search`, as it does not have a corresponding HTML5 tag. In other cases, consider using the appropriate semantic HTML element instead.
 
-@docs banner, complementary, contentInfo, form, main_, navigation, search, application, region
+@docs banner, complementary, contentInfo, form, main_, navigation, region, search
 
 -}
 
 import Accessibility.Utils exposing (Role(..), role)
-import Html
+import Html as Html
 
 
 {-| Creates a [`role="banner"`](https://www.w3.org/TR/wai-aria-1.1/#banner) attribute.
@@ -153,18 +153,6 @@ that they describe search functionality.
 search : Html.Attribute msg
 search =
     role Search
-
-
-{-| (This role is miscategorized -- it should be in Role, as it is a document structure role, not a landmark role.)
-
-Creates a [`role="application"`](https://www.w3.org/TR/wai-aria-1.1/#application) attribute.
-
-**Be very careful with this attribute!** Be sure you fully understand what you're doing before you use it.
-
--}
-application : Html.Attribute msg
-application =
-    role Application
 
 
 {-| Prefer the other Landmark options to `region`. Be sure to add a name when using this attribute!

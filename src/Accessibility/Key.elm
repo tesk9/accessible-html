@@ -41,7 +41,7 @@ module Accessibility.Key exposing
 
 -}
 
-import Html exposing (Attribute)
+import Html as Html exposing (Attribute)
 import Html.Attributes
 import Html.Events exposing (keyCode, on)
 import Json.Decode as Json
