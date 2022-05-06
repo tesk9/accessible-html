@@ -9,7 +9,6 @@ module Views.Tabs exposing (Model, view, update, Msg(..))
 import Accessibility as Html exposing (..)
 import Accessibility.Aria exposing (controls, labelledBy)
 import Accessibility.Key exposing (enter, left, onKeyDown, right)
-import Accessibility.Widget exposing (hidden, selected)
 import Html.Attributes exposing (class, classList, id, style)
 import Html.Events exposing (onClick)
 import List.Zipper as Zipper exposing (Zipper)
@@ -84,8 +83,7 @@ viewTab groupId { tabContent, isSelected, section, identifier } =
             , left SelectPreviousTab
             , right SelectNextTab
             ]
-         , controls (panelId groupId section identifier)
-         , selected isSelected
+         , controls [panelId groupId section identifier]
          ]
             ++ tabStyles
         )
@@ -106,7 +104,6 @@ viewPanel groupId { panelContent, isSelected, section, identifier } =
     tabPanel
         ([ id (panelId groupId section identifier)
          , labelledBy (tabId groupId section identifier)
-         , hidden (not isSelected)
          , Html.Attributes.hidden (not isSelected)
          ]
             ++ panelStyles
