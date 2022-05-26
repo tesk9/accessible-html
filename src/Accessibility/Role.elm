@@ -4,7 +4,7 @@ module Accessibility.Role exposing
     , columnHeader, grid, gridCell, row, rowGroup, rowHeader
     , group, radioGroup
     , heading
-    , button, checkBox, option, radio, textBox
+    , button, checkBox, option, radio, switch, textBox
     , list, listBox, listItem
     , alert, log, marquee, timer, status
     , menu, menuBar, menuItem, menuItemCheckBox, menuItemRadio
@@ -45,7 +45,7 @@ module Accessibility.Role exposing
 
 ### Inputs
 
-@docs button, checkBox, option, radio, textBox
+@docs button, checkBox, option, radio, switch, textBox
 
 
 ### Lists
@@ -400,6 +400,13 @@ spinButton =
 status : Html.Attribute msg
 status =
     role Status
+
+
+{-| Add [`role="switch"`](https://www.w3.org/TR/wai-aria-1.1/#switch) to the attributes of an element.
+-}
+switch : Html.Attribute msg
+switch =
+    role Switch
 
 
 {-| Add [`role="tab"`](https://www.w3.org/TR/wai-aria-1.1/#tab) to the attributes of an element.
