@@ -113,6 +113,7 @@ type Role
     | Slider
     | Spinbutton
     | Status
+    | Switch
     | Tab
     | Tablist
     | Tabpanel
@@ -280,6 +281,9 @@ roleToString role_ =
 
         Status ->
             "status"
+
+        Switch ->
+            "switch"
 
         Tab ->
             "tab"
