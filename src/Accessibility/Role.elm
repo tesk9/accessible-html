@@ -401,11 +401,12 @@ status : Html.Attribute msg
 status =
     role Status
 
+
 {-| Add [`role="switch"`](https://www.w3.org/TR/wai-aria-1.1/#switch) to the attributes of an element.
 -}
 switch : Html.Attribute msg
 switch =
-    role Switch    
+    role Switch
 
 
 {-| Add [`role="tab"`](https://www.w3.org/TR/wai-aria-1.1/#tab) to the attributes of an element.
