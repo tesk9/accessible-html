@@ -22,7 +22,7 @@ module Accessibility exposing
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
     , Html, Attribute, map
-    , inputColor, inputDate, inputDateTimeLocal
+    , inputColor, inputDate, inputDateTimeLocal, inputEmail
     )
 
 {-|
@@ -379,6 +379,39 @@ inputDateTimeLocal timestamp timezone attributes =
     Html.input
         ([ type_ "datetime-local"
          , value (String.join "-" [ year, month, day ] ++ "T" ++ String.join ":" [ hour, minute ])
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type `email`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputEmail "hello@example.com" [ property "autocomplete" "email" ]
+
+Note: Emails are validated in accordance with the [basic email validation the HTML spec implements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#basic_validation).
+
+Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
+
+You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+
+-}
+inputEmail : String -> List (Attribute msg) -> Html msg
+inputEmail value_ attributes =
+    let
+        htmlSpecEmailRegex =
+            Regex.fromString "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" |> Maybe.withDefault Regex.never
+
+        email =
+            if Regex.contains htmlSpecEmailRegex value_ then
+                value_
+
+            else
+                ""
+    in
+    Html.input
+        ([ type_ "email"
+         , value email
          ]
             ++ attributes
         )

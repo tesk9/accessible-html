@@ -217,6 +217,40 @@ inputSpec =
                         (inputDateTimeLocal posix utc [ Attribute.id "id" ])
                 ]
             ]
+        , describe "email inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "hello@example.com"
+                    , type_ = "email"
+                    }
+            in
+            [ describe "Invalid emails default to empty values"
+                [ baseInputTests { expected | value = "" } <|
+                    labelBefore []
+                        (text "the label")
+                        (inputEmail "email" [])
+                ]
+            , describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputEmail "hello@example.com" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputEmail "hello@example.com" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputEmail "hello@example.com" [ Attribute.id "id" ])
+                ]
+            ]
         ]
 
 
