@@ -22,6 +22,7 @@ module Accessibility exposing
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
     , Html, Attribute, map
+    , inputColor
     )
 
 {-|
@@ -47,7 +48,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
 
     import Accessibility exposing (Html, tab, tabList, tabPanel, text)
     import Accessibility.Aria exposing (controls, hidden, labelledBy, selected)
-    import Html.Attributes exposing (id)
+    import Html.Attributes exposing (id, hidden)
 
     view : Html msg
     view =
@@ -69,14 +70,14 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
                 [ id "panel-1"
                 , labelledBy "tab-1"
                 , hidden False
-                , Html.Attributes.hidden False
+                , hidden False
                 ]
                 [ text "Panel One Content" ]
             , tabPanel
                 [ id "panel-2"
                 , labelledBy "tab-2"
                 , hidden True
-                , Html.Attributes.hidden True
+                , hidden True
                 ]
                 [ text "Panel Two Content" ]
             ]
@@ -153,7 +154,8 @@ import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
 import Html as Html
-import Html.Attributes
+import Html.Attributes exposing (alt, attribute, checked, for, name, pattern, type_, value)
+import Regex
 
 
 {-| All inputs must be associated with a `label`.
@@ -186,7 +188,7 @@ The id that's passed in must be added to the input!
 labelHidden : String -> List (Attribute Never) -> Html Never -> Html msg -> Html msg
 labelHidden id attributes labelContent input =
     span []
-        [ label (Html.Attributes.for id :: Style.invisible ++ attributes)
+        [ label (for id :: Style.invisible ++ attributes)
             [ Html.map Basics.never labelContent ]
         , input
         ]
@@ -202,14 +204,14 @@ labelHidden id attributes labelContent input =
 
 Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
 
-You might notice that `Html.Attributes` and `Html.Attributes` don't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
 
 -}
 inputText : String -> List (Attribute msg) -> Html msg
 inputText value_ attributes =
     Html.input
-        ([ Html.Attributes.type_ "text"
-         , Html.Attributes.value value_
+        ([ type_ "text"
+         , value value_
          ]
             ++ attributes
         )
@@ -222,16 +224,16 @@ inputText value_ attributes =
 
 Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
 
-You might notice that `Html.Attributes` and `Html.Attributes` don't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
 
 -}
-inputNumber : String -> List (Attribute msg) -> Html msg
+inputNumber : Int -> List (Attribute msg) -> Html msg
 inputNumber value_ attributes =
     Html.input
-        ([ Html.Attributes.type_ "text"
-         , Html.Attributes.attribute "inputmode" "numeric"
-         , Html.Attributes.pattern "[0-9]*"
-         , Html.Attributes.value value_
+        ([ type_ "text"
+         , attribute "inputmode" "numeric"
+         , pattern "[0-9]*"
+         , value (String.fromInt value_)
          ]
             ++ attributes
         )
@@ -246,10 +248,10 @@ inputNumber value_ attributes =
 radio : String -> String -> Bool -> List (Attribute msg) -> Html msg
 radio name_ value_ checked_ attributes =
     Html.input
-        ([ Html.Attributes.type_ "radio"
-         , Html.Attributes.name name_
-         , Html.Attributes.value value_
-         , Html.Attributes.checked checked_
+        ([ type_ "radio"
+         , name name_
+         , value value_
+         , checked checked_
          ]
             ++ attributes
         )
@@ -267,10 +269,53 @@ checkbox : String -> Maybe Bool -> List (Attribute msg) -> Html msg
 checkbox value_ maybeChecked attributes =
     Html.input
         (nonInteractive
-            [ Html.Attributes.type_ "checkbox"
-            , Html.Attributes.value value_
-            , Maybe.withDefault Aria.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
+            [ type_ "checkbox"
+            , value value_
+            , Maybe.withDefault Aria.indeterminate (Maybe.map checked maybeChecked)
             ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "color". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+Color inputs don't require an initial value per specification and thus `Maybe String` is used as the value type. If the value is `Nothing` or the provided hex code is invalid then `#000000` will be used as per specification.
+
+    checkbox (Just "#abc123") []
+
+    checkbox (Just "#FFFFF") []
+
+    checkbox Nothing []
+
+-}
+inputColor : Maybe String -> List (Attribute msg) -> Html msg
+inputColor value_ attributes =
+    let
+        -- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color#value
+        hexRegex =
+            Regex.fromString "^#[0-9a-fA-F]{6}$" |> Maybe.withDefault Regex.never
+
+        isValidHex : String -> Bool
+        isValidHex value =
+            Regex.contains hexRegex value
+
+        hexCode =
+            Maybe.map isValidHex value_
+                |> Maybe.andThen
+                    (\valid ->
+                        if valid then
+                            value_
+
+                        else
+                            Nothing
+                    )
+                |> Maybe.withDefault "#000000"
+    in
+    Html.input
+        ([ type_ "color"
+         , value hexCode
+         ]
             ++ attributes
         )
         []
@@ -320,7 +365,7 @@ For graphs and diagrams, see `figure` and `longDesc`.
 -}
 img : String -> List (Attribute Never) -> Html msg
 img alt_ attributes =
-    Html.img (Html.Attributes.alt alt_ :: nonInteractive attributes) []
+    Html.img (alt alt_ :: nonInteractive attributes) []
 
 
 {-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
@@ -330,7 +375,7 @@ img alt_ attributes =
 -}
 decorativeImg : List (Attribute Never) -> Html msg
 decorativeImg attributes =
-    Html.img (Html.Attributes.alt "" :: nonInteractive (Role.presentation :: attributes)) []
+    Html.img (alt "" :: nonInteractive (Role.presentation :: attributes)) []
 
 
 {-| Adds the group role to a figure.
