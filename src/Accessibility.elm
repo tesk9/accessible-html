@@ -48,7 +48,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
 
     import Accessibility exposing (Html, tab, tabList, tabPanel, text)
     import Accessibility.Aria exposing (controls, hidden, labelledBy, selected)
-    import Html.Attributes exposing (id, hidden)
+    import Html.Attributes exposing (hidden, id)
 
     view : Html msg
     view =
