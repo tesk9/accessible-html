@@ -91,7 +91,7 @@ module Accessibility.Role exposing
 -}
 
 import Accessibility.Utils exposing (Role(..), role)
-import Html as Html
+import Html
 import Html.Attributes
 
 
