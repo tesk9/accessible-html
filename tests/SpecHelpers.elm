@@ -11,16 +11,16 @@ import Test.Html.Selector as Selector
 
 expectAriaBoolAttribute : (Bool -> Html.Attribute msg) -> String -> List Test
 expectAriaBoolAttribute setter attribute =
-    [ test "True" <| expectAria ( setter, True ) ( attribute, "true" )
-    , test "False" <| expectAria ( setter, False ) ( attribute, "false" )
+    [ test "Aria bool is True" <| expectAria ( setter, True ) ( attribute, "true" )
+    , test "Aria bool is False" <| expectAria ( setter, False ) ( attribute, "false" )
     ]
 
 
 expectAriaTristateAttribute : (Maybe Bool -> Html.Attribute msg) -> String -> List Test
 expectAriaTristateAttribute setter attribute =
-    [ test "True" <| expectAria ( setter, Just True ) ( attribute, "true" )
-    , test "False" <| expectAria ( setter, Just False ) ( attribute, "false" )
-    , test "Mixed" <| expectAria ( setter, Nothing ) ( attribute, "mixed" )
+    [ test "Aria state is True" <| expectAria ( setter, Just True ) ( attribute, "true" )
+    , test "Aria state is False" <| expectAria ( setter, Just False ) ( attribute, "false" )
+    , test "Aria state is Mixed" <| expectAria ( setter, Nothing ) ( attribute, "mixed" )
     ]
 
 
