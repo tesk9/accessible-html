@@ -7,6 +7,7 @@ import Test exposing (..)
 import Test.Html.Event as Event
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector
+import Time exposing (millisToPosix, utc)
 
 
 inputSpec : Test
@@ -152,6 +153,68 @@ inputSpec =
                         []
                         (text "the label")
                         (inputColor (Just "#abc123") [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "date inputs" <|
+            let
+                posix =
+                    millisToPosix 1640995200000
+
+                expected =
+                    { label = "the label"
+                    , value = "2022-01-01"
+                    , type_ = "date"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputDate posix utc [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputDate posix utc [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputDate posix utc [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "datetime-local inputs" <|
+            let
+                posix =
+                    millisToPosix 1640995200000
+
+                expected =
+                    { label = "the label"
+                    , value = "2022-01-01T00:00"
+                    , type_ = "datetime-local"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputDateTimeLocal posix utc [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputDateTimeLocal posix utc [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputDateTimeLocal posix utc [ Attribute.id "id" ])
                 ]
             ]
         ]

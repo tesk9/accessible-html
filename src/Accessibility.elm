@@ -22,7 +22,7 @@ module Accessibility exposing
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
     , Html, Attribute, map
-    , inputColor
+    , inputColor, inputDate, inputDateTimeLocal
     )
 
 {-|
@@ -152,10 +152,12 @@ import Accessibility.Aria as Aria
 import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
-import Accessibility.Utils exposing (nonInteractive)
-import Html as Html
+import Accessibility.Utils exposing (..)
+import DateUtils exposing (padNumberToDoubleDigit, toMonthNumber)
+import Html
 import Html.Attributes exposing (alt, attribute, checked, for, name, pattern, type_, value)
 import Regex
+import Time exposing (Posix, Zone, toDay, toHour, toMinute, toMonth, toYear)
 
 
 {-| All inputs must be associated with a `label`.
@@ -290,7 +292,7 @@ Color inputs don't require an initial value per specification and thus `Maybe St
 
 -}
 inputColor : Maybe String -> List (Attribute msg) -> Html msg
-inputColor value_ attributes =
+inputColor maybeHexCode attributes =
     let
         -- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color#value
         hexRegex =
@@ -301,11 +303,11 @@ inputColor value_ attributes =
             Regex.contains hexRegex value
 
         hexCode =
-            Maybe.map isValidHex value_
+            Maybe.map isValidHex maybeHexCode
                 |> Maybe.andThen
                     (\valid ->
                         if valid then
-                            value_
+                            maybeHexCode
 
                         else
                             Nothing
@@ -315,6 +317,68 @@ inputColor value_ attributes =
     Html.input
         ([ type_ "color"
          , value hexCode
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "date". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputDate (millisToPosix 0) utc []
+
+-}
+inputDate : Posix -> Zone -> List (Attribute msg) -> Html msg
+inputDate timestamp timezone attributes =
+    let
+        day =
+            toDay timezone timestamp |> padNumberToDoubleDigit
+
+        month =
+            toMonth timezone timestamp |> toMonthNumber |> padNumberToDoubleDigit
+
+        year =
+            toYear timezone timestamp |> String.fromInt
+    in
+    Html.input
+        ([ type_ "date"
+         , value (String.join "-" [ year, month, day ])
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "datetime-local". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputDateTimeLocal (millisToPosix 0) utc []
+
+-}
+inputDateTimeLocal : Posix -> Zone -> List (Attribute msg) -> Html msg
+inputDateTimeLocal timestamp timezone attributes =
+    let
+        day =
+            toDay timezone timestamp |> padNumberToDoubleDigit
+
+        month =
+            toMonth timezone timestamp |> toMonthNumber |> padNumberToDoubleDigit
+
+        year =
+            toYear timezone timestamp |> String.fromInt
+
+        hour =
+            toHour timezone timestamp |> padNumberToDoubleDigit
+
+        minute =
+            toMinute timezone timestamp |> padNumberToDoubleDigit
+    in
+    Html.input
+        ([ type_ "datetime-local"
+         , value (String.join "-" [ year, month, day ] ++ "T" ++ String.join ":" [ hour, minute ])
          ]
             ++ attributes
         )
