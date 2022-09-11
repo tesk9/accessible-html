@@ -151,9 +151,13 @@ import Accessibility.Aria as Aria
 import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
-import Accessibility.Utils exposing (nonInteractive)
+import Accessibility.Utils exposing (Role(..), flip, nonInteractive)
 import Html as Html
-import Html.Attributes
+import Html.Attributes exposing (id, selected, tabindex)
+
+
+type alias TabSettings =
+    { id : String, controls : List String, selected : Bool }
 
 
 {-| All inputs must be associated with a `label`.
@@ -292,17 +296,75 @@ tabList attributes =
 You'll want to listen for click events **and** for keyboard events: when users hit
 the right and left keys on their keyboards, they expect for the selected tab to change.
 
+    tab { id = "tab-1", controls = [ "element-1" ], selected = True } [] [ Html.p [] [ Html.text "Hello 1" ] ]
+
 -}
-tab : List (Attribute msg) -> List (Html msg) -> Html msg
-tab attributes =
-    Html.div (Role.tab :: Key.tabbable True :: attributes)
+tab : TabSettings -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tab settings attributes =
+    Html.div
+        (Role.tab
+            :: Key.tabbable True
+            :: id settings.id
+            :: Aria.controls settings.controls
+            :: selected settings.selected
+            :: Aria.selected settings.selected
+            :: attributes
+        )
 
 
 {-| Create a tab panel.
+
+    tabpanel []
+        [ ( { id = "tab-1", controls = [ "element-1" ], selected = True }, Html.p [] [ Html.text "Hello 1" ] )
+        , ( { id = "tab-2", controls = [ "element-2" ], selected = False }, Html.p [] [ Html.text "Hello 2" ] )
+        ]
+
 -}
-tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
-tabPanel attributes =
-    Html.div (Role.tabPanel :: nonInteractive attributes)
+tabPanel : List (Attribute Never) -> List ( TabSettings, Html msg ) -> Html msg
+tabPanel attributes childrenWithSettings =
+    let
+        {-
+           Only 0 or 1 children of a tab panel can ever be selected at any time.
+        -}
+        validChildren : Bool
+        validChildren =
+            List.map Tuple.first childrenWithSettings
+                |> List.filter .selected
+                |> List.length
+                |> flip List.member [ 0, 1 ]
+
+        toTab : ( TabSettings, Html msg ) -> Html msg
+        toTab ( settings, el ) =
+            tab settings
+                [ tabindex
+                    (if settings.selected then
+                        0
+
+                     else
+                        -1
+                    )
+                , Aria.hidden (not settings.selected)
+                ]
+                [ el ]
+
+        correctChildrenSelectionStates : ( TabSettings, Html msg ) -> ( List ( TabSettings, Html msg ), Bool ) -> ( List ( TabSettings, Html msg ), Bool )
+        correctChildrenSelectionStates ( settings, element ) ( elements, hasSelectedEl ) =
+            if not hasSelectedEl && settings.selected then
+                ( List.append elements [ ( settings, element ) ], True )
+
+            else
+                ( List.append elements [ ( { settings | selected = False }, element ) ], hasSelectedEl )
+    in
+    if validChildren then
+        Html.div
+            (Role.tabPanel :: nonInteractive attributes)
+            (List.map toTab childrenWithSettings)
+
+    else
+        -- In the case that multiple tabs are selected, only allow the first one to actually be and reset the others to have a selected state of False.
+        Html.div
+            (Role.tabPanel :: nonInteractive attributes)
+            (childrenWithSettings |> List.foldl correctChildrenSelectionStates ( [], False ) |> Tuple.first |> List.map toTab)
 
 
 
