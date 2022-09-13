@@ -1,6 +1,6 @@
 module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
-    , inputText, inputNumber, radio, checkbox
+    , inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage
     , tabList, tab, tabPanel
     , img, decorativeImg
     , button, textarea, select
@@ -22,7 +22,6 @@ module Accessibility exposing
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
     , Html, Attribute, map
-    , inputColor, inputDate, inputDateTimeLocal, inputEmail
     )
 
 {-|
@@ -39,7 +38,7 @@ Right now, this library only supports a few input types. Many more input types e
 See [MDN's input information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) for
 more options.
 
-@docs inputText, inputNumber, radio, checkbox
+@docs inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage
 
 
 ## Tabs
@@ -155,9 +154,10 @@ import Accessibility.Style as Style
 import Accessibility.Utils exposing (..)
 import DateUtils exposing (padNumberToDoubleDigit, toMonthNumber)
 import Html
-import Html.Attributes exposing (alt, attribute, checked, for, name, pattern, type_, value)
+import Html.Attributes exposing (alt, attribute, checked, for, multiple, name, pattern, src, type_, value)
 import Regex
 import Time exposing (Posix, Zone, toDay, toHour, toMinute, toMonth, toYear)
+import Url exposing (Url)
 
 
 {-| All inputs must be associated with a `label`.
@@ -212,11 +212,7 @@ You might notice that `Html.Attributes` doesn't provide full autocomplete suppor
 inputText : String -> List (Attribute msg) -> Html msg
 inputText value_ attributes =
     Html.input
-        ([ type_ "text"
-         , value value_
-         ]
-            ++ attributes
-        )
+        ([ type_ "text", value value_ ] ++ attributes)
         []
 
 
@@ -232,13 +228,7 @@ You might notice that `Html.Attributes` doesn't provide full autocomplete suppor
 inputNumber : Int -> List (Attribute msg) -> Html msg
 inputNumber value_ attributes =
     Html.input
-        ([ type_ "text"
-         , attribute "inputmode" "numeric"
-         , pattern "[0-9]*"
-         , value (String.fromInt value_)
-         ]
-            ++ attributes
-        )
+        ([ type_ "text", attribute "inputmode" "numeric", pattern "[0-9]*", value (String.fromInt value_) ] ++ attributes)
         []
 
 
@@ -250,13 +240,7 @@ inputNumber value_ attributes =
 radio : String -> String -> Bool -> List (Attribute msg) -> Html msg
 radio name_ value_ checked_ attributes =
     Html.input
-        ([ type_ "radio"
-         , name name_
-         , value value_
-         , checked checked_
-         ]
-            ++ attributes
-        )
+        ([ type_ "radio", name name_, value value_, checked checked_ ] ++ attributes)
         []
 
 
@@ -271,10 +255,7 @@ checkbox : String -> Maybe Bool -> List (Attribute msg) -> Html msg
 checkbox value_ maybeChecked attributes =
     Html.input
         (nonInteractive
-            [ type_ "checkbox"
-            , value value_
-            , Maybe.withDefault Aria.indeterminate (Maybe.map checked maybeChecked)
-            ]
+            [ type_ "checkbox", value value_, Maybe.withDefault Aria.indeterminate (Maybe.map checked maybeChecked) ]
             ++ attributes
         )
         []
@@ -315,11 +296,7 @@ inputColor maybeHexCode attributes =
                 |> Maybe.withDefault "#000000"
     in
     Html.input
-        ([ type_ "color"
-         , value hexCode
-         ]
-            ++ attributes
-        )
+        ([ type_ "color", value hexCode ] ++ attributes)
         []
 
 
@@ -343,11 +320,7 @@ inputDate timestamp timezone attributes =
             toYear timezone timestamp |> String.fromInt
     in
     Html.input
-        ([ type_ "date"
-         , value (String.join "-" [ year, month, day ])
-         ]
-            ++ attributes
-        )
+        ([ type_ "date", value (String.join "-" [ year, month, day ]) ] ++ attributes)
         []
 
 
@@ -410,11 +383,55 @@ inputEmail value_ attributes =
                 ""
     in
     Html.input
-        ([ type_ "email"
-         , value email
-         ]
-            ++ attributes
-        )
+        ([ type_ "email", value email ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type `file`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputFile True []
+
+    inputFile False [ property "id" "abc123" ]
+
+-}
+inputFile : Bool -> List (Attribute msg) -> Html msg
+inputFile multiple_ attributes =
+    Html.input
+        ([ type_ "file", value "", multiple multiple_ ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type `hidden`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputHidden "key" "value" []
+
+-}
+inputHidden : String -> String -> List (Attribute msg) -> Html msg
+inputHidden name_ value_ attributes =
+    Html.input
+        ([ type_ "hidden", name name_, value value_ ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type `image`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    source : Url
+    source =
+        { protocol = Https
+        , host = "example.com"
+        , path = "/image.jpg"
+        , port_ = Nothing
+        , query = Nothing
+        , fragment = Nothing
+        }
+
+    inputImage source []
+
+-}
+inputImage : Url -> List (Attribute msg) -> Html msg
+inputImage src_ attributes =
+    Html.input
+        ([ type_ "image", Url.toString src_ |> src, value "" ] ++ attributes)
         []
 
 

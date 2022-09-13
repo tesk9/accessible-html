@@ -8,6 +8,7 @@ import Test.Html.Event as Event
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector
 import Time exposing (millisToPosix, utc)
+import Url exposing (Protocol(..), Url)
 
 
 inputSpec : Test
@@ -249,6 +250,106 @@ inputSpec =
                         []
                         (text "the label")
                         (inputEmail "hello@example.com" [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "file inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = ""
+                    , type_ = "file"
+                    }
+            in
+            [ describe "multiple false"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputFile False [])
+                ]
+            , describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputFile True [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputFile True [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputFile True [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "hidden inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "the value"
+                    , type_ = "hidden"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputHidden "the name" "the value" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputHidden "the name" "the value" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputHidden "the name" "the value" [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "image inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = ""
+                    , type_ = "image"
+                    }
+
+                source : Url
+                source =
+                    { protocol = Https
+                    , host = "example.com"
+                    , port_ = Nothing
+                    , path = "/image.jpg"
+                    , query = Nothing
+                    , fragment = Nothing
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputImage source [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputImage source [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputImage source [ Attribute.id "id" ])
                 ]
             ]
         ]
