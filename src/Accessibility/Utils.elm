@@ -1,4 +1,4 @@
-module Accessibility.Utils exposing (Role(..), aria, flip, nonInteractive, role, roleToString, toBoolString, toListString, toTriStateString)
+module Accessibility.Utils exposing (Role(..), aria, nonInteractive, role, toBoolString, toListString, toTriStateString)
 
 import Html
 import Html.Attributes exposing (..)
@@ -314,8 +314,3 @@ roleToString role_ =
 
         Treeitem ->
             "treeitem"
-
-
-flip : (a -> b -> c) -> b -> a -> c
-flip f b a =
-    f a b

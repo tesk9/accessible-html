@@ -151,8 +151,8 @@ import Accessibility.Aria as Aria
 import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
-import Accessibility.Utils exposing (Role(..), flip, nonInteractive)
-import Html as Html
+import Accessibility.Utils exposing (nonInteractive)
+import Html
 import Html.Attributes exposing (id, selected, tabindex)
 
 
@@ -282,54 +282,9 @@ checkbox value_ maybeChecked attributes =
 
 {-| Create a tablist. This is the outer container for a list of tabs.
 -}
-tabList : List (Attribute Never) -> List ( { id : String, controls : List String, selected : Bool }, Html msg ) -> Html msg
-tabList attributes childrenWithSettings =
-    let
-        {-
-           Only 0 or 1 children of a tabs can ever be selected at any time.
-        -}
-        validChildren : Bool
-        validChildren =
-            List.map Tuple.first childrenWithSettings
-                |> List.filter .selected
-                |> List.length
-                |> flip List.member [ 0, 1 ]
-
-        toTab : ( { id : String, controls : List String, selected : Bool }, Html msg ) -> Html msg
-        toTab ( settings, el ) =
-            tab settings
-                [ tabindex
-                    (if settings.selected then
-                        0
-
-                     else
-                        -1
-                    )
-                , Aria.hidden (not settings.selected)
-                ]
-                [ el ]
-
-        correctChildrenSelectionStates : ( { id : String, controls : List String, selected : Bool }, Html msg ) -> ( List ( { id : String, controls : List String, selected : Bool }, Html msg ), Bool ) -> ( List ( { id : String, controls : List String, selected : Bool }, Html msg ), Bool )
-        correctChildrenSelectionStates ( settings, element ) ( elements, hasSelectedEl ) =
-            if not hasSelectedEl && settings.selected then
-                ( List.append elements [ ( settings, element ) ], True )
-
-            else
-                ( List.append elements [ ( { settings | selected = False }, element ) ], hasSelectedEl )
-    in
-    if validChildren then
-        Html.div
-            (Role.tabList :: nonInteractive attributes)
-            (List.map toTab childrenWithSettings)
-
-    else
-        Html.div
-            (Role.tabList :: nonInteractive attributes)
-            (childrenWithSettings
-                |> List.foldl correctChildrenSelectionStates ( [], False )
-                |> Tuple.first
-                |> List.map toTab
-            )
+tabList : List (Attribute Never) -> List (Html msg) -> Html msg
+tabList attributes =
+    Html.div (Role.tabList :: nonInteractive attributes)
 
 
 {-| Create a tab. This is the part that you select in order to change panel views.
@@ -337,18 +292,25 @@ tabList attributes childrenWithSettings =
 You'll want to listen for click events **and** for keyboard events: when users hit
 the right and left keys on their keyboards, they expect for the selected tab to change.
 
-    tab { id = "tab-1", controls = [ "element-1" ], selected = True } [] [ Html.p [] [ Html.text "Hello 1" ] ]
+    tab { id = "tab-1", controls = "tab-panel-1", selected = True } [] [ Html.text "Tab 1" ]
 
 -}
-tab : { id : String, controls : List String, selected : Bool } -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tab : { id : String, controls : String, selected : Bool } -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
 tab settings attributes =
     Html.div
         (Role.tab
             :: Key.tabbable True
             :: id settings.id
-            :: Aria.controls settings.controls
+            :: Aria.controls [ settings.controls ]
             :: selected settings.selected
             :: Aria.selected settings.selected
+            :: tabindex
+                (if settings.selected then
+                    0
+
+                 else
+                    -1
+                )
             :: attributes
         )
 
