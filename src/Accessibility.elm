@@ -156,10 +156,6 @@ import Html as Html
 import Html.Attributes exposing (id, selected, tabindex)
 
 
-type alias TabSettings =
-    { id : String, controls : List String, selected : Bool }
-
-
 {-| All inputs must be associated with a `label`.
 
     labelBefore [] viewLabel viewInput
@@ -286,45 +282,11 @@ checkbox value_ maybeChecked attributes =
 
 {-| Create a tablist. This is the outer container for a list of tabs.
 -}
-tabList : List (Attribute Never) -> List (Html msg) -> Html msg
-tabList attributes =
-    Html.div (Role.tabList :: nonInteractive attributes)
-
-
-{-| Create a tab. This is the part that you select in order to change panel views.
-
-You'll want to listen for click events **and** for keyboard events: when users hit
-the right and left keys on their keyboards, they expect for the selected tab to change.
-
-    tab { id = "tab-1", controls = [ "element-1" ], selected = True } [] [ Html.p [] [ Html.text "Hello 1" ] ]
-
--}
-tab : TabSettings -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
-tab settings attributes =
-    Html.div
-        (Role.tab
-            :: Key.tabbable True
-            :: id settings.id
-            :: Aria.controls settings.controls
-            :: selected settings.selected
-            :: Aria.selected settings.selected
-            :: attributes
-        )
-
-
-{-| Create a tab panel.
-
-    tabpanel []
-        [ ( { id = "tab-1", controls = [ "element-1" ], selected = True }, Html.p [] [ Html.text "Hello 1" ] )
-        , ( { id = "tab-2", controls = [ "element-2" ], selected = False }, Html.p [] [ Html.text "Hello 2" ] )
-        ]
-
--}
-tabPanel : List (Attribute Never) -> List ( TabSettings, Html msg ) -> Html msg
-tabPanel attributes childrenWithSettings =
+tabList : List (Attribute Never) -> List ( { id : String, controls : List String, selected : Bool }, Html msg ) -> Html msg
+tabList attributes childrenWithSettings =
     let
         {-
-           Only 0 or 1 children of a tab panel can ever be selected at any time.
+           Only 0 or 1 children of a tabs can ever be selected at any time.
         -}
         validChildren : Bool
         validChildren =
@@ -333,7 +295,7 @@ tabPanel attributes childrenWithSettings =
                 |> List.length
                 |> flip List.member [ 0, 1 ]
 
-        toTab : ( TabSettings, Html msg ) -> Html msg
+        toTab : ( { id : String, controls : List String, selected : Bool }, Html msg ) -> Html msg
         toTab ( settings, el ) =
             tab settings
                 [ tabindex
@@ -347,7 +309,7 @@ tabPanel attributes childrenWithSettings =
                 ]
                 [ el ]
 
-        correctChildrenSelectionStates : ( TabSettings, Html msg ) -> ( List ( TabSettings, Html msg ), Bool ) -> ( List ( TabSettings, Html msg ), Bool )
+        correctChildrenSelectionStates : ( { id : String, controls : List String, selected : Bool }, Html msg ) -> ( List ( { id : String, controls : List String, selected : Bool }, Html msg ), Bool ) -> ( List ( { id : String, controls : List String, selected : Bool }, Html msg ), Bool )
         correctChildrenSelectionStates ( settings, element ) ( elements, hasSelectedEl ) =
             if not hasSelectedEl && settings.selected then
                 ( List.append elements [ ( settings, element ) ], True )
@@ -357,14 +319,45 @@ tabPanel attributes childrenWithSettings =
     in
     if validChildren then
         Html.div
-            (Role.tabPanel :: nonInteractive attributes)
+            (Role.tabList :: nonInteractive attributes)
             (List.map toTab childrenWithSettings)
 
     else
-        -- In the case that multiple tabs are selected, only allow the first one to actually be and reset the others to have a selected state of False.
         Html.div
-            (Role.tabPanel :: nonInteractive attributes)
-            (childrenWithSettings |> List.foldl correctChildrenSelectionStates ( [], False ) |> Tuple.first |> List.map toTab)
+            (Role.tabList :: nonInteractive attributes)
+            (childrenWithSettings
+                |> List.foldl correctChildrenSelectionStates ( [], False )
+                |> Tuple.first
+                |> List.map toTab
+            )
+
+
+{-| Create a tab. This is the part that you select in order to change panel views.
+
+You'll want to listen for click events **and** for keyboard events: when users hit
+the right and left keys on their keyboards, they expect for the selected tab to change.
+
+    tab { id = "tab-1", controls = [ "element-1" ], selected = True } [] [ Html.p [] [ Html.text "Hello 1" ] ]
+
+-}
+tab : { id : String, controls : List String, selected : Bool } -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tab settings attributes =
+    Html.div
+        (Role.tab
+            :: Key.tabbable True
+            :: id settings.id
+            :: Aria.controls settings.controls
+            :: selected settings.selected
+            :: Aria.selected settings.selected
+            :: attributes
+        )
+
+
+{-| Create a tab panel.
+-}
+tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
+tabPanel attributes =
+    Html.div (Role.tabPanel :: nonInteractive attributes)
 
 
 

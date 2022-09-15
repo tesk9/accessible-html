@@ -317,5 +317,5 @@ roleToString role_ =
 
 
 flip : (a -> b -> c) -> b -> a -> c
-flip f a b =
-    f b a
+flip f b a =
+    f a b
