@@ -155,7 +155,6 @@ import Accessibility.Utils exposing (..)
 import DateUtils exposing (padNumberToDoubleDigit, toMonthNumber)
 import Html
 import Html.Attributes exposing (alt, attribute, checked, for, multiple, name, pattern, src, type_, value)
-import Regex
 import Time exposing (Posix, Zone, toDay, toHour, toMinute, toMonth, toYear)
 import Url exposing (Url)
 
@@ -218,17 +217,19 @@ inputText value_ attributes =
 
 {-| Constructs an input of type "text" but constricting the input to allow only numbers as recommended by [gov.uk](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/). Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
 
-    inputNumber 1950 [ property "autocomplete" "bday-year" ]
+    inputNumber "1950" [ property "autocomplete" "bday-year" ]
+
+    inputNumber "3.141579" [ property "autocomplete" "pi" ]
 
 Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
 
 You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
 
 -}
-inputNumber : Int -> List (Attribute msg) -> Html msg
+inputNumber : String -> List (Attribute msg) -> Html msg
 inputNumber value_ attributes =
     Html.input
-        ([ type_ "text", attribute "inputmode" "numeric", pattern "[0-9]*", value (String.fromInt value_) ] ++ attributes)
+        ([ type_ "text", attribute "inputmode" "numeric", pattern "[0-9]*", value value_ ] ++ attributes)
         []
 
 
@@ -263,40 +264,19 @@ checkbox value_ maybeChecked attributes =
 
 {-| Constructs an input of type "color". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
 
-Color inputs don't require an initial value per specification and thus `Maybe String` is used as the value type. If the value is `Nothing` or the provided hex code is invalid then `#000000` will be used as per specification.
+Color inputs don't require an initial value per specification and defaults to `#000000` if the value is empty or invalid.
 
-    checkbox (Just "#abc123") []
+    inputColor "#abc123" []
 
-    checkbox (Just "#FFFFF") []
+    inputColor "#FFFFF" []
 
-    checkbox Nothing []
+    inputColor "" []
 
 -}
-inputColor : Maybe String -> List (Attribute msg) -> Html msg
-inputColor maybeHexCode attributes =
-    let
-        -- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color#value
-        hexRegex =
-            Regex.fromString "^#[0-9a-fA-F]{6}$" |> Maybe.withDefault Regex.never
-
-        isValidHex : String -> Bool
-        isValidHex value =
-            Regex.contains hexRegex value
-
-        hexCode =
-            Maybe.map isValidHex maybeHexCode
-                |> Maybe.andThen
-                    (\valid ->
-                        if valid then
-                            maybeHexCode
-
-                        else
-                            Nothing
-                    )
-                |> Maybe.withDefault "#000000"
-    in
+inputColor : String -> List (Attribute msg) -> Html msg
+inputColor value_ attributes =
     Html.input
-        ([ type_ "color", value hexCode ] ++ attributes)
+        ([ type_ "color", value value_ ] ++ attributes)
         []
 
 
@@ -371,19 +351,8 @@ You might notice that `Html.Attributes` doesn't provide full autocomplete suppor
 -}
 inputEmail : String -> List (Attribute msg) -> Html msg
 inputEmail value_ attributes =
-    let
-        htmlSpecEmailRegex =
-            Regex.fromString "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" |> Maybe.withDefault Regex.never
-
-        email =
-            if Regex.contains htmlSpecEmailRegex value_ then
-                value_
-
-            else
-                ""
-    in
     Html.input
-        ([ type_ "email", value email ] ++ attributes)
+        ([ type_ "email", value value_ ] ++ attributes)
         []
 
 

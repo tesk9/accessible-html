@@ -106,54 +106,24 @@ inputSpec =
                     , type_ = "color"
                     }
             in
-            [ describe "fallback when a shorthex value is provided"
-                [ baseInputTests { expected | value = "#000000" } <|
-                    labelBefore []
-                        (text "the label")
-                        (inputColor (Just "#xyz") [])
-                ]
-            , describe "fallback when a hex without a hashtag is provided"
-                [ baseInputTests { expected | value = "#000000" } <|
-                    labelBefore []
-                        (text "the label")
-                        (inputColor (Just "123abc") [])
-                ]
-            , describe "fallback when a rgba hex is provided"
-                [ baseInputTests { expected | value = "#000000" } <|
-                    labelBefore []
-                        (text "the label")
-                        (inputColor (Just "#009900aa") [])
-                ]
-            , describe "fallback when an invalid value is provided"
-                [ baseInputTests { expected | value = "#000000" } <|
-                    labelBefore []
-                        (text "the label")
-                        (inputColor (Just "123") [])
-                ]
-            , describe "fallback when no initial value is provided"
-                [ baseInputTests { expected | value = "#000000" } <|
-                    labelBefore []
-                        (text "the label")
-                        (inputColor Nothing [])
-                ]
-            , describe "labelBefore"
+            [ describe "labelBefore"
                 [ baseInputTests expected <|
                     labelBefore []
                         (text "the label")
-                        (inputColor (Just "#abc123") [])
+                        (inputColor "#abc123" [])
                 ]
             , describe "labelAfter"
                 [ baseInputTests expected <|
                     labelAfter []
                         (text "the label")
-                        (inputColor (Just "#abc123") [])
+                        (inputColor "#abc123" [])
                 ]
             , describe "labelHidden"
                 [ baseInputTests expected <|
                     labelHidden "id"
                         []
                         (text "the label")
-                        (inputColor (Just "#abc123") [ Attribute.id "id" ])
+                        (inputColor "#abc123" [ Attribute.id "id" ])
                 ]
             ]
         , describe "date inputs" <|
@@ -226,13 +196,7 @@ inputSpec =
                     , type_ = "email"
                     }
             in
-            [ describe "Invalid emails default to empty values"
-                [ baseInputTests { expected | value = "" } <|
-                    labelBefore []
-                        (text "the label")
-                        (inputEmail "email" [])
-                ]
-            , describe "labelBefore"
+            [ describe "labelBefore"
                 [ baseInputTests expected <|
                     labelBefore []
                         (text "the label")
