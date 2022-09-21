@@ -302,7 +302,6 @@ tab settings attributes =
             :: Key.tabbable True
             :: id settings.id
             :: Aria.controls [ settings.controls ]
-            :: selected settings.selected
             :: Aria.selected settings.selected
             :: tabindex
                 (if settings.selected then
