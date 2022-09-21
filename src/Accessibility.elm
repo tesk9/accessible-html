@@ -292,6 +292,8 @@ tabList attributes =
 You'll want to listen for click events **and** for keyboard events: when users hit
 the right and left keys on their keyboards, they expect for the selected tab to change.
 
+The controls setting is the ID of the tabpanel related to the tab. These must be the same!
+
     tab { id = "tab-1", controls = "tab-panel-1", selected = True } [] [ Html.text "Tab 1" ]
 
 -}
