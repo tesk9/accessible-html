@@ -299,17 +299,10 @@ tab : { id : String, controls : String, selected : Bool } -> List (Html.Attribut
 tab settings attributes =
     Html.div
         (Role.tab
-            :: Key.tabbable True
+            :: Key.tabbable settings.selected
             :: id settings.id
             :: Aria.controls [ settings.controls ]
             :: Aria.selected settings.selected
-            :: tabindex
-                (if settings.selected then
-                    0
-
-                 else
-                    -1
-                )
             :: attributes
         )
 
