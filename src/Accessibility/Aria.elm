@@ -1,5 +1,5 @@
 module Accessibility.Aria exposing
-    ( activeDescendant, controls
+    ( activeDescendant, controls, owns
     , label, labelledBy, labeledBy, details, describedBy, longDescription
     , keyShortcuts, roleDescription
     , flowTo
@@ -27,7 +27,7 @@ module Accessibility.Aria exposing
 
 Please keep in mind that ARIA attributes are best used sparingly -- your users are better off with semantic HTML than they are with divs with many ARIA attributes. See [No ARIA is better than BAD ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#no_aria_better_bad_aria) from the WAI-ARIA Authoring Practices guide.
 
-@docs activeDescendant, controls
+@docs activeDescendant, controls, owns
 
 
 ### Providing More Info
@@ -327,6 +327,22 @@ Supported by all elements.
 controls : List String -> Html.Attribute msg
 controls =
     aria "controls" << toListString
+
+
+{-| Creates [`aria-owns`](https://www.w3.org/TR/wai-aria-1.1/#aria-owns) attribute.
+
+Pass a list of ids for the elements that ought to be considered direct children of the current element. If possible, it's better to rely on the actual DOM structure, instead of using `aria-owns`.
+
+A child should only have one parent. So an element's id should only be referenced by one `aria-owns` at a time.
+
+Not supported by VoiceOver as of October 2022. Please see [a11ysupport.io](https://a11ysupport.io/tech/aria/aria-owns_attribute) for more recent support testing.
+
+Supported by all elements.
+
+-}
+owns : List String -> Html.Attribute msg
+owns =
+    aria "owns" << toListString
 
 
 {-| Creates an [`aria-current`](https://www.w3.org/TR/wai-aria-1.1/#aria-current) attribute, as `aria-current=page`.
