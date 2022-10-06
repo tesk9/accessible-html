@@ -1,7 +1,7 @@
 module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
     , inputText, inputNumber, radio, checkbox
-    , tabList, tab, tabPanel
+    , tabList, tab, tabPanel, viewTabs
     , img, decorativeImg
     , button, textarea, select
     , text
@@ -81,7 +81,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
                 [ text "Panel Two Content" ]
             ]
 
-@docs tabList, tab, tabPanel
+@docs tabList, tab, tabPanel, viewTabs
 
 
 ## Images
@@ -153,7 +153,7 @@ import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
 import Html
-import Html.Attributes exposing (id, selected, tabindex)
+import Html.Attributes exposing (id)
 
 
 {-| All inputs must be associated with a `label`.
@@ -311,9 +311,48 @@ tab settings attributes =
 
 {-| Create a tab panel.
 -}
-tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
-tabPanel attributes =
-    Html.div (Role.tabPanel :: nonInteractive attributes)
+tabPanel : { id : String } -> List (Attribute Never) -> List (Html msg) -> Html msg
+tabPanel settings attributes =
+    Html.div (id settings.id :: Role.tabPanel :: nonInteractive attributes)
+
+
+type alias Tab msg =
+    { tabId : String
+    , panelId : String
+    , tabContent : List (Html msg)
+    , panelContent : List (Html msg)
+    }
+
+
+{-| Create a set of tabs with associated panels.
+
+    viewTabs
+        [ { tabId = "tab-1", panelId = "panel-1", tabContent = Html.p [] [ Html.text "Tab content 1" ], panelContent = Html.p [] [ Html.text "Panel content 1" ] }
+        , { tabId = "tab-2", panelId = "panel-2", tabContent = Html.p [] [ Html.text "Tab content 2" ], panelContent = Html.p [] [ Html.text "Panel content 2" ] }
+        ]
+        "tab-1"
+
+-}
+viewTabs : List (Tab msg) -> String -> Html msg
+viewTabs tabs selectedTabId =
+    let
+        toTab : Tab msg -> Html msg
+        toTab { tabId, panelId, tabContent } =
+            tab
+                { id = tabId, controls = panelId, selected = selectedTabId == tabId }
+                []
+                tabContent
+
+        toTabPanel : Tab msg -> Html msg
+        toTabPanel { panelId, panelContent } =
+            tabPanel
+                { id = panelId }
+                []
+                panelContent
+    in
+    [ List.map toTab tabs, List.map toTabPanel tabs ]
+        |> List.concat
+        |> Html.div []
 
 
 
