@@ -1,7 +1,7 @@
 module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
     , inputText, inputNumber, radio, checkbox
-    , tabList, tab, tabPanel, viewTabs
+    , tabList, tab, tabPanel, viewTabs, TabConfig, ViewTabsSettings
     , img, decorativeImg
     , button, textarea, select
     , text
@@ -22,7 +22,6 @@ module Accessibility exposing
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
     , Html, Attribute, map
-    , ViewTabsSettings
     )
 
 {-|
@@ -82,7 +81,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
                 [ text "Panel Two Content" ]
             ]
 
-@docs tabList, tab, tabPanel, viewTabs
+@docs tabList, tab, tabPanel, viewTabs, TabConfig, ViewTabsSettings
 
 
 ## Images
@@ -317,16 +316,20 @@ tabPanel settings attributes =
     Html.div (id settings.id :: Aria.labelledBy settings.id :: Role.tabPanel :: nonInteractive attributes)
 
 
+{-| Representation type for a tab for use in the [viewTabs](#viewTabs) helper function.
+-}
+type alias TabConfig msg =
+    { tabId : String
+    , panelId : String
+    , tabContent : List (Html msg)
+    , panelContent : List (Html msg)
+    }
+
+
 {-| Settings required for the [viewTabs](#viewTabs) helper function to generate the correct structure for a tab layout.
 -}
 type alias ViewTabsSettings msg =
-    { tabs :
-        List
-            { tabId : String
-            , panelId : String
-            , tabContent : List (Html msg)
-            , panelContent : List (Html msg)
-            }
+    { tabs : List (TabConfig msg)
     , selectedTabId : String
     , tabListAttributes : List (Attribute Never)
     }
@@ -347,14 +350,14 @@ type alias ViewTabsSettings msg =
 viewTabs : ViewTabsSettings msg -> Html msg
 viewTabs settings =
     let
-        toTab : Tab msg -> Html msg
+        toTab : TabConfig msg -> Html msg
         toTab { tabId, panelId, tabContent } =
             tab
                 { id = tabId, controls = panelId, selected = settings.selectedTabId == tabId }
                 []
                 tabContent
 
-        toTabPanel : Tab msg -> Html msg
+        toTabPanel : TabConfig msg -> Html msg
         toTabPanel { panelId, panelContent } =
             tabPanel
                 { id = panelId }
