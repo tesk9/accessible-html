@@ -22,6 +22,7 @@ module Accessibility exposing
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
     , Html, Attribute, map
+    , ViewTabsSettings
     )
 
 {-|
@@ -313,33 +314,43 @@ tab settings attributes =
 -}
 tabPanel : { id : String } -> List (Attribute Never) -> List (Html msg) -> Html msg
 tabPanel settings attributes =
-    Html.div (id settings.id :: Role.tabPanel :: nonInteractive attributes)
+    Html.div (id settings.id :: Aria.labelledBy settings.id :: Role.tabPanel :: nonInteractive attributes)
 
 
-type alias Tab msg =
-    { tabId : String
-    , panelId : String
-    , tabContent : List (Html msg)
-    , panelContent : List (Html msg)
+{-| Settings required for the [viewTabs](#viewTabs) helper function to generate the correct structure for a tab layout.
+-}
+type alias ViewTabsSettings msg =
+    { tabs :
+        List
+            { tabId : String
+            , panelId : String
+            , tabContent : List (Html msg)
+            , panelContent : List (Html msg)
+            }
+    , selectedTabId : String
+    , tabListAttributes : List (Attribute Never)
     }
 
 
 {-| Create a set of tabs with associated panels.
 
     viewTabs
-        [ { tabId = "tab-1", panelId = "panel-1", tabContent = Html.p [] [ Html.text "Tab content 1" ], panelContent = Html.p [] [ Html.text "Panel content 1" ] }
-        , { tabId = "tab-2", panelId = "panel-2", tabContent = Html.p [] [ Html.text "Tab content 2" ], panelContent = Html.p [] [ Html.text "Panel content 2" ] }
-        ]
-        "tab-1"
+        { tabs =
+            [ { tabId = "tab-1", panelId = "panel-1", tabContent = Html.p [] [ Html.text "Tab content 1" ], panelContent = Html.p [] [ Html.text "Panel content 1" ] }
+            , { tabId = "tab-2", panelId = "panel-2", tabContent = Html.p [] [ Html.text "Tab content 2" ], panelContent = Html.p [] [ Html.text "Panel content 2" ] }
+            ]
+        , selectedTabId = "tab-1"
+        , tabListAttributes = [ Html.Attributes.class "tablist" ]
+        }
 
 -}
-viewTabs : List (Tab msg) -> String -> Html msg
-viewTabs tabs selectedTabId =
+viewTabs : ViewTabsSettings msg -> Html msg
+viewTabs settings =
     let
         toTab : Tab msg -> Html msg
         toTab { tabId, panelId, tabContent } =
             tab
-                { id = tabId, controls = panelId, selected = selectedTabId == tabId }
+                { id = tabId, controls = panelId, selected = settings.selectedTabId == tabId }
                 []
                 tabContent
 
@@ -349,8 +360,20 @@ viewTabs tabs selectedTabId =
                 { id = panelId }
                 []
                 panelContent
+
+        tabs : List (Html msg)
+        tabs =
+            List.map toTab settings.tabs
+
+        tabPanels : List (Html msg)
+        tabPanels =
+            List.map toTabPanel settings.tabs
+
+        tabListForTabs : Html msg
+        tabListForTabs =
+            tabList settings.tabListAttributes tabs
     in
-    [ List.map toTab tabs, List.map toTabPanel tabs ]
+    [ List.singleton tabListForTabs, tabPanels ]
         |> List.concat
         |> Html.div []
 
