@@ -1,10 +1,10 @@
 module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
-    , inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage
+    , inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage, inputMonth, inputPassword, inputRange, inputSearch, inputTel, inputTime, inputUrl, inputWeek
     , tabList, tab, tabPanel
     , img, decorativeImg
     , button, textarea, select
-    , text
+    , text, empty
     , h1, h2, h3, h4, h5, h6
     , div, p, hr, pre, blockquote
     , span, a, code, em, strong, i, b, u, sub, sup, br
@@ -21,7 +21,7 @@ module Accessibility exposing
     , small, cite, dfn, abbr, time, var, samp, kbd, s, q
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
-    , Html, Attribute, map
+    , map
     )
 
 {-|
@@ -38,7 +38,7 @@ Right now, this library only supports a few input types. Many more input types e
 See [MDN's input information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) for
 more options.
 
-@docs inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage
+@docs inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage, inputMonth, inputPassword, inputRange, inputSearch, inputTel, inputTime, inputUrl, inputWeek
 
 
 ## Tabs
@@ -118,7 +118,7 @@ These elements will prevent you from adding event listeners.
 
     import Accessibility exposing (..)
 
-@docs text
+@docs text, empty
 @docs h1, h2, h3, h4, h5, h6
 @docs div, p, hr, pre, blockquote
 @docs span, a, code, em, strong, i, b, u, sub, sup, br
@@ -153,10 +153,9 @@ import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (..)
 import DateUtils exposing (padNumberToDoubleDigit, toMonthNumber)
-import Html
+import Html exposing (Attribute, Html)
 import Html.Attributes exposing (alt, attribute, checked, for, multiple, name, pattern, src, type_, value)
 import Time exposing (Posix, Zone, toDay, toHour, toMinute, toMonth, toYear)
-import Url exposing (Url)
 
 
 {-| All inputs must be associated with a `label`.
@@ -384,23 +383,163 @@ inputHidden name_ value_ attributes =
 
 {-| Constructs an input of type `image`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
 
-    source : Url
-    source =
-        { protocol = Https
-        , host = "example.com"
-        , path = "/image.jpg"
-        , port_ = Nothing
-        , query = Nothing
-        , fragment = Nothing
-        }
-
-    inputImage source []
+    inputImage "/image.jpg" []
 
 -}
-inputImage : Url -> List (Attribute msg) -> Html msg
+inputImage : String -> List (Attribute msg) -> Html msg
 inputImage src_ attributes =
     Html.input
-        ([ type_ "image", Url.toString src_ |> src, value "" ] ++ attributes)
+        ([ type_ "image", src src_, value "" ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type "month". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputMonth (millisToPosix 0) utc []
+
+-}
+inputMonth : Posix -> Zone -> List (Attribute msg) -> Html msg
+inputMonth timestamp timezone attributes =
+    let
+        month =
+            toMonth timezone timestamp |> toMonthNumber |> padNumberToDoubleDigit
+
+        year =
+            toYear timezone timestamp |> String.fromInt
+    in
+    Html.input
+        ([ type_ "month"
+         , value (String.join "-" [ year, month ])
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "password". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputPassword "abc123" []
+
+-}
+inputPassword : String -> List (Attribute msg) -> Html msg
+inputPassword value_ attributes =
+    Html.input
+        ([ type_ "password"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "range". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputRange 5 []
+
+-}
+inputRange : Int -> List (Attribute msg) -> Html msg
+inputRange value_ attributes =
+    Html.input
+        ([ type_ "range"
+         , value (String.fromInt value_)
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "search". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputSearch "abc123" []
+
+-}
+inputSearch : String -> List (Attribute msg) -> Html msg
+inputSearch value_ attributes =
+    Html.input
+        ([ type_ "search"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "tel". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputTel "123-456-7890" "[0-9]{3}-[0-9]{3}-[0-9]{4}" []
+
+    As per the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel), the input value is not automatically validated to a particular format like other input types such as "email" or "url" before the form can be submitted, because formats for telephone numbers vary so much around the world. To this end, a pattern should be provided when using this element.
+
+-}
+inputTel : String -> String -> List (Attribute msg) -> Html msg
+inputTel value_ pattern_ attributes =
+    Html.input
+        ([ type_ "tel"
+         , value value_
+         , pattern pattern_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "time". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputTime "21:00" []
+
+    As per the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time), the value of the time input is always in 24-hour format that includes leading zeros: hh:mm, regardless of the input format, which is likely to be selected based on the user's locale (or by the user agent). If the time includes seconds, the format is always hh:mm:ss.
+
+-}
+inputTime : String -> List (Attribute msg) -> Html msg
+inputTime value_ attributes =
+    Html.input
+        ([ type_ "time"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "url". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputUrl "https://example.com" []
+
+-}
+inputUrl : String -> List (Attribute msg) -> Html msg
+inputUrl value_ attributes =
+    Html.input
+        ([ type_ "url"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "week". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputWeek (millisToPosix 0) utc 2 []
+
+    Since we cannot calculate the week number with the `elm/time` package and a custom implementation would be quite complex outside of it, the week number must be provided.
+
+-}
+inputWeek : Posix -> Zone -> Int -> List (Attribute msg) -> Html msg
+inputWeek timestamp timezone weekNumber attributes =
+    let
+        year =
+            toYear timezone timestamp |> String.fromInt
+    in
+    Html.input
+        ([ type_ "week"
+         , value (year ++ "-W" ++ String.fromInt weekNumber)
+         ]
+            ++ attributes
+        )
         []
 
 
@@ -472,16 +611,6 @@ figure attributes =
 {- *** Aliasing Html Elements *** -}
 
 
-{-| -}
-type alias Html msg =
-    Html.Html msg
-
-
-{-| -}
-type alias Attribute msg =
-    Html.Attribute msg
-
-
 {-| `map` directly aliases the function of the same name from rtfeldman/elm-css.
 
 Please see [the docs for the Html.map](https://package.elm-lang.org/packages/rtfeldman/elm-css/17.0.1/Html-Styled#map).
@@ -493,9 +622,19 @@ map =
 
 
 {-| -}
-text : String -> Html.Html msg
+text : String -> Html msg
 text =
     Html.text
+
+
+{-|
+
+    Creates an empty HTML node, useful for fallback or maybe cases when validations fail for example.
+
+-}
+empty : Html msg
+empty =
+    text ""
 
 
 
