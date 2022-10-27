@@ -90,18 +90,7 @@ module Accessibility.Role exposing
 -}
 
 import Accessibility.Utils exposing (Role(..), role)
-import Html as Html
-import Html.Attributes
-
-
-{-| Set the role of a given element to be a given string.
-
-    div [ custom "tablist" ] [ tab1, tab2 ]
-
--}
-custom : String -> Html.Attribute msg
-custom =
-    Html.Attributes.attribute "role"
+import Html
 
 
 {-| Add [`role="alert"`](https://www.w3.org/TR/wai-aria-1.1/#alert) to the attributes of an element.
