@@ -37,9 +37,11 @@ For examples of how to use this library, check out [`accessible-html examples`](
 
 This section extends the html library to include `tab*` elements, `radio`, `inputText`, `checkbox`, and more. It also shadows the `elm/html` library to encourage limiting interactive behavior to html5 interactable elements.
 
+This module may be removed in a future version of this library.
+
 ### Accessibility.Aria
 
-This section includes roles for working with sets, grids, controls, and more. You're most likely to want the helpers for connecting elements to each other, by specifying that one `controls` another, or that a figure has `details` somewhere else.
+This section includes roles for working with sets, grids, controls, and more. This section also includes attributes indicating state: is a given element `expanded` or `disabled` or `pressed`?
 
 ### Accessibility.Key
 
@@ -64,9 +66,3 @@ Much of the time, sticking with HTML5 is better than using these properties. How
 This section contains helpers for changing the look of your site without making it unusable.
 
 For instance, if you prefer to use placeholders to convey what sort of values belong in an input, you can use the `invisible` helper to remove the label for screenviewers without removing it for screenreaders.
-
-### Accessibility.Widget
-
-Look here for managing widget state: is a given widget `expanded` or `disabled` or `pressed`?
-
-If you're rolling your own widget, you need to take a peek at this section.
