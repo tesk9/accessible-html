@@ -37,6 +37,8 @@ For examples of how to use this library, check out [`accessible-html examples`](
 
 This section extends the html library to include `tab*` elements, `radio`, `inputText`, `checkbox`, and more. It also shadows the `elm/html` library to encourage limiting interactive behavior to html5 interactable elements.
 
+This module may be removed in a future version of this library.
+
 ### Accessibility.Aria
 
 This section includes roles for working with sets, grids, controls, and more. This section also includes attributes indicating state: is a given element `expanded` or `disabled` or `pressed`?
