@@ -12,8 +12,12 @@ spec =
             expectAriaBoolAttribute atomic "atomic"
         , describe "busy" <|
             expectAriaBoolAttribute busy "busy"
+        , test "live" <|
+            expectAria ( \() -> livePolite, () ) ( "live", "polite" )
         , test "livePolite" <|
             expectAria ( \() -> livePolite, () ) ( "live", "polite" )
+        , test "assertive" <|
+            expectAria ( \() -> liveAssertive, () ) ( "live", "assertive" )
         , test "liveAssertive" <|
             expectAria ( \() -> liveAssertive, () ) ( "live", "assertive" )
         , test "relevantAdditions" <|
