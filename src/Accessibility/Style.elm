@@ -16,7 +16,7 @@ For more information on hiding/semi-hiding elements, please see [the a11y projec
 
 -}
 
-import Html as Html
+import Html
 import Html.Attributes
 
 

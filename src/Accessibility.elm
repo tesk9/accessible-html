@@ -1,7 +1,7 @@
 module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
     , inputText, inputNumber, radio, checkbox
-    , tabList, tab, tabPanel
+    , tabList, tab, tabPanel, viewTabs, TabConfig, ViewTabsSettings
     , img, decorativeImg
     , button, textarea, select
     , text
@@ -81,7 +81,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
                 [ text "Panel Two Content" ]
             ]
 
-@docs tabList, tab, tabPanel
+@docs tabList, tab, tabPanel, viewTabs, TabConfig, ViewTabsSettings
 
 
 ## Images
@@ -152,8 +152,8 @@ import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
-import Html as Html
-import Html.Attributes
+import Html
+import Html.Attributes exposing (id)
 
 
 {-| All inputs must be associated with a `label`.
@@ -292,17 +292,93 @@ tabList attributes =
 You'll want to listen for click events **and** for keyboard events: when users hit
 the right and left keys on their keyboards, they expect for the selected tab to change.
 
+The controls setting is the ID of the tabpanel related to the tab. These must be the same!
+
+    tab { id = "tab-1", controls = "tab-panel-1", selected = True } [] [ Html.text "Tab 1" ]
+
 -}
-tab : List (Attribute msg) -> List (Html msg) -> Html msg
-tab attributes =
-    Html.div (Role.tab :: Key.tabbable True :: attributes)
+tab : { id : String, controls : String, selected : Bool } -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+tab settings attributes =
+    Html.div
+        (Role.tab
+            :: Key.tabbable settings.selected
+            :: id settings.id
+            :: Aria.controls [ settings.controls ]
+            :: Aria.selected settings.selected
+            :: attributes
+        )
 
 
 {-| Create a tab panel.
 -}
-tabPanel : List (Attribute Never) -> List (Html msg) -> Html msg
-tabPanel attributes =
-    Html.div (Role.tabPanel :: nonInteractive attributes)
+tabPanel : { id : String } -> List (Attribute Never) -> List (Html msg) -> Html msg
+tabPanel settings attributes =
+    Html.div (id settings.id :: Aria.labelledBy settings.id :: Role.tabPanel :: nonInteractive attributes)
+
+
+{-| Representation type for a tab for use in the [viewTabs](#viewTabs) helper function.
+-}
+type alias TabConfig msg =
+    { tabId : String
+    , panelId : String
+    , tabContent : List (Html msg)
+    , panelContent : List (Html msg)
+    }
+
+
+{-| Settings required for the [viewTabs](#viewTabs) helper function to generate the correct structure for a tab layout.
+-}
+type alias ViewTabsSettings msg =
+    { tabs : List (TabConfig msg)
+    , selectedTabId : String
+    , tabListAttributes : List (Attribute Never)
+    }
+
+
+{-| Create a set of tabs with associated panels.
+
+    viewTabs
+        { tabs =
+            [ { tabId = "tab-1", panelId = "panel-1", tabContent = Html.p [] [ Html.text "Tab content 1" ], panelContent = Html.p [] [ Html.text "Panel content 1" ] }
+            , { tabId = "tab-2", panelId = "panel-2", tabContent = Html.p [] [ Html.text "Tab content 2" ], panelContent = Html.p [] [ Html.text "Panel content 2" ] }
+            ]
+        , selectedTabId = "tab-1"
+        , tabListAttributes = [ Html.Attributes.class "tablist" ]
+        }
+
+-}
+viewTabs : ViewTabsSettings msg -> Html msg
+viewTabs settings =
+    let
+        toTab : TabConfig msg -> Html msg
+        toTab { tabId, panelId, tabContent } =
+            tab
+                { id = tabId, controls = panelId, selected = settings.selectedTabId == tabId }
+                []
+                tabContent
+
+        toTabPanel : TabConfig msg -> Html msg
+        toTabPanel { panelId, panelContent } =
+            tabPanel
+                { id = panelId }
+                []
+                panelContent
+
+        tabs : List (Html msg)
+        tabs =
+            List.map toTab settings.tabs
+
+        tabPanels : List (Html msg)
+        tabPanels =
+            List.map toTabPanel settings.tabs
+
+        tabListForTabs : Html msg
+        tabListForTabs =
+            tabList settings.tabListAttributes tabs
+    in
+    [ List.singleton tabListForTabs, tabPanels ]
+        |> List.concat
+        |> Html.div []
 
 
 
