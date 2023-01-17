@@ -22,7 +22,7 @@ Learn more about how to use live regions [here](https://www.w3.org/TR/wai-aria-p
 -}
 
 import Accessibility.Utils exposing (..)
-import Html as Html
+import Html
 
 
 {-| Supported for all elements.

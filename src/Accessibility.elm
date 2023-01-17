@@ -7,7 +7,7 @@ module Accessibility exposing
     , text
     , h1, h2, h3, h4, h5, h6
     , div, p, hr, pre, blockquote
-    , span, a, code, em, strong, i, b, u, sub, sup, br
+    , span, a, placeholderA, code, em, strong, i, b, u, sub, sup, br
     , ol, ul, li, dl, dt, dd
     , iframe, canvas, math
     , form, formWithListeners, option
@@ -121,7 +121,7 @@ These elements will prevent you from adding event listeners.
 @docs text
 @docs h1, h2, h3, h4, h5, h6
 @docs div, p, hr, pre, blockquote
-@docs span, a, code, em, strong, i, b, u, sub, sup, br
+@docs span, a, placeholderA, code, em, strong, i, b, u, sub, sup, br
 @docs ol, ul, li, dl, dt, dd
 @docs iframe, canvas, math
 @docs form, formWithListeners, option
@@ -152,8 +152,8 @@ import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
 import Accessibility.Utils exposing (nonInteractive)
-import Html as Html
-import Html.Attributes
+import Html
+import Html.Attributes exposing (href)
 
 
 {-| All inputs must be associated with a `label`.
@@ -620,8 +620,22 @@ As you add links in your web application, please also consider reading through [
 an event listener, use the elm/html library instead.
 
 -}
-a : List (Attribute Never) -> List (Html msg) -> Html msg
-a attributes =
+a : String -> List (Attribute Never) -> List (Html msg) -> Html msg
+a href_ attributes =
+    Html.a (href href_ :: nonInteractive attributes)
+
+
+{-|
+
+    An anchor tag doesn't always have an href applied to it and this is part of the HTML spec.
+
+    As seen in [this comment](https://github.com/tesk9/accessible-html/pull/20#issuecomment-1138738396), we should be implicitely able to support this.
+
+    There is an open issue in [elm/browser#34](https://github.com/elm/browser/issues/34) that should be taken into account when using this placeholderA element.
+
+-}
+placeholderA : List (Attribute Never) -> List (Html msg) -> Html msg
+placeholderA attributes =
     Html.a (nonInteractive attributes)
 
 

@@ -15,7 +15,7 @@ The landmark you're most likely to need to set directly is `search`, as it does 
 -}
 
 import Accessibility.Utils exposing (Role(..), role)
-import Html as Html
+import Html
 
 
 {-| Creates a [`role="banner"`](https://www.w3.org/TR/wai-aria-1.1/#banner) attribute.
