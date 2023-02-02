@@ -1,6 +1,6 @@
 module Accessibility.Aria exposing
     ( activeDescendant, controls, owns
-    , label, labelledBy, labeledBy, details, describedBy, longDescription
+    , label, labelledBy, labeledBy, details, describedBy, longDescription, brailleLabel
     , keyShortcuts, roleDescription
     , flowTo
     , placeholder
@@ -36,7 +36,7 @@ Please keep in mind that ARIA attributes are best used sparingly -- your users a
   - Learn how to define relationships between elements in [Understanding Success Criterion 1.3.1: Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)
   - Learn how a user agent will determine the accessible name and description of an element in [Accessible Name and Description Computation 1.1](https://www.w3.org/TR/accname-1.1/)
 
-@docs label, labelledBy, labeledBy, details, describedBy, longDescription
+@docs label, labelledBy, labeledBy, details, describedBy, longDescription, brailleLabel
 @docs keyShortcuts, roleDescription
 
 
@@ -431,6 +431,8 @@ describedBy =
 Refer to a single extended description section--maybe a couple of paragraphs
 and a chart. Pass in the HTML id of an element with details about the current element to create an [aria-details association](https://www.w3.org/TR/wai-aria-1.1/#aria-details).
 
+The Editor's Draft for ARIA 1.3 allows multiple idrefs instead of just 1, but the current published ARIA spec only supports a singular idref.
+
 -}
 details : String -> Html.Attribute msg
 details =
@@ -710,6 +712,16 @@ Supported for all elements.
 invalidSpelling : Html.Attribute msg
 invalidSpelling =
     aria "invalid" "spelling"
+
+
+{-| Add [`aria="braillelabel"`](https://w3c.github.io/aria/#aria-braillelabel) to the attributes of an element.
+
+Please note that this ARIA property is part of the Editor's Draft for ARIA 1.3 -- it's not an official part of a published spec yet.
+
+-}
+brailleLabel : String -> Html.Attribute msg
+brailleLabel =
+    aria "braillelabel"
 
 
 {-| Creates an [`aria-label`](https://www.w3.org/TR/wai-aria-1.1/#aria-label) attribute.

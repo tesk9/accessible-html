@@ -8,7 +8,9 @@ import Test exposing (..)
 spec : Test
 spec =
     describe "Accessibility.Aria"
-        [ test "labelledBy" <|
+        [ test "brailleLabel" <|
+            expectAria ( brailleLabel, "Braille-specific secondary label" ) ( "braillelabel", "Braille-specific secondary label" )
+        , test "labelledBy" <|
             expectAria ( labelledBy, "label-id" ) ( "labelledby", "label-id" )
         , test "labeledBy" <|
             expectAria ( labeledBy, "label-id" ) ( "labelledby", "label-id" )
