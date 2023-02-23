@@ -2,7 +2,7 @@ module Accessibility.Landmark exposing (banner, complementary, contentInfo, form
 
 {-| [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
 
-Landmarks help screenreader users navigate by giving them direct links to the the regions they are interested in. Are they trying the `search` the site? Do they want to access the `main` content? Do they want information about the content, like copyright and legal notices--`contentInfo`?
+Landmarks help screen reader users navigate by giving them direct links to the the regions they are interested in. Are they trying the `search` the site? Do they want to access the `main` content? Do they want information about the content, like copyright and legal notices--`contentInfo`?
 
 Landmarks keep your users from being overwhelmed by a slew of information to sift through and from needing to tab through the same old set of unlabeled links on every single page of your site.
 
@@ -14,7 +14,7 @@ The landmark you're most likely to need to set directly is `search`, as it does 
 
 -}
 
-import Accessibility.Utils exposing (Role(..), role)
+import Accessibility.Utils exposing (role)
 import Html
 
 
@@ -37,7 +37,7 @@ Elements with `banner` should contain the page title. In HTML5, the `header` ele
 -}
 banner : Html.Attribute msg
 banner =
-    role Banner
+    role "banner"
 
 
 {-| Creates a [`role="complementary"`](https://www.w3.org/TR/wai-aria-1.1/#complementary) attribute.
@@ -68,7 +68,7 @@ Check out [ARIA Landmarks Complementary Example](https://www.w3.org/TR/wai-aria-
 -}
 complementary : Html.Attribute msg
 complementary =
-    role Complementary
+    role "complementary"
 
 
 {-| Creates a [`role="contentinfo"`](https://www.w3.org/TR/wai-aria-1.1/#contentinfo) attribute.
@@ -85,7 +85,7 @@ You may already have a content info element role fulfilled on your page via the 
 -}
 contentInfo : Html.Attribute msg
 contentInfo =
-    role Contentinfo
+    role "contentinfo"
 
 
 {-| Creates a [`role="form"`](https://www.w3.org/TR/wai-aria-1.1/#form) attribute.
@@ -97,7 +97,7 @@ For examples, please see [ARIA Landmarks Form Example](https://www.w3.org/TR/wai
 -}
 form : Html.Attribute msg
 form =
-    role Form
+    role "form"
 
 
 {-| Creates a [`role="main"`](https://www.w3.org/TR/wai-aria-1.1/#main) attribute.
@@ -109,7 +109,7 @@ HTML5's `main` tag is implicitly role `main`.
 -}
 main_ : Html.Attribute msg
 main_ =
-    role Main
+    role "main"
 
 
 {-| Creates a [`role="navigation"`](https://www.w3.org/TR/wai-aria-1.1/#navigation) attribute.
@@ -121,7 +121,7 @@ If there's more than one `nav` list on a given page, please make sure that the n
 -}
 navigation : Html.Attribute msg
 navigation =
-    role Navigation
+    role "navigation"
 
 
 {-| Creates a [`role="search"`](https://www.w3.org/TR/wai-aria-1.1/#search) attribute.
@@ -152,11 +152,11 @@ that they describe search functionality.
 -}
 search : Html.Attribute msg
 search =
-    role Search
+    role "search"
 
 
 {-| Prefer the other Landmark options to `region`. Be sure to add a name when using this attribute!
 -}
 region : Html.Attribute msg
 region =
-    role Region
+    role "region"

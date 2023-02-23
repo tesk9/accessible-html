@@ -8,7 +8,9 @@ import Test exposing (..)
 spec : Test
 spec =
     describe "Accessibility.Aria"
-        [ test "labelledBy" <|
+        [ test "brailleLabel" <|
+            expectAria ( brailleLabel, "Braille-specific secondary label" ) ( "braillelabel", "Braille-specific secondary label" )
+        , test "labelledBy" <|
             expectAria ( labelledBy, "label-id" ) ( "labelledby", "label-id" )
         , test "labeledBy" <|
             expectAria ( labeledBy, "label-id" ) ( "labelledby", "label-id" )
@@ -25,6 +27,9 @@ spec =
         , test "controls" <|
             expectAria ( controls, [ "controlled-element-id", "controlled-element-id-2" ] )
                 ( "controls", "controlled-element-id controlled-element-id-2" )
+        , test "owns" <|
+            expectAria ( owns, [ "owned-element-id", "owned-element-id-2" ] )
+                ( "owns", "owned-element-id owned-element-id-2" )
         , describe "currentItem" <|
             expectAriaBoolAttribute currentItem "current"
         , test "currentPage" <|

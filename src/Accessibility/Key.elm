@@ -1,10 +1,15 @@
 module Accessibility.Key exposing
     ( tabbable
-    , onKeyDown
+    , onKeyDown, onKeyDownPreventDefault
+    , onKeyUp, onKeyUpPreventDefault
+    , Event
     , tab, tabBack
     , up, right, down, left
+    , shift
+    , shiftUp, shiftRight, shiftDown, shiftLeft
     , enter, space
     , escape
+    , customOneOf
     )
 
 {-|
@@ -17,10 +22,16 @@ module Accessibility.Key exposing
 
 ## Keyboard event listener
 
-@docs onKeyDown
+@docs onKeyDown, onKeyDownPreventDefault
+@docs onKeyUp, onKeyUpPreventDefault
 
 
-## Decoders
+## Events
+
+Note: the API here is different than in previous versions of this library because of <https://github.com/elm/json/issues/15>.
+A future version of this library may return to using generic decoders.
+
+@docs Event
 
 
 ### Navigation
@@ -28,6 +39,8 @@ module Accessibility.Key exposing
 @docs tab, tabBack
 
 @docs up, right, down, left
+@docs shift
+@docs shiftUp, shiftRight, shiftDown, shiftLeft
 
 
 ### Activation
@@ -39,12 +52,17 @@ module Accessibility.Key exposing
 
 @docs escape
 
+
+## Advanced
+
+@docs customOneOf
+
 -}
 
 import Html exposing (Attribute)
 import Html.Attributes
-import Html.Events exposing (keyCode, on)
-import Json.Decode as Json
+import Html.Events as Events exposing (on, preventDefaultOn)
+import Json.Decode as Json exposing (Decoder)
 
 
 {-| Add or remove an element from the normal flow of tabbable/focusable elements.
@@ -63,14 +81,83 @@ tabbable isTabbable =
         Html.Attributes.tabindex -1
 
 
-{-| Pass a list of decoders.
+{-| -}
+type alias Event msg =
+    { keyCode : Int
+    , shiftKey : Bool
+    , msg : msg
+    }
+
+
+{-| Pass a list of keyboard events to match.
 
     onKeyDown [ enter TheyHitEnterDoSomething, left DoSomeOtherThing ]
 
 -}
-onKeyDown : List (Json.Decoder msg) -> Attribute msg
+onKeyDown : List (Event msg) -> Attribute msg
 onKeyDown decoders =
-    on "keydown" (Json.oneOf decoders)
+    on "keydown" (customOneOf decoders)
+
+
+{-| Pass a list of keyboard events to match.
+
+    onKeyDownPreventDefault [ space TheyHitEnterDoSomethingButDontScrollThePage ]
+
+-}
+onKeyDownPreventDefault : List (Event msg) -> Attribute msg
+onKeyDownPreventDefault decoders =
+    alwaysPreventDefault "keydown" decoders
+
+
+{-| Pass a list of keyboard events to match.
+
+    onKeyUp [ enter TheyHitEnterDoSomething, left DoSomeOtherThing ]
+
+-}
+onKeyUp : List (Event msg) -> Attribute msg
+onKeyUp decoders =
+    on "keyup" (customOneOf decoders)
+
+
+{-| Pass a list of keyboard events to match.
+
+    onKeyUpPreventDefault [ space TheyHitEnterDoSomethingButDontScrollThePage ]
+
+-}
+onKeyUpPreventDefault : List (Event msg) -> Attribute msg
+onKeyUpPreventDefault decoders =
+    alwaysPreventDefault "keyup" decoders
+
+
+alwaysPreventDefault : String -> List (Event msg) -> Attribute msg
+alwaysPreventDefault event decoders =
+    decoders
+        |> customOneOf
+        |> Json.map (\decoder -> ( decoder, True ))
+        |> preventDefaultOn event
+
+
+{-| This exists because Json.Decode.oneOf is broken in a way that causes weird & hard-to-diagnose bugs.
+-}
+customOneOf : List (Event msg) -> Decoder msg
+customOneOf events =
+    let
+        justMatches keyCode shiftKey event =
+            if event.keyCode == keyCode && shiftKey == event.shiftKey then
+                Just event.msg
+
+            else
+                Nothing
+    in
+    Json.map2
+        (\keyCode shiftKey ->
+            events
+                |> List.filterMap (justMatches keyCode shiftKey)
+                |> List.head
+        )
+        Events.keyCode
+        (Json.field "shiftKey" Json.bool)
+        |> Json.andThen (Maybe.map Json.succeed >> Maybe.withDefault (Json.fail "No matches"))
 
 
 
@@ -82,9 +169,12 @@ onKeyDown decoders =
     onKeyDown [ enter TheyHitEnterDoSomething ]
 
 -}
-enter : msg -> Json.Decoder msg
+enter : msg -> Event msg
 enter msg =
-    succeedForKeyCode 13 msg
+    { keyCode = 13
+    , shiftKey = False
+    , msg = msg
+    }
 
 
 {-| Use with `onKeyDown` to succeed when user hits the spacebar.
@@ -92,9 +182,12 @@ enter msg =
     onKeyDown [ space SpaceBar ]
 
 -}
-space : msg -> Json.Decoder msg
+space : msg -> Event msg
 space msg =
-    succeedForKeyCode 32 msg
+    { keyCode = 32
+    , shiftKey = False
+    , msg = msg
+    }
 
 
 
@@ -106,53 +199,133 @@ space msg =
     onKeyDown [ escape CloseModal ]
 
 -}
-escape : msg -> Json.Decoder msg
+escape : msg -> Event msg
 escape msg =
-    succeedForKeyCode 27 msg
+    { keyCode = 27
+    , shiftKey = False
+    , msg = msg
+    }
 
 
 
 -- ARROW KEYS
 
 
-{-| Use with `onKeyDown` to succeed when user hits the left arrow key.
+{-| Use with `onKeyDown` to succeed when user hits the left arrow key without the shift key.
 
     onKeyDown [ left Left ]
 
 -}
-left : msg -> Json.Decoder msg
+left : msg -> Event msg
 left msg =
-    succeedForKeyCode 37 msg
+    { keyCode = 37
+    , shiftKey = False
+    , msg = msg
+    }
 
 
-{-| Use with `onKeyDown` to succeed when user hits the up arrow key.
+{-| Use with `onKeyDown` to succeed when user hits the up arrow key without the shift key.
 
     onKeyDown [ up Up ]
 
 -}
-up : msg -> Json.Decoder msg
+up : msg -> Event msg
 up msg =
-    succeedForKeyCode 38 msg
+    { keyCode = 38
+    , shiftKey = False
+    , msg = msg
+    }
 
 
-{-| Use with `onKeyDown` to succeed when user hits the right arrow key.
+{-| Use with `onKeyDown` to succeed when user hits the right arrow key without the shift key.
 
     onKeyDown [ right Right ]
 
 -}
-right : msg -> Json.Decoder msg
+right : msg -> Event msg
 right msg =
-    succeedForKeyCode 39 msg
+    { keyCode = 39
+    , shiftKey = False
+    , msg = msg
+    }
 
 
-{-| Use with `onKeyDown` to succeed when user hits the down arrow key.
+{-| Use with `onKeyDown` to succeed when user hits the down arrow key without the shift key.
 
     onKeyDown [ down Down ]
 
 -}
-down : msg -> Json.Decoder msg
+down : msg -> Event msg
 down msg =
-    succeedForKeyCode 40 msg
+    { keyCode = 40
+    , shiftKey = False
+    , msg = msg
+    }
+
+
+{-| Succeed when user hits the shift key by itself.
+
+    onKeyDown [ shift Shift ]
+
+-}
+shift : msg -> Event msg
+shift msg =
+    { keyCode = 16
+    , shiftKey = True
+    , msg = msg
+    }
+
+
+{-| Succeed when user hits the left arrow key with the shift key.
+
+    onKeyDown [ shiftLeft Left ]
+
+-}
+shiftLeft : msg -> Event msg
+shiftLeft msg =
+    { keyCode = 37
+    , shiftKey = True
+    , msg = msg
+    }
+
+
+{-| Succeed when user hits the up arrow key with the shift key.
+
+    onKeyDown [ shiftUp Up ]
+
+-}
+shiftUp : msg -> Event msg
+shiftUp msg =
+    { keyCode = 38
+    , shiftKey = True
+    , msg = msg
+    }
+
+
+{-| Succeed when user hits the right arrow key with the shift key.
+
+    onKeyDown [ shiftRight Right ]
+
+-}
+shiftRight : msg -> Event msg
+shiftRight msg =
+    { keyCode = 39
+    , shiftKey = True
+    , msg = msg
+    }
+
+
+{-| Succeed when user hits the down arrow key with the shift key.
+
+    onKeyDown [ shiftDown Down ]
+
+-}
+shiftDown : msg -> Event msg
+shiftDown msg =
+    { keyCode = 40
+    , shiftKey = True
+    , msg = msg
+    }
 
 
 
@@ -164,9 +337,12 @@ down msg =
     onKeyDown [ tab Tab ]
 
 -}
-tab : msg -> Json.Decoder msg
+tab : msg -> Event msg
 tab msg =
-    succeedForKeyCodeWithoutModifier 9 shiftKey msg
+    { keyCode = 9
+    , shiftKey = False
+    , msg = msg
+    }
 
 
 {-| Use with `onKeyDown` to succeed when user hits the tab key while hitting shift.
@@ -174,52 +350,9 @@ tab msg =
     onKeyDown [ tabBack GoBack ]
 
 -}
-tabBack : msg -> Json.Decoder msg
+tabBack : msg -> Event msg
 tabBack msg =
-    succeedForKeyCodeWithModifier 9 shiftKey msg
-
-
-
--- KEYCODES
-
-
-succeedForKeyCode : Int -> msg -> Json.Decoder msg
-succeedForKeyCode key msg =
-    Json.andThen (forKeyCode key msg) keyCode
-
-
-forKeyCode : Int -> msg -> Int -> Json.Decoder msg
-forKeyCode key msg keyCode =
-    if keyCode == key then
-        Json.succeed msg
-
-    else
-        Json.fail (String.fromInt keyCode)
-
-
-
--- SHIFT and other modifiers
-
-
-succeedForKeyCodeWithModifier : Int -> Json.Decoder Bool -> msg -> Json.Decoder msg
-succeedForKeyCodeWithModifier key decodeModifier msg =
-    Json.andThen (forModifier key msg identity) decodeModifier
-
-
-succeedForKeyCodeWithoutModifier : Int -> Json.Decoder Bool -> msg -> Json.Decoder msg
-succeedForKeyCodeWithoutModifier key decodeModifier msg =
-    Json.andThen (forModifier key msg not) decodeModifier
-
-
-forModifier : Int -> a -> (Bool -> Bool) -> Bool -> Json.Decoder a
-forModifier key msg withModifierPressed modifierKey =
-    if withModifierPressed modifierKey then
-        succeedForKeyCode key msg
-
-    else
-        Json.fail "False"
-
-
-shiftKey : Json.Decoder Bool
-shiftKey =
-    Json.field "shiftKey" Json.bool
+    { keyCode = 9
+    , shiftKey = True
+    , msg = msg
+    }

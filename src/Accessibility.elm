@@ -87,8 +87,8 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
 ## Images
 
 There are two `img` tag helpers that ask you as the developer to decide whether
-the image you want to display for screenviewers is necessary or distracting for
-screenreaders. Essentially, does it convey meaning and value, or is it decorative?
+the image you want to display for screen viewers is necessary or distracting for
+screen readers. Essentially, does it convey meaning and value, or is it decorative?
 Remember, **redundant** information can be confusing too.
 
     import Accessibility as Html exposing (..)
