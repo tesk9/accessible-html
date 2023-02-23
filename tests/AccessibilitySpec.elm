@@ -1,12 +1,14 @@
 module AccessibilitySpec exposing (htmlSpec, imageSpec, inputSpec)
 
 import Accessibility exposing (..)
+import Html exposing (Html)
 import Html.Attributes as Attribute
 import Html.Events exposing (onClick)
 import Test exposing (..)
 import Test.Html.Event as Event
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector
+import Time exposing (millisToPosix, utc)
 
 
 inputSpec : Test
@@ -94,6 +96,447 @@ inputSpec =
                         []
                         (text "the label")
                         (checkbox "the value" (Just True) [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "color inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "#abc123"
+                    , type_ = "color"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputColor "#abc123" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputColor "#abc123" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputColor "#abc123" [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "date inputs" <|
+            let
+                posix =
+                    millisToPosix 1640995200000
+
+                expected =
+                    { label = "the label"
+                    , value = "2022-01-01"
+                    , type_ = "date"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputDate posix utc [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputDate posix utc [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputDate posix utc [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "datetime-local inputs" <|
+            let
+                posix =
+                    millisToPosix 1640995200000
+
+                expected =
+                    { label = "the label"
+                    , value = "2022-01-01T00:00"
+                    , type_ = "datetime-local"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputDateTimeLocal posix utc [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputDateTimeLocal posix utc [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputDateTimeLocal posix utc [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "email inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "hello@example.com"
+                    , type_ = "email"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputEmail "hello@example.com" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputEmail "hello@example.com" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputEmail "hello@example.com" [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "file inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = ""
+                    , type_ = "file"
+                    }
+            in
+            [ describe "multiple false"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputFile False [])
+                ]
+            , describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputFile True [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputFile True [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputFile True [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "hidden inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "the value"
+                    , type_ = "hidden"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputHidden "the name" "the value" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputHidden "the name" "the value" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputHidden "the name" "the value" [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "image inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = ""
+                    , type_ = "image"
+                    }
+
+                source =
+                    "/image.jpg"
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputImage source [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputImage source [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputImage source [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "month inputs" <|
+            let
+                posix =
+                    millisToPosix 1640995200000
+
+                expected =
+                    { label = "the label"
+                    , value = "2022-01"
+                    , type_ = "month"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputMonth posix utc [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputMonth posix utc [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputMonth posix utc [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "week inputs" <|
+            let
+                posix =
+                    millisToPosix 1640995200000
+
+                expected =
+                    { label = "the label"
+                    , value = "2022-W2"
+                    , type_ = "week"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputWeek posix utc 2 [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputWeek posix utc 2 [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputWeek posix utc 2 [ Attribute.id "id" ])
+                ]
+            ]
+        , describe "password inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "the value"
+                    , type_ = "password"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputPassword "the value" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputPassword "the value" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputPassword "the value" [])
+                ]
+            ]
+        , describe "range inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "5"
+                    , type_ = "range"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputRange 5 [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputRange 5 [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputRange 5 [])
+                ]
+            ]
+        , describe "search inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "the value"
+                    , type_ = "search"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputSearch "the value" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputSearch "the value" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputSearch "the value" [])
+                ]
+            ]
+        , describe "tel inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "123-456-7890"
+                    , type_ = "tel"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputTel "123-456-7890" "[0-9]{3}-[0-9]{3}-[0-9]{4}" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputTel "123-456-7890" "[0-9]{3}-[0-9]{3}-[0-9]{4}" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputTel "123-456-7890" "[0-9]{3}-[0-9]{3}-[0-9]{4}" [])
+                ]
+            ]
+        , describe "time inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "21:00"
+                    , type_ = "time"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputTime "21:00" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputTime "21:00" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputTime "21:00" [])
+                ]
+            ]
+        , describe "url inputs" <|
+            let
+                expected =
+                    { label = "the label"
+                    , value = "https://example.com"
+                    , type_ = "url"
+                    }
+            in
+            [ describe "labelBefore"
+                [ baseInputTests expected <|
+                    labelBefore []
+                        (text "the label")
+                        (inputUrl "https://example.com" [])
+                ]
+            , describe "labelAfter"
+                [ baseInputTests expected <|
+                    labelAfter []
+                        (text "the label")
+                        (inputUrl "https://example.com" [])
+                ]
+            , describe "labelHidden"
+                [ baseInputTests expected <|
+                    labelHidden "id"
+                        []
+                        (text "the label")
+                        (inputUrl "https://example.com" [])
                 ]
             ]
         ]

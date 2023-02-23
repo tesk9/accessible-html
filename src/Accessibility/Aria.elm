@@ -42,7 +42,7 @@ Please keep in mind that ARIA attributes are best used sparingly -- your users a
 
 ### Navigation and Flow
 
-  - Audio-users experience all content linearly, since a screenreader will only read one word at a time. Learn about ordering content effectively with this constraint in mind in [Understanding Success Criterion 1.3.2: Meaningful Sequence](https://www.w3.org/WAI/WCAG21/Understanding/meaningful-sequence)
+  - Audio-users experience all content linearly, since a screen reader will only read one word at a time. Learn about ordering content effectively with this constraint in mind in [Understanding Success Criterion 1.3.2: Meaningful Sequence](https://www.w3.org/WAI/WCAG21/Understanding/meaningful-sequence)
   - Now that your content is ordered, consider how much of it, like the content in the header) is annoying to hear over & over again as you switch between pages! Learn about how skip links and landmarks can make your site more usable in [Understanding Success Criterion 2.4.1: Bypass Blocks](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks)
 
 @docs flowTo
@@ -136,7 +136,7 @@ See [the spec](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup).
 -}
 
 import Accessibility.Utils exposing (..)
-import Html as Html
+import Html
 import Html.Attributes exposing (..)
 import Json.Encode
 
@@ -484,7 +484,7 @@ flowTo =
 
     keyShortcuts [ "Alt+Shift+P", "Control+F" ]
 
-Note that this property only indicates to users that certain keyboard shortcuts _exist_ -- this property does not change the behavior of the element to which it is attached. Please also note that it's nice to make the existence of keyboard shortcuts known to all users, not only to screenreader users!
+Note that this property only indicates to users that certain keyboard shortcuts _exist_ -- this property does not change the behavior of the element to which it is attached. Please also note that it's nice to make the existence of keyboard shortcuts known to all users, not only to screen reader users!
 
 Learn more about the purpose of from The WAI-ARIA Authoring Practices guide's [Keyboard Shortcuts](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_shortcuts) section.
 

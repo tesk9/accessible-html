@@ -2,7 +2,7 @@ module Accessibility.Landmark exposing (banner, complementary, contentInfo, form
 
 {-| [On page regions.](https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html)
 
-Landmarks help screenreader users navigate by giving them direct links to the the regions they are interested in. Are they trying the `search` the site? Do they want to access the `main` content? Do they want information about the content, like copyright and legal notices--`contentInfo`?
+Landmarks help screen reader users navigate by giving them direct links to the the regions they are interested in. Are they trying the `search` the site? Do they want to access the `main` content? Do they want information about the content, like copyright and legal notices--`contentInfo`?
 
 Landmarks keep your users from being overwhelmed by a slew of information to sift through and from needing to tab through the same old set of unlabeled links on every single page of your site.
 
@@ -15,7 +15,7 @@ The landmark you're most likely to need to set directly is `search`, as it does 
 -}
 
 import Accessibility.Utils exposing (role)
-import Html as Html
+import Html
 
 
 {-| Creates a [`role="banner"`](https://www.w3.org/TR/wai-aria-1.1/#banner) attribute.

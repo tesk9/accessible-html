@@ -16,6 +16,7 @@ module Accessibility.Role exposing
     , toolBar, toolTip
     , tree, treeGrid, treeItem
     , presentation, application
+    , custom
     )
 
 {-|
@@ -100,7 +101,7 @@ module Accessibility.Role exposing
 -}
 
 import Accessibility.Utils exposing (role)
-import Html as Html
+import Html
 import Html.Attributes
 
 

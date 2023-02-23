@@ -1,10 +1,10 @@
 module Accessibility exposing
     ( labelBefore, labelAfter, labelHidden
-    , inputText, inputNumber, radio, checkbox
+    , inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage, inputMonth, inputPassword, inputRange, inputSearch, inputTel, inputTime, inputUrl, inputWeek
     , tabList, tab, tabPanel
     , img, decorativeImg
     , button, textarea, select
-    , text
+    , text, empty
     , h1, h2, h3, h4, h5, h6
     , div, p, hr, pre, blockquote
     , span, a, code, em, strong, i, b, u, sub, sup, br
@@ -21,7 +21,7 @@ module Accessibility exposing
     , small, cite, dfn, abbr, time, var, samp, kbd, s, q
     , mark, ruby, rt, rp, bdi, bdo, wbr
     , details, summary, menuitem, menu
-    , Html, Attribute, map
+    , map
     )
 
 {-|
@@ -38,7 +38,7 @@ Right now, this library only supports a few input types. Many more input types e
 See [MDN's input information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) for
 more options.
 
-@docs inputText, inputNumber, radio, checkbox
+@docs inputText, inputNumber, radio, checkbox, inputColor, inputDate, inputDateTimeLocal, inputEmail, inputFile, inputHidden, inputImage, inputMonth, inputPassword, inputRange, inputSearch, inputTel, inputTime, inputUrl, inputWeek
 
 
 ## Tabs
@@ -47,7 +47,7 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
 
     import Accessibility exposing (Html, tab, tabList, tabPanel, text)
     import Accessibility.Aria exposing (controls, hidden, labelledBy, selected)
-    import Html.Attributes exposing (id)
+    import Html.Attributes exposing (hidden, id)
 
     view : Html msg
     view =
@@ -69,14 +69,14 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
                 [ id "panel-1"
                 , labelledBy "tab-1"
                 , hidden False
-                , Html.Attributes.hidden False
+                , hidden False
                 ]
                 [ text "Panel One Content" ]
             , tabPanel
                 [ id "panel-2"
                 , labelledBy "tab-2"
                 , hidden True
-                , Html.Attributes.hidden True
+                , hidden True
                 ]
                 [ text "Panel Two Content" ]
             ]
@@ -87,8 +87,8 @@ Together, `tabList`, `tab`, and `tabPanel` describe the pieces of a tab componen
 ## Images
 
 There are two `img` tag helpers that ask you as the developer to decide whether
-the image you want to display for screenviewers is necessary or distracting for
-screenreaders. Essentially, does it convey meaning and value, or is it decorative?
+the image you want to display for screen viewers is necessary or distracting for
+screen readers. Essentially, does it convey meaning and value, or is it decorative?
 Remember, **redundant** information can be confusing too.
 
     import Accessibility as Html exposing (..)
@@ -118,7 +118,7 @@ These elements will prevent you from adding event listeners.
 
     import Accessibility exposing (..)
 
-@docs text
+@docs text, empty
 @docs h1, h2, h3, h4, h5, h6
 @docs div, p, hr, pre, blockquote
 @docs span, a, code, em, strong, i, b, u, sub, sup, br
@@ -151,9 +151,11 @@ import Accessibility.Aria as Aria
 import Accessibility.Key as Key
 import Accessibility.Role as Role
 import Accessibility.Style as Style
-import Accessibility.Utils exposing (nonInteractive)
-import Html as Html
-import Html.Attributes
+import Accessibility.Utils exposing (..)
+import DateUtils exposing (padNumberToDoubleDigit, toMonthNumber)
+import Html exposing (Attribute, Html)
+import Html.Attributes exposing (alt, attribute, checked, for, multiple, name, pattern, src, type_, value)
+import Time exposing (Posix, Zone, toDay, toHour, toMinute, toMonth, toYear)
 
 
 {-| All inputs must be associated with a `label`.
@@ -186,7 +188,7 @@ The id that's passed in must be added to the input!
 labelHidden : String -> List (Attribute Never) -> Html Never -> Html msg -> Html msg
 labelHidden id attributes labelContent input =
     span []
-        [ label (Html.Attributes.for id :: Style.invisible ++ attributes)
+        [ label (for id :: Style.invisible ++ attributes)
             [ Html.map Basics.never labelContent ]
         , input
         ]
@@ -202,39 +204,31 @@ labelHidden id attributes labelContent input =
 
 Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
 
-You might notice that `Html.Attributes` and `Html.Attributes` don't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
 
 -}
 inputText : String -> List (Attribute msg) -> Html msg
 inputText value_ attributes =
     Html.input
-        ([ Html.Attributes.type_ "text"
-         , Html.Attributes.value value_
-         ]
-            ++ attributes
-        )
+        ([ type_ "text", value value_ ] ++ attributes)
         []
 
 
 {-| Constructs an input of type "text" but constricting the input to allow only numbers as recommended by [gov.uk](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/). Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
 
-    inputNumber 1950 [ property "autocomplete" "bday-year" ]
+    inputNumber "1950" [ property "autocomplete" "bday-year" ]
+
+    inputNumber "3.141579" [ property "autocomplete" "pi" ]
 
 Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
 
-You might notice that `Html.Attributes` and `Html.Attributes` don't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
 
 -}
 inputNumber : String -> List (Attribute msg) -> Html msg
 inputNumber value_ attributes =
     Html.input
-        ([ Html.Attributes.type_ "text"
-         , Html.Attributes.attribute "inputmode" "numeric"
-         , Html.Attributes.pattern "[0-9]*"
-         , Html.Attributes.value value_
-         ]
-            ++ attributes
-        )
+        ([ type_ "text", attribute "inputmode" "numeric", pattern "[0-9]*", value value_ ] ++ attributes)
         []
 
 
@@ -246,13 +240,7 @@ inputNumber value_ attributes =
 radio : String -> String -> Bool -> List (Attribute msg) -> Html msg
 radio name_ value_ checked_ attributes =
     Html.input
-        ([ Html.Attributes.type_ "radio"
-         , Html.Attributes.name name_
-         , Html.Attributes.value value_
-         , Html.Attributes.checked checked_
-         ]
-            ++ attributes
-        )
+        ([ type_ "radio", name name_, value value_, checked checked_ ] ++ attributes)
         []
 
 
@@ -267,10 +255,289 @@ checkbox : String -> Maybe Bool -> List (Attribute msg) -> Html msg
 checkbox value_ maybeChecked attributes =
     Html.input
         (nonInteractive
-            [ Html.Attributes.type_ "checkbox"
-            , Html.Attributes.value value_
-            , Maybe.withDefault Aria.indeterminate (Maybe.map Html.Attributes.checked maybeChecked)
-            ]
+            [ type_ "checkbox", value value_, Maybe.withDefault Aria.indeterminate (Maybe.map checked maybeChecked) ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "color". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+Color inputs don't require an initial value per specification and defaults to `#000000` if the value is empty or invalid.
+
+    inputColor "#abc123" []
+
+    inputColor "#FFFFF" []
+
+    inputColor "" []
+
+-}
+inputColor : String -> List (Attribute msg) -> Html msg
+inputColor value_ attributes =
+    Html.input
+        ([ type_ "color", value value_ ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type "date". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputDate (millisToPosix 0) utc []
+
+-}
+inputDate : Posix -> Zone -> List (Attribute msg) -> Html msg
+inputDate timestamp timezone attributes =
+    let
+        day =
+            toDay timezone timestamp |> padNumberToDoubleDigit
+
+        month =
+            toMonth timezone timestamp |> toMonthNumber |> padNumberToDoubleDigit
+
+        year =
+            toYear timezone timestamp |> String.fromInt
+    in
+    Html.input
+        ([ type_ "date", value (String.join "-" [ year, month, day ]) ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type "datetime-local". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputDateTimeLocal (millisToPosix 0) utc []
+
+-}
+inputDateTimeLocal : Posix -> Zone -> List (Attribute msg) -> Html msg
+inputDateTimeLocal timestamp timezone attributes =
+    let
+        day =
+            toDay timezone timestamp |> padNumberToDoubleDigit
+
+        month =
+            toMonth timezone timestamp |> toMonthNumber |> padNumberToDoubleDigit
+
+        year =
+            toYear timezone timestamp |> String.fromInt
+
+        hour =
+            toHour timezone timestamp |> padNumberToDoubleDigit
+
+        minute =
+            toMinute timezone timestamp |> padNumberToDoubleDigit
+    in
+    Html.input
+        ([ type_ "datetime-local"
+         , value (String.join "-" [ year, month, day ] ++ "T" ++ String.join ":" [ hour, minute ])
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type `email`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputEmail "hello@example.com" [ property "autocomplete" "email" ]
+
+Note: Emails are validated in accordance with the [basic email validation the HTML spec implements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#basic_validation).
+
+Use the HTML autocomplete attribute whenever possible. Read [Understanding Success Criterion 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose) and [Using HTML 5.2 autocomplete attributes (Technique H98)](https://www.w3.org/WAI/WCAG21/Techniques/html/H98) for more information.
+
+You might notice that `Html.Attributes` doesn't provide full autocomplete support. This is tracked in [elm/html issue 189](https://github.com/elm/html/issues/189).
+
+-}
+inputEmail : String -> List (Attribute msg) -> Html msg
+inputEmail value_ attributes =
+    Html.input
+        ([ type_ "email", value value_ ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type `file`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputFile True []
+
+    inputFile False [ property "id" "abc123" ]
+
+-}
+inputFile : Bool -> List (Attribute msg) -> Html msg
+inputFile multiple_ attributes =
+    Html.input
+        ([ type_ "file", value "", multiple multiple_ ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type `hidden`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputHidden "key" "value" []
+
+-}
+inputHidden : String -> String -> List (Attribute msg) -> Html msg
+inputHidden name_ value_ attributes =
+    Html.input
+        ([ type_ "hidden", name name_, value value_ ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type `image`. Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputImage "/image.jpg" []
+
+-}
+inputImage : String -> List (Attribute msg) -> Html msg
+inputImage src_ attributes =
+    Html.input
+        ([ type_ "image", src src_, value "" ] ++ attributes)
+        []
+
+
+{-| Constructs an input of type "month". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputMonth (millisToPosix 0) utc []
+
+-}
+inputMonth : Posix -> Zone -> List (Attribute msg) -> Html msg
+inputMonth timestamp timezone attributes =
+    let
+        month =
+            toMonth timezone timestamp |> toMonthNumber |> padNumberToDoubleDigit
+
+        year =
+            toYear timezone timestamp |> String.fromInt
+    in
+    Html.input
+        ([ type_ "month"
+         , value (String.join "-" [ year, month ])
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "password". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputPassword "abc123" []
+
+-}
+inputPassword : String -> List (Attribute msg) -> Html msg
+inputPassword value_ attributes =
+    Html.input
+        ([ type_ "password"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "range". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputRange 5 []
+
+-}
+inputRange : Int -> List (Attribute msg) -> Html msg
+inputRange value_ attributes =
+    Html.input
+        ([ type_ "range"
+         , value (String.fromInt value_)
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "search". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputSearch "abc123" []
+
+-}
+inputSearch : String -> List (Attribute msg) -> Html msg
+inputSearch value_ attributes =
+    Html.input
+        ([ type_ "search"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "tel". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputTel "123-456-7890" "[0-9]{3}-[0-9]{3}-[0-9]{4}" []
+
+    As per the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel), the input value is not automatically validated to a particular format like other input types such as "email" or "url" before the form can be submitted, because formats for telephone numbers vary so much around the world. To this end, a pattern should be provided when using this element.
+
+-}
+inputTel : String -> String -> List (Attribute msg) -> Html msg
+inputTel value_ pattern_ attributes =
+    Html.input
+        ([ type_ "tel"
+         , value value_
+         , pattern pattern_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "time". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputTime "21:00" []
+
+    As per the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time), the value of the time input is always in 24-hour format that includes leading zeros: hh:mm, regardless of the input format, which is likely to be selected based on the user's locale (or by the user agent). If the time includes seconds, the format is always hh:mm:ss.
+
+-}
+inputTime : String -> List (Attribute msg) -> Html msg
+inputTime value_ attributes =
+    Html.input
+        ([ type_ "time"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "url". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    inputUrl "https://example.com" []
+
+-}
+inputUrl : String -> List (Attribute msg) -> Html msg
+inputUrl value_ attributes =
+    Html.input
+        ([ type_ "url"
+         , value value_
+         ]
+            ++ attributes
+        )
+        []
+
+
+{-| Constructs an input of type "week". Use in conjunction with one of the label helpers (`labelBefore`, `labelAfter`, `labelHidden`).
+
+    import Time exposing (millisToPosix, utc)
+
+    inputWeek (millisToPosix 0) utc 2 []
+
+    Since we cannot calculate the week number with the `elm/time` package and a custom implementation would be quite complex outside of it, the week number must be provided.
+
+-}
+inputWeek : Posix -> Zone -> Int -> List (Attribute msg) -> Html msg
+inputWeek timestamp timezone weekNumber attributes =
+    let
+        year =
+            toYear timezone timestamp |> String.fromInt
+    in
+    Html.input
+        ([ type_ "week"
+         , value (year ++ "-W" ++ String.fromInt weekNumber)
+         ]
             ++ attributes
         )
         []
@@ -320,7 +587,7 @@ For graphs and diagrams, see `figure` and `longDesc`.
 -}
 img : String -> List (Attribute Never) -> Html msg
 img alt_ attributes =
-    Html.img (Html.Attributes.alt alt_ :: nonInteractive attributes) []
+    Html.img (alt alt_ :: nonInteractive attributes) []
 
 
 {-| Use this tag when the image is decorative or provides redundant information. Read through [the w3 decorative image tutorial](https://www.w3.org/WAI/tutorials/images/decorative/) to learn more.
@@ -330,7 +597,7 @@ img alt_ attributes =
 -}
 decorativeImg : List (Attribute Never) -> Html msg
 decorativeImg attributes =
-    Html.img (Html.Attributes.alt "" :: nonInteractive (Role.presentation :: attributes)) []
+    Html.img (alt "" :: nonInteractive (Role.presentation :: attributes)) []
 
 
 {-| Adds the group role to a figure.
@@ -344,16 +611,6 @@ figure attributes =
 {- *** Aliasing Html Elements *** -}
 
 
-{-| -}
-type alias Html msg =
-    Html.Html msg
-
-
-{-| -}
-type alias Attribute msg =
-    Html.Attribute msg
-
-
 {-| `map` directly aliases the function of the same name from rtfeldman/elm-css.
 
 Please see [the docs for the Html.map](https://package.elm-lang.org/packages/rtfeldman/elm-css/17.0.1/Html-Styled#map).
@@ -365,9 +622,19 @@ map =
 
 
 {-| -}
-text : String -> Html.Html msg
+text : String -> Html msg
 text =
     Html.text
+
+
+{-|
+
+    Creates an empty HTML node, useful for fallback or maybe cases when validations fail for example.
+
+-}
+empty : Html msg
+empty =
+    text ""
 
 
 
