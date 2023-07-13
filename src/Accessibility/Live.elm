@@ -1,5 +1,6 @@
 module Accessibility.Live exposing
     ( atomic, busy, polite, assertive
+    , off
     , livePolite, liveAssertive
     , relevantAdditions, relevantAdditionsText, relevantAll, relevantRemovals, relevantText
     )
@@ -12,6 +13,7 @@ module Accessibility.Live exposing
 Learn more about how to use live regions [here](https://www.w3.org/TR/wai-aria-practices-1.1/#liveprops).
 
 @docs atomic, busy, polite, assertive
+@docs off
 @docs livePolite, liveAssertive
 
 
@@ -53,6 +55,13 @@ When the region's contents change, assistive technologies will wait for a good m
 polite : Html.Attribute msg
 polite =
     aria "live" "polite"
+
+
+{-| Use Live.off to suppress updates that otherwise would be announced to the user due to the element's role.
+-}
+off : Html.Attribute msg
+off =
+    aria "live" "off"
 
 
 {-| Identical to `polite`. Included for backwards-compatibility. A future version of the library will likely remove this helper.
